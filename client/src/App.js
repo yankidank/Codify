@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React from "react";
 
 function App() {
-	return <div>Hello World</div>;
+  return (
+    <>
+      Hello World
+    </>
+  );
 }
 
 export default App;

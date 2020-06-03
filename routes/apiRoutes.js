@@ -8,7 +8,7 @@ router.get("/posts", (req, res) => {
     title: { $regex: new RegExp(req.query.q, 'i')}
   })
     .then(posts => res.json(posts))
-    .catch(err => res.status(422).end());
+    .catch(err => res.status(422).send(err));
 });
 
 module.exports = router;
