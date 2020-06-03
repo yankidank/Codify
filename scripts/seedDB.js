@@ -7,7 +7,7 @@ mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/presume"
 );
 
-const PostSeed = [
+const postSeed = [
   // stuff
 ];
 
