@@ -10,9 +10,7 @@ passport.use(
 			callbackURL: 'http://localhost:3001/auth/google/callback'
 		},
 		function (accessToken, refreshToken, profile, done) {
-			if (true) {
-				return done();
-			}
+			return done();
 			// write a function to create a new user
 
 			// User.findOrCreate({ googleId: profile.id }, function (err, user) {
