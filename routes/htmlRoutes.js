@@ -1,11 +1,18 @@
 const router = require('express').Router();
 
 function authCheck(req, res, next) {
-	next();
+	if (req.user) {
+		next();
+	} else {
+		res.redirect('/');
+	}
 }
 
-router.get('/', authCheck, (req, res) => {
-	res.send('you have successfully logged in!');
+router.get('/', (req, res) => {
+	res.send('<a href="/auth/google">Log in with google</a>');
+});
+router.get('/dashboard', authCheck, (req, res) => {
+	res.send(`<h1>Welcome ${req.user}</h1>`);
 });
 
 module.exports = router;

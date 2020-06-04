@@ -10,13 +10,17 @@ router.get('/login/failure', (req, res) => {
 router.get('/logout');
 
 // Google Oauth Routes
-router.get('/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
 router.get(
-	'/google/callback',
+	'/google',
 	passport.authenticate('google', {
-		successRedirect: '/auth/login/success',
-		failureRedirect: '/auth/login/failure'
+		scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/userinfo.email']
 	})
 );
-
+router.get('/google/callback', passport.authenticate('google'), (req, res) => {
+	// {
+	// 	successRedirect: '/auth/login/success',
+	// 	failureRedirect: '/auth/login/failure'
+	// }
+	res.redirect('/dashboard');
+});
 module.exports = router;
