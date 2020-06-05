@@ -1,6 +1,9 @@
-// Depdendencies
 require('dotenv').config();
+//passport configurations
 require('./config/passport-config');
+require('./config/passport-google-config');
+require('./config/passport-github-config');
+// Depdendencies
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -10,6 +13,13 @@ const cookieSession = require('cookie-session');
 const authRoutes = require('./routes/authRoutes');
 const apiRoutes = require('./routes/apiRoutes');
 const htmlRoutes = require('./routes/htmlRoutes');
+
+
+
+
+
+
+
 // instantiate express and set port
 const PORT = process.env.PORT || 3001;
 const app = express();
