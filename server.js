@@ -1,10 +1,10 @@
 // Depdendencies
 require('dotenv').config();
+require('./config/passport-config');
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
-// const passportConfig = require('./config/passport-config');
 const cookieSession = require('cookie-session');
 // Routes
 const authRoutes = require('./routes/authRoutes');
