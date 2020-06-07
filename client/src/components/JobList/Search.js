@@ -6,6 +6,6 @@ function Search(){
             <input value="Search"></input>
         </div>
     )
-};
+}
 
 export default Search;

@@ -1,5 +1,5 @@
 import React from "react";
-import StatusMenu from "./StatusMenu";
+import StatusMenu from "./StatusMenu"
 
 function CompanyInfo(){
     return(
@@ -15,6 +15,6 @@ function CompanyInfo(){
             </div>
         </div>
     )
-};
+}
 
 export default CompanyInfo;

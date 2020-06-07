@@ -11,6 +11,6 @@ function NewInterviewBtn(){
             </div>
         </div>
     )
-};
+}
 
 export default NewInterviewBtn;

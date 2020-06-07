@@ -6,6 +6,6 @@ function Filter(){
             {/* Some kind of dropdown component */}
         </div>
     )
-};
+}
 
 export default Filter;

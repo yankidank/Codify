@@ -12,6 +12,6 @@ function OneJobListing(){
             </li>
         </div>
     )
-};
+}
 
 export default OneJobListing;

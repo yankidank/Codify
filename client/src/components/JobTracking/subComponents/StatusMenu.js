@@ -12,6 +12,6 @@ function JobListingStatusMenu(){
             </ul>
         </div>
     )
-};
+}
 
 export default JobListingStatusMenu;

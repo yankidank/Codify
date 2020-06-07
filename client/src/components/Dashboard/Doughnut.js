@@ -1,5 +1,5 @@
 import React from "react";
-import {Pie, Doughnut} from "react-chartjs-2";
+import {Doughnut} from "react-chartjs-2"
 
 const state= {
     labels: ["Applied", "Rejected", "Interviewed"], 
@@ -38,6 +38,6 @@ function DoughtnutChart(){
         />
       </div>
     )
-};
+}
 
 export default DoughtnutChart;

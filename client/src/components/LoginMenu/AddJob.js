@@ -11,6 +11,6 @@ function AddJob(){
             </div>
         </div>
     )
-};
+}
 
 export default AddJob;

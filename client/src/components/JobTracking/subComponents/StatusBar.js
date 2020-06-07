@@ -21,6 +21,6 @@ function StatusBar(){
             </div>
         </div>
     )
-};
+}
 
 export default StatusBar;

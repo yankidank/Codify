@@ -1,5 +1,5 @@
 import React from "react";
-import DoughtnutChart from "./Doughnut";
+import DoughtnutChart from "./Doughnut"
 import List from "../JobList/List"
 
 function Dashboard(){
@@ -16,6 +16,6 @@ function Dashboard(){
             </div>
         </div>
     )
-};
+}
 
 export default Dashboard;

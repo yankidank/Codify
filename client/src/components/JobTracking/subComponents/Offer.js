@@ -1,6 +1,6 @@
 import React from "react";
 
-function Offer(){
+function OfferInputs(){
     return(
         <div>
             <input value="Offer Amount"></input>
@@ -8,6 +8,6 @@ function Offer(){
             <input value="Bonus"></input>
         </div>
     )
-};
+}
 
-export default Offer;
+export default OfferInputs;

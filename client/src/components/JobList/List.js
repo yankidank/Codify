@@ -1,5 +1,5 @@
 import React from "react";
-import OneJobListing from "./JobListItem";
+import OneJobListing from "./JobListItem"
 
 function List(){
     return (
@@ -9,7 +9,7 @@ function List(){
             </ul>
         </div>
     )
-};
+}
 
 export default List;
 

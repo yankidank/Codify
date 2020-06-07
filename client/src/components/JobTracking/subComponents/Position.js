@@ -18,6 +18,6 @@ function Position(){
             </div>
         </div>
     )
-};
+}
 
 export default Position;

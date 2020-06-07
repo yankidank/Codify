@@ -8,6 +8,6 @@ function AddNewJobBtn (){
             </li>
         </div>
     )
-};
+}
 
 export default AddNewJobBtn;

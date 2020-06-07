@@ -1,7 +1,7 @@
 import React from "react";
-import Search from "./Search";
-import Filter from "./Filter";
-import List from "./List";
+import Search from "./Search"
+import Filter from "./Filter"
+import List from "./List"
 
 function JobsList(){
     return(
@@ -19,6 +19,6 @@ function JobsList(){
             </div>
         </div>
     )
-};
+}
 
 export default JobsList;

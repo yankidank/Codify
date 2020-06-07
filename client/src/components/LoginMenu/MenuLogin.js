@@ -12,6 +12,6 @@ function MenuLogin(){
             </ul>
         </div>
     )
-};
+}
 
 export default MenuLogin;

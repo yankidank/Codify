@@ -1,5 +1,4 @@
 import React from "react";
-import NewInterviewBtn from "./NewInterviewBtn";
 
 function NewOfferBtn(){
     return(
@@ -12,6 +11,6 @@ function NewOfferBtn(){
             </div>
         </div>
     )
-};
+}
 
-export default NewInterviewBtn;
+export default NewOfferBtn;

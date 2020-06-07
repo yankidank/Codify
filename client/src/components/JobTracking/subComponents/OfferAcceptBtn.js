@@ -11,6 +11,6 @@ function OfferAcceptBtn(){
             </div>
         </div>
     )
-};
+}
 
 export default OfferAcceptBtn;

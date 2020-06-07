@@ -1,6 +1,6 @@
 import React from "react";
 
-function Interview(){
+function InterviewInputs(){
     return(
         <div>
             <div>
@@ -12,6 +12,6 @@ function Interview(){
             </div>
         </div>
     )
-};
+}
 
-export default Interview;
+export default InterviewInputs;

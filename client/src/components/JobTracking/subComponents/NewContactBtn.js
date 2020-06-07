@@ -11,6 +11,6 @@ function NewContactBtn(){
             </div>
         </div>
     )
-};
+}
 
 export default NewContactBtn;
