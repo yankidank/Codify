@@ -17,7 +17,6 @@ const cookieSession = require('cookie-session');
 // Routes
 const authRoutes = require('./routes/authRoutes');
 const apiRoutes = require('./routes/apiRoutes');
-const htmlRoutes = require('./routes/htmlRoutes');
 
 /////////////////////////////
 // ACTUAL SERVER STUFF //////
@@ -48,7 +47,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/presume', {
 	useCreateIndex: true
 });
 // ROUTING
-app.use('/', htmlRoutes);
 app.use('/auth', authRoutes); // authentication
 app.use('/api', apiRoutes);
 // Send every request to the React app
