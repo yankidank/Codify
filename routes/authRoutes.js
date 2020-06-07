@@ -1,6 +1,6 @@
 const passport = require('passport');
 const router = require('express').Router();
-// login/logout routes
+// logout routes
 router.get('/logout');
 
 // Google Oauth Routes
@@ -20,6 +20,17 @@ router.get('/github', passport.authenticate('github'));
 router.get(
 	'/github/callback',
 	passport.authenticate('github', { successRedirect: '/dashboard', failureRedirect: '/' })
+);
+
+// LinkedIn Oauth Routes
+router.get('/linkedin', passport.authenticate('linkedin', { state: true }));
+
+router.get(
+	'/linkedin/callback',
+	passport.authenticate('linkedin', {
+		successRedirect: '/dashboard',
+		failureRedirect: '/'
+	})
 );
 
 module.exports = router;
