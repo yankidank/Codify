@@ -9,7 +9,7 @@ function authCheck(req, res, next) {
 }
 
 router.get('/', (req, res) => {
-	res.send('<a href="/auth/google">Log in with google</a><a href="/auth/github">Log in with github</a>');
+	res.send('<a href="/auth/google">Log in with google</a> </br> <a href="/auth/github">Log in with github</a> </br> <a href="/auth/linkedin">Log in with linkedin</a>');
 });
 router.get('/dashboard', authCheck, (req, res) => {
 	res.send(`<h1>Welcome ${req.user}</h1>`);

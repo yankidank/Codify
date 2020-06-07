@@ -1,9 +1,14 @@
+/////////////////////////////
+// DEPENDENCIES /////////////
+/////////////////////////////
+
 require('dotenv').config();
 //passport configurations
 require('./config/passport-config');
 require('./config/passport-google-config');
 require('./config/passport-github-config');
-// Depdendencies
+require('./config/passport-linkedin-config');
+// NPM modules
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -14,16 +19,14 @@ const authRoutes = require('./routes/authRoutes');
 const apiRoutes = require('./routes/apiRoutes');
 const htmlRoutes = require('./routes/htmlRoutes');
 
-
-
-
-
-
+/////////////////////////////
+// ACTUAL SERVER STUFF //////
+/////////////////////////////
 
 // instantiate express and set port
 const PORT = process.env.PORT || 3001;
 const app = express();
-// Define middleware here
+// middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
@@ -35,8 +38,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 // Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
 }
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/presume', {
@@ -44,16 +47,13 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/presume', {
 	useNewUrlParser: true,
 	useCreateIndex: true
 });
-// Use html Routes
+// ROUTING
 app.use('/', htmlRoutes);
-// Use auth Routes
-app.use('/auth', authRoutes);
-// Use api Routes
+app.use('/auth', authRoutes); // authentication
 app.use('/api', apiRoutes);
 // Send every request to the React app
-// Define any API routes before this runs
-app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+app.get('*', function (req, res) {
+	res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 app.listen(PORT, function () {
 	console.log(`🌎 ==> API server now on port ${PORT}!`);
