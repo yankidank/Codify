@@ -7,6 +7,9 @@ import AddJob from "./components/LoginMenu/AddJob";
 import Dashboard from "./components/Dashboard/Dashboard";
 import JobsList from "./components/JobList/JobsList";
 import Saved from "./components/JobTracking/Saved";
+import Applied from "./components/JobTracking/Applied";
+import Interview from "./components/JobTracking/Interview";
+import Offer from "./components/JobTracking/Offer";
 import {PrivateRoute} from "./utils/privateRoute"
 
 
@@ -20,7 +23,10 @@ function App() {
         <Route exact path="/loggedinaddjob" component={AddJob} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <Route exact path="/joblist" component={JobsList} />
-        <Route exact path="/jobtracking" component={Saved} />
+        <Route exact path="/jobtracking/saved" component={Saved} />
+        <Route exact path="/jobtracking/applied" component={Applied} />
+        <Route exact path="/jobtracking/interview" component={Interview} />
+        <Route exact path="/jobtracking/offer" component={Offer} />
       </div>
     </Router>
   );
