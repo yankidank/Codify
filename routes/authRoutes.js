@@ -1,7 +1,21 @@
 const passport = require('passport');
 const router = require('express').Router();
-// logout routes
-router.get('/logout');
+// logout route
+router.get('/logout', (req, res) => {
+	// deletes req.user object
+	req.logout();
+	// deletes cookie from client
+	req.session = null;
+
+	res.redirect('http://localhost:3000/');
+});
+
+//this route can be used to check authentication status on the front end
+router.get('/isauthenticated', (req, res) => {
+	res.json({
+		user: req.user
+	});
+});
 
 // Google Oauth Routes
 router.get(
@@ -24,7 +38,6 @@ router.get(
 
 // LinkedIn Oauth Routes
 router.get('/linkedin', passport.authenticate('linkedin', { state: true }));
-
 router.get(
 	'/linkedin/callback',
 	passport.authenticate('linkedin', {

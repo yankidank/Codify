@@ -14,6 +14,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
+const cors = require('cors');
 // Routes
 const authRoutes = require('./routes/authRoutes');
 const apiRoutes = require('./routes/apiRoutes');
@@ -32,6 +33,13 @@ app.use(
 	cookieSession({
 		maxAge: 60 * 60 * 1000,
 		keys: [process.env.COOKIE_KEY]
+	})
+);
+app.use(
+	cors({
+		origin: 'http://localhost:3000', // allow server to accept request from the client
+		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+		credentials: true // allow session cookie from browser to pass through
 	})
 );
 app.use(passport.initialize());

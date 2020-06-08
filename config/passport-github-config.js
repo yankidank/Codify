@@ -9,9 +9,11 @@ passport.use(
 			callbackURL: 'http://localhost:3001/auth/github/callback'
 		},
 		function (accessToken, refreshToken, profile, done) {
-			// User.findOrCreate({ githubId: profile.id }, function (err, user) {
-			// 	return cb(err, user);
-			// });
+			// console.log(profile);
+
+			// ^^ this profile parameter contains all of the information from github that should be stored in the database
+			// This is the information that should be stored in the database. 
+			// When MongoDB returns the new user, it should be passed to the done method (I have created a user object because we don't have a User Schema yet)
 			const { id, displayName, profileUrl } = profile;
 			let newUser = {
 				githubID: id,
