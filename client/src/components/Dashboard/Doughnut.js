@@ -35,7 +35,7 @@ function DoughtnutChart(){
               },
               legend:{
                 display:true,
-                position:'right'
+                position:'bottom'
               }, 
               cutoutPercentage: 80,
             }}
