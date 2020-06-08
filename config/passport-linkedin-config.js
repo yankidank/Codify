@@ -10,6 +10,11 @@ passport.use(
 			scope: ['r_liteprofile', 'r_emailaddress']
 		},
 		function (accessToken, refreshToken, profile, done) {
+			// console.log(profile)
+
+			// ^^ this profile parameter contains all of the information from google that should be stored in the database
+			// This is the information that should be stored in the database. 
+			// When MongoDB returns the new user, it should be passed to the done method (I have created a user object because we don't have a User Schema yet)
 			const {id, displayName, emails} = profile
 			let newUser = {
 				linkedinId: id,
