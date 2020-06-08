@@ -12,7 +12,7 @@ import Saved from "./components/JobTracking/Saved";
 function App() {
   return (
     <Router>
-      <div>
+      <div className="appRouter">
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={MenuLogin} />
         <Route exact path="/loggedinmenu" component={MenuLoggedIn} />

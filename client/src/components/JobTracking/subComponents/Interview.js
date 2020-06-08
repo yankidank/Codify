@@ -2,7 +2,7 @@ import React from "react";
 
 function InterviewInputs(){
     return(
-        <div>
+        <div className="interviewInputs">
             <div>
                 <input value="Date"></input>
                 <input value="Time"></input>

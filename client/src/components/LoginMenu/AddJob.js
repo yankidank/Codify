@@ -2,7 +2,7 @@ import React from "react";
 
 function AddJob(){
     return(
-        <div>
+        <div className="addJob">
             <div>
                 <input value="Job URL"></input>
             </div>

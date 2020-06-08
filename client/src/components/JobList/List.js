@@ -3,11 +3,7 @@ import OneJobListing from "./JobListItem"
 
 function List(){
     return (
-        <div>
-            <ul>
-                <OneJobListing />
-            </ul>
-        </div>
+        <OneJobListing />
     )
 }
 

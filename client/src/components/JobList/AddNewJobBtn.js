@@ -2,7 +2,7 @@ import React from "react";
 
 function AddNewJobBtn (){
     return (
-        <div>
+        <div className="addJobBtn">
             <li>
                 <button>ADD NEW JOB</button>
             </li>

@@ -4,14 +4,9 @@ import List from "../JobList/List"
 
 function Dashboard(){
     return(
-        <div>
-            <div>
+        <div className="container dashboard">
+            <div className="row">
                 <DoughtnutChart />
-            </div>
-            <div>
-                <h3>Header: Recent Jobs</h3>
-            </div>
-            <div>
                 <List />
             </div>
         </div>

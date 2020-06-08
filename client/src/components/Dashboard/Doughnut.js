@@ -20,22 +20,27 @@ const state= {
 
 function DoughtnutChart(){
     return (
-        <div>
-        <Doughnut
-          data={state}
-          options={{
-            title:{
-              display:true,
-              text:'Application Overview',
-              fontSize:20, 
-            },
-            legend:{
-              display:true,
-              position:'right'
-            }, 
-            cutoutPercentage: 80,
-          }}
-        />
+      <div className="col s12 m12 l4">
+        <div className="card doughtnutChart">
+          <div className="card-image">
+            <span className="card-title">Analytics</span>
+          </div>
+          <Doughnut
+            data={state}
+            options={{
+              title:{
+                display:true,
+                text:'Application Overview',
+                fontSize:20, 
+              },
+              legend:{
+                display:true,
+                position:'right'
+              }, 
+              cutoutPercentage: 80,
+            }}
+          />
+        </div>
       </div>
     )
 }

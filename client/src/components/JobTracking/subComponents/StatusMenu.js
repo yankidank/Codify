@@ -2,7 +2,7 @@ import React from "react";
 
 function JobListingStatusMenu(){
     return(
-        <div>
+        <div className="jobListingStatusMenu">
             <ul>
                 <li><button>SAVE</button></li>
                 <li><button>APPLIED</button></li>

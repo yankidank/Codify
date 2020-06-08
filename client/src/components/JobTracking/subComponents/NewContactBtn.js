@@ -2,7 +2,7 @@ import React from "react";
 
 function NewContactBtn(){
     return(
-        <div>
+        <div className="newContactBtn">
             <div>
                 <h3>Header: Contacts</h3>
             </div>

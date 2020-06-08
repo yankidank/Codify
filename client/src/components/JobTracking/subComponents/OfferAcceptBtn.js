@@ -2,7 +2,7 @@ import React from "react";
 
 function OfferAcceptBtn(){
     return(
-        <div>
+        <div className="offerAcceptBtn">
             <div>
                 <button>ACCEPT OFFER</button>
             </div>

@@ -9,7 +9,7 @@ import OfferInputs from "./subComponents/Offer"
 
 function Offer(){
     return(
-        <div>
+        <div className="offer">
             <CompanyInfo />
             <StatusBar />
             <NewOfferBtn />

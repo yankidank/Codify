@@ -2,7 +2,7 @@ import React from "react";
 
 function Contact(){
     return (
-        <div>
+        <div className="contact">
             <div>
                 <input value="Name"></input>
                 <input value="Email"></input>

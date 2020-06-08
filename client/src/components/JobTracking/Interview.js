@@ -9,7 +9,7 @@ import NewInterviewBtn from "./components/NewInterviewBtn"
 
 function Interview(){
     return(
-        <div>
+        <div className="interview">
             <CompanyInfo />
             <StatusBar />
             <NewInterviewBtn />

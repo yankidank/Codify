@@ -9,7 +9,7 @@ import NewInterviewBtn from "./subComponents/NewInterviewBtn"
 
 function Saved(){
     return(
-        <div>
+        <div className="saved">
             <CompanyInfo />
             <StatusBar />
             <Position />

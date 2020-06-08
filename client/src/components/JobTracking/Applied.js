@@ -9,7 +9,7 @@ import NewInterviewBtn from "./subComponents/NewInterviewBtn"
 
 function Applied(){
     return(
-        <div>
+        <div className="applied">
             <CompanyInfo />
             <StatusBar />
             <NewContactBtn />

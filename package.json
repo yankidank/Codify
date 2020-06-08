@@ -27,6 +27,7 @@
     "prettier": "^2.0.5"
   },
   "dependencies": {
+    "chart.js": "^2.9.3",
     "cookie-session": "^1.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.16.3",
@@ -35,6 +36,10 @@
     "passport": "^0.4.1",
     "passport-github": "^1.1.0",
     "passport-google-oauth": "^2.0.0",
-    "passport-linkedin-oauth2": "^2.0.0"
+    "passport-linkedin-oauth2": "^2.0.0",
+    "react": "^16.13.1",
+    "react-chartjs": "^1.2.0",
+    "react-chartjs-2": "^2.9.0",
+    "react-dom": "^16.13.1"
   }
 }

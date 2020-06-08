@@ -2,7 +2,7 @@ import React from "react";
 
 function MenuLogin(){
     return (
-        <div>
+        <div className="menuLogin">
             <ul>
                 <li><button>HOME</button></li>
                 <li><button>ABOUT</button></li>

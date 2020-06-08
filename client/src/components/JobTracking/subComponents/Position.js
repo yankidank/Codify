@@ -2,7 +2,7 @@ import React from "react";
 
 function Position(){
     return(
-        <div>
+        <div className="position">
             <div>
                 <h3>Header: Position</h3>
             </div>
