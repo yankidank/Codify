@@ -4,11 +4,11 @@ function MenuLogin(){
     return (
         <div className="menuLogin">
             <ul>
-                <li><button>HOME</button></li>
-                <li><button>ABOUT</button></li>
-                <li><button>LOGIN: Github</button></li>
-                <li><button>LOGIN: LinkedIn</button></li>
-                <li><button>LOGIN: Google</button></li>
+                <li><a href="/">HOME</a></li>
+                <li><a href="/">ABOUT</a></li>
+                <li><a href="/auth/github"><div className="btn btn-login btn-github">Github</div></a></li>
+                <li><a href="/auth/linkedin"><div className="btn btn-login btn-github">LinkedIn</div></a></li>
+                <li><a href="/auth/google"><div className="btn btn-login btn-github">Google</div></a></li>
             </ul>
         </div>
     )
