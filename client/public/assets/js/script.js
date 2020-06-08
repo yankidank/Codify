@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(event) { 
+document.addEventListener("DOMContentLoaded", function() { 
 	// Navigation bar shadow when scrolling
 	var scrollnav = document.getElementById("navbar");
 	scrollnav.classList.add("noScroll");
@@ -9,5 +9,4 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			scrollnav.classList.add("noScroll");
 		}
 	});
-
 });

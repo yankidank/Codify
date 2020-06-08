@@ -77,7 +77,7 @@ function OneJobListing(){
                     <div className="row card-content">
                         <div className="card-inner">
                             <div className="col m2 l2 company-image">
-                                <img className="company-img-src material-icons" src="https://image.flaticon.com/icons/svg/306/306424.svg"></img>
+                                <img className="company-img-src material-icons" alt="ⓒ Logo" src="https://image.flaticon.com/icons/svg/306/306424.svg" />
                             </div>
                             <div className="co8 m8 l8 company-details">
                                 <h3>COMPANY NAME</h3>
