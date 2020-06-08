@@ -2,14 +2,14 @@ import React from "react";
 import {Doughnut} from "react-chartjs-2"
 
 const state= {
-    labels: ["Applied", "Rejected", "Interviewed"], 
+    labels: ["Applied", "Interviews", "Offers"], 
     datasets: [
         {
            label: "Application Overview", 
             backgroundColor: [
-                "#8a0036", 
-                "#50247f",
-                "#13339b"
+                "#05ACE1", 
+                "#32CEC5",
+                "#2ED47A"
             ], 
             data: [160, 56, 16]
         }
@@ -35,7 +35,7 @@ function DoughtnutChart(){
               },
               legend:{
                 display:true,
-                position:'right'
+                position:'bottom'
               }, 
               cutoutPercentage: 80,
             }}

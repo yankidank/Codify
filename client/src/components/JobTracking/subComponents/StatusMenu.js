@@ -1,6 +1,6 @@
 import React from "react";
 
-function JobListingStatusMenu(){
+function StatusMenu(){
     return(
         <div className="jobListingStatusMenu">
             <ul>
@@ -14,4 +14,4 @@ function JobListingStatusMenu(){
     )
 }
 
-export default JobListingStatusMenu;
+export default StatusMenu;
