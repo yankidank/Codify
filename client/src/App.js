@@ -7,6 +7,7 @@ import AddJob from "./components/LoginMenu/AddJob";
 import Dashboard from "./components/Dashboard/Dashboard";
 import JobsList from "./components/JobList/JobsList";
 import Saved from "./components/JobTracking/Saved";
+import {PrivateRoute} from "./utils/privateRoute"
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
         <Route exact path="/login" component={MenuLogin} />
         <Route exact path="/loggedinmenu" component={MenuLoggedIn} />
         <Route exact path="/loggedinaddjob" component={AddJob} />
-        <Route exact path="/dashboard" component={Dashboard} />
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <Route exact path="/joblist" component={JobsList} />
         <Route exact path="/jobtracking" component={Saved} />
       </div>

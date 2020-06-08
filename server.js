@@ -14,10 +14,10 @@ const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
+const cors = require('cors');
 // Routes
 const authRoutes = require('./routes/authRoutes');
 const apiRoutes = require('./routes/apiRoutes');
-const htmlRoutes = require('./routes/htmlRoutes');
 
 /////////////////////////////
 // ACTUAL SERVER STUFF //////
@@ -35,6 +35,13 @@ app.use(
 		keys: [process.env.COOKIE_KEY]
 	})
 );
+app.use(
+	cors({
+		origin: 'http://localhost:3000', // allow server to accept request from the client
+		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+		credentials: true // allow session cookie from browser to pass through
+	})
+);
 app.use(passport.initialize());
 app.use(passport.session());
 // Serve up static assets (usually on heroku)
@@ -48,7 +55,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/presume', {
 	useCreateIndex: true
 });
 // ROUTING
-app.use('/', htmlRoutes);
 app.use('/auth', authRoutes); // authentication
 app.use('/api', apiRoutes);
 // Send every request to the React app
