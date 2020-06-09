@@ -78,7 +78,7 @@ button {
 }
 .card-inner {
 	display: flex;
-/}
+}
 .card-inner .company-image {
 	margin-left:0 !important;
 	margin-right: 0 !important;
@@ -166,3 +166,53 @@ button {
 	flex: none;
 	order: 0;
 }
+
+/* LOGIN MENU */
+
+.menuLogin {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	min-height: 100vh;
+}
+
+.menuLogin button {
+	position: static;
+	width: 340px;
+	height: 49px;
+	left: 0px;
+	top: 20px;
+	margin: 15px;
+	border-radius: 5px;
+}
+
+.btn-home-login {
+	background: none;
+	border: none;
+	color: #FFFFFF;
+	font-size: 24px;
+}
+
+.btn-github {
+	background-color: #242A2E;
+	border: none;
+	color: #FFFFFF;
+	font-size: 16px;
+}
+
+.btn-linkedin {
+	background-color: #2867B2;
+	border: none;
+	color: #FFFFFF;
+	font-size: 16px;
+}
+
+.btn-google {
+	background-color: #FFFFFF;
+	color: #000;
+	border: none;
+	font-size: 16px;
+}
+
