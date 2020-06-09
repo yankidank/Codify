@@ -4,9 +4,6 @@ import NavBar from "../NavBar"
 const handleHome = () => {
     window.open("/", "_self")
 }
-const handleAbout = () => {
-    window.open("/about", "_self")
-}
 const handleJobs = () => {
     window.open("/jobs", "_self")
 }

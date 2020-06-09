@@ -1,12 +1,16 @@
 import React from "react";
 
+const handleAdd = () => {
+    window.open("/jobs/add", "_self")
+}
+
 function OneJobListing(){
     return (
         <div className="col s12 m12 l8">
             <div className="card oneJobListing">
                 <div className="card-image">
                     <span className="card-title">Jobs List</span>
-                    <span className="card-button">Add New Job</span>
+                    <span className="card-button" onClick={handleAdd}>Add New Job</span>
                 </div>
                 <div className="container container-full ">
                     <div className="row">

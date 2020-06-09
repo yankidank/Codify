@@ -13,9 +13,6 @@ const handleLinkedInLogin = () => {
 const handleHome = () => {
     window.open("/", "_self")
 }
-const handleAbout = () => {
-    window.open("/about", "_self")
-}
 function MenuLogin(){
     return (
         <div>

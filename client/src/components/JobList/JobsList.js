@@ -4,6 +4,10 @@ import Search from "./Search"
 import Filter from "./Filter"
 import List from "./List"
 
+const handleAdd = () => {
+    window.open("/jobs/add", "_self")
+}
+
 function JobsList(){
     return(
         <div>
@@ -11,7 +15,7 @@ function JobsList(){
             <div classNmame="jobsList">
                 <div>
                     <h3>Jobs List</h3>
-                    <button>ADD NEW JOB</button>
+                    <button onClick={handleAdd}>Add New Job</button>
                 </div>
                 <div>
                     <Search />
