@@ -25,21 +25,25 @@ function DoughtnutChart(){
           <div className="card-image">
             <span className="card-title">Analytics</span>
           </div>
-          <Doughnut
-            data={state}
-            options={{
-              title:{
-                display:true,
-                text:'Application Overview',
-                fontSize:20, 
-              },
-              legend:{
-                display:true,
-                position:'bottom'
-              }, 
-              cutoutPercentage: 80,
-            }}
-          />
+          <div className="container container-full ">
+            <div className="row">
+                <Doughnut
+                  data={state}
+                  options={{
+                    title:{
+                      display:false,
+                      text:'Application Overview',
+                      fontSize:20, 
+                    },
+                    legend:{
+                      display:true,
+                      position:'top'
+                    }, 
+                    cutoutPercentage: 80,
+                  }}
+                />
+            </div>
+          </div>
         </div>
       </div>
     )
