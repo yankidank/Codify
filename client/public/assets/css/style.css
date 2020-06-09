@@ -173,7 +173,7 @@ button {
 
 /* LOGIN MENU */
 
-.menuLogin {
+.menuNav {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -182,7 +182,7 @@ button {
 	min-height: 100vh;
 }
 
-.menuLogin button {
+.menuNav button {
 	position: static;
 	width: 340px;
 	height: 49px;
@@ -191,7 +191,7 @@ button {
 	margin: 15px;
 	border-radius: 5px;
 }
-.menuLogin button:hover {
+.menuNav button:hover {
 	color:#B9B9B9; /* 05ACE1 */
 }
 .btn-github:active, .btn-github:focus {
@@ -203,24 +203,50 @@ button {
 .btn-google:active, .btn-google:focus {
 	background:#e7e7e7;
 }
-.menuLogin ul {
+.btn-job-add {
+	background:#0000004a;
+	border:none;
+	color:#fff;
+}
+.btn-job-add:active, .btn-job-add:focus {
+	background:#0000007c;
+}
+.menu-url-input {
+	color:#fff;
+	border:none;
+	background:none;
+}
+.menuNav input:not([type]) {
+	border-radius:5px;
+	padding:0 10px;
+	width: 85%;
+	color:#000;
+	background:#fff;
+}
+input:not([type]):focus:not([readonly]) {
+	border-bottom: 1px solid #fff;
+	box-shadow:none;
+}
+
+.menuNav ul {
 	margin-top:0;
 }
-.menuLogin ul li {
+.menuNav ul li {
 	margin-top: 8%;
+	color:#fff;
 }
-.menuLogin ul li button {
+.menuNav ul li button {
 	display:flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items:center;
 	align-content: center;
 }
-.menuLogin ul li button div.btn-logo {
+.menuNav ul li button div.btn-logo {
 	float: left;
 	margin-right:10px;
 }
-.menuLogin ul li button div.btn-title {
+.menuNav ul li button div.btn-title {
 	float: left;
 }
 .btn-logo img {

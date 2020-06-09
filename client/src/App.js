@@ -18,15 +18,15 @@ function App() {
     <Router>
       <div className="appRouter">
         <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={MenuLogin} />
-        <Route exact path="/loggedinmenu" component={MenuLoggedIn} />
-        <Route exact path="/loggedinaddjob" component={AddJob} />
+        <Route exact path="/menu/login" component={MenuLogin} />
+        <PrivateRoute exact path="/menu" component={MenuLoggedIn} />
+        <PrivateRoute exact path="/jobs/add" component={AddJob} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/joblist" component={JobsList} />
-        <Route exact path="/jobtracking/saved" component={Saved} />
-        <Route exact path="/jobtracking/applied" component={Applied} />
-        <Route exact path="/jobtracking/interview" component={Interview} />
-        <Route exact path="/jobtracking/offer" component={Offer} />
+        <PrivateRoute exact path="/jobs" component={JobsList} />
+        <PrivateRoute exact path="/jobs/saved" component={Saved} />
+        <PrivateRoute exact path="/jobs/applied" component={Applied} />
+        <PrivateRoute exact path="/jobs/interview" component={Interview} />
+        <PrivateRoute exact path="/jobs/offer" component={Offer} />
       </div>
     </Router>
   );

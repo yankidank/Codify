@@ -16,7 +16,7 @@ export function PrivateRoute({ component: Component, ...rest }) {
 		})
 	}, []);
     // this needs to be returned after the ajax request
-	return (<Route {...rest} render={(props) => (isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />)} />);
+	return (<Route {...rest} render={(props) => (isLoggedIn ? <Component {...props} /> : <Redirect to="/menu/login" />)} />);
 }
 
 PrivateRoute.propTypes = {
