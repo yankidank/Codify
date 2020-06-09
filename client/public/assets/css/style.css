@@ -17,8 +17,12 @@ nav {
 	position:relative;
 	top:40px;
 }
-.nav-back {
-	margin-top: 5px;
+button.nav-back {
+	background:none;
+	border:none;
+}
+button.nav-back {
+	margin-top: 15px;
     margin-left: 15px;
 }
 .navbar-fixed nav {
