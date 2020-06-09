@@ -187,12 +187,50 @@ button {
 	margin: 15px;
 	border-radius: 5px;
 }
-
+.menuLogin button:hover {
+	color:#B9B9B9; /* 05ACE1 */
+}
+.btn-github:active, .btn-github:focus {
+	background:#22272a;
+}
+.btn-linkedin:active, .btn-linkedin:focus {
+	background:rgb(34, 92, 163);
+}
+.btn-google:active, .btn-google:focus {
+	background:#e7e7e7;
+}
+.menuLogin ul {
+	margin-top:0;
+}
+.menuLogin ul li {
+	margin-top: 8%;
+}
+.menuLogin ul li button {
+	display:flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items:center;
+	align-content: center;
+}
+.menuLogin ul li button div.btn-logo {
+	float: left;
+	margin-right:10px;
+}
+.menuLogin ul li button div.btn-title {
+	float: left;
+}
+.btn-logo img {
+	height:25px;
+	width:25px;
+}
 .btn-home-login {
 	background: none;
 	border: none;
 	color: #FFFFFF;
-	font-size: 24px;
+	font-size: 1.5rem;
+}
+.btn-home-login:active, .btn-home-login:focus {
+	background:none;
 }
 
 .btn-github {
