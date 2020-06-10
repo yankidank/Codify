@@ -1,24 +1,26 @@
-import React, {useEffect, useState} from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-// configure up axios to send cookie with request
-const axiosInstance = axios.create({
-	withCredentials: true
-});
-// this function cannot be asynchronous 
-export function PrivateRoute({ component: Component, ...rest }) {
-	const [isLoggedIn, setIsLoggedIn] = useState(true);
-	useEffect(()=>{
+import axiosInstance from './API';
+
+function PrivateRoute({ component: Component, ...rest }) {
+	const [isAuthenticated, setAuthenticated] = useState(false);
+
+	useEffect(() => {
 		axiosInstance.get('http://localhost:3001/auth/isauthenticated').then((data) => {
-			console.log(data.data.user);
-			setIsLoggedIn(data.data.user); // will be undefined if user is not logged in 
-		})
+			if (data.data.user !== undefined) {
+				setAuthenticated(true);
+			} else {
+				window.location = '/menu/login';
+			}
+		});
 	}, []);
-    // this needs to be returned after the ajax request
-	return (<Route {...rest} render={(props) => (isLoggedIn ? <Component {...props} /> : <Redirect to="/menu/login" />)} />);
+
+	return isAuthenticated ? <Route {...rest} render={(props) => <Component {...props} />} /> : <h1>{'Loading'}</h1>;
 }
 
 PrivateRoute.propTypes = {
 	component: PropTypes.any
 };
+
+export default PrivateRoute;
