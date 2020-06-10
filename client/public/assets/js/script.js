@@ -10,9 +10,23 @@ $(document).ready(function(){
 		}
 	});
 
-
+	// Filter Dropdown
 	$("#filter-toggle").click(function(){
 		$("#filter-container").slideToggle();
 		$("#filter-toggle").toggleClass("filter-active");
+	});
+
+	// Paste Job URL
+	const resultsEl = window.document.querySelector('#paste');
+	resultsEl.addEventListener('click', () => {
+		if (!resultsEl.value){
+			navigator.clipboard.readText()
+			  .then(text => {
+			  	resultsEl.value = text;
+			  })
+			  .catch(err => {
+			  	console.log('Something went wrong', err);
+			  })
+		}
 	});
 });

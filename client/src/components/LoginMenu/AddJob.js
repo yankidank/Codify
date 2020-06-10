@@ -11,10 +11,9 @@ function AddJob(){
             <NavBar />
             <div className="menuNav">
                 <ul>
-                    <li className="btn-home-login">Add Job URL</li>
-                    {/* <li><input className="menu-url-input" placeholder="https://"></input></li> */}
-                    <li><input className="menu-url-input-field" placeholder="https://"></input></li>
-                    <li><button onClick={handleAdd} className="btn-job-add">Track Job</button></li>
+                    <li className="btn-home-login">Job Post URL</li>
+                    <li><input className="menu-url-input-field" id="paste" placeholder="https://"></input></li>
+                    <li><button onClick={handleAdd} className="btn-job-add">Save Job</button></li>
                 </ul>
             </div>
         </div>

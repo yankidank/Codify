@@ -20,19 +20,19 @@ function OneJobListing(){
                     </div>
                     <div className="row" id="filter-container" style={{display: "none"}}>
                         <div className="col l12 filter-tags">
-                            <div className="btn-filter">
+                            <div className="btn-filter" id="filter-saved">
                                 <button className="btn-saved">Saved</button>
                             </div>
-                            <div className="btn-filter">
+                            <div className="btn-filter" id="filter-applied">
                                 <button className="btn-applied">Applied</button>
                             </div>
-                            <div className="btn-filter">
+                            <div className="btn-filter" id="filter-interview">
                                 <button className="btn-interview">Interview</button>
                             </div>
-                            <div className="btn-filter">
+                            <div className="btn-filter" id="filter-offer">
                                 <button className="btn-offer">Offer</button>
                             </div>
-                            <div className="btn-filter">
+                            <div className="btn-filter" id="filter-ended">
                                 <button className="btn-ended">Ended</button>
                             </div>
                         </div>

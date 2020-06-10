@@ -1,5 +1,6 @@
 body {
 	background-image: url('../img/background.jpg');
+	backdrop-filter: blur(5px);
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center top;
@@ -8,6 +9,7 @@ body {
 }
 nav {
 	background-image: url('../img/background.jpg');
+	backdrop-filter: blur(5px);
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center top;
@@ -74,6 +76,11 @@ nav .brand-logo {
 }
 .btn-filter button:active, .btn-filter button:focus{
 	background:#000;
+}
+.btn-disabled {
+	background: #efefef;
+    color: #ababab;
+    border: 1px solid #ddd;
 }
 .card {
  	display: flex;
@@ -186,6 +193,10 @@ button {
 .btn-ended {
 	background: #787466;
 }
+#paste {
+	background: #ffffff url(../img/icon-paste.png) no-repeat scroll 5px 5px;
+    padding-left: 48px;
+}
 .company-details{
 	display: flex;
 	flex-direction: column;
@@ -258,7 +269,7 @@ button {
 .menuNav input:not([type]) {
 	border-radius:5px;
 	padding:0 10px;
-	width: 85%;
+	width: 75%;
 	color:#000;
 	background:#fff;
 }
