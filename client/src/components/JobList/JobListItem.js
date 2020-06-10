@@ -13,7 +13,7 @@ function OneJobListing(){
                     <span className="card-button" onClick={handleAdd}>Add New Job</span>
                 </div>
                 <div className="container container-full ">
-                    <div className="row">
+                    <div className="row row-filter">
                         <div className="col l12 card-filter" id="filter-toggle">
                             Filter <i className="material-icons">keyboard_arrow_down</i>
                         </div>

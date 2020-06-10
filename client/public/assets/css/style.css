@@ -43,6 +43,12 @@ nav .brand-logo {
 	padding: 12px;
 	margin-bottom: 0;
 }
+.row-filter{
+	margin-bottom: 1rem;
+}
+.row-filter .filter-active {
+	opacity:1;
+}
 .filter-tags {
 	display: flex;
 	flex-wrap: wrap;
@@ -81,6 +87,7 @@ nav .brand-logo {
 .card .card-image .card-title {
 	padding:26px 0;
 	font-size:1.6rem;
+	font-weight:400;
 }
 .card-button {
 	cursor:pointer;

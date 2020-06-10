@@ -13,5 +13,6 @@ $(document).ready(function(){
 
 	$("#filter-toggle").click(function(){
 		$("#filter-container").slideToggle();
+		$("#filter-toggle").toggleClass("filter-active");
 	});
 });
