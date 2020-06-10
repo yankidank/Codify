@@ -22,7 +22,7 @@ function JobsList(){
                     <Filter />
                 </div>
                 <div>
-                <List />
+                    <List />
                 </div>
             </div>
         </div>

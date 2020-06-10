@@ -37,11 +37,17 @@ nav .brand-logo {
 .container-full {
 	width:100%;
 }
+#filter-container {
+	box-shadow: 1px -0.5px 1px rgba(0, 0, 0, 0.25);
+	background: #FFFFFF;
+	padding: 22px 12px;
+	margin-bottom: 0;
+}
 .card {
  	display: flex;
 	flex-direction: column;
 	margin-bottom: 54px;
-	padding: 22px 20px;
+	padding: 22px 12px;
 	background: #FFFFFF;
 	box-shadow: 1px -2.5px 6px rgba(0, 0, 0, 0.25);
 	border-radius: 20px;
@@ -71,7 +77,7 @@ nav .brand-logo {
 .card-content {
 	display: flex;
 	flex-direction: column;
-	box-shadow: 0px -0.5px 1px rgba(0, 0, 0, 0.25);
+	box-shadow: 0px -0.5px 0px rgba(0, 0, 0, 0.25);
 	flex: none;
 	order: 1;
 	align-self: center;
@@ -89,8 +95,8 @@ button {
 	width:auto !important;
 }
 .company-image i {
-	padding-left: 8px;
-    padding-top: 7px;
+	padding-left: 10px;
+    padding-top: 8px;
 }
 .company-image .material-icons{
 	font-size:40px;

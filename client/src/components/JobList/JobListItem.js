@@ -14,8 +14,13 @@ function OneJobListing(){
                 </div>
                 <div className="container container-full ">
                     <div className="row">
-                        <div className="col l12 card-filter">
+                        <div className="col l12 card-filter" id="filter-toggle">
                             Filter <i className="material-icons">keyboard_arrow_down</i>
+                        </div>
+                    </div>
+                    <div className="row" id="filter-container" style={{display: "none"}}>
+                        <div className="col l12 filter-tags">
+                            TAGS GO HERE
                         </div>
                     </div>
                     <div className="row card-content">
