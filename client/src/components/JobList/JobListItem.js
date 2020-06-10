@@ -1,17 +1,40 @@
 import React from "react";
 
+const handleAdd = () => {
+    window.open("/jobs/add", "_self")
+}
+
 function OneJobListing(){
     return (
         <div className="col s12 m12 l8">
             <div className="card oneJobListing">
                 <div className="card-image">
                     <span className="card-title">Jobs List</span>
-                    <span className="card-button">Add New Job</span>
+                    <span className="card-button" onClick={handleAdd}>Add New Job</span>
                 </div>
                 <div className="container container-full ">
                     <div className="row">
-                        <div className="col l12 card-filter">
+                        <div className="col l12 card-filter" id="filter-toggle">
                             Filter <i className="material-icons">keyboard_arrow_down</i>
+                        </div>
+                    </div>
+                    <div className="row" id="filter-container" style={{display: "none"}}>
+                        <div className="col l12 filter-tags">
+                            <div className="btn-filter">
+                                <button className="btn-saved">Saved</button>
+                            </div>
+                            <div className="btn-filter">
+                                <button className="btn-applied">Applied</button>
+                            </div>
+                            <div className="btn-filter">
+                                <button className="btn-interview">Interview</button>
+                            </div>
+                            <div className="btn-filter">
+                                <button className="btn-offer">Offer</button>
+                            </div>
+                            <div className="btn-filter">
+                                <button className="btn-ended">Ended</button>
+                            </div>
                         </div>
                     </div>
                     <div className="row card-content">

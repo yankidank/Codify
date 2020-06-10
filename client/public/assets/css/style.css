@@ -17,8 +17,12 @@ nav {
 	position:relative;
 	top:40px;
 }
-.nav-back {
-	margin-top: 5px;
+button.nav-back {
+	background:none;
+	border:none;
+}
+button.nav-back {
+	margin-top: 15px;
     margin-left: 15px;
 }
 .navbar-fixed nav {
@@ -33,11 +37,40 @@ nav .brand-logo {
 .container-full {
 	width:100%;
 }
+#filter-container {
+	box-shadow: 1px -0.5px 1px rgba(0, 0, 0, 0.25);
+	background: #FFFFFF;
+	padding: 12px;
+	margin-bottom: 0;
+}
+.filter-tags {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+.btn-filter {
+	margin:5px 10px;
+}
+.btn-filter button{
+	width: 100px;
+	color: #FFFFFF;
+    border-radius: 4px;
+    border: none;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: 0.02em;
+    padding: 8px 0;
+}
 .card {
  	display: flex;
 	flex-direction: column;
 	margin-bottom: 54px;
-	padding: 22px 20px;
+	padding: 22px 12px;
 	background: #FFFFFF;
 	box-shadow: 1px -2.5px 6px rgba(0, 0, 0, 0.25);
 	border-radius: 20px;
@@ -67,7 +100,7 @@ nav .brand-logo {
 .card-content {
 	display: flex;
 	flex-direction: column;
-	box-shadow: 0px -0.5px 1px rgba(0, 0, 0, 0.25);
+	box-shadow: 0px -0.5px 0px rgba(0, 0, 0, 0.25);
 	flex: none;
 	order: 1;
 	align-self: center;
@@ -78,15 +111,15 @@ button {
 }
 .card-inner {
 	display: flex;
-/}
+}
 .card-inner .company-image {
 	margin-left:0 !important;
 	margin-right: 0 !important;
 	width:auto !important;
 }
 .company-image i {
-	padding-left: 8px;
-    padding-top: 7px;
+	padding-left: 10px;
+    padding-top: 8px;
 }
 .company-image .material-icons{
 	font-size:40px;
@@ -166,3 +199,117 @@ button {
 	flex: none;
 	order: 0;
 }
+
+/* LOGIN MENU */
+
+.menuNav {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	min-height: 100vh;
+}
+
+.menuNav button {
+	position: static;
+	width: 340px;
+	height: 49px;
+	left: 0px;
+	top: 20px;
+	margin: 15px;
+	border-radius: 5px;
+}
+.menuNav button:hover {
+	color:#B9B9B9; /* 05ACE1 */
+}
+.btn-github:active, .btn-github:focus {
+	background:#22272a;
+}
+.btn-linkedin:active, .btn-linkedin:focus {
+	background:rgb(34, 92, 163);
+}
+.btn-google:active, .btn-google:focus {
+	background:#e7e7e7;
+}
+.btn-job-add {
+	background:#0000004a;
+	border:none;
+	color:#fff;
+}
+.btn-job-add:active, .btn-job-add:focus {
+	background:#0000007c;
+}
+.menu-url-input {
+	color:#fff;
+	border:none;
+	background:none;
+}
+.menuNav input:not([type]) {
+	border-radius:5px;
+	padding:0 10px;
+	width: 85%;
+	color:#000;
+	background:#fff;
+}
+input:not([type]):focus:not([readonly]) {
+	border-bottom: 1px solid #fff;
+	box-shadow:none;
+}
+
+.menuNav ul {
+	margin-top:-60px;
+}
+.menuNav ul li {
+	margin-top: 8%;
+	color:#fff;
+}
+.menuNav ul li button {
+	display:flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items:center;
+	align-content: center;
+}
+.menuNav ul li button div.btn-logo {
+	float: left;
+	margin-right:10px;
+}
+.menuNav ul li button div.btn-title {
+	float: left;
+}
+.btn-logo img {
+	height:25px;
+	width:25px;
+}
+.btn-home-login {
+	background: none;
+	border: none;
+	color: #FFFFFF;
+	font-size: 1.5rem;
+}
+.btn-home-login:active, .btn-home-login:focus {
+	background:none;
+}
+
+.btn-github {
+	background-color: #242A2E;
+	border: none;
+	color: #FFFFFF;
+	font-size: 16px;
+}
+
+.btn-linkedin {
+	background-color: #2867B2;
+	border: none;
+	color: #FFFFFF;
+	font-size: 16px;
+}
+
+.btn-google {
+	background-color: #FFFFFF;
+	color: #000;
+	border: none;
+	font-size: 16px;
+}
+

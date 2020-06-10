@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() { 
+$(document).ready(function(){
 	// Navigation bar shadow when scrolling
 	var scrollnav = document.getElementById("navbar");
 	scrollnav.classList.add("noScroll");
@@ -8,5 +8,10 @@ document.addEventListener("DOMContentLoaded", function() {
 		} else {
 			scrollnav.classList.add("noScroll");
 		}
+	});
+
+
+	$("#filter-toggle").click(function(){
+		$("#filter-container").toggle();
 	});
 });

@@ -1,11 +1,11 @@
 import React from "react";
-import CompanyInfo from "./components/CompanyInfo"
-import StatusBar from "./components/StatusBar"
-import Position from "./components/Position"
-import Contact from "./components/Contact"
-import InterviewInputs from "./components/Interview"
-import NewContactBtn from "./components/NewContactBtn"
-import NewInterviewBtn from "./components/NewInterviewBtn"
+import CompanyInfo from "./subComponents/CompanyInfo"
+import StatusBar from "./subComponents/StatusBar"
+import Position from "./subComponents/Position"
+import Contact from "./subComponents/Contact"
+import InterviewInputs from "./subComponents/Interview"
+import NewContactBtn from "./subComponents/NewContactBtn"
+import NewInterviewBtn from "./subComponents/NewInterviewBtn"
 
 function Interview(){
     return(
