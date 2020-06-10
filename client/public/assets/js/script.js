@@ -12,6 +12,6 @@ $(document).ready(function(){
 
 
 	$("#filter-toggle").click(function(){
-		$("#filter-container").toggle();
+		$("#filter-container").slideToggle();
 	});
 });

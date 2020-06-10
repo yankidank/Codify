@@ -14,7 +14,7 @@ function JobsList(){
             <NavBar />
             <div classNmame="jobsList">
                 <div>
-                    <h3>Jobs List</h3>
+                    <h3>Recent Jobs</h3>
                     <button onClick={handleAdd}>Add New Job</button>
                 </div>
                 <div>

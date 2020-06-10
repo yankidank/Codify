@@ -9,7 +9,7 @@ function OneJobListing(){
         <div className="col s12 m12 l8">
             <div className="card oneJobListing">
                 <div className="card-image">
-                    <span className="card-title">Jobs List</span>
+                    <span className="card-title">Recent Jobs</span>
                     <span className="card-button" onClick={handleAdd}>Add New Job</span>
                 </div>
                 <div className="container container-full ">

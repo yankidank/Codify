@@ -66,6 +66,9 @@ nav .brand-logo {
     letter-spacing: 0.02em;
     padding: 8px 0;
 }
+.btn-filter button:active, .btn-filter button:focus{
+	background:#000;
+}
 .card {
  	display: flex;
 	flex-direction: column;
