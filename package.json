@@ -27,6 +27,7 @@
     "prettier": "^2.0.5"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "chart.js": "^2.9.3",
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
