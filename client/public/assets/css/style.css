@@ -15,6 +15,9 @@ nav {
 	background-position: center top;
 	background-size: cover;
 }
+.hidden {
+	display:none;
+}
 .dashboard{
 	position:relative;
 	top:40px;

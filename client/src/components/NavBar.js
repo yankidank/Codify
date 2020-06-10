@@ -1,19 +1,36 @@
-import React from 'react';
-
-const handleBack = () => {
-	if (document.referrer.indexOf(window.location.host) !== -1) {
-		window.history.go(-1);
-		//window.history.back();
-		return false;
-	} else {
-		window.location.href = '/';
-	}
-};
+import React, {useEffect} from 'react';
 
 function NavBar() {
+
+	// Menu back button
+	const handleBack = () => {
+		if (document.referrer.indexOf(window.location.host) !== -1) {
+			window.history.go(-1);
+			//window.history.back();
+			return false;
+		} else {
+			window.location.href = '/';
+		}
+	};
+
+	// Similar to componentDidMount and componentDidUpdate:
+	useEffect(() => {
+		// Navigation bar shadow when scrolling
+		var scrollnav = document.getElementById("navbar");
+		scrollnav.classList.add("noScroll");
+		window.addEventListener("scroll", () => {
+			if (window.scrollY !== 0) {
+				scrollnav.classList.remove("noScroll");
+
+			} else {
+				scrollnav.classList.add("noScroll");
+			}
+		});
+	});
+
 	return (
 		<div className="navbar-fixed">
-			<nav id="navbar">
+			<nav id="navbar" className="nav-class">
 				<div className="nav-wrapper">
 					<button id="nav-back-btn" onClick={handleBack} data-target="nav-mobile" className="left nav-back">
 						<img src="/assets/img/icon-nav-back.png" alt="← Back" />

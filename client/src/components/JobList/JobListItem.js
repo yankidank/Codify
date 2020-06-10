@@ -1,10 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 const handleAdd = () => {
     window.open("/jobs/add", "_self")
 }
 
 function OneJobListing(){
+
+    useEffect(() => {
+        // Toggle Filter Visibility
+		const dropdown = document.getElementById("filter-toggle");
+		const container = document.getElementById("filter-container");
+		dropdown.addEventListener('click', function() { 
+			dropdown.classList.toggle('filter-active');
+			container.classList.toggle('hidden');
+        }, false);
+    });
+
     return (
         <div className="col s12 m12 l8">
             <div className="card oneJobListing">
@@ -18,7 +29,7 @@ function OneJobListing(){
                             Filter <i className="material-icons">keyboard_arrow_down</i>
                         </div>
                     </div>
-                    <div className="row" id="filter-container" style={{display: "none"}}>
+                    <div className="row hidden" id="filter-container">
                         <div className="col l12 filter-tags">
                             <div className="btn-filter" id="filter-saved">
                                 <button className="btn-saved">Saved</button>
