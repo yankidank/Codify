@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
-// const Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-const postSchema = new mongoose.Schema({
+const postSchema = new Schema({
   // stuff here
+  
 });
 
-const post = mongoose.model("post", postSchema);
+const Post = mongoose.model("post", postSchema);
 
-module.exports = post;
+module.exports = Post;
