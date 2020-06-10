@@ -5,7 +5,6 @@ import axiosInstance from './API';
 
 function PrivateRoute({ component: Component, ...rest }) {
 	const [isAuthenticated, setAuthenticated] = useState(false);
-	
 
 	useEffect(() => {
 		axiosInstance.get('http://localhost:3001/auth/isauthenticated').then((data) => {
@@ -17,7 +16,7 @@ function PrivateRoute({ component: Component, ...rest }) {
 		});
 	}, []);
 
-	return isAuthenticated ? <Route {...rest} render={(props) => <Component {...props} />} /> : <h1>'Loading'</h1>;
+	return isAuthenticated ? <Route {...rest} render={(props) => <Component {...props} />} /> : <h1>{'Loading'}</h1>;
 }
 
 PrivateRoute.propTypes = {
