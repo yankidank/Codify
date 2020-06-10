@@ -10,10 +10,6 @@ const handleBack = () => {
 	}
 };
 
-const handleLogout = () => {
-	window.open('http://localhost:3001/auth/logout', '_self');
-};
-
 function NavBar() {
 	return (
 		<div className="navbar-fixed">
@@ -40,7 +36,7 @@ function NavBar() {
 							<a href="/menu/login">Login</a>
 						</li>
 						<li>
-							<a onClick={handleLogout}>Logout</a>
+							<a href="http://localhost:3001/auth/logout">Logout</a>
 						</li>
 					</ul>
 					<a href="/menu" id="menu-trigger" data-target="slide-out" className="right sidenav-trigger">

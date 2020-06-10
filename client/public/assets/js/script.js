@@ -1,12 +1,16 @@
-$(document).ready(function(){
+$(document).ready(function() {
+	// Define URL path
+	var pathname = window.location.pathname
+
 	// Navigation bar shadow when scrolling
-	var scrollnav = document.getElementById("navbar");
-	scrollnav.classList.add("noScroll");
-	window.addEventListener("scroll", () => {
+	var scrollnav = $("#navbar");
+	scrollnav.addClass("noScroll");
+	$(window).scroll(function(){
 		if (window.scrollY != 0) {
-			scrollnav.classList.remove("noScroll");
+			scrollnav.removeClass("noScroll");
+
 		} else {
-			scrollnav.classList.add("noScroll");
+			scrollnav.addClass("noScroll");
 		}
 	});
 
@@ -15,18 +19,20 @@ $(document).ready(function(){
 		$("#filter-container").slideToggle();
 		$("#filter-toggle").toggleClass("filter-active");
 	});
-
-	// Paste Job URL
-	const resultsEl = window.document.querySelector('#paste');
-	resultsEl.addEventListener('click', () => {
-		if (!resultsEl.value){
-			navigator.clipboard.readText()
-			  .then(text => {
-			  	resultsEl.value = text;
-			  })
-			  .catch(err => {
-			  	console.log('Something went wrong', err);
-			  })
-		}
-	});
+	
+	if (pathname === '/jobs/add'){
+		// Paste Job URL
+		$('#paste').click(function(){
+			if (!$('#paste').value){
+				// Attempt to read clipboard text
+				navigator.clipboard.readText()
+				 .then(text => {
+				  	$('#paste').value = text;
+				 })
+				  .catch(err => {
+					console.log('Something went wrong', err);
+				 })
+			}
+		});
+	}
 });
