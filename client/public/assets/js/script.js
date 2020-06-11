@@ -1,7 +1,7 @@
-document.addEventListener("DOMContentLoaded", function() { 
+document.addEventListener('DOMContentLoaded', function () {
 	// Define URL path
-	var pathname = window.location.pathname
-/* 
+	// var pathname = window.location.pathname
+	/* 
 	// Navigation bar shadow when scrolling
 	var scrollnav = document.getElementById("navbar");
 	console.log(scrollnav)
