@@ -13,7 +13,7 @@ mongoose.connect(
 );
 
 const userSeed = new db.User({
-  username: 'some guy',
+  displayName: 'some guy',
   email: 'some.guy@gmail.com',
   password: 'some password'
 })
@@ -23,7 +23,7 @@ db.User.deleteMany({})
     return userSeed.save(err => {
       if (err) throw err;
 
-      db.User.findOne({ username: 'some guy' }, function (err, user) {
+      db.User.findOne({ displayName: 'some guy' }, function (err, user) {
         if (err) throw err;
 
         // test a matching password

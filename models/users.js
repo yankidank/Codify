@@ -5,23 +5,34 @@ const SALT_WORK_FACTOR = 10;
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  username: {
+  displayName: {
     type: String,
-    required: true,
-    index: { unique: true }
+    required: true
   },
   email: {
     type: String,
     index: { unique: true }
   },
-  password: {
-    type: String
+  // for future local strategy if needed
+  username: String,
+  password: String,
+
+  // What even is Oauth?
+  oauth: String,
+
+  github: {
+    id: String,
+    url: String
   },
-  source: {
-    type: String,
-    default: 'local'
+  google: {
+    id: String,
+    email: String
   },
-  oauth: String
+  linkedin: {
+    id: String,
+    url: String,
+    email: String
+  }
 }, { timestamps: true });
 
 userSchema.path('email').validate(function (email) {
