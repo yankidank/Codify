@@ -10,7 +10,7 @@ passport.use(
 			callbackURL: 'http://localhost:3001/auth/google/callback'
 		},
 		function (accessToken, refreshToken, profile, done) {
-			// console.log(profile);
+			console.log(profile);
 
 			// ^^ this profile parameter contains all of the information from google that should be stored in the database
 			// This is the information that should be stored in the database.
