@@ -18,7 +18,7 @@ const userSeed = new db.User({
   password: 'some password'
 })
 
-db.User.deleteMany({})
+db.User.find({})
   .then(() => {
     return userSeed.save(err => {
       if (err) throw err;
