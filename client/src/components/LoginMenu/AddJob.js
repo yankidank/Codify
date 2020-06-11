@@ -9,14 +9,18 @@ function AddJob(){
 
     useEffect(() => {
         // Paste Job URL
-		const paste = document.getElementById("paste");
+        const paste = document.getElementById("paste");
 		paste.addEventListener('click', () => {
-			console.log('paste')
 			if (!paste.value){
 				// Attempt to read clipboard text
 				navigator.clipboard.readText()
 				 .then(text => {
-					paste.value = text.trim();
+                    const pasteText = text.trim()
+                    // Check that the clipboard holds a link
+                    const checkUrl = pasteText.startsWith("http");
+                    if(checkUrl){
+                        paste.value = pasteText;
+                    }
 				 })
 				  .catch(err => {
 					console.log('Something went wrong', err);
