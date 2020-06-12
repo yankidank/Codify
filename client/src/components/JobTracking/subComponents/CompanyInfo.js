@@ -3,7 +3,7 @@ import StatusMenu from "./StatusMenu"
 
 function CompanyInfo(){
     return(
-        <div className="col s12 m12 l12">
+        <div className="col s12 m12 l6">
             <div className="row card-content">
                 <div className="card-inner job-company">
                     <div className="col m2 l2 company-image">

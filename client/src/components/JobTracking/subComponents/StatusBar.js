@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function StatusBar(props){
     return(
-        <div className="col s12 m12 l12">
+        <div className="col s12 m12 l6">
             <div className="statusBar">
                 {props.state}
                 <div>
