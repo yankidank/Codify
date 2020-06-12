@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
-const User = require('../models/users');
+const User = require('../models/User');
 
 passport.use(
 	new LinkedInStrategy(
