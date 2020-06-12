@@ -1,4 +1,5 @@
 import React from "react";
+import NewOfferBtn from "./NewOfferBtn";
 
 function OfferInputs(){
     return(
@@ -9,6 +10,7 @@ function OfferInputs(){
                     <input placeholder="Date"></input>
                     <input placeholder="Bonus"></input>
                 </div>
+                <NewOfferBtn />
             </div>
         </div>
     )

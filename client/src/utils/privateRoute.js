@@ -16,7 +16,7 @@ function PrivateRoute({ component: Component, ...rest }) {
 		});
 	}, []);
 
-	return isAuthenticated ? <Route {...rest} render={(props) => <Component {...props} />} /> : <h1>{'Loading'}</h1>;
+	return isAuthenticated ? <Route {...rest} render={(props) => <Component {...props} />} /> : <p>{'Loading'}</p>;
 }
 
 PrivateRoute.propTypes = {

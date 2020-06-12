@@ -17,9 +17,10 @@ const jobSchema = new Schema({
             date: Date,
             location: {
                 remote: Boolean,
-                Street: String,
-                City: String,
-                State: String
+                street: String,
+                city: String,
+                state: String,
+                zip: Number
             },
             notes: String
         }
@@ -59,6 +60,17 @@ const jobSchema = new Schema({
         }
     ]
 }, {timestamps: true});
+
+jobSchema.pre("save", function (next) {
+    let job = this;
+
+    if (!job.isModified('status')) return next();
+
+    const status = { status: this.status, date: new Date() };
+
+    job.statusHistory.push(status);
+    next()
+});
 
 const Job = mongoose.model("Job", jobSchema);
 
