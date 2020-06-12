@@ -38,7 +38,15 @@ router.get('/userid/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
 	const { userId, displayName, companyId, email, phone, position, notes } = req.body;
-	let newContactInfo = dropUndefined({ userId, displayName, companyId, email, phone, position, notes });
+	let newContactInfo = dropUndefined({
+		userId,
+		displayName,
+		companyId,
+		email,
+		phone,
+		position,
+		notes
+	});
 
 	try {
 		let newContact = await Contact.create(newContactInfo);

@@ -6,4 +6,4 @@ module.exports = {
   users,
   companies,
   contacts
-}
+};
