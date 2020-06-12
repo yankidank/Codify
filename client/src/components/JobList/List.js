@@ -8,7 +8,7 @@ const handleAdd = () => {
 
 function List(props){
     return (
-        <div className={props.cols}>
+        <div className={props.cols.propString}>
             <div className="card oneJobListing">
                 <div className="card-image">
                     <span className="card-title">Recent Jobs</span>
