@@ -13,9 +13,12 @@ passport.use(
 		function (accessToken, refreshToken, profile, done) {
 			const { id, displayName, emails } = profile;
 			// check if user is already in database
-			User.find({ google: { id: id } }, (err, user) => {
+			User.find({ $or: [{ google: { id: id } }, { email: emails[0].value }] }, (err, user) => {
+				if (err) throw err;
 				// if user already exists
 				if (user[0]) {
+					user[0].google.id = id;
+					user[0].save();
 					done(null, user[0]);
 				} else {
 					// create new user
