@@ -3,5 +3,5 @@ const companies = require('./companies');
 
 module.exports = {
   users,
-  companies
-}
+  companies,
+};

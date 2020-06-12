@@ -3,12 +3,12 @@ const User = require('../models/User');
 
 // passport serialization
 passport.serializeUser((user, done) => {
-	done(null, user._id);
+  done(null, user._id);
 });
 passport.deserializeUser(async (_id, done) => {
-	// find in the database by id
-	let user = await User.findById(_id);
-	done(null, user);
+  // find in the database by id
+  let user = await User.findById(_id);
+  done(null, user);
 });
 
 module.exports = passport;

@@ -30,37 +30,37 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
-	cookieSession({
-		maxAge: 60 * 60 * 1000,
-		keys: [process.env.COOKIE_KEY]
-	})
+  cookieSession({
+    maxAge: 60 * 60 * 1000,
+    keys: [process.env.COOKIE_KEY],
+  })
 );
 app.use(
-	cors({
-		origin: 'http://localhost:3000', // allow server to accept request from the client
-		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-		credentials: true // allow session cookie from browser to pass through
-	})
+  cors({
+    origin: 'http://localhost:3000', // allow server to accept request from the client
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // allow session cookie from browser to pass through
+  })
 );
 app.use(passport.initialize());
 app.use(passport.session());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('client/build'));
+  app.use(express.static('client/build'));
 }
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/presume', {
-	useUnifiedTopology: true,
-	useNewUrlParser: true,
-	useCreateIndex: true
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useCreateIndex: true,
 });
 // ROUTING
 app.use('/auth', authRoutes); // authentication
 app.use('/api', apiRoutes);
 // Send every request to the React app
 app.get('*', function (req, res) {
-	res.sendFile(path.join(__dirname, './client/build/index.html'));
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 app.listen(PORT, function () {
-	console.log(`🌎 ==> API server now on port ${PORT}!`);
+  console.log(`🌎 ==> API server now on port ${PORT}!`);
 });

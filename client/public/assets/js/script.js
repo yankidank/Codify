@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-	// Define URL path
-	// var pathname = window.location.pathname
-	/* 
+  // Define URL path
+  // var pathname = window.location.pathname
+  /* 
 	// Navigation bar shadow when scrolling
 	var scrollnav = document.getElementById("navbar");
 	console.log(scrollnav)
@@ -33,12 +33,12 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (!paste.value){
 				// Attempt to read clipboard text
 				navigator.clipboard.readText()
-				 .then(text => {
-					paste.value = text;
-				 })
-				  .catch(err => {
-					console.log('Something went wrong', err);
-				 })
+					.then(text => {
+						paste.value = text;
+					})
+						.catch(err => {
+						console.log('Something went wrong', err);
+					})
 			}
 		});
 	}

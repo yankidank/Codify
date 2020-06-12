@@ -1,12 +1,12 @@
-import React from "react";
-import Dashboard from "./Dashboard/Dashboard"
+import React from 'react';
+import Dashboard from './Dashboard/Dashboard';
 
-function Home(){
-    return(
-        <div className="home">
-            <Dashboard />
-        </div>
-    )
+function Home() {
+  return (
+    <div className="home">
+      <Dashboard />
+    </div>
+  );
 }
 
 export default Home;

@@ -1,46 +1,49 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const SALT_WORK_FACTOR = 10;
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-  displayName: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    index: { unique: true }
-  },
-  // for future local strategy if needed
-  username: String,
-  password: String,
+const userSchema = new Schema(
+  {
+    displayName: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      index: { unique: true },
+    },
+    // for future local strategy if needed
+    username: String,
+    password: String,
 
-  // What even is Oauth?
-  oauth: String,
+    // What even is Oauth?
+    oauth: String,
 
-  github: {
-    id: String,
-    url: String
+    github: {
+      id: String,
+      url: String,
+    },
+    google: {
+      id: String,
+      email: String,
+    },
+    linkedin: {
+      id: String,
+      url: String,
+      email: String,
+    },
   },
-  google: {
-    id: String,
-    email: String
-  },
-  linkedin: {
-    id: String,
-    url: String,
-    email: String
-  }
-}, { timestamps: true });
+  { timestamps: true }
+);
 
 userSchema.path('email').validate(function (email) {
   var emailRegex = /^([\w-.]+@([\w-]+\.)+[\w-]{2,4})?$/;
   return emailRegex.test(email);
-}, 'The e-mail field must be valid')
+}, 'The e-mail field must be valid');
 
-userSchema.pre("save", function (next) {
+userSchema.pre('save', function (next) {
   let user = this;
 
   if (!user.isModified('password')) return next();
@@ -59,10 +62,10 @@ userSchema.pre("save", function (next) {
   });
 });
 
-userSchema.methods.comparePassword = function(plaintext, callback) {
+userSchema.methods.comparePassword = function (plaintext, callback) {
   return callback(null, bcrypt.compareSync(plaintext, this.password));
 };
 
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model('user', userSchema);
 
 module.exports = User;

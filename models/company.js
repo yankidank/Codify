@@ -1,19 +1,22 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const companySchema = new Schema({
-  displayName: String,
-  logoUrl: String,
-  location: {
+const companySchema = new Schema(
+  {
+    displayName: String,
+    logoUrl: String,
+    location: {
       street: String,
       city: String,
       state: String,
-      zip: Number
+      zip: Number,
+    },
+    description: String,
+    notes: String,
   },
-  description: String,
-  notes: String
-}, {timestamps: true});
+  { timestamps: true }
+);
 
-const Company = mongoose.model("Company", companySchema);
+const Company = mongoose.model('Company', companySchema);
 
 module.exports = Company;
