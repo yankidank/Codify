@@ -14,25 +14,32 @@ router.get('/', async (request, response) => {
     }
   } = request;
 
-  const users = await User.find({
-    $and: buildFilter({ displayName, email, createdAt, updatedAt })
-  });
+  const filter = buildFilter({ displayName, email, createdAt, updatedAt });
+  const users = await User.find(filter.length ? { $and: filter } : {});
 
   response.send(users);
 })
 
 router.get('/:id', async (request, response) => {
   const { id } = request.params;
-  const users = await User.findById(id);
-  console.log(users);
-  response.send(users);
+  const user = await User.findById(id);
+
+  if (!user) {
+    response.status(404).send({ error: "User not found!"})
+  }
+
+  response.send(user);
 })
 
 router.delete('/:id', async (request, response) => {
   const { id } = request.params;
-  const result = await User.findByIdAndDelete(id);
-  console.log(result);
-  response.send(result);
+  const deleted = await User.findByIdAndDelete(id);
+
+  if (!deleted) {
+    response.status(404).send({ error: "User not found!"})
+  }
+
+  response.send({ deleted });
 })
 
 
