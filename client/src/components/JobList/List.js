@@ -23,6 +23,10 @@ function List(props){
     )
 }
 
+App.propTypes = {
+    propString: React.PropTypes.string,
+}
+
 export default List;
 
 
