@@ -1,19 +1,10 @@
 const router = require("express").Router();
 
-const { users, companies } = require('../controllers');
+const { users, companies, contacts} = require('../controllers');
 
 router.use('/users', users);
 router.use('/companies', companies);
-
-// router.get("/posts", (req, res) => {
-//   // Use a regular expression to search titles for req.query.q
-//   // using case insensitive match. https://docs.mongodb.com/manual/reference/operator/query/regex/index.html
-//   db.Post.find({
-//     title: { $regex: new RegExp(req.query.q, 'i')}
-//   })
-//     .then(posts => res.json(posts))
-//     .catch(err => res.status(422).send(err));
-// });
+router.use('/contacts', contacts);
 
 
 module.exports = router;

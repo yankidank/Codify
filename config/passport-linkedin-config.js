@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
-const User = require('../models/users');
+const User = require('../models/User');
 
 passport.use(
 	new LinkedInStrategy(
@@ -10,7 +10,7 @@ passport.use(
 			callbackURL: 'http://localhost:3001/auth/linkedin/callback',
 			scope: ['r_liteprofile', 'r_emailaddress']
 		},
-		async function (accessToken, refreshToken, profile, done) {
+		async (accessToken, refreshToken, profile, done) => {
 			const { id, displayName, emails } = profile;
 			try {
 				let user = await User.find({ $or: [{ linkedin: { id: id } }, { email: emails[0].value }] });

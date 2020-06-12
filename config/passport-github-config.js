@@ -1,6 +1,6 @@
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
-const User = require('../models/users');
+const User = require('../models/User');
 
 passport.use(
 	new GitHubStrategy(
@@ -9,7 +9,7 @@ passport.use(
 			clientSecret: process.env.GITHUB_CLIENT_SECRET,
 			callbackURL: 'http://localhost:3001/auth/github/callback'
 		},
-		async function (accessToken, refreshToken, profile, done) {
+		async (accessToken, refreshToken, profile, done) => {
 			const { id, displayName, profileUrl, _json } = profile;
 			try {
 				let user = await User.find({ $or: [{ linkedin: { id: id } }, { email: _json.email }] });
