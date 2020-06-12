@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Filter from "./Filter"
 import OneJobListing from "./JobListItem"
 
@@ -21,6 +22,10 @@ function List(props){
             </div>
         </div>
     )
+}
+
+List.propTypes = {
+    cols: PropTypes.string,
 }
 
 export default List;
