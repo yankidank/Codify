@@ -40,23 +40,23 @@ userSchema.path('email').validate(function (email) {
   return emailRegex.test(email);
 }, 'The e-mail field must be valid')
 
-userSchema.pre("save", function(next) {
+userSchema.pre("save", function (next) {
   let user = this;
 
   if (!user.isModified('password')) return next();
 
-  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+  bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
     if (err) return next(err);
 
     // hash the password along with our new salt
-    bcrypt.hash(user.password, salt, function(err, hash) {
-        if (err) return next(err);
+    bcrypt.hash(user.password, salt, function (err, hash) {
+      if (err) return next(err);
 
-        // override the cleartext password with the hashed one
-        user.password = hash;
-        next();
+      // override the cleartext password with the hashed one
+      user.password = hash;
+      next();
     });
-});
+  });
 });
 
 userSchema.methods.comparePassword = function(plaintext, callback) {
@@ -64,6 +64,5 @@ userSchema.methods.comparePassword = function(plaintext, callback) {
 };
 
 const User = mongoose.model("user", userSchema);
-
 
 module.exports = User;

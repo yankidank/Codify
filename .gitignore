@@ -72,6 +72,9 @@ typings/
 .env
 .env.test
 
+# Hidden OSX Finder file
+.DS_Store
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
