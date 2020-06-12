@@ -1,12 +1,12 @@
 const { Router } = require('express');
-const moment = require('moment');
 const { User } = require('../models');
+const { buildFilter } = require('../utils/queryHelper');
 
 const router = Router();
 
 router.get('/', async (request, response) => {
   const {
-    params: {
+    query: {
       displayName,
       email,
       createdAt,
@@ -15,21 +15,23 @@ router.get('/', async (request, response) => {
   } = request;
 
   const users = await User.find({
-    $or: [
-      { displayName: new RegExp(displayName) },
-      { email: new RegExp(email) },
-      { createdAt: moment(createdAt).startOf('day')},
-      { updatedAt: moment(updatedAt).startOf('day')}
-    ]
+    $and: buildFilter({ displayName, email, createdAt, updatedAt })
   });
   response.send(users);
 })
 
 router.get('/:id', async (request, response) => {
-  const { id: _id } = request.params;
-  const users = await User.find({ _id });
+  const { id } = request.params;
+  const users = await User.findById(id);
   console.log(users);
   response.send(users);
+})
+
+router.delete('/:id', async (request, response) => {
+  const { id } = request.params;
+  const result = await User.findByIdAndDelete(id);
+  console.log(result);
+  response.send(result);
 })
 
 
