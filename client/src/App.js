@@ -21,10 +21,10 @@ function App() {
 					<PrivateRoute exact path="/menu" component={MenuLoggedIn} />
 					<PrivateRoute exact path="/dashboard" component={Dashboard} />
 					<PrivateRoute exact path="/jobs/add" component={AddJob} />
-					<PrivateRoute exact path="/jobs/saved" component={Saved} />
-					<PrivateRoute exact path="/jobs/applied" component={Applied} />
-					<PrivateRoute exact path="/jobs/interview" component={Interview} />
-					<PrivateRoute exact path="/jobs/offer" component={Offer} />
+					<PrivateRoute exact path="/jobs/:id/saved" component={Saved} />
+					<PrivateRoute exact path="/jobs/:id/applied" component={Applied} />
+					<PrivateRoute exact path="/jobs/:id/interview" component={Interview} />
+					<PrivateRoute exact path="/jobs/:id/offer" component={Offer} />
 					<PrivateRoute exact path="/jobs" component={JobsList} />
 				</Switch>
 				<Route exact path="/" component={Home} />

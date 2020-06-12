@@ -4,7 +4,7 @@ function NewInterviewBtn(){
     return(
         <div className="newInterviewBtn">
             <div>
-                <h3>Header: Interview</h3>
+                <h3>Interview</h3>
             </div>
             <div>
                 <button>NEW INTERVIEW</button>

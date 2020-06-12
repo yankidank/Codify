@@ -2,13 +2,15 @@ import React from "react";
 
 function InterviewInputs(){
     return(
-        <div className="interviewInputs">
-            <div>
-                <input value="Date"></input>
-                <input value="Time"></input>
-                <input value="Location"></input>
-                <textarea value="Notes"></textarea>
-                <button>ADD NEW INTERVIEW</button>
+        <div className="col s12 m12 l6">
+            <div className="card interview">
+                <div className="interviewInputs">
+                    <input placeholder="Date"></input>
+                    <input placeholder="Time"></input>
+                    <input placeholder="Location"></input>
+                    <textarea placeholder="Notes"></textarea>
+                    <button>ADD NEW INTERVIEW</button>
+                </div>
             </div>
         </div>
     )

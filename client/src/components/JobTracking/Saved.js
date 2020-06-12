@@ -1,4 +1,5 @@
 import React from "react";
+import NavBar from "../NavBar"
 import CompanyInfo from "./subComponents/CompanyInfo"
 import StatusBar from "./subComponents/StatusBar"
 import Position from "./subComponents/Position"
@@ -10,13 +11,18 @@ import NewInterviewBtn from "./subComponents/NewInterviewBtn"
 function Saved(){
     return(
         <div className="saved">
-            <CompanyInfo />
-            <StatusBar />
-            <Position />
-            <NewContactBtn />
-            <Contact />
-            <NewInterviewBtn />
-            <InterviewInputs />
+            <NavBar />
+            <div className="container">
+                <div className="row">
+                    <CompanyInfo />
+                    <StatusBar state="saved" />
+                    <Position />
+                    <NewContactBtn />
+                    <Contact />
+                    <NewInterviewBtn />
+                    <InterviewInputs />
+                </div>
+            </div>
         </div>
     )
 }

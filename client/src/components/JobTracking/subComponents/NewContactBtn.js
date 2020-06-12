@@ -4,7 +4,7 @@ function NewContactBtn(){
     return(
         <div className="newContactBtn">
             <div>
-                <h3>Header: Contacts</h3>
+                <h3>Contacts</h3>
             </div>
             <div>
                 <button>NEW CONTACT</button>

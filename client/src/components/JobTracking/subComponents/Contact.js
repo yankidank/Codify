@@ -2,12 +2,14 @@ import React from "react";
 
 function Contact(){
     return (
-        <div className="contact">
-            <div>
-                <input value="Name"></input>
-                <input value="Email"></input>
-                <input value="Phone"></input>
-                <input value="Position"></input>
+        <div className="col s12 m12 l6 saved">
+            <div className="card contact">
+                <div className="contactInputs">
+                    <input placeholder="Name"></input>
+                    <input placeholder="Email"></input>
+                    <input placeholder="Phone"></input>
+                    <input placeholder="Position"></input>
+                </div>
             </div>
         </div>
     )

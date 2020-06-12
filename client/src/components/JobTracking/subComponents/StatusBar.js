@@ -1,8 +1,9 @@
 import React from  "react";
 
-function StatusBar(){
+function StatusBar(props){
     return(
         <div className="statusBar">
+            {props.state}
             <div>
                 <p>SAVED</p>
                 <div>STYLE DIV</div>

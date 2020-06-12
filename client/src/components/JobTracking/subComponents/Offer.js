@@ -2,10 +2,14 @@ import React from "react";
 
 function OfferInputs(){
     return(
-        <div className="offerInputs">
-            <input value="Offer Amount"></input>
-            <input value="Date"></input>
-            <input value="Bonus"></input>
+        <div className="col s12 m12 l6">
+            <div className="card offer">
+                <div className="offerInputs">
+                    <input placeholder="Offer Amount"></input>
+                    <input placeholder="Date"></input>
+                    <input placeholder="Bonus"></input>
+                </div>
+            </div>
         </div>
     )
 }

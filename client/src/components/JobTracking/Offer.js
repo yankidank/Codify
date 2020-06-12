@@ -1,4 +1,5 @@
 import React from "react";
+import NavBar from "../NavBar"
 import CompanyInfo from "./subComponents/CompanyInfo"
 import StatusBar from "./subComponents/StatusBar"
 import Position from "./subComponents/Position"
@@ -10,13 +11,18 @@ import OfferInputs from "./subComponents/Offer"
 function Offer(){
     return(
         <div className="offer">
-            <CompanyInfo />
-            <StatusBar />
-            <NewOfferBtn />
-            <OfferInputs />
-            <Position />
-            <NewContactBtn />
-            <Contact />
+            <NavBar />
+            <div className="container">
+                <div className="row">
+                    <CompanyInfo />
+                    <StatusBar state="offer"/>
+                    <NewOfferBtn />
+                    <OfferInputs />
+                    <Position />
+                    <NewContactBtn />
+                    <Contact />
+                </div>
+            </div>
         </div>
     )
 }
