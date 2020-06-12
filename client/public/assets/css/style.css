@@ -135,6 +135,21 @@ button {
 .card-inner {
 	display: flex;
 }
+.job-company {
+	color:#fff;
+}
+.job-company .company-details p {
+	margin:0;
+    font-size: 0.9rem;
+	line-height: 1.3rem;
+	font-weight: 300;
+}
+.job-company .company-details h3 {
+	margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+}
 .card-inner .company-image {
 	margin-left:0 !important;
 	margin-right: 0 !important;

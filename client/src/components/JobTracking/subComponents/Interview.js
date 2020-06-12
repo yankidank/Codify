@@ -1,4 +1,5 @@
 import React from "react";
+import NewInterviewBtn from "./NewInterviewBtn";
 
 function InterviewInputs(){
     return(
@@ -9,7 +10,7 @@ function InterviewInputs(){
                     <input placeholder="Time"></input>
                     <input placeholder="Location"></input>
                     <textarea placeholder="Notes"></textarea>
-                    <button>ADD NEW INTERVIEW</button>
+                    <NewInterviewBtn />
                 </div>
             </div>
         </div>
