@@ -2,17 +2,14 @@ const { Router } = require('express');
 const { Contact } = require('../models');
 const { dropUndefined } = require('../utils/dropUndefined');
 const { buildFilter } = require('../utils/queryHelper');
-const ObjectId = require('mongodb').ObjectID;
 
 const router = Router();
 
 // gets one contact by contact ID
 router.get('/:id', async (req, res) => {
 	const { id } = req.params;
-	let contactId = ObjectId(id);
-
 	try {
-		const contact = await Contact.findById(contactId);
+		const contact = await Contact.findById(id);
 
 		if (!contact) {
 			res.status(404).send({ error: 'Contact not found!' });
@@ -27,10 +24,8 @@ router.get('/:id', async (req, res) => {
 // gets all contacts associated with a user
 router.get('/userid/:id', async (req, res) => {
 	const { id } = req.params;
-	let contactId = ObjectId(id);
-
 	try {
-		const contact = await Contact.find({ userId: contactId });
+		const contact = await Contact.find({ userId: id });
 		if (contact.length == 0) {
 			res.status(404).send({ error: 'No contacts found for user!' });
 		} else {
@@ -42,8 +37,7 @@ router.get('/userid/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-	let { userId, displayName, companyId, email, phone, position, notes } = req.body;
-	userId = ObjectId(userId);
+	const { userId, displayName, companyId, email, phone, position, notes } = req.body;
 	let newContactInfo = dropUndefined({ userId, displayName, companyId, email, phone, position, notes });
 
 	try {
@@ -64,21 +58,18 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
 	const { id } = req.params;
-	let contactId = ObjectId(id);
-
 	const { displayName, email, phone, companyId, position, notes } = req.body;
 	let fieldsToUpdate = dropUndefined({ displayName, email, phone, companyId, position, notes });
 
-	let updatedContact = await Contact.findByIdAndUpdate(contactId, fieldsToUpdate, { new: true });
-	
+	let updatedContact = await Contact.findByIdAndUpdate(id, fieldsToUpdate, { new: true });
+
 	if (!updatedContact) res.status(404).send({ error: 'Contact not found!' });
 	else res.json(updatedContact);
 });
 
 router.delete('/:id', async (req, res) => {
 	const { id } = req.params;
-	let contactId = ObjectId(id);
-	let deletedContact = await Contact.findByIdAndRemove(contactId);
+	let deletedContact = await Contact.findByIdAndRemove(id);
 	if (!deletedContact) res.status(404).send({ error: 'Contact not found!' });
 	else res.json(deletedContact);
 });
