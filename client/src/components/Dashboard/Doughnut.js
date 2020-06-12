@@ -39,7 +39,8 @@ function DoughtnutChart(){
                       display:true,
                       position:'top'
                     }, 
-                    cutoutPercentage: 80,
+                    cutoutPercentage: 77,
+                    maintainAspectRatio: false,
                   }}
                 />
             </div>
