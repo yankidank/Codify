@@ -141,7 +141,7 @@ const seedAll = async () => {
     const contacts = await seedContacts(contactSeed(someGuysId, someCompanyIds));
     const someContactIds = [contacts[0]._id];
 
-    const jobs = await seedJobs(jobSeed(someGuysId, someCompanyIds[0], someContactIds));
+    await seedJobs(jobSeed(someGuysId, someCompanyIds[0], someContactIds));
 
     process.exit(0);
   } catch (error) {
