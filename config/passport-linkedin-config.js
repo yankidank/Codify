@@ -11,13 +11,10 @@ passport.use(
 			scope: ['r_liteprofile', 'r_emailaddress']
 		},
 		function (accessToken, refreshToken, profile, done) {
-			// console.log(profile);
-
-			// ^^ this profile parameter contains all of the information from google that should be stored in the database
-			// This is the information that should be stored in the database.
-			// When MongoDB returns the new user, it should be passed to the done method (I have created a user object because we don't have a User Schema yet)
+			console.log(profile);
 			const { id, displayName, emails } = profile;
 			User.find({ $or: [{ linkedin: { id: id } }, { email: emails[0].value }] }, (err, user) => {
+				if (err) throw err;
 				// if user already exists
 				if (user[0]) {
 					user[0].linkedin.id = id;

@@ -14,6 +14,7 @@ passport.use(
 			const { id, displayName, emails } = profile;
 			// check if user is already in database
 			User.find({ $or: [{ google: { id: id } }, { email: emails[0].value }] }, (err, user) => {
+				if (err) throw err;
 				// if user already exists
 				if (user[0]) {
 					user[0].google.id = id;
