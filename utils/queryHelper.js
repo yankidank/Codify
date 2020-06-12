@@ -1,5 +1,10 @@
 const moment = require('moment');
 
+// usage:   
+//   const users = await User.find({
+//     $and: buildFilter({ displayName, email, createdAt, updatedAt })
+//   });
+
 function buildFilter(fieldObject) {
 
   return Object.entries(fieldObject)

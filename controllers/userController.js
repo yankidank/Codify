@@ -17,6 +17,7 @@ router.get('/', async (request, response) => {
   const users = await User.find({
     $and: buildFilter({ displayName, email, createdAt, updatedAt })
   });
+
   response.send(users);
 })
 
