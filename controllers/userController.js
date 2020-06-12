@@ -5,6 +5,7 @@ const { buildFilter } = require('../utils/queryHelper');
 const router = Router();
 
 router.get('/', async (request, response) => {
+
   const {
     query: {
       displayName,
@@ -15,12 +16,14 @@ router.get('/', async (request, response) => {
   } = request;
 
   const filter = buildFilter({ displayName, email, createdAt, updatedAt });
+
   const users = await User.find(filter.length ? { $and: filter } : {});
 
   response.send(users);
 })
 
 router.get('/:id', async (request, response) => {
+
   const { id } = request.params;
   const user = await User.findById(id);
 
@@ -32,6 +35,7 @@ router.get('/:id', async (request, response) => {
 })
 
 router.delete('/:id', async (request, response) => {
+
   const { id } = request.params;
   const deleted = await User.findByIdAndDelete(id);
 
