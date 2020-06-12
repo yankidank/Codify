@@ -7,10 +7,10 @@ function Dashboard(){
     return(
         <div>
             <NavBar />
-            <div className="container dashboard">
+            <div className="container pushtop dashboard">
                 <div className="row">
                     <DoughtnutChart />
-                    <List />
+                    <List cols="col s12 m12 l8" />
                 </div>
             </div>
         </div>
