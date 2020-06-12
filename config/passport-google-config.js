@@ -10,27 +10,23 @@ passport.use(
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 			callbackURL: 'http://localhost:3001/auth/google/callback'
 		},
-		function (accessToken, refreshToken, profile, done) {
+		async function (accessToken, refreshToken, profile, done) {
 			const { id, displayName, emails } = profile;
-			// check if user is already in database
-			User.find({ $or: [{ google: { id: id } }, { email: emails[0].value }] }, (err, user) => {
-				if (err) throw err;
-				// if user already exists
+			try {
+				let user = await User.find({ $or: [{ google: { id: id } }, { email: emails[0].value }] });
+				// if user is already in the database
 				if (user[0]) {
+					// ensure that user has google profile stuff
 					user[0].google.id = id;
 					user[0].save();
 					done(null, user[0]);
 				} else {
-					// create new user
-					User.create({ displayName, email: emails[0].value, google: { id } }, (err, user) => {
-						if (err) {
-							done(err, false);
-						} else {
-							done(null, user);
-						}
-					});
+					let newUser = await User.create({ displayName, email: emails[0].value, google: { id } });
+					done(null, newUser);
 				}
-			});
+			} catch (error) {
+				done(error, false);
+			}
 		}
 	)
 );
