@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Filter from "./Filter"
 import OneJobListing from "./JobListItem"
 
@@ -6,9 +7,9 @@ const handleAdd = () => {
     window.open("/jobs/add", "_self")
 }
 
-function List(props){
+function List(){
     return (
-        <div className={props.cols}>
+        <div className={this.cols}>
             <div className="card oneJobListing">
                 <div className="card-image">
                     <span className="card-title">Recent Jobs</span>
@@ -21,6 +22,10 @@ function List(props){
             </div>
         </div>
     )
+}
+
+List.propTypes = {
+    cols: PropTypes.string,
 }
 
 export default List;
