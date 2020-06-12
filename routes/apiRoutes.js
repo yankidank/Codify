@@ -1,8 +1,9 @@
 const router = require("express").Router();
 
-const { userController } = require('../controllers');
+const { users, companies } = require('../controllers');
 
-router.use('/users', userController);
+router.use('/users', users);
+router.use('/companies', companies);
 
 // router.get("/posts", (req, res) => {
 //   // Use a regular expression to search titles for req.query.q

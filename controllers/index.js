@@ -1,5 +1,7 @@
-const userController = require('./userController');
+const users = require('./users');
+const companies = require('./companies');
 
 module.exports = {
-  userController
+  users,
+  companies
 }
