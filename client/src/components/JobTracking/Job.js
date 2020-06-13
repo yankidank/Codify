@@ -13,8 +13,8 @@ function Saved() {
       <NavBar />
       <div className="container job-container">
         <div className="row">
-          <CompanyInfo />
           <StatusBar state="saved" />
+          <CompanyInfo />
           <PositionCard />
           <ContactCard />
           <InterviewCard />

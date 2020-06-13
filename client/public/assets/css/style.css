@@ -95,7 +95,7 @@ canvas {
 .card {
   display: flex;
   flex-direction: column;
-  margin-bottom: 54px;
+  margin-bottom: 70px;
   padding: 22px 12px;
   background: #ffffff;
   box-shadow: 1px -2.5px 6px rgba(0, 0, 0, 0.25);
@@ -300,7 +300,62 @@ button {
   flex: none;
   order: 0;
 }
+.statusBar{
+	width:100%;
+	margin-bottom: 10%;
+}
+.circle-status:last-child {
+	background:none;
+}
+.circle-status p {
+	cursor: default;
+}
+.circle-status{
+	text-align: center;
+	font-size:1rem;
+	font-weight:300;
+	color: rgba(255, 255, 255, 0.5);
+	display:inline-block;
+	width:25%;
+	margin-bottom:-10px;
+}
+.circle-status-first {
+	margin-left: 40%;
+	text-align: left;
+}
+.circle-status-last {
+	margin-right: 40%;
+	text-align:right;
+}
+.circle-connection{
+	width:100%;
+	height:2px;
+	background:#38C976;
+	border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+	display:inline-block;
 
+}
+.circle-outer{
+	margin-top: -8px;
+}
+.circle-inner{
+	cursor: pointer;
+  display: inline-block;
+	width: 18px;
+	height: 18px;
+	border: 3px solid #fff;
+	border-radius: 50%;
+	background:#38C976
+}
+.circle-active {
+	color:#fff;
+}
+.circle-inner.circle-inactive{
+	background:#fff;
+}
+.circle-inactive{
+	background:none;
+}
 /* LOGIN MENU */
 
 .menuNav {
