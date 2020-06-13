@@ -143,6 +143,12 @@ button {
 	color: #fff;
 	flex-wrap:wrap;
 }
+.company-details a {
+	color:rgba(0, 0, 0, 1);
+}
+.company-details a:hover {
+	color:rgba(0, 0, 0, 0.75);
+}
 .job-company .company-details p {
   margin: 0;
   font-size: 0.9rem;
