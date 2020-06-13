@@ -14,7 +14,7 @@ function OfferCard() {
           <input placeholder="Offer Amount"></input>
           <input placeholder="Date"></input>
           <input placeholder="Bonus"></input>
-          <button class="btn btn-card">Accept Offer</button>
+          <button className="btn btn-card">Accept Offer</button>
         </div>
       </div>
     </div>
