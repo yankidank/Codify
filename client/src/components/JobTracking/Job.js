@@ -2,23 +2,23 @@ import React from 'react';
 import NavBar from '../NavBar';
 import CompanyInfo from './subComponents/CompanyInfo';
 import StatusBar from './subComponents/StatusBar';
-import Position from './subComponents/Position';
-import Contact from './subComponents/Contact';
-import InterviewInputs from './subComponents/Interview';
-import OfferInputs from './subComponents/Offer';
+import PositionCard from './subComponents/Position';
+import ContactCard from './subComponents/Contact';
+import InterviewCard from './subComponents/Interview';
+import OfferCard from './subComponents/Offer';
 
 function Saved() {
   return (
     <div className="job">
       <NavBar />
-      <div className="container">
+      <div className="container job-container">
         <div className="row">
-          <CompanyInfo />
           <StatusBar state="saved" />
-          <Position />
-          <Contact />
-          <InterviewInputs />
-          <OfferInputs />
+          <CompanyInfo />
+          <PositionCard />
+          <ContactCard />
+          <InterviewCard />
+          <OfferCard />
         </div>
       </div>
     </div>
