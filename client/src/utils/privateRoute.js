@@ -7,7 +7,7 @@ function PrivateRoute({ component: Component, ...rest }) {
 	const [isAuthenticated, setAuthenticated] = useState(false);
 
 	useEffect(() => {
-		axiosInstance.get('http://localhost:3001/auth/isauthenticated').then((data) => {
+		axiosInstance.get('/auth/isauthenticated').then((data) => {
 			if (data.data.user !== undefined) {
 				setAuthenticated(true);
 			} else {

@@ -3,19 +3,15 @@ import PropTypes from 'prop-types';
 import Filter from './Filter';
 import OneJobListing from './JobListItem';
 
-const handleAdd = () => {
-  window.open('/jobs/add', '_self');
-};
-
 function List(props) {
   return (
     <div className={props.cols}>
       <div className="card oneJobListing">
         <div className="card-image">
           <span className="card-title">Recent Jobs</span>
-          <span className="card-button" onClick={handleAdd}>
+          <a className="card-button" href="/jobs/add">
             Add New Job
-          </span>
+          </a>
         </div>
         <div className="container container-full ">
           <Filter />

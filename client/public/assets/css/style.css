@@ -374,7 +374,7 @@ button {
   min-height: 100vh;
 }
 
-.menuNav button {
+.menuNav .button {
   position: static;
   width: 340px;
   height: 49px;
@@ -383,7 +383,7 @@ button {
   margin: 15px;
   border-radius: 5px;
 }
-.menuNav button:hover {
+.menuNav .button:hover {
   color: #b9b9b9; /* 05ACE1 */
 }
 .btn-github:active,
@@ -431,18 +431,19 @@ input:not([type]):focus:not([readonly]) {
   margin-top: 8%;
   color: #fff;
 }
-.menuNav ul li button {
+.menuNav ul li .button {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  align-content: center;
+	align-content: center;
+	cursor:pointer;
 }
-.menuNav ul li button div.btn-logo {
+.menuNav ul li .button div.btn-logo {
   float: left;
   margin-right: 10px;
 }
-.menuNav ul li button div.btn-title {
+.menuNav ul li .button div.btn-title {
   float: left;
 }
 .btn-logo img {
