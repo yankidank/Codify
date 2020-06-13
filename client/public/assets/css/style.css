@@ -231,7 +231,8 @@ button {
   background: none;
   color: red;
   box-shadow: none;
-  border: none;
+	border: none;
+	border-radius: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 .btn-remove:hover,
