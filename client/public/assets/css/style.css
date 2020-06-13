@@ -140,7 +140,14 @@ button {
   display: flex;
 }
 .job-company {
-  color: #fff;
+	color: #fff;
+	flex-wrap:wrap;
+}
+.company-details a {
+	color:rgba(0, 0, 0, 1);
+}
+.company-details a:hover {
+	color:rgba(0, 0, 0, 0.75);
 }
 .job-company .company-details p {
   margin: 0;
@@ -157,7 +164,6 @@ button {
 .card-inner .company-image {
   margin-left: 0 !important;
   margin-right: 0 !important;
-  width: auto !important;
 }
 .company-image i {
   padding-left: 10px;
@@ -349,6 +355,7 @@ button {
 }
 .circle-active {
 	color:#fff;
+	font-weight:400;
 }
 .circle-inner.circle-inactive{
 	background:#fff;
@@ -367,7 +374,7 @@ button {
   min-height: 100vh;
 }
 
-.menuNav button {
+.menuNav .button {
   position: static;
   width: 340px;
   height: 49px;
@@ -376,7 +383,7 @@ button {
   margin: 15px;
   border-radius: 5px;
 }
-.menuNav button:hover {
+.menuNav .button:hover {
   color: #b9b9b9; /* 05ACE1 */
 }
 .btn-github:active,
@@ -424,18 +431,19 @@ input:not([type]):focus:not([readonly]) {
   margin-top: 8%;
   color: #fff;
 }
-.menuNav ul li button {
+.menuNav ul li .button {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  align-content: center;
+	align-content: center;
+	cursor:pointer;
 }
-.menuNav ul li button div.btn-logo {
+.menuNav ul li .button div.btn-logo {
   float: left;
   margin-right: 10px;
 }
-.menuNav ul li button div.btn-title {
+.menuNav ul li .button div.btn-title {
   float: left;
 }
 .btn-logo img {

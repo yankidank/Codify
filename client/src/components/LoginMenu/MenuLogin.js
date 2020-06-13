@@ -1,18 +1,6 @@
 import React from 'react';
 import NavBar from '../NavBar';
 
-const handleGoogleLogin = () => {
-  window.open('http://localhost:3001/auth/google', '_self');
-};
-const handleGithubLogin = () => {
-  window.open('http://localhost:3001/auth/github', '_self');
-};
-const handleLinkedInLogin = () => {
-  window.open('http://localhost:3001/auth/linkedin', '_self');
-};
-const handleHome = () => {
-  window.open('/', '_self');
-};
 function MenuLogin() {
   return (
     <div>
@@ -20,34 +8,34 @@ function MenuLogin() {
       <div className="menuNav">
         <ul>
           <li>
-            <button onClick={handleHome} className="btn-home-login">
-              HOME
-            </button>
+            <a href="/" className="button btn-home-login">
+              Home
+            </a>
           </li>
-          {/* <li><button onClick={handleAbout} className="btn-home-login">ABOUT</button></li> */}
+          {/* <li><a onClick={handleAbout} className="btn-home-login">ABOUT</a></li> */}
           <li>
-            <button onClick={handleGithubLogin} className="btn-github">
+            <a href="http://localhost:3001/auth/github" className="button btn-github">
               <div className="btn-logo">
                 <img src="/assets/img/icon-github.png" alt="GitHub"></img>
               </div>
               <div className="btn-title">Login with GitHub</div>
-            </button>
+            </a>
           </li>
           <li>
-            <button onClick={handleLinkedInLogin} className="btn-linkedin">
+            <a href="http://localhost:3001/auth/linkedin" className="button btn-linkedin">
               <div className="btn-logo">
                 <img src="/assets/img/icon-linkedin.png" alt="LinkedIn"></img>
               </div>
               <div className="btn-title">Login with LinkedIn</div>
-            </button>
+            </a>
           </li>
           <li>
-            <button onClick={handleGoogleLogin} className="btn-google">
+            <a href="http://localhost:3001/auth/google" className="button btn-google">
               <div className="btn-logo">
                 <img src="/assets/img/icon-google.png" alt="Google"></img>
               </div>
               <div className="btn-title">Login with Google</div>
-            </button>
+            </a>
           </li>
         </ul>
       </div>
