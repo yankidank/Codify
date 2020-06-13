@@ -63,6 +63,9 @@ canvas {
   justify-content: center;
   align-items: center;
 }
+.btn,.btn:active, .btn:hover, .btn:focus {
+	box-shadow: none;
+}
 .btn-filter {
   margin: 5px 10px;
 }
