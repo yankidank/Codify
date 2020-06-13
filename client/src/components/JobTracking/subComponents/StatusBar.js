@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 function StatusBar() {
   return (
     <div className="col s12 m12 l12">
-      {/* {props.state} */}
       <div className="statusBar">
         <div className="circle-status">
           <p>Saved</p>

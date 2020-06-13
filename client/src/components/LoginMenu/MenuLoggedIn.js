@@ -1,50 +1,41 @@
 import React from 'react';
+import axios from 'axios';
 import NavBar from '../NavBar';
-
-const handleHome = () => {
-	window.open('/', '_self');
-};
-const handleJobs = () => {
-	window.open('/jobs', '_self');
-};
-const handleAdd = () => {
-	window.open('/jobs/add', '_self');
-};
 const handleLogout = () => {
-	window.open('http://localhost:3001/auth/logout', '_self');
+  axios.get('/auth/logout',);
+  window.location = '/';
 };
 
 function MenuLoggedIn() {
-	return (
-		<div>
-			<NavBar />
-			<div className="menuNav">
-				<ul>
-					<li>
-						<button onClick={handleHome} className="btn-home-login">
-							HOME
-						</button>
-					</li>
-					{/* <li><button onClick={handleAbout} className="btn-home-login">ABOUT</button></li> */}
-					<li>
-						<button onClick={handleJobs} className="btn-home-login">
-							YOUR JOBS
-						</button>
-					</li>
-					<li>
-						<button onClick={handleAdd} className="btn-home-login">
-							ADD JOB
-						</button>
-					</li>
-					<li>
-						<button onClick={handleLogout} className="btn-home-login">
-							LOGOUT
-						</button>
-					</li>
-				</ul>
-			</div>
-		</div>
-	);
+  return (
+    <div>
+      <NavBar />
+      <div className="menuNav">
+        <ul>
+          <li>
+            <a href="/" className="button btn-home-login">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/jobs" className="button btn-home-login">
+              Your Jobs
+            </a>
+          </li>
+          <li>
+            <a href="/jobs/add" className="button btn-home-login">
+              Add Job
+            </a>
+          </li>
+          <li>
+            <span onClick={handleLogout} className="button btn-home-login">
+              Logout
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
 }
 
 export default MenuLoggedIn;

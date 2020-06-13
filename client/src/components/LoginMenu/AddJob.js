@@ -2,9 +2,6 @@ import React, { useEffect } from 'react';
 import NavBar from '../NavBar';
 
 function AddJob() {
-  const handleAdd = () => {
-    window.open('/jobs', '_self');
-  };
 
   useEffect(() => {
     // Paste Job URL
@@ -43,9 +40,9 @@ function AddJob() {
             ></input>
           </li>
           <li>
-            <button onClick={handleAdd} className="btn-job-add">
+            <a href="/jobs/add" className="button btn-job-add">
               Save Job
-            </button>
+            </a>
           </li>
         </ul>
       </div>
