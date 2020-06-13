@@ -3,9 +3,10 @@ const Schema = mongoose.Schema;
 
 const contactSchema = new Schema(
   {
-    userId: {
+    user: {
       type: mongoose.ObjectId,
       required: true,
+      ref: 'User'
     },
     displayName: {
       type: String,
@@ -21,7 +22,10 @@ const contactSchema = new Schema(
       unique: true,
       sparse: true,
     },
-    companyId: [mongoose.ObjectId],
+    company: [{
+      type: mongoose.ObjectId,
+      ref: 'Company'
+    }],
     position: String,
     notes: String,
   },

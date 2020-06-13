@@ -9,7 +9,7 @@ const router = Router();
 router.get('/:id', async (req, res) => {
 	const { id } = req.params;
 	try {
-		const contact = await Contact.findById(id);
+		const contact = await Contact.findById(id).populate('company');
 
 		if (!contact) {
 			res.status(404).send({ error: 'Contact not found!' });
@@ -25,7 +25,7 @@ router.get('/:id', async (req, res) => {
 router.get('/userid/:id', async (req, res) => {
 	const { id } = req.params;
 	try {
-		const contact = await Contact.find({ userId: id });
+		const contact = await Contact.find({ userId: id }).populate('company');
 		if (contact.length == 0) {
 			res.status(404).send({ error: 'No contacts found for user!' });
 		} else {
@@ -54,7 +54,7 @@ router.post('/', async (req, res) => {
 		res.json(newContact);
 	} catch (err) {
 		let filter = buildFilter({ email, phone });
-		let duplicateContact = await Contact.find(filter.length ? { $or: filter } : {});
+		let duplicateContact = await Contact.find(filter.length ? { $or: filter } : {}).populate('company');
 
 		if (duplicateContact) {
 			res.status(409).json(duplicateContact);
