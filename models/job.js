@@ -3,16 +3,24 @@ const Schema = mongoose.Schema;
 
 const jobSchema = new Schema(
   {
-    userId: {
+    user: {
       type: mongoose.ObjectId,
       required: true,
       index: { unique: true },
+      ref: 'User'
     },
     name: {
       type: String,
       required: true,
     },
-    companyId: mongoose.ObjectId,
+    company: {
+      type: mongoose.ObjectId,
+      ref: 'Company'
+    },
+    contacts: [{
+      type: mongoose.ObjectId,
+      ref: 'Contact'
+    }],
     interviews: [
       {
         date: Date,

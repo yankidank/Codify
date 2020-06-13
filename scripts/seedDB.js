@@ -34,10 +34,10 @@ const userSeed = [
   },
 ];
 
-const contactSeed = (userId, companyId) => [
+const contactSeed = (user, company) => [
   {
-    userId,
-    companyId,
+    user,
+    company,
     displayName: 'some dude i dunno',
     email: 'some.dude@gmail.com',
     phone: '8888888888',
@@ -46,11 +46,11 @@ const contactSeed = (userId, companyId) => [
   },
 ];
 
-const jobSeed = (userId, companyId, contactIds) => [
+const jobSeed = (user, company, contacts) => [
   {
-    userId,
-    companyId,
-    contactIds,
+    user,
+    company,
+    contacts,
     name: 'Google Software Developer',
     interviews: [
       {

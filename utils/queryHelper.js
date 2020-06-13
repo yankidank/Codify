@@ -5,14 +5,39 @@ const moment = require('moment');
 //     $and: buildFilter({ displayName, email, createdAt, updatedAt })
 //   });
 
+function flatten(obj) {
+  const isObject = val => typeof val === 'object' && !Array.isArray(val);
+
+  const addDelimiter = (a, b) => (a ? `${a}.${b}` : b);
+
+  const paths = (obj = {}, head = '') => {
+    return Object.entries(obj).reduce((product, [key, value]) => {
+      let fullPath = addDelimiter(head, key);
+      return isObject(value)
+        ? [...product, ...paths(value, fullPath)]
+        : [...product, [fullPath, value]];
+    }, []);
+  };
+
+  const dotObject = Object.fromEntries(paths(obj));
+
+  return dotObject;
+}
+
 function buildFilter(fieldObject) {
-  return Object.entries(fieldObject)
+  return Object.entries(flatten(fieldObject))
     .map(([key, value]) => {
-      if (Date.parse(value)) {
+      const number = parseFloat(value)
+      if (number) {
+        return { [key]: number };
+      }
+
+      const date = Date.parse(value);
+      if (date) {
         return {
           [key]: {
-            $gte: moment(value).startOf('day'),
-            $lte: moment(value).endOf('day'),
+            $gte: moment(date).startOf('day'),
+            $lte: moment(date).endOf('day'),
           },
         };
       }
