@@ -1,10 +1,9 @@
-import React from 'react';
-import StatusMenu from './StatusMenu';
+import React from "react";
 
 function CompanyInfo() {
   return (
     <div className="col s12 m12 l6">
-      <div className="row card-content">
+      <div className="row card-content company-header">
         <div className="card-inner job-company">
           <div className="col m2 l2 company-image">
             <i className="company-img-src material-icons">add_a_photo</i>
@@ -15,30 +14,17 @@ function CompanyInfo() {
             <p>LOCATION</p>
           </div>
           <div className="col m2 l2 btn-status">
-            <button className="btn-applied">Applied</button>
+            <button className="btn-saved">Saved</button>
           </div>
         </div>
       </div>
       <div className="card companyInfo">
         <div>
-          <a
-            href="#addphoto"
-            data-target="nav-mobile"
-            className="right sidenav-trigger"
-          >
-            <i className="material-icons">add_a_photo</i>
-          </a>
-          <img
-            src="https://image.flaticon.com/icons/svg/306/306424.svg"
-            alt="ⓒ Logo"
-            style={{ height: '50px' }}
-          ></img>
-          <p>POSITION</p>
-          <p>LOCATION</p>
-        </div>
-        <div>
-          DROPDOWN
-          <StatusMenu />
+          <input placeholder="Company Name"></input>
+          <input placeholder="Street Address"></input>
+          <input placeholder="City"></input>
+          <input placeholder="State"></input>
+          <input placeholder="ZIP"></input>
         </div>
       </div>
     </div>

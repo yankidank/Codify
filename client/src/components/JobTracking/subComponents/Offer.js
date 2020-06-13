@@ -1,19 +1,24 @@
 import React from 'react';
-import NewOfferBtn from './NewOfferBtn';
 
-function OfferInputs() {
+function OfferCard() {
   return (
     <div className="col s12 m12 l6">
       <div className="card offer">
+        <div className="card-image">
+          <span className="card-title">Offers</span>
+          <span className="card-button" id="new-offer-btn">
+            New Offer
+          </span>
+        </div>
         <div className="offerInputs">
           <input placeholder="Offer Amount"></input>
           <input placeholder="Date"></input>
           <input placeholder="Bonus"></input>
+          <button class="btn btn-card">Accept Offer</button>
         </div>
-        <NewOfferBtn />
       </div>
     </div>
   );
 }
 
-export default OfferInputs;
+export default OfferCard;
