@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function StatusBar(props) {
+function StatusBar() {
   return (
     <div className="col s12 m12 l12">
       {/* {props.state} */}
