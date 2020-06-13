@@ -1,5 +1,6 @@
 import React from 'react';
 import NavBar from '../NavBar';
+import axios from 'axios';
 
 const handleHome = () => {
 	window.open('/', '_self');
@@ -11,7 +12,8 @@ const handleAdd = () => {
 	window.open('/jobs/add', '_self');
 };
 const handleLogout = () => {
-	window.open('http://localhost:3001/auth/logout', '_self');
+	axios.get('/auth/logout');
+	window.location = '/';
 };
 
 function MenuLoggedIn() {

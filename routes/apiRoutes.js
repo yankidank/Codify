@@ -1,5 +1,4 @@
 const router = require('express').Router();
-
 const { users, companies, contacts, jobs } = require('../controllers');
 
 router.use('/users', users);

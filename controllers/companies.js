@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
 		res.json(newCompany);
 	} catch (err) {
 		let filter = buildFilter({ displayName });
-		let duplicateCompany= await Company.find(filter.length ? { $or: filter } : {});
+		let duplicateCompany = await Company.find(filter.length ? { $or: filter } : {});
 
 		if (duplicateCompany) {
 			res.status(409).json(duplicateCompany);
