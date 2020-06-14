@@ -4,46 +4,54 @@ import PropTypes from 'prop-types';
 function StatusBar() {
   return (
     <div className="col s12 m12 l12">
-      <div className="statusBar">
-        <div className="circle-status">
+      <div className="row statusBar">
+        <div className="col s3 m3 l3">
           <p>Saved</p>
-          <div className="circle-status-first">
-            <div className="circle-connection">
-              <div className="circle-outer">
-                <div className="circle-inner" id="circle-save">
-                </div>
+          <div className="circle-status">
+            <div className="row">
+              <div className="col s6 m6 l6 circle-connection circle-inactive">
+              </div>
+              <div className="col s6 m6 l6 circle-connection">
               </div>
             </div>
           </div>
+          <div className="circle-inner" id="circle-applied"></div>
         </div>
-        <div className="circle-status">
+        <div className="col s3 m3 l3 circle-active">
           <p>Applied</p>
-          <div className="circle-connection">
-            <div className="circle-outer">
-              <div className="circle-inner" id="circle-apply">
+          <div className="circle-status">
+            <div className="row">
+              <div className="col s6 m6 l6 circle-connection">
+              </div>
+              <div className="col s6 m6 l6 circle-connection circle-connect-await">
               </div>
             </div>
           </div>
+          <div className="circle-inner" id="circle-applied"></div>
         </div>
-        <div className="circle-status">
-          <p className="circle-active">Interview</p>
-          <div className="circle-connection">
-            <div className="circle-outer">
-              <div className="circle-inner" id="circle-interview">
+        <div className="col s3 m3 l3 circle-await">
+          <p>Interview</p>
+          <div className="circle-status">
+            <div className="row">
+              <div className="col s6 m6 l6 circle-connection circle-connect-await">
+              </div>
+              <div className="col s6 m6 l6 circle-connection circle-connect-await">
               </div>
             </div>
           </div>
+          <div className="circle-inner" id="circle-interview"></div>
         </div>
-        <div className="circle-status">
+        <div className="col s3 m3 l3 circle-await">
           <p>Offer</p>
-          <div className="circle-status-last">
-            <div className="circle-connection circle-inactive">
-              <div className="circle-outer">
-                <div className="circle-inner circle-inactive" id="circle-offer">
-                </div>
+          <div className="circle-status">
+            <div className="row">
+              <div className="col s6 m6 l6 circle-connection circle-connect-await">
+              </div>
+              <div className="col s6 m6 l6 circle-connection circle-inactive">
               </div>
             </div>
           </div>
+          <div className="circle-inner" id="circle-offer"></div>
         </div>
       </div>
     </div>

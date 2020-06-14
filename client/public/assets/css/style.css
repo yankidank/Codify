@@ -92,17 +92,20 @@ canvas {
   color: #ababab;
   border: 1px solid #ddd;
 }
+.job-container .row .col .card {
+	margin-top: 35px;
+	margin-bottom: 35px;
+}
 .card {
   display: flex;
   flex-direction: column;
-  margin-bottom: 70px;
   padding: 22px 12px;
   background: #ffffff;
   box-shadow: 1px -2.5px 6px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
 }
 .card .card-image .card-title {
-  padding: 26px 0;
+  padding: 20px 0;
   font-size: 1.6rem;
   font-weight: 400;
 }
@@ -116,13 +119,16 @@ canvas {
   line-height: 14px;
   text-align: center;
   position: absolute;
-  top: -68px;
+  top: -60px;
   right: 0;
   background: rgba(0, 0, 0, 0.45);
   border-radius: 4px;
 }
 .card .card-content {
   padding: 12px;
+}
+.card-content.company-header {
+	box-shadow: none;
 }
 .card-content {
   display: flex;
@@ -307,61 +313,79 @@ button {
   flex: none;
   order: 0;
 }
-.statusBar{
-	width:100%;
-	margin-bottom: 10%;
-}
-.circle-status:last-child {
-	background:none;
-}
-.circle-status p {
-	cursor: default;
-}
-.circle-status{
+/* Job Status Indicator */
+.statusBar {
+	align-content: center;
 	text-align: center;
+}
+.statusBar .col{
+	align-content: center;
+	text-align: center;
+	padding:0;
+  width: 100%;
+}
+.statusBar .col p {
+	cursor: default;
 	font-size:1rem;
 	font-weight:300;
 	color: rgba(255, 255, 255, 0.5);
+}
+.circle-status{
+	text-align: center;
 	display:inline-block;
-	width:25%;
-	margin-bottom:-10px;
+	width:100%;
+	margin-bottom:-20px;
 }
-.circle-status-first {
-	margin-left: 40%;
-	text-align: left;
+.statusBar .col .circle-status .row{
+	margin-left:0 !important;
+	margin-right:0 !important;
 }
-.circle-status-last {
-	margin-right: 40%;
-	text-align:right;
+.circle-await .circle-inner {
+	background:#fff;
 }
 .circle-connection{
 	width:100%;
 	height:2px;
 	background:#38C976;
-	border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+	border-bottom: 4px solid rgba(0, 0, 0, 0.2);
 	display:inline-block;
 
 }
 .circle-outer{
 	margin-top: -8px;
+	z-index: 1;
+	margin: -17px auto 0 auto;
+
 }
 .circle-inner{
 	cursor: pointer;
-  display: inline-block;
+	position: relative;
+	margin: -17px auto 0 auto;
 	width: 18px;
 	height: 18px;
 	border: 3px solid #fff;
 	border-radius: 50%;
-	background:#38C976
+	z-index: 3;
+	background:#38C976;
 }
-.circle-active {
+.statusBar .circle-active p{
 	color:#fff;
 	font-weight:400;
 }
-.circle-inner.circle-inactive{
-	background:#fff;
-}
 .circle-inactive{
+	background:none;
+	border:none;
+}
+.circle-await .circle-status .circle-connection{
+	background: #ffffff49;
+}
+.circle-status .row .circle-await {
+	background: #ffffff49;
+}
+.circle-connect-await {
+	background:#ffffff49;
+}
+.circle-await .circle-status .row .circle-inactive{
 	background:none;
 }
 /* LOGIN MENU */
