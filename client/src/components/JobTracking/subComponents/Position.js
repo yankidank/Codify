@@ -8,9 +8,11 @@ function PositionCard() {
           <span className="card-title">Position</span>
         </div>
         <div>
-          <input placeholder="Title"></input>
-          <input placeholder="Salary"></input>
-          <input placeholder="Location"></input>
+          <input className="col s6 m6 l6" placeholder="Job Title"></input>
+          <input className="col s6 m6 l6" placeholder="City"></input>
+          <input className="col s6 m6 l6" placeholder="Salary"></input>
+          <input className="col s6 m6 l6" placeholder="State"></input>
+          <textarea placeholder="Notes"></textarea>
           <button className="btn btn-card">View Job Post</button>
           <button className="btn btn-card btn-remove">Remove Job Post</button>
         </div>

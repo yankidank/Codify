@@ -66,6 +66,9 @@ canvas {
 .btn,.btn:active, .btn:hover, .btn:focus {
 	box-shadow: none;
 }
+.btn:hover{
+	background-color:#4f4f4f;
+}
 .btn-filter {
   margin: 5px 10px;
 }
@@ -151,6 +154,9 @@ button {
 	color: #fff;
 	flex-wrap:wrap;
 }
+.job-container .row .col .companyInfo{
+	margin-top:10px;
+}
 .company-details a {
 	color:rgba(0, 0, 0, 1);
 }
@@ -201,11 +207,9 @@ button {
 	border-bottom:1px solid #f1f1f1;
 }
 .card div textarea {
-	padding:8px;
-	border:1px solid rgba(0, 0, 0, 0.2);
-}
-.card div textarea:active, .card div textarea:focus {
-	border:1px solid rgba(0, 0, 0, 0.4);
+	padding:10px;
+	border:1px solid rgba(0, 0, 0, 0.1);
+	border-radius:5px;
 }
 .card .inputs {
   padding-left: 10px;
@@ -219,7 +223,8 @@ button {
   align-items: center;
   justify-content: center;
   font-weight: 500;
-  font-size: 1rem;
+	font-size: 1.1rem;
+	text-transform: capitalize;
 }
 .btn:hover,
 .btn:active,
@@ -446,7 +451,6 @@ input:not([type]):focus:not([readonly]) {
   border-bottom: 1px solid #fff;
   box-shadow: none;
 }
-
 .menuNav ul {
   margin-top: -60px;
 }

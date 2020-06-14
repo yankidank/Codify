@@ -11,9 +11,12 @@ function InterviewCard() {
           </span>
         </div>
         <div className="interviewInputs">
-          <input placeholder="Date"></input>
-          <input placeholder="Time"></input>
-          <input placeholder="Location"></input>
+          <input className="col s6 m4 l4" placeholder="01/01/2000"></input>
+          <input className="col s6 m4 l4" placeholder="10:30 AM"></input>
+          <input className="col s6 m4 l4" placeholder="Remote"></input>
+          <input className="col s6 m4 l4" placeholder="Street Address"></input>
+          <input className="col s6 m4 l4" placeholder="City"></input>
+          <input className="col s6 m4 l4" placeholder="State"></input>
           <textarea placeholder="Notes"></textarea>
         </div>
       </div>

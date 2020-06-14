@@ -10,10 +10,11 @@ function OfferCard() {
             New Offer
           </span>
         </div>
-        <div className="offerInputs">
-          <input placeholder="Offer Amount"></input>
-          <input placeholder="Date"></input>
-          <input placeholder="Bonus"></input>
+        <div className="row offerInputs">
+          <input className="col s6 m6 l6" placeholder="$150,000 Salary"></input>
+          <input className="col s6 m6 l6" placeholder="01/01/1970"></input>
+          <input className="col s6 m6 l6" placeholder="Bonus"></input>
+          <textarea placeholder="Notes"></textarea>
           <button className="btn btn-card">Accept Offer</button>
         </div>
       </div>

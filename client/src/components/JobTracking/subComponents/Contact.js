@@ -11,10 +11,12 @@ function ContactCard() {
           </span>
         </div>
         <div className="contactInputs">
-          <input placeholder="Name"></input>
-          <input placeholder="Email"></input>
-          <input placeholder="Phone"></input>
-          <input placeholder="Position"></input>
+          <input className="col s6 m6 l6" placeholder="Full Name"></input>
+          <input className="col s6 m6 l6" placeholder="Position"></input>
+          <input className="col s6 m6 l6" placeholder="Email@address.tld"></input>
+          <input className="col s6 m6 l6" placeholder="(800) 555-1234"></input>
+          <input className="col s6 m6 l6" placeholder="Position"></input>
+          <textarea placeholder="Notes"></textarea>
         </div>
       </div>
     </div>
