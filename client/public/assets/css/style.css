@@ -201,7 +201,6 @@ button {
 .card div input {
 	border-bottom:1px solid #f1f1f1;
 }
-}
 .card div textarea {
 	padding:8px;
 	border:1px solid rgba(0, 0, 0, 0.2);
@@ -506,3 +505,24 @@ input:not([type]):focus:not([readonly]) {
   border: none;
   font-size: 16px;
 }
+
+/* Media query to keep job list elements inside the card */
+@media screen and (max-width: 480px) {
+	.company-details h3 {
+		font-size: 1.1rem;
+	}
+	.btn-status button {
+		width: 80px;
+	}
+	.company-img-src {
+		height: 50px;
+  		width: 50px;
+	}
+	.company-image i {
+		padding-left: 6px;
+		padding-top: 4px;
+	}
+	canvas {
+		height: 200px !important;
+	}
+  }

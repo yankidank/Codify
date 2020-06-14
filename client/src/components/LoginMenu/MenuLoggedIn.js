@@ -1,9 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import NavBar from '../NavBar';
-
 const handleLogout = () => {
-  axios.get('/auth/logout', '_self');
+  axios.get('/auth/logout',);
   window.location = '/';
 };
 
