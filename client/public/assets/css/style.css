@@ -113,6 +113,7 @@ canvas {
 	font-weight: 400;
 	margin-bottom: 20px;
 	padding: 0;
+	cursor:default;
 }
 .card-button {
   cursor: pointer;
