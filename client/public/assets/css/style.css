@@ -206,6 +206,10 @@ button {
 .card div input {
 	border-bottom:1px solid #f1f1f1;
 }
+textarea:focus{
+	outline:1px solid #4f4f4fd7;
+	box-shadow: 2px 3px 11px -10px #000
+}
 .card div textarea {
 	padding:10px;
 	border:1px solid rgba(0, 0, 0, 0.1);
@@ -260,7 +264,8 @@ button {
   flex: none;
   order: 2;
   align-self: center;
-  margin: 4px 0px;
+	margin: 0 20px 0 0;
+	
   width: auto !important;
 }
 .btn-status button {
@@ -331,13 +336,8 @@ button {
 .company-details #company-name {
   font-size: 2rem;
 }
-.company-details #company-city {
-	width:100px;
-	display:inline-block;
-}
-.company-details #company-state {
-	width:100px;
-	display:inline-block;
+#company-jobtitle, #company-city, #company-state {
+	height:32px;
 }
 /* Job Status Indicator */
 .statusBar {
@@ -532,6 +532,14 @@ input:not([type]):focus:not([readonly]) {
   font-size: 16px;
 }
 
+@media screen and (max-width:600px) {
+	.company-details #company-name, .company-details #company-jobtitle, .company-details #company-city, .company-details #company-state {
+		text-align:center;
+	}
+	.job-company .btn-status {
+		margin:0 auto;
+	}
+}
 /* Media query to keep job list elements inside the card */
 @media screen and (max-width: 480px) {
 	.company-details h3 {
@@ -542,7 +550,7 @@ input:not([type]):focus:not([readonly]) {
 	}
 	.company-img-src {
 		height: 50px;
-  		width: 50px;
+  	width: 50px;
 	}
 	.company-image i {
 		padding-left: 6px;
@@ -551,4 +559,4 @@ input:not([type]):focus:not([readonly]) {
 	canvas {
 		height: 200px !important;
 	}
-  }
+}
