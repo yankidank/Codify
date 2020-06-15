@@ -1,14 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 function InterviewCard() {
-
-  useEffect(() => {
-    document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.datepicker');
-      console.log(elems)
-    });
-  });
-
   return (
     <div className="col s12 m12 l6">
       <div className="row card-image">
