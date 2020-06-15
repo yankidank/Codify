@@ -3,14 +3,18 @@ import React from 'react';
 function OfferCard() {
   return (
     <div className="col s12 m12 l6">
-      <div className="card offer">
-        <div className="card-image">
-          <span className="card-title">Offers</span>
-          <span className="card-button" id="new-offer-btn">
-            New Offer
-          </span>
+      <div className="row card-image">
+        <div className="col s7 card-title">
+          Offers
         </div>
-        <div className="row offerInputs">
+        <div className="col s5">
+          <div className="card-button" id="new-contact-btn">
+            Add Offer
+          </div>
+        </div>
+      </div>
+      <div className="card card-padded card-offer">
+        <div className="offerInputs">
           <input className="col s6 m6 l6" placeholder="$150,000 Salary"></input>
           <input className="col s6 m6 l6" placeholder="01/01/1970"></input>
           <input className="col s6 m6 l6" placeholder="Bonus"></input>

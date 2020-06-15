@@ -3,13 +3,17 @@ import React from 'react';
 function ContactCard() {
   return (
     <div className="col s12 m12 l6">
-      <div className="card contact">
-        <div className="card-image">
-          <span className="card-title">Contacts</span>
-          <span className="card-button" id="new-contact-btn">
-            Add Contact
-          </span>
+      <div className="row card-image">
+        <div className="col s7 card-title">
+          Contacts
         </div>
+        <div className="col s5">
+          <div className="card-button" id="new-contact-btn">
+            Add Contact
+          </div>
+        </div>
+      </div>
+      <div className="card card-padded card-contact">
         <div className="contactInputs">
           <input className="col s6 m6 l6" placeholder="Full Name"></input>
           <input className="col s6 m6 l6" placeholder="Position"></input>

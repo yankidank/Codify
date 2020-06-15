@@ -15,29 +15,29 @@ const state = {
 function DoughtnutChart() {
   return (
     <div className="col s12 m12 l4">
-      <div className="card doughtnutChart">
-        <div className="card-image">
-          <span className="card-title">Analytics</span>
+      <div className="row card-image">
+        <div className="col s12 card-title">
+          Analytics
         </div>
-        <div className="container container-full ">
-          <div className="row">
-            <Doughnut
-              data={state}
-              options={{
-                title: {
-                  display: false,
-                  text: 'Application Overview',
-                  fontSize: 20,
-                },
-                legend: {
-                  display: true,
-                  position: 'top',
-                },
-                cutoutPercentage: 77,
-                maintainAspectRatio: false,
-              }}
-            />
-          </div>
+      </div>
+      <div className="card card-padded card-doughnut">
+        <div className="offerInputs">
+          <Doughnut
+            data={state}
+            options={{
+              title: {
+                display: false,
+                text: 'Application Overview',
+                fontSize: 20,
+              },
+              legend: {
+                display: true,
+                position: 'top',
+              },
+              cutoutPercentage: 77,
+              maintainAspectRatio: false,
+            }}
+          />
         </div>
       </div>
     </div>

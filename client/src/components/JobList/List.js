@@ -6,14 +6,18 @@ import OneJobListing from './JobListItem';
 function List(props) {
   return (
     <div className={props.cols}>
-      <div className="card oneJobListing">
-        <div className="card-image">
-          <span className="card-title">Recent Jobs</span>
-          <a className="card-button" href="/jobs/add">
-            Add New Job
-          </a>
+      <div className="row card-image">
+        <div className="col s7 card-title">
+          Recent Jobs
         </div>
-        <div className="container container-full ">
+        <div className="col s5">
+          <div className="card-button" id="new-contact-btn">
+            Add Job
+          </div>
+        </div>
+      </div>
+      <div className="card card-contact">
+        <div className="container container-full">
           <Filter />
           <OneJobListing />
         </div>
