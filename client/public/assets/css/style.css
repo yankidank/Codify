@@ -210,6 +210,9 @@ button {
 	padding:10px;
 	border:1px solid rgba(0, 0, 0, 0.1);
 	border-radius:5px;
+	min-height: 5em;
+	max-height: 50vh;
+	width: 100%;
 }
 .card .inputs {
   padding-left: 10px;
@@ -293,6 +296,9 @@ button {
   background: #ffffff url(../img/icon-paste.png) no-repeat scroll 4px 4px;
   padding-left: 48px;
 }
+.col .row .job-company .company-details {
+	margin-left:0;
+}
 .company-details {
   display: flex;
   flex-direction: column;
@@ -300,7 +306,6 @@ button {
   flex: none;
   order: 1;
   align-self: center;
-  margin: 4px 0px;
 }
 .company-details h3 {
   margin: 0;
@@ -315,6 +320,24 @@ button {
   margin-right: 10px;
   flex: none;
   order: 0;
+}
+.company-details .company-input{
+	border:none;
+	padding:0;
+	margin:-2px;
+	font-size:1.3rem;
+	color:#fff;
+}
+.company-details #company-name {
+  font-size: 2rem;
+}
+.company-details #company-city {
+	width:100px;
+	display:inline-block;
+}
+.company-details #company-state {
+	width:100px;
+	display:inline-block;
 }
 /* Job Status Indicator */
 .statusBar {
