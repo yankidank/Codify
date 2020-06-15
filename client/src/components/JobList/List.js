@@ -7,10 +7,10 @@ function List(props) {
   return (
     <div className={props.cols}>
       <div className="row card-image">
-        <div className="col s7 card-title">
+        <div className="col s6 card-title">
           Recent Jobs
         </div>
-        <div className="col s5">
+        <div className="col s6">
           <div className="card-button" id="new-contact-btn">
             Add Job
           </div>

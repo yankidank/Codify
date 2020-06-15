@@ -4,10 +4,10 @@ function OfferCard() {
   return (
     <div className="col s12 m12 l6">
       <div className="row card-image">
-        <div className="col s7 card-title">
+        <div className="col s6 card-title">
           Offers
         </div>
-        <div className="col s5">
+        <div className="col s6">
           <div className="card-button" id="new-contact-btn">
             Add Offer
           </div>
