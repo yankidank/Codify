@@ -18,7 +18,7 @@ router.get('/', async (request, response) => {
 	});
 
 	const companies = await Company.find(filter.length ? { $and: filter } : {});
-
+	console.log(companies);
 	response.send(companies);
 });
 
