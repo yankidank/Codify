@@ -42,6 +42,17 @@ nav .brand-logo {
 .container-full {
   width: 100%;
 }
+.container-home-jobs::after {
+	content: " ";
+  z-index: 10;
+  display: block;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+	background-image: linear-gradient(180deg, #ffffff00,#ffffff50, #ffffff);
+}
 canvas {
   height: 250px !important;
 }
@@ -159,7 +170,10 @@ canvas {
   flex: none;
   order: 1;
   align-self: center;
-  margin: 0px 0px;
+  margin: 0;
+}
+.card-home-jobslist {
+	margin-bottom:0;
 }
 button {
   cursor: pointer;
@@ -485,6 +499,44 @@ textarea:focus{
   text-align: center;
   min-height: 100vh;
 }
+.home-menuNav {
+	min-height:40vh;
+	margin-bottom: 60px;
+}
+.dashboard-content {
+	margin-top:20px;
+	color:#fff;
+	font-size:1.4rem;
+}
+.dashboard-content h2 {
+	font-size:2.8rem;
+}
+.dashboard-login {
+	background-image: linear-gradient(105deg, #eededea1,#fffffff3,#ffffff, #a8c8d3af);
+	box-shadow: 1px -0.5px 1px rgba(0, 0, 0, 0.25);
+/* 	transform: skewY(-3deg);
+ */	width:100%;
+	margin:120px 0 0 0;
+	padding:60px 0 10px 0;
+}
+.dashLogin {
+/* 	transform: skewY(3deg);
+ */	min-height: 60vh;
+}
+.home-jobslist-col {
+	margin-bottom:-30px;
+}
+.text-center {
+	text-align:center;
+	z-index:80;
+	position:relative;
+}
+p.text-center {
+	font-size:1.2rem;
+}
+.dashLogin ul li a.btn-google {
+	border:1px solid #0000002e;
+}
 .menuNav .button {
   position: static;
   width: 340px;
@@ -541,7 +593,7 @@ input:not([type]):focus:not([readonly]) {
   margin-top: 8%;
   color: #fff;
 }
-.menuNav ul li .button {
+.menuNav li .button {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -549,11 +601,11 @@ input:not([type]):focus:not([readonly]) {
 	align-content: center;
 	cursor:pointer;
 }
-.menuNav ul li .button div.btn-logo {
+.menuNav li .button div.btn-logo {
   float: left;
   margin-right: 10px;
 }
-.menuNav ul li .button div.btn-title {
+.menuNav li .button div.btn-title {
   float: left;
 }
 .btn-logo img {

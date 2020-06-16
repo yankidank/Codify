@@ -112,6 +112,10 @@ function StatusBar(props) {
 
 StatusBar.propTypes = {
   state: PropTypes.string,
+  first: PropTypes.string,
+  second: PropTypes.string,
+  third: PropTypes.string,
+  fourth: PropTypes.string,
 };
 
 export default StatusBar;

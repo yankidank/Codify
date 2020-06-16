@@ -1,4 +1,4 @@
-# Unicorn Hunt
+# Cōdify
 
 Job application tracking and data analysis. 
 
