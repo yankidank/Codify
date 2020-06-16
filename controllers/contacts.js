@@ -22,10 +22,10 @@ router.get('/:id', async (req, res) => {
 });
 
 // gets all contacts associated with a user
-router.get('/userid/:id', async (req, res) => {
+router.get('/user/:id', async (req, res) => {
 	const { id } = req.params;
 	try {
-		const contact = await Contact.find({ userId: id }).populate('company');
+		const contact = await Contact.find({ user: id }).populate('company');
 		if (contact.length == 0) {
 			res.status(404).send({ error: 'No contacts found for user!' });
 		} else {
@@ -37,9 +37,10 @@ router.get('/userid/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-	const { userId, displayName, companyId, email, phone, position, notes } = req.body;
+	console.log(req.user);
+	const { user, displayName, companyId, email, phone, position, notes } = req.body;
 	let newContactInfo = dropUndefined({
-		userId,
+		user,
 		displayName,
 		companyId,
 		email,
@@ -47,12 +48,11 @@ router.post('/', async (req, res) => {
 		position,
 		notes
 	});
-
 	try {
 		let newContact = await Contact.create(newContactInfo);
-
 		res.json(newContact);
 	} catch (err) {
+		console.log(err);
 		let filter = buildFilter({ email, phone });
 		let duplicateContact = await Contact.find(filter.length ? { $or: filter } : {}).populate('company');
 
@@ -66,9 +66,11 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
 	const { id } = req.params;
-	const { displayName, email, phone, companyId, position, notes } = req.body;
-	let fieldsToUpdate = dropUndefined({ displayName, email, phone, companyId, position, notes });
-
+	const { displayName, email, phone, company, position, notes } = req.body;
+	let fieldsToUpdate = dropUndefined({ displayName, email, phone, company, position, notes });
+	let { company: oldCompany } = await Contact.findById(id);
+	// copies in the old companies associated with specified contact
+	fieldsToUpdate.company = [...oldCompany, company];
 	let updatedContact = await Contact.findByIdAndUpdate(id, fieldsToUpdate, { new: true });
 
 	if (!updatedContact) res.status(404).send({ error: 'Contact not found!' });
