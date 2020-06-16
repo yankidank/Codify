@@ -11,9 +11,9 @@ function List(props) {
           Recent Jobs
         </div>
         <div className="col s6">
-          <div className="card-button" id="new-contact-btn">
+          <a href="/jobs/add" className="card-button" id="new-contact-btn">
             Add Job
-          </div>
+          </a>
         </div>
       </div>
       <div className="card card-contact">
