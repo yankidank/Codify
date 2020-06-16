@@ -5,10 +5,6 @@ const handleLogout = () => {
 	axios.get('/auth/logout');
 	window.location = '/';
 };
-const testBackend = () => {
-	// axios.get('/api/contacts/user/5ee325eaadf366a19608ba65').then((data) => console.log(data));
-	axios.get('/api/contacts').then((data) => console.log(data));
-};
 
 function MenuLoggedIn() {
 	return (
@@ -34,11 +30,6 @@ function MenuLoggedIn() {
 					<li>
 						<span onClick={handleLogout} className="button btn-home-login">
 							Logout
-						</span>
-					</li>
-					<li>
-						<span onClick={testBackend} className="button btn-home-login">
-							Axios
 						</span>
 					</li>
 				</ul>
