@@ -1,7 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
 import NavBar from '../NavBar';
 
 function AddJob() {
+  const [post, setPost] = useState({});
+
+  // // Hitting the Post endpoint
+  // const handleAdd = () => {
+  //   axios.post('/api/jobs', { post });
+  //   // window.open('/jobs', '_self');
+  // };
+
+  const onPostInput = event => {
+    const { target: { name, value }} = event;
+
+    setPost({ ...post, [name]: value})
+  }
 
   useEffect(() => {
     // Paste Job URL
@@ -16,7 +30,8 @@ function AddJob() {
             // Check that the clipboard holds a link
             const checkUrl = pasteText.startsWith('http');
             if (checkUrl) {
-              paste.value = pasteText;
+              setPost({...post, url: pasteText })
+              // paste.value = pasteText;
             }
           })
           .catch(err => {
@@ -36,7 +51,10 @@ function AddJob() {
             <input
               className="menu-url-input-field"
               id="paste"
+              name="url"
               placeholder="https://"
+              onInput={onPostInput}
+              value={post.url}
             ></input>
           </li>
           <li>
