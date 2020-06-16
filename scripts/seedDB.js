@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Company, Contact, User, Job } = require('../models');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/presume', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/unicorn-hunt', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
