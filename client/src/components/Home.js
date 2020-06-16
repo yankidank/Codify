@@ -34,7 +34,8 @@ function Home() {
       <div className="dashboard-login">
         <div className="container-full">
           <div className="container dashLogin">
-            <h4 className="text-center">Create an Account</h4>
+            <h4 className="text-center">Sign Up</h4>
+            <p className="text-center">Quickly create an account and login using the following services</p>
             <ul className="menuNav home-menuNav">
               <li>
                 <a href="http://localhost:3001/auth/github" className="button btn-github">
@@ -62,7 +63,7 @@ function Home() {
               </li>
             </ul>
             <h4 className="text-center">Track Jobs</h4>
-            <p className="text-center">Save job post URLs and track the position all the way to your job offer.</p>
+            <p className="text-center">Save job post URLs and track the position all the way to a job offer</p>
             <div className="row">
               <div className="col s0 m1 l2"></div>
               <div className="col s12 m10 l8 home-jobslist-col">
@@ -158,10 +159,13 @@ function Home() {
           <div className="col s12 m12 l12 dashboard-content">
             <div className="row">
               <div className="col s12 m6 l6">
-                <h3>Gain Insight</h3>
-                <p>Analyze activity and measure your success at a glance. </p>
+                <h3>Gain Insights</h3>
+                <p>Analyze activity and measure your success at a glance. Data is knowledge and knowledge is power.</p>
               </div>
               <div className="col s12 m6 l6">
+                <div className="row card-image">
+                  <div className="col s12 card-title">Analytics</div>
+                </div>
                 <div className="card card-padded card-doughnut">
                   <div className="offerInputs">
                     <Doughnut
@@ -181,6 +185,29 @@ function Home() {
                       }}
                     />
                   </div>
+                </div>
+              </div>
+            </div>
+            <div className="col s12 m12 l6">
+              <h3>Manage Contacts</h3>
+              <p>Save the company hiring manager's contact information and add other key references for each company.</p>
+            </div>
+            <div className="col s12 m12 l6">
+              <div className="row card-image">
+                <div className="col s6 card-title">Contacts</div>
+                <div className="col s6">
+                  <a href="/jobs/add" className="card-button" id="new-contact-btn">
+                    Add Contact
+                  </a>
+                </div>
+              </div>
+              <div className="card card-padded card-contact">
+                <div className="contactInputs">
+                  <input className="col s6 m6 l6" placeholder="Full Name"></input>
+                  <input className="col s6 m6 l6" placeholder="Position"></input>
+                  <input className="col s6 m6 l6" placeholder="Email@address.tld"></input>
+                  <input className="col s6 m6 l6" placeholder="(800) 555-1234"></input>
+                  <textarea placeholder="Notes"></textarea>
                 </div>
               </div>
             </div>
