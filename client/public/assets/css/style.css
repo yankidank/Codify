@@ -194,6 +194,16 @@ button {
 .oneJobListing .btn-status {
 	text-align:right;
 }
+.card-home {
+	padding:10px 25px;
+}
+.card-home h3{
+	font-size:2.2rem;
+	margin: 8px 0 0 0;
+}
+.card-home p{
+	font-size:1.2rem;
+}
 .card-padded{
 	padding:10px;
 }
