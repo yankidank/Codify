@@ -7,9 +7,7 @@ const router = Router();
 
 // gets all contacts associated with a user
 router.get('/', async (req, res) => {
-	console.log(req.user);
 	const { _id } = req.user;
-	console.log(_id);
 	try {
 		const contact = await Contact.find({ user: _id }).populate('company');
 		if (contact.length == 0) {
