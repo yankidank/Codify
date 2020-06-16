@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const faker = require('faker');
 const { Company, Contact, User, Job } = require('../models');
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/presume', {
@@ -9,28 +10,23 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/presume', {
 
 const companySeed = [
   {
-    displayName: "Noah Miller's House",
+    displayName: faker.company.companyName(),
     location: {
-      street: '1409 S Saltair Ave. APT 303',
-      city: 'Los Angeles',
-      state: 'CA',
-      zip: 90025,
+      street: faker.address.streetAddress(),
+      city: faker.address.city(),
+      state: faker.address.state(),
+      zip: parseFloat(faker.address.zipCode().split('-')[0]),
     },
-    description: 'His actual house',
-    notes: 'Please call before you visit',
+    description: faker.company.catchPhrase(),
+    notes: faker.lorem.paragraph(),
   },
 ];
 
 const userSeed = [
   {
-    displayName: 'some guy',
-    email: 'some.guy@gmail.com',
-    password: 'some password',
-  },
-  {
-    displayName: 'some other guy',
-    email: 'some.other.guy@gmail.com',
-    password: 'some password',
+    displayName: faker.name.findName(),
+    email: faker.internet.email(),
+    password: faker.internet.password(),
   },
 ];
 
@@ -38,11 +34,11 @@ const contactSeed = (user, company) => [
   {
     user,
     company,
-    displayName: 'some dude i dunno',
-    email: 'some.dude@gmail.com',
-    phone: '8888888888',
-    position: 'the dude',
-    notes: 'dude why',
+    displayName: faker.name.findName(),
+    email: faker.internet.email(),
+    phone: faker.phone.phoneNumber().match(/(\d+)/).join(''),
+    position: faker.name.jobTitle(),
+    notes: faker.name.jobDescriptor(),
   },
 ];
 
@@ -51,28 +47,28 @@ const jobSeed = (user, company, contacts) => [
     user,
     company,
     contacts,
-    name: 'Google Software Developer',
+    name: faker.name.jobTitle(),
     interviews: [
       {
         date: new Date(),
         location: {
           remote: true,
-          street: '12360 Landale St.',
-          city: 'Studio City',
-          state: 'CA',
-          zip: 91604,
+          street: faker.address.streetAddress(),
+          city: faker.address.city(),
+          state: faker.address.state(),
+          zip: parseFloat(faker.address.zipCode().split('-')[0]),
         },
       },
     ],
     post: {
       url: 'https://g.co/kgs/549a29',
       date: new Date(),
-      position: 'Junior Developer',
-      city: 'Santa Monica',
-      state: 'CA',
+      position: faker.name.jobTitle(),
+      city: faker.address.city(),
+      state: faker.address.state(),
       salary: 80000,
       bonus: 10000,
-      notes: 'Looks swanky',
+      notes: faker.name.jobDescriptor(),
     },
     offers: [
       {
@@ -88,10 +84,11 @@ const jobSeed = (user, company, contacts) => [
 ];
 
 const seedUsers = async userSeed => {
+  const { password } = userSeed[0];
   const users = await User.create(userSeed);
-  const someGuy = await User.findOne({ displayName: 'some guy' });
+  const someGuy = await User.findById(users[0]);
 
-  someGuy.comparePassword('some password', function (err, isMatch) {
+  someGuy.comparePassword(password, function (err, isMatch) {
     if (err) throw err;
     console.log('some password:', isMatch); // -> some password: true
   });

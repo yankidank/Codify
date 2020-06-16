@@ -60,7 +60,7 @@ app.use('/auth', authRoutes); // authentication
 // app.use('/api', apiRoutes);
 app.use('/api', protectApi, apiRoutes);
 
-// Send every request to the React app
+// // Send every request to the React app
 // app.get('/', function (req, res) {
 //   res.sendFile(path.join(__dirname, './client/build/index.html'));
 // });

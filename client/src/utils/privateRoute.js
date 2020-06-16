@@ -7,8 +7,8 @@ function PrivateRoute({ component: Component, ...rest }) {
 	const [isAuthenticated, setAuthenticated] = useState(false);
 
 	useEffect(() => {
-		axiosInstance.get('/auth/isauthenticated').then((data) => {
-			if (data.data.user !== undefined) {
+		axiosInstance.get('/auth/isauthenticated').then(({ data: { user } }) => {
+			if (user !== undefined) {
 				setAuthenticated(true);
 			} else {
 				window.location = '/menu/login';
