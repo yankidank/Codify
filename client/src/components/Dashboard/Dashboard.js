@@ -6,23 +6,26 @@ import axiosInstance from '../../utils/API';
 
 function Dashboard() {
 	const [companies, setCompanies] = useState([]);
-	const [chat, setChart] = useState([]);
+	const [jobs, setJobs] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-        const companyArr = await axiosInstance.get('/api/companies');
-        const jobArr = await axiosInstance.get('api/jobs');
+				const companyArr = await axiosInstance.get('/api/companies');
+				const jobArr = await axiosInstance.get('api/jobs');
 
-        console.log(jobArr);
-				console.log(companies);
-			} catch (error) {}
+				setCompanies(companyArr);
+				setJobs(jobArr);
+			} catch (error) {
+        console.log(error)
+      }
 		};
 
 		fetchData();
-	});
+	}, []);
 	return (
 		<div>
+			{console.log(companies, jobs)}
 			<NavBar />
 			<div className="container pushtop dashboard">
 				<div className="row">
