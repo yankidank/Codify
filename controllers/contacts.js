@@ -5,6 +5,23 @@ const { buildFilter } = require('../utils/queryHelper');
 
 const router = Router();
 
+// gets all contacts associated with a user
+router.get('/', async (req, res) => {
+	console.log(req.user);
+	const { _id } = req.user;
+	console.log(_id);
+	try {
+		const contact = await Contact.find({ user: _id }).populate('company');
+		if (contact.length == 0) {
+			res.status(404).send({ error: 'No contacts found for user!' });
+		} else {
+			res.json(contact);
+		}
+	} catch (err) {
+		res.status(500).send({ error: "Something went wrong; we're on it!" });
+	}
+});
+
 // gets one contact by contact ID
 router.get('/:id', async (req, res) => {
 	const { id } = req.params;
@@ -21,24 +38,9 @@ router.get('/:id', async (req, res) => {
 	}
 });
 
-// gets all contacts associated with a user
-router.get('/user/:id', async (req, res) => {
-	const { id } = req.params;
-	try {
-		const contact = await Contact.find({ user: id }).populate('company');
-		if (contact.length == 0) {
-			res.status(404).send({ error: 'No contacts found for user!' });
-		} else {
-			res.json(contact);
-		}
-	} catch (err) {
-		res.status(500).send({ error: "Something went wrong; we're on it!" });
-	}
-});
-
 router.post('/', async (req, res) => {
-	console.log(req.user);
-	const { user, displayName, companyId, email, phone, position, notes } = req.body;
+	let { _id: user } = req.user;
+	const { displayName, companyId, email, phone, position, notes } = req.body;
 	let newContactInfo = dropUndefined({
 		user,
 		displayName,
