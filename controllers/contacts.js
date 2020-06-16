@@ -37,11 +37,11 @@ router.get('/userid/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-	const { userId, displayName, companyId, email, phone, position, notes } = req.body;
+	const { body: { displayName, company, email, phone, position, notes }, user }= req.body;
 	let newContactInfo = dropUndefined({
-		userId,
+		user: user._id,
 		displayName,
-		companyId,
+		company,
 		email,
 		phone,
 		position,
