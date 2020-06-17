@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../utils/API';
 import NavBar from '../NavBar';
 import List from './List';
 
@@ -7,18 +7,26 @@ function JobsList() {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    axios('/api/jobs/', { withCredentials: true }).then(({ data: jobs }) => {
-      setJobs(jobs);
-    });
+    const fetchData = async () => {
+      try {
+        const jobArrList = await axiosInstance.get('/api/jobs');
+
+        console.log(jobArrList)
+				setJobs(jobArrList);
+      } catch (error) {
+        console.log(error)
+      }
+    };
+    
+    fetchData();
   }, []);
-  console.log(jobs);
 
   return (
     <div>
       <NavBar />
       <div className="container pushtop jobsList">
         <div className="row">
-          <List cols="col s12 m12 l12" />
+          <List cols="col s12 m12 l12" jobs={jobs}/>
         </div>
       </div>
     </div>

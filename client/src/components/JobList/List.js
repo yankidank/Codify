@@ -4,6 +4,7 @@ import Filter from './Filter';
 import OneJobListing from './JobListItem';
 
 function List(props) {
+  console.log(props.jobs)
   return (
     <div className={props.cols}>
       <div className="row card-image">
@@ -19,7 +20,14 @@ function List(props) {
       <div className="card card-contact">
         <div className="container container-full">
           <Filter />
-          <OneJobListing />
+          
+          {props.jobs.map(job =>( 
+
+            <OneJobListing 
+            name ={job.name}
+            />
+          ))}
+          
         </div>
       </div>
     </div>

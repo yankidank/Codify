@@ -1,6 +1,7 @@
 import React from 'react';
 
-function OneJobListing() {
+function OneJobListing(props) {
+
   return (
     <div className="card-content">
       <div className="row card-inner">
