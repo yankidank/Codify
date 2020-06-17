@@ -1,9 +1,40 @@
 const { Router } = require('express');
+const puppeteer = require('puppeteer');
 const { Job } = require('../models');
 const { buildFilter } = require('../utils/queryHelper');
 const { dropUndefined } = require('../utils/dropUndefined');
 
 const router = Router();
+
+router.get('/info', async (request, response) => {
+
+  const {
+    query: { url },
+  } = request;
+
+  if (!url) response.status(400).json({ error: 'Must include target url' });
+
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto(url, { waitUntil: 'networkidle2' });
+
+  // puppeteer runs this script on the DOM of the current page
+  // Look through elements for content here
+  const jobInfo = await page.evaluate(() => {
+    const main = document.querySelector('[class*=core-rail]');
+    const refs = [
+      ...main.querySelector('[class*=title]'),
+      ...main.querySelector('[class*=description]'),
+      // ...document.querySelectorAll('p[class*=job]'),
+    ];
+    return refs.map(ref => ref && ref.textContent);
+  });
+
+  await browser.close();
+
+  // console.log(jobInfo);
+  response.send(jobInfo);
+});
 
 router.get('/', async (request, response) => {
   const { query, user } = request;
@@ -54,7 +85,10 @@ router.get('/report', async (request, response) => {
 });
 
 router.post('/', async (request, response) => {
-  const { body: {post, company}, user } = request;
+  const {
+    body: { post, company },
+    user,
+  } = request;
   try {
     let newJob = await Job.create({ user: user._id, company, post });
 

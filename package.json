@@ -43,6 +43,7 @@
     "passport-google-oauth": "^2.0.0",
     "passport-linkedin-oauth2": "^2.0.0",
     "prop-types": "^15.7.2",
+    "puppeteer": "^4.0.0",
     "react": "^16.13.1",
     "react-chartjs": "^1.2.0",
     "react-chartjs-2": "^2.9.0",

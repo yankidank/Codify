@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 
 // import axios from 'axios';
 import NavBar from '../NavBar';
+import { axiosInstance } from '../../utils/API';
 
 function AddJob() {
   const [post, setPost] = useState({});
 
   // // Hitting the Post endpoint
   const handleAdd = async () => {
+    console.log(post.url)
+   const jobInfo = await axiosInstance.get('/api/jobs/info', {params: { url: post.url }})
+   console.log(jobInfo);
   };
 
   const onPostInput = event => {
@@ -17,7 +21,6 @@ function AddJob() {
   }
 
   useEffect(() => {
-    handleAdd();
     // Paste Job URL
     const paste = document.getElementById('paste');
     paste.addEventListener('click', () => {
@@ -58,9 +61,9 @@ function AddJob() {
             ></input>
           </li>
           <li>
-            <a href="/jobs/add" className="button btn-job-add">
+            <button className="button btn-job-add" onClick={handleAdd}>
               Save Job
-            </a>
+            </button>
           </li>
         </ul>
       </div>
