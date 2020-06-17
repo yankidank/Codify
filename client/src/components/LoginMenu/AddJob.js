@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 // import axios from 'axios';
 import NavBar from '../NavBar';
 
@@ -22,6 +23,7 @@ function AddJob() {
   }
 
   useEffect(() => {
+    handleAdd();
     // Paste Job URL
     const paste = document.getElementById('paste');
     paste.addEventListener('click', () => {
