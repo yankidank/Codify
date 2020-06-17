@@ -190,7 +190,7 @@ function Home() {
             </div>
             <div className="col s12 m12 l6">
               <h3>Manage Contacts</h3>
-              <p>Save the company hiring manager's contact information and add other key references for each company.</p>
+              <p>Save the company hiring manager&apos;s contact information and add other key references for each company.</p>
             </div>
             <div className="col s12 m12 l6">
               <div className="row card-image">
