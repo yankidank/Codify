@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import {axiosInstance} from '../../../utils/API';
 
+
 function ContactCard() {
-  const [contacts, setContacts] = useState([]);
+	const [contacts, setContacts] = useState([]);
+
+	const handleNameChange = (event) => {
+		let indexToChange = event.target.getAttribute("dataindex");
+		let newContacts = [...contacts];
+		newContacts[indexToChange].displayName = event.target.value;
+		setContacts(newContacts);
+	}
   
 	useEffect(() => {
-		axiosInstance.get('/api/contacts').then(({ data: newContacts }) => {
+		axiosInstance.get('/api/contacts').then(({ data: apiContacts }) => {
 			//console.log(newContacts);
-			setContacts(newContacts);
+			setContacts(apiContacts);
 		});
   }, []);
   
@@ -37,7 +45,7 @@ function ContactCard() {
 				return (
 					<div className="card card-padded card-contact" key={index}>
 						<div className="contactInputs">
-							<input className="col s6 m6 l6" placeholder="Full Name" value={displayName}></input>
+							<input className="col s6 m6 l6" onChange={handleNameChange} placeholder="Full Name" dataindex={index} value={displayName}></input>
 							<input className="col s6 m6 l6" placeholder="Position" value={position ? position : ''}
 							></input>
 							<input className="col s6 m6 l6" placeholder="Email@address.tld" value={email ? email : ''}
