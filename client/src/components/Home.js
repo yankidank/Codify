@@ -26,7 +26,7 @@ function Home() {
               </div>
             </div>
             <div className="home-intro">
-             <p><a href="/menu/login">Create an account</a> and begin tracking your favorite job posts, applications, contacts, interviews, and offers. Stay organized throughout your job hunt.</p>
+             <p><a href="/menu/login">Create an account</a> and begin tracking job posts, applications, contacts, interviews, and offers. Stay organized throughout your job hunt.</p>
             </div>
           </div>
         </div>
@@ -190,7 +190,7 @@ function Home() {
             </div>
             <div className="col s12 m12 l6">
               <h3>Manage Contacts</h3>
-              <p>Save the company hiring manager's contact information and add other key references for each company.</p>
+              <p>Save the company hiring manager&apos;s contact information and add other key references for each company.</p>
             </div>
             <div className="col s12 m12 l6">
               <div className="row card-image">
