@@ -50,7 +50,7 @@ if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'));
 }
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/codify', {
+mongoose.connect(process.env.MONGODB_URI, {
 	useUnifiedTopology: true,
 	useNewUrlParser: true,
 	useCreateIndex: true
