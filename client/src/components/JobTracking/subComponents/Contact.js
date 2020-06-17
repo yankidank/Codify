@@ -32,10 +32,10 @@ function ContactCard() {
 				<div className="card card-padded card-contact">
 					<div className="contactInputs">
 					<input className="col s6 m6 l6" onChange={handleChange} placeholder="Full Name" dataindex="0" name="displayName"></input>
-							<input className="col s6 m6 l6" onChange={handleChange} placeholder="Position" name="position" dataindex="0"></input>
-							<input className="col s6 m6 l6" onChange={handleChange} placeholder="Email@address.tld" name="email" dataindex="0"></input>
-							<input className="col s6 m6 l6" onChange={handleChange} placeholder="(800) 555-1234" name="phone" dataindex="0"></input>
-							<textarea placeholder="Notes" onChange={handleChange} name="notes" dataindex="0"></textarea>
+						<input className="col s6 m6 l6" onChange={handleChange} placeholder="Position" name="position" dataindex="0"></input>
+						<input className="col s6 m6 l6" onChange={handleChange} placeholder="Email@address.tld" name="email" dataindex="0"></input>
+						<input className="col s6 m6 l6" onChange={handleChange} placeholder="(800) 555-1234" name="phone" dataindex="0"></input>
+						<textarea placeholder="Notes" onChange={handleChange} name="notes" dataindex="0"></textarea>
 					</div>
 				</div>
 			}
