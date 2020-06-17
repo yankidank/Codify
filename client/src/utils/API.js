@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 ////////////////////////////////////
 
 const postContact = async (contactProperties) => {
-	// { displayName(required), company, email, phone, position, notes }
+	// contactProperties := { displayName(required), company, email, phone, position, notes }
 	try {
 		let newContact = await axiosInstance.post('/api/contacts', contactProperties);
 		return newContact;
@@ -18,7 +18,7 @@ const postContact = async (contactProperties) => {
 	}
 };
 const postJob = async (jobProperties) => {
-// {companyName(required), url, position(required), city(required), state(required)}
+// jobProperties := {companyName(required), url, position(required), city(required), state(required)}
 	try {
 		const {companyName: displayName, position, state, city, url} = jobProperties;
 
@@ -34,6 +34,15 @@ const postJob = async (jobProperties) => {
 // put endpoints ///////////////////
 ////////////////////////////////////
 
+const updateContact = async (newContact, contactID) => {
+// newContact := { displayName(required), company, email, phone, position, notes }
+console.log(newContact);
+	try {
+		const updatedContact = await axiosInstance.put(`/api/contacts/${contactID}`, newContact);
+		return updatedContact;
+	} catch (err) {
+		console.log(err)
+	}
+}
 
-
-export { axiosInstance, postJob, postContact};
+export { axiosInstance, postJob, postContact, updateContact};
