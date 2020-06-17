@@ -10,8 +10,8 @@ function MenuLoggedIn() {
 	return (
 		<div>
 			<NavBar />
-			<div className="menuNav">
-				<ul>
+			<div>
+				<ul className="menuNav">
 					<li>
 						<a href="/" className="button btn-home-login">
 							Home

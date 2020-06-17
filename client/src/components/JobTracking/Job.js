@@ -38,7 +38,7 @@ function Saved() {
       <NavBar />
       <div className="container job-container">
         <div className="row">
-          <StatusBar state="saved" />
+          <StatusBar state="2" first="Saved" second="Applied" third="Interview" fourth="Offer" />
           <CompanyInfo />
           <PositionCard />
           <ContactCard />

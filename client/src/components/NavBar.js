@@ -39,7 +39,7 @@ function NavBar() {
             <img src="/assets/img/icon-nav-back.png" alt="← Back" />
           </button>
           <a href="/" className="brand-logo center">
-            Présumé
+            Cōdify
           </a>
           <ul className="right hide-on-med-and-down">
             <li>

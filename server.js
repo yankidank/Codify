@@ -15,7 +15,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 // const cors = require('cors');
-// const protectApi = require('./utils/protectApi');
+const protectApi = require('./utils/protectApi');
 // Routes
 const authRoutes = require('./routes/authRoutes');
 const apiRoutes = require('./routes/apiRoutes');
@@ -50,14 +50,14 @@ if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'));
 }
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/presume', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/codify', {
 	useUnifiedTopology: true,
 	useNewUrlParser: true,
 	useCreateIndex: true
 });
 // ROUTING
 app.use('/auth', authRoutes); // authentication
-app.use('/api', apiRoutes);
+app.use('/api', protectApi, apiRoutes);
 // app.use('/api', protectApi, apiRoutes);
 
 app.listen(PORT, function () {
