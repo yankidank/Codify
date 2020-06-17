@@ -23,10 +23,10 @@ router.get('/', async (request, response) => {
 });
 
 // gets one company by company ID
-router.get('/:id', async (req, res) => {
-	const { id } = req.params;
+router.get('/:_id', async (req, res) => {
+	const { _id } = req.params;
 	try {
-		const company = await Company.findById(id);
+		const company = await Company.findById(_id);
 
 		if (!company) {
 			res.status(404).send({ error: 'Company not found!' });
@@ -58,20 +58,20 @@ router.post('/', async (req, res) => {
 	}
 });
 
-router.put('/:id', async (req, res) => {
-	const { id } = req.params;
+router.put('/:_id', async (req, res) => {
+	const { _id } = req.params;
 	const { displayName, logoUrl, location, description, notes } = req.body;
 	let fieldsToUpdate = dropUndefined({ displayName, logoUrl, location, description, notes });
 
-	let updatedCompany = await Company.findByIdAndUpdate(id, fieldsToUpdate, { new: true });
+	let updatedCompany = await Company.findByIdAndUpdate(_id, fieldsToUpdate, { new: true });
 
 	if (!updatedCompany) res.status(404).send({ error: 'Company not found!' });
 	else res.json(updatedCompany);
 });
 
-router.delete('/:id', async (req, res) => {
-	const { id } = req.params;
-	let deletedCompany = await Company.findByIdAndRemove(id);
+router.delete('/:_id', async (req, res) => {
+	const { _id } = req.params;
+	let deletedCompany = await Company.findByIdAndRemove(_id);
 	if (!deletedCompany) res.status(404).send({ error: 'Company not found!' });
 	else res.json(deletedCompany);
 });

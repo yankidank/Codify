@@ -38,20 +38,20 @@ router.get('/:_id', async (request, response) => {
   response.send(job);
 });
 
-router.get('/report', async (request, response) => {
-  const { query, user } = request;
+// router.get('/report', async (request, response) => {
+//   const { query, user } = request;
 
-  const filter = buildFilter({
-    query,
-    user: user._id,
-  });
+//   const filter = buildFilter({
+//     query,
+//     user: user._id,
+//   });
 
-  const jobs = await Job.find(filter.length ? { $and: filter } : {})
-    .populate('company')
-    .populate('contacts');
+//   const jobs = await Job.find(filter.length ? { $and: filter } : {})
+//     .populate('company')
+//     .populate('contacts');
 
-  response.send(jobs);
-});
+//   response.send(jobs);
+// });
 
 router.post('/', async (request, response) => {
   const { body, user } = request;

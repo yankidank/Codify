@@ -21,10 +21,10 @@ router.get('/', async (req, res) => {
 });
 
 // gets one contact by contact ID
-router.get('/:id', async (req, res) => {
-	const { id } = req.params;
+router.get('/:_id', async (req, res) => {
+	const { _id } = req.params;
 	try {
-		const contact = await Contact.findById(id).populate('company');
+		const contact = await Contact.findById(_id).populate('company');
 
 		if (!contact) {
 			res.status(404).send({ error: 'Contact not found!' });
@@ -66,22 +66,22 @@ router.post('/', async (req, res) => {
 	}
 });
 
-router.put('/:id', async (req, res) => {
-	const { id } = req.params;
+router.put('/:_id', async (req, res) => {
+	const { _id } = req.params;
 	const { displayName, email, phone, company, position, notes } = req.body;
 	let fieldsToUpdate = dropUndefined({ displayName, email, phone, company, position, notes });
-	let { company: oldCompany } = await Contact.findById(id);
+	let { company: oldCompany } = await Contact.findById(_id);
 	// copies in the old companies associated with specified contact
 	fieldsToUpdate.company = [...oldCompany, company];
-	let updatedContact = await Contact.findByIdAndUpdate(id, fieldsToUpdate, { new: true });
+	let updatedContact = await Contact.findByIdAndUpdate(_id, fieldsToUpdate, { new: true });
 
 	if (!updatedContact) res.status(404).send({ error: 'Contact not found!' });
 	else res.json(updatedContact);
 });
 
-router.delete('/:id', async (req, res) => {
-	const { id } = req.params;
-	let deletedContact = await Contact.findByIdAndRemove(id);
+router.delete('/:_id', async (req, res) => {
+	const { _id } = req.params;
+	let deletedContact = await Contact.findByIdAndRemove(_id);
 	if (!deletedContact) res.status(404).send({ error: 'Contact not found!' });
 	else res.json(deletedContact);
 });

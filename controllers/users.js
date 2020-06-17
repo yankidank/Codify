@@ -17,9 +17,9 @@ router.get('/', async (request, response) => {
 	response.send(users);
 });
 
-router.get('/:id', async (request, response) => {
-	const { id } = request.params;
-	const user = await User.findById(id);
+router.get('/:_id', async (request, response) => {
+	const { _id } = request.params;
+	const user = await User.findById(_id);
 
 	if (!user) {
 		response.status(404).send({ error: 'User not found!' });
@@ -28,18 +28,18 @@ router.get('/:id', async (request, response) => {
 	response.send(user);
 });
 
-router.put('/:id', async (request, response) => {
-	const { id } = request.params;
+router.put('/:_id', async (request, response) => {
+	const { _id } = request.params;
 	const { displayName, email } = request.body;
   const updatedUserInfo = dropUndefined({ displayName, email });
   
-	let updatedUser = await User.findByIdAndUpdate(id, updatedUserInfo, { new: true });
+	let updatedUser = await User.findByIdAndUpdate(_id, updatedUserInfo, { new: true });
 	response.json(updatedUser);
 });
 
-router.delete('/:id', async (request, response) => {
-	const { id } = request.params;
-	const deleted = await User.findByIdAndDelete(id);
+router.delete('/:_id', async (request, response) => {
+	const { _id } = request.params;
+	const deleted = await User.findByIdAndDelete(_id);
 
 	if (!deleted) {
 		response.status(404).send({ error: 'User not found!' });
