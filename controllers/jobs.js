@@ -37,10 +37,9 @@ router.get('/:id', async (request, response) => {
 });
 
 router.post('/', async (request, response) => {
-  const { body, user } = request;
-
+  const { body: {post, company}, user } = request;
   try {
-    let newJob = await Job.create({ user: user._id, body });
+    let newJob = await Job.create({ user: user._id, company, post });
 
     response.json(newJob);
   } catch (error) {
@@ -48,5 +47,7 @@ router.post('/', async (request, response) => {
     response.status(500).json({ error });
   }
 });
+
+router.put('/:id', )
 
 module.exports = router;

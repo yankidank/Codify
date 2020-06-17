@@ -18,7 +18,6 @@ router.get('/', async (request, response) => {
 	});
 
 	const companies = await Company.find(filter.length ? { $and: filter } : {});
-	console.log(companies);
 	response.send(companies);
 });
 
@@ -41,7 +40,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
 	const { displayName, logoUrl, location, description, notes } = req.body;
 	let newContactInfo = dropUndefined({ displayName, logoUrl, location, description, notes });
-
+	console.log(newContactInfo);
 	try {
 		let newCompany = await Company.create(newContactInfo);
 

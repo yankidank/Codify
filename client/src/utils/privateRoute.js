@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import axiosInstance from './API';
+import {axiosInstance} from './API';
 
 function PrivateRoute({ component: Component, ...rest }) {
 	const [isAuthenticated, setAuthenticated] = useState(false);
