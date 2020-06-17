@@ -19,6 +19,8 @@ function Dashboard() {
 				console.log(newJob);
 				setCompanies(companyArr);
 				setJobs(jobArr);
+				console.log(companies);
+				console.log(jobs);
 			} catch (error) {
 				console.log(error);
 			}
@@ -28,7 +30,7 @@ function Dashboard() {
 	}, []);
 	return (
 		<div>
-			{console.log(companies, jobs)}
+			
 			<NavBar />
 			<div className="container pushtop dashboard">
 				<div className="row">

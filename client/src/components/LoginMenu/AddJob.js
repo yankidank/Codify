@@ -44,8 +44,8 @@ function AddJob() {
   return (
     <div>
       <NavBar />
-      <div className="menuNav">
-        <ul>
+      <div>
+        <ul className="menuNav">
           <li className="btn-home-login">Job Post URL</li>
           <li>
             <input
