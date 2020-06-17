@@ -4,7 +4,7 @@ import Filter from './Filter';
 import OneJobListing from './JobListItem';
 
 function List(props) {
-  console.log(props.jobs)
+  // console.log(props.jobs)
   return (
     <div className={props.cols}>
       <div className="row card-image">
