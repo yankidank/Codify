@@ -15,7 +15,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 // const cors = require('cors');
-// const protectApi = require('./utils/protectApi');
+const protectApi = require('./utils/protectApi');
 // Routes
 const authRoutes = require('./routes/authRoutes');
 const apiRoutes = require('./routes/apiRoutes');
@@ -57,7 +57,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/codify', {
 });
 // ROUTING
 app.use('/auth', authRoutes); // authentication
-app.use('/api', apiRoutes);
+app.use('/api', protectApi, apiRoutes);
 // app.use('/api', protectApi, apiRoutes);
 
 app.listen(PORT, function () {
