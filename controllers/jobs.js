@@ -69,7 +69,7 @@ router.post('/', async (request, response) => {
 router.put('/:_id', async (request, response) => {
   const {
     params: { _id },
-    body: { set, unset, push },
+    body: { set, unset, push, pull },
     user,
   } = request;
   try {
@@ -78,7 +78,7 @@ router.put('/:_id', async (request, response) => {
         _id,
         user: user._id,
       },
-      dropUndefined({ $set: set, $unset: unset, $push: push })
+      dropUndefined({ $set: set, $unset: unset, $push: push, $pull: pull })
     );
 
     console.log(updatedJob);
