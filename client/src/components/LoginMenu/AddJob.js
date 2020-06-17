@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {addJob, addOffer} from '../../utils/API';
 
 // import axios from 'axios';
 import NavBar from '../NavBar';
@@ -8,6 +9,15 @@ function AddJob() {
 
   // // Hitting the Post endpoint
   const handleAdd = async () => {
+    try {
+      // example of a job post 
+      let newJob = await addJob({companyName: "apple", position: "backend intern", state: "CA", city: "Los Angeles", url: "www.apple.com"})
+      console.log(newJob);
+      let newOffer = await addOffer({salary: 300, bonus: 50, benefits: "healthcare, unlimited travel"}, newJob.data._id);
+      console.log(newOffer)
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const onPostInput = event => {

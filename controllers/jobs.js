@@ -71,16 +71,15 @@ router.put('/:_id', async (request, response) => {
     body: { set, unset, push, pull },
     user,
   } = request;
+  console.log(set);
   try {
     let updatedJob = await Job.findOneAndUpdate(
       {
         _id,
         user: user._id,
       },
-      dropUndefined({ $set: set, $unset: unset, $push: push, $pull: pull })
+      dropUndefined({ $set: set, $unset: unset, $push: push, $pull: pull }), {new: true}
     );
-
-    console.log(updatedJob);
 
     if (!updatedJob) response.status(404).send({ error: 'Job not found!' });
 
