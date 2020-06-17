@@ -498,7 +498,7 @@ textarea:focus{
   justify-content: center;
   align-items: center;
   text-align: center;
-  min-height: 100vh;
+  min-height: 80vh;
 }
 .home-menuNav {
 	min-height:40vh;
@@ -608,6 +608,10 @@ input:not([type]):focus:not([readonly]) {
 }
 .menuNav li .button div.btn-title {
   float: left;
+}
+.menuNav li .menu-url-input-field {
+  margin-top:15px;
+  width: 276px;
 }
 .btn-logo img {
   height: 25px;
