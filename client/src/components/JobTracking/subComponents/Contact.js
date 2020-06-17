@@ -6,7 +6,7 @@ function ContactCard() {
   
 	useEffect(() => {
 		axiosInstance.get('/api/contacts').then(({ data: newContacts }) => {
-			console.log(newContacts);
+			//console.log(newContacts);
 			setContacts(newContacts);
 		});
   }, []);
@@ -21,7 +21,17 @@ function ContactCard() {
 					</div>
 				</div>
 			</div>
-
+			{contacts.length === 0 &&
+				<div className="card card-padded card-contact">
+					<div className="contactInputs">
+						<input className="col s6 m6 l6" placeholder="Full Name"></input>
+						<input className="col s6 m6 l6" placeholder="Position"></input>
+						<input className="col s6 m6 l6" placeholder="Email@address.tld"></input>
+						<input className="col s6 m6 l6" placeholder="(800) 555-1234"></input>
+						<textarea placeholder="Notes"></textarea>
+					</div>
+				</div>
+			}
 			{contacts.map((contact, index) => {
 				const { displayName, email, phone, position, notes } = contact;
 				return (

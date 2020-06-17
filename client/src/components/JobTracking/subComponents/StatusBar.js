@@ -52,7 +52,6 @@ function StatusBar(props) {
     activeClass.three = activeDefault;
     activeClass.four = activeDefault+' circle-active';   
   }
-  console.log(stateClass)
 
   return (
     <div className="col s12 m12 l12">
