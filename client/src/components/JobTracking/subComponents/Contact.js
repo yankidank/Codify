@@ -9,7 +9,10 @@ function ContactCard() {
 		console.log(event.target)
 		let indexToChange = event.target.getAttribute("dataindex");
 		let newContacts = [...contacts];
-		newContacts[indexToChange].displayName = event.target.value;
+		if (event.target.value){
+			console.log(event.target.value)
+			newContacts[indexToChange].displayName = event.target.value;
+		}
 		setContacts(newContacts);
 	}
   
@@ -47,13 +50,13 @@ function ContactCard() {
 					<div className="card card-padded card-contact" key={index}>
 						<div className="contactInputs">
 							<input className="col s6 m6 l6" onChange={handleChange} placeholder="Full Name" dataindex={index} value={displayName}></input>
-							<input className="col s6 m6 l6" onChange={handleChange} placeholder="Position" value={position ? position : ''}
+							<input className="col s6 m6 l6" placeholder="Position" value={position ? position : ''}
 							></input>
-							<input className="col s6 m6 l6" onChange={handleChange} placeholder="Email@address.tld" value={email ? email : ''}
+							<input className="col s6 m6 l6" placeholder="Email@address.tld" value={email ? email : ''}
 							></input>
-							<input className="col s6 m6 l6" onChange={handleChange} placeholder="(800) 555-1234" value={phone ? phone : ''}
+							<input className="col s6 m6 l6" placeholder="(800) 555-1234" value={phone ? phone : ''}
 							></input>
-							<textarea placeholder="Notes" onChange={handleChange} value={notes ? notes : ''}></textarea>
+							<textarea placeholder="Notes" value={notes ? notes : ''}></textarea>
 						</div>
 					</div>
 				);
