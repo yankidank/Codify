@@ -6,7 +6,6 @@ const jobSchema = new Schema(
     user: {
       type: mongoose.ObjectId,
       required: true,
-      index: { unique: true },
       ref: 'User'
     },
     company: {

@@ -54,10 +54,9 @@ router.get('/report', async (request, response) => {
 });
 
 router.post('/', async (request, response) => {
-  const { body, user } = request;
-
+  const { body: {post, company}, user } = request;
   try {
-    let newJob = await Job.create({ user: user._id, body });
+    let newJob = await Job.create({ user: user._id, company, post });
 
     response.json(newJob);
   } catch (error) {

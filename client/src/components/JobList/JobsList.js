@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axiosInstance from '../../utils/API';
+import {axiosInstance} from '../../utils/API';
 import NavBar from '../NavBar';
 import List from './List';
 

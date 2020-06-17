@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import DoughtnutChart from './Doughnut';
 import List from '../JobList/List';
 import NavBar from '../NavBar';
-import axiosInstance from '../../utils/API';
+import { axiosInstance, postJob } from '../../utils/API';
 
 function Dashboard() {
 	const [companies, setCompanies] = useState([]);
@@ -14,13 +14,16 @@ function Dashboard() {
 				const companyArr = await axiosInstance.get('/api/companies');
 				const jobArr = await axiosInstance.get('/api/jobs');
 
+				const newJob = await postJob({companyName: "tindr", position: 'engineer', state: 'CA', city: 'Los Angeles'});
+
+				console.log(newJob);
 				setCompanies(companyArr);
 				setJobs(jobArr);
 				console.log(companies);
 				console.log(jobs);
 			} catch (error) {
-        console.log(error)
-      }
+				console.log(error);
+			}
 		};
 
 		fetchData();
