@@ -18,7 +18,7 @@ function Dashboard() {
 		};
 
 		fetchData();
-	}, []);
+	}, [companies, jobs]);
 	return (
 		<div>
 			{// these are the jobs for the chart

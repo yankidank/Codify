@@ -72,7 +72,7 @@ function Home() {
                     <div className="card-content">
                       <div className="row card-inner">
                         <div className="col s3 m2 l2 company-image">
-                          <img src="https://logo.clearbit.com/apple.com" alt="Apple" className="company-img-src" />
+                          <img src="/assets/img/company-icons/apple.png" alt="Apple" className="company-img-src" />
                         </div>
                         <div className="col s5 m6 l7 company-details">
                           <a href="/jobs/add">
@@ -87,7 +87,7 @@ function Home() {
                       </div>
                       <div className="row card-inner">
                         <div className="col s3 m2 l2 company-image">
-                          <img src="https://logo.clearbit.com/spotify.com" alt="Spotify" className="company-img-src" />
+                          <img src="/assets/img/company-icons/spotify.png" alt="Spotify" className="company-img-src" />
                         </div>
                         <div className="col s5 m6 l7 company-details">
                           <a href="/jobs/add">
@@ -102,7 +102,7 @@ function Home() {
                       </div>
                       <div className="row card-inner">
                         <div className="col s3 m2 l2 company-image">
-                          <img src="https://logo.clearbit.com/snap.com" alt="Snap" className="company-img-src" />
+                          <img src="/assets/img/company-icons/snap.png" alt="Snap" className="company-img-src" />
                         </div>
                         <div className="col s5 m6 l7 company-details">
                           <a href="/jobs/1">
@@ -117,7 +117,7 @@ function Home() {
                       </div>
                       <div className="row card-inner">
                         <div className="col s3 m2 l2 company-image">
-                          <img src="https://logo.clearbit.com/tiktok.com" alt="TikTok" className="company-img-src" />
+                          <img src="/assets/img/company-icons/tiktok.png" alt="TikTok" className="company-img-src" />
                         </div>
                         <div className="col s5 m6 l7 company-details">
                           <a href="/jobs/add">
@@ -132,7 +132,7 @@ function Home() {
                       </div>
                       <div className="row card-inner">
                         <div className="col s3 m2 l2 company-image">
-                          <img src="https://logo.clearbit.com/postmates.com" alt="Postmates" className="company-img-src" />
+                          <img src="/assets/img/company-icons/postmates.png" alt="Postmates" className="company-img-src" />
                         </div>
                         <div className="col s5 m6 l7 company-details">
                           <a href="/jobs/add">
