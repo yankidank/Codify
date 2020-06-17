@@ -68,16 +68,21 @@ router.post('/', async (request, response) => {
 router.put('/:_id', async (request, response) => {
   const {
     params: { _id },
-    body: { set, unset, push, pull },
+    body: { extraQuery, set, unset, push, pull },
     user,
   } = request;
-  console.log(set);
+  let query = {_id, user: user._id};
+
+  // to update interview/offer array
+  if (extraQuery) {
+    (extraQuery.interviewId)
+    ? query["interviews._id"] = extraQuery.interviewId
+    : query["offers._id"] = extraQuery.offerId;
+  }
+
   try {
     let updatedJob = await Job.findOneAndUpdate(
-      {
-        _id,
-        user: user._id,
-      },
+      query,
       dropUndefined({ $set: set, $unset: unset, $push: push, $pull: pull }), {new: true}
     );
 

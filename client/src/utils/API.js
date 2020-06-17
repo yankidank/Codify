@@ -69,12 +69,22 @@ export const updatePosition = async (newPosition, jobId) => {
 
 export const updateContact = async (newContact, contactId) => {
 // newContact := { displayName(required), company, email, phone, position, notes }
-console.log(newContact);
 	try {
 		const updatedContact = await axiosInstance.put(`/api/contacts/${contactId}`, newContact);
 		return updatedContact;
 	} catch (err) {
 		console.log(err)
+	}
+}
+
+export const updateInterview = async (newInterview, jobId, interviewId) => {
+	// newInterview := { date, location: {remote, street, city, state, zip}, notes }
+	try {
+		const updatedInterview = await axiosInstance.put(`/api/jobs/${jobId}`, {extraQuery: {interviewId}, set: {"interviews.$": newInterview}});
+		const {data: {interviews}} = updatedInterview;
+		return interviews[interviews.length - 1];
+	} catch (err) {
+		console.log(err);
 	}
 }
 
