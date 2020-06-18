@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllJobs, addJob } from '../../utils/API';
+import { getAllJobs } from '../../utils/API';
 import NavBar from '../NavBar';
 import List from './List';
 
