@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../NavBar';
-import {postJob} from "../../utils/API";
+import {addJob} from "../../utils/API"
 
 function AddJob() {
   const [post, setPost] = useState({
@@ -17,7 +17,7 @@ function AddJob() {
     try {
       console.log(post);
       
-      let newJob = await postJob(post)
+      let newJob = await addJob(post)
       console.log(newJob)
     }
     catch (error){

@@ -20,13 +20,19 @@ function List(props) {
       <div className="card card-contact">
         <div className="container container-full">
           <Filter />
-          <OneJobListing />
-          {/* {props.jobs.map(job =>( 
+          {/* <OneJobListing /> */}
+          {props.jobs.map(job =>( 
 
             <OneJobListing 
-            name ={job.name}
+            id={job._id}
+            key ={job._id} 
+            companyName = {job.company.displayName}
+            position= {job.post.position}
+            city={job.post.city}
+            state={job.post.state}
+            // status={job.statusHistory}
             />
-          ))} */}
+          ))}
           
         </div>
       </div>
