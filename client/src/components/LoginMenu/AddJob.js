@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../NavBar';
+import {addJob} from "../../utils/API"
 
 function AddJob() {
   const [post, setPost] = useState({
-    displayName: "",
+    companyName: "",
     position: "",
     city: "",
     state: "",
@@ -11,7 +12,17 @@ function AddJob() {
   });
 
   // Hitting the Post endpoint
-  const handleAdd = async () => {
+  const handleAdd = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(post);
+      
+      let newJob = await addJob(post)
+      console.log(newJob)
+    }
+    catch (error){
+      console.log(error)
+    }
   }
 
   const onPostInput = event => {
@@ -52,7 +63,7 @@ function AddJob() {
       <div>
         <ul className="menuNav">
           <li>
-            <input placeholder="Company Name" name="displayName" onChange={onPostInput}></input>
+            <input placeholder="Company Name" name="companyName" onChange={onPostInput}></input>
           </li>
           <li>
             <input placeholder="Position" name="position" onChange={onPostInput}></input>

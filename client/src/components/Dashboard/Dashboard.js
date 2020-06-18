@@ -15,15 +15,11 @@ function Dashboard() {
 	}, []);
 	return (
 		<div>
-			{
-				// these are the jobs for the chart
-				console.log(jobs)
-			}
 			<NavBar />
 			<div className="container pushtop dashboard">
 				<div className="row">
 					<DoughtnutChart />
-					<List cols="col s12 m12 l8" />
+					<List cols="col s12 m12 l8" jobs={jobs}/>
 				</div>
 			</div>
 		</div>
