@@ -1,5 +1,4 @@
 const { Router } = require('express');
-const { Types: { ObjectId } } = require('mongoose');
 const { Job } = require('../models');
 const { buildFilter } = require('../utils/queryHelper');
 const { dropUndefined } = require('../utils/dropUndefined');
