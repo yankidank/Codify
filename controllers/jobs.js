@@ -9,8 +9,8 @@ router.get('/', async (request, response) => {
   const { query, user } = request;
 
   const filter = buildFilter({
-    query,
-    user: user._id,
+    ...query,
+    user: user._id.toString(),
   });
 
   console.log(filter);
