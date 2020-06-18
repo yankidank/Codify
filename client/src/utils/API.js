@@ -125,6 +125,24 @@ export const updateOffer = async (newOffer, jobId, offerId) => {
 // get endpoints ///////////////////
 ////////////////////////////////////
 
+export const getStatusReport = async () => {
+  try {
+    let { data } = await axiosInstance.get('/api/reports/status');
+    return data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const getCommunicationReport = async () => {
+  try {
+    let { data } = await axiosInstance.get('/api/reports/communication');
+    return data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export const getAllJobs = async () => {
 	try {
 		let { data: jobs } = await axiosInstance.get('/api/jobs');

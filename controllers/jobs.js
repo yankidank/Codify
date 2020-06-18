@@ -10,7 +10,7 @@ router.get('/', async (request, response) => {
 
   const filter = buildFilter({
     ...query,
-    user: user._id.toString(),
+    user: user._id,
   });
 
   console.log(filter);
@@ -28,7 +28,7 @@ router.get('/:_id', async (request, response) => {
     user,
   } = request;
 
-  const job = await Job.findById(_id).populate('company').populate('contacts');
+  const job = await Job.find({ _id, user: user._id }).populate('company').populate('contacts');
 
   if (!job) response.status(404).send({ error: 'Job not found!' });
 
@@ -40,21 +40,6 @@ router.get('/:_id', async (request, response) => {
     response.send(job);
   }
 
-});
-
-router.get('/report', async (request, response) => {
-  const { query, user } = request;
-
-  const filter = buildFilter({
-    query,
-    user: user._id,
-  });
-
-  const jobs = await Job.find(filter.length ? { $and: filter } : {})
-    .populate('company')
-    .populate('contacts');
-
-  response.send(jobs);
 });
 
 router.post('/', async (request, response) => {
