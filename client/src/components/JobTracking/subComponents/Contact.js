@@ -14,11 +14,17 @@ function ContactCard() {
 
 	useEffect(() => {
 		(async () => {
-			let contacts = await getAllContacts();
-			setContacts(contacts);
+			let retrievedContacts = await getAllContacts();
+	
+			if(retrievedContacts){
+				setContacts(retrievedContacts);
+			} else {
+				console.log("Add empty contacts")
+			}
 		})();
 	}, []);
 
+	// console.log(contacts)
 	return (
 		<div className="col s12 m12 l6">
 			<div className="row card-image">

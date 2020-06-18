@@ -4,7 +4,7 @@ import Filter from './Filter';
 import OneJobListing from './JobListItem';
 
 function List(props) {
-  // console.log(props.jobs)
+  
   return (
     <div className={props.cols}>
       <div className="row card-image">
@@ -20,13 +20,19 @@ function List(props) {
       <div className="card card-contact">
         <div className="container container-full">
           <Filter />
-          <OneJobListing />
-          {/* {props.jobs.map(job =>( 
-
+  
+          {props.jobs.map(job =>( 
             <OneJobListing 
-            name ={job.name}
+              id={job._id}
+              key ={job._id} 
+              companyName = {job.company.displayName}
+              position= {job.post.position}
+              city={job.post.city}
+              state={job.post.state}
+              url={job.post.url}
+              // status={job.statusHistory}
             />
-          ))} */}
+          ))}
           
         </div>
       </div>
@@ -36,6 +42,7 @@ function List(props) {
 
 List.propTypes = {
   cols: PropTypes.string,
+  jobs: PropTypes.object,
 };
 
 export default List;
