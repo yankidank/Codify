@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import DoughtnutChart from './Doughnut';
 import List from '../JobList/List';
 import NavBar from '../NavBar';
-import { getAllJobs, addJob } from '../../utils/API';
+import { getAllJobs } from '../../utils/API';
 
 function Dashboard() {
 	const [jobs, setJobs] = useState([]);

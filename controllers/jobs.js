@@ -31,12 +31,14 @@ router.get('/:_id', async (request, response) => {
 
   if (!job) response.status(404).send({ error: 'Job not found!' });
 
-  if (job.user._id !== user._id)
+  if (job.user.toString() !== user._id.toString())
     response.status(401).send({
       error: 'Not authorized! Are you sure this is a job you posted?',
     });
+  else {
+    response.send(job);
+  }
 
-  response.send(job);
 });
 
 router.get('/report', async (request, response) => {

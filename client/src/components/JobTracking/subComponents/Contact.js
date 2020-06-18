@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllContacts, updateContact } from '../../../utils/API';
+import { getAllContacts } from '../../../utils/API';
 
 function ContactCard() {
 	const [contacts, setContacts] = useState([]);

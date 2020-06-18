@@ -139,14 +139,26 @@ export const getAllContacts = async () => {
 	}
 };
 
-// export const getPosition = async (jobId) => {
+export const getJob = async (jobId) => {
+	try {
+		let job = await axiosInstance.get(`/api/jobs/${jobId}`);
+		return job;
+	} catch (err) {
+		console.log(err);
+	}
+}
 
-// }
+export const getPosition = async (jobId) => {
+	let {data: {post}} = await getJob(jobId);
+	return post;
+}
 
-// export const getInterviews = async (jobId) => {
+export const getInterviews = async (jobId) => {
+	let {data: {interviews}} = await getJob(jobId);
+	return interviews;
+}
 
-// }
-
-// export const getOffers = async (jobId) => {
-
-// }
+export const getOffers = async (jobId) => {
+	let {data: {offers}} = await getJob(jobId);
+	return offers;
+}
