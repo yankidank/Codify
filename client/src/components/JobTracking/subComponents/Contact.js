@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllContacts } from '../../../utils/API';
+import { getAllContacts} from '../../../utils/API';
 
 function ContactCard() {
 	const [contacts, setContacts] = useState([]);
@@ -15,7 +15,6 @@ function ContactCard() {
 	useEffect(() => {
 		(async () => {
 			let retrievedContacts = await getAllContacts();
-	
 			if(retrievedContacts){
 				setContacts(retrievedContacts);
 			} else {
