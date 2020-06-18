@@ -23,7 +23,7 @@ function Dashboard() {
 		};
 
 		fetchData();
-	}, [companies, jobs]);
+	}, []);
 	return (
 		<div>
 			

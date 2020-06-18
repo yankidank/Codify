@@ -1,4 +1,5 @@
 const moment = require('moment');
+const { isValidObjectId } = require('mongoose');
 
 // usage:
 //   const users = await User.find({
@@ -27,6 +28,11 @@ function flatten(obj) {
 function buildFilter(fieldObject) {
   return Object.entries(flatten(fieldObject))
     .map(([key, value]) => {
+
+      if (isValidObjectId(value)) {
+        return { [key]: value }
+      }
+
       const number = parseFloat(value)
       if (number) {
         return { [key]: number };
