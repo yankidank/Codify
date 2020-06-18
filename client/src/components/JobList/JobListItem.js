@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function OneJobListing(props) {
 
@@ -24,6 +25,14 @@ function OneJobListing(props) {
       {/* <!-- Repeat --> */}
     </div>
   );
+}
+
+OneJobListing.propTypes = {
+  id: PropTypes.string,
+  companyName: PropTypes.string,
+  position: PropTypes.string,
+  city: PropTypes.string, 
+  state: PropTypes.string
 }
 
 export default OneJobListing;
