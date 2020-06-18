@@ -139,7 +139,7 @@ const seedAll = async () => {
     );
     const someContactIds = [contacts[0]._id];
 
-    await seedJobs(jobSeed('5eea71fc94a29e1431a2ed89', someCompanyIds[0], someContactIds));
+    await seedJobs(jobSeed(someGuysId, someCompanyIds[0], someContactIds));
 
     process.exit(0);
   } catch (error) {
