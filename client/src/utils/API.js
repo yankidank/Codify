@@ -8,10 +8,16 @@ export const axiosInstance = axios.create({
 // add endpoints ///////////////////
 ////////////////////////////////////
 
-export const addContact = async (contactProperties) => {
+export const addContact = async (contactProperties, jobId) => {
 	// contactProperties := { displayName(required), company, email, phone, position, notes }
 	try {
-		let newContact = await axiosInstance.post('/api/contacts', contactProperties);
+		let newContact;
+		if (jobId) {
+			let contactInfo = await axiosInstance.post('/api/contacts', contactProperties);
+			newContact = await axiosInstance.put(`/api/jobs/${jobId}`, { push: { contacts: contactInfo.data._id } });
+		} else {
+			newContact = await axiosInstance.post('/api/contacts', contactProperties);
+		}
 		return newContact;
 	} catch (err) {
 		console.log(err);
@@ -154,6 +160,11 @@ export const getPosition = async (jobId) => {
 export const getInterviews = async (jobId) => {
 	let {data: {interviews}} = await getJob(jobId);
 	return interviews;
+}
+
+export const getContacts = async (jobId) => {
+	let {data: {contacts}} = await getJob(jobId);
+	return contacts;
 }
 
 export const getOffers = async (jobId) => {
