@@ -13,7 +13,8 @@ router.get('/', async (request, response) => {
     user: user._id,
   });
 
-  const jobs = await Job.find(filter.length ? { $and: filter } : {})
+  console.log(filter);
+  const jobs = await Job.find(filter.length ? { $and: filter } : {user: user._id})
     .populate('company')
     .populate('contacts');
 
@@ -81,10 +82,7 @@ router.put('/:_id', async (request, response) => {
   }
 
   try {
-    let updatedJob = await Job.findOneAndUpdate(
-      query,
-      dropUndefined({ $set: set, $unset: unset, $push: push, $pull: pull }), {new: true}
-    );
+    let updatedJob = await Job.findOneAndUpdate( query, dropUndefined({ $set: set, $unset: unset, $push: push, $pull: pull }), {new: true});
 
     if (!updatedJob) response.status(404).send({ error: 'Job not found!' });
 

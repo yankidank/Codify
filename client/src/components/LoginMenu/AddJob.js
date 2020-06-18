@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {addJob} from '../../utils/API';
+import {addJob, addInterview, updateInterview} from '../../utils/API';
 
 // import axios from 'axios';
 import NavBar from '../NavBar';
@@ -12,7 +12,10 @@ function AddJob() {
     try {
       // example of a job post 
       let newJob = await addJob({companyName: "apple", position: "backend intern", state: "CA", city: "Los Angeles", url: "www.apple.com"})
-      console.log(newJob);
+      // let newInterview = await addInterview({location: {remote: true, street: "1234 main st.", city: "Los Angeles", state: "CA"}, notes: "dress professional" }, newJob.data._id);
+
+      // let updatedInterview = await updateInterview({location: {remote: true, street: "1234 main st.", city: "Los Angeles", state: "CA"}, notes: "dress casual" }, newJob.data._id, newInterview._id);
+
     } catch (err) {
       console.log(err);
     }

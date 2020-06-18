@@ -2,27 +2,23 @@ import React, { useEffect, useState } from 'react';
 import DoughtnutChart from './Doughnut';
 import List from '../JobList/List';
 import NavBar from '../NavBar';
-import { axiosInstance } from '../../utils/API';
+import { getAllJobs, addJob } from '../../utils/API';
 
 function Dashboard() {
 	const [jobs, setJobs] = useState([]);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const jobArr = await axiosInstance.get('/api/jobs');
-				setJobs(jobArr);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-
-		fetchData();
-	}, [jobs]);
+		(async () => {
+			const jobArr = await getAllJobs();
+			setJobs(jobArr);
+		})();
+	}, []);
 	return (
 		<div>
-			{// these are the jobs for the chart
-			console.log(jobs) } 
+			{
+				// these are the jobs for the chart
+				console.log(jobs)
+			}
 			<NavBar />
 			<div className="container pushtop dashboard">
 				<div className="row">
