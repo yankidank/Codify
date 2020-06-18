@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { Types: { ObjectId } } = require('mongoose');
 const { Job } = require('../models');
 const { buildFilter } = require('../utils/queryHelper');
 const { dropUndefined } = require('../utils/dropUndefined');
@@ -9,8 +10,8 @@ router.get('/', async (request, response) => {
   const { query, user } = request;
 
   const filter = buildFilter({
-    query,
-    user: user._id,
+    ...query,
+    user: user._id.toString(),
   });
 
   const jobs = await Job.find(filter.length ? { $and: filter } : {})
