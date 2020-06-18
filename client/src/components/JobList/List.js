@@ -22,15 +22,15 @@ function List(props) {
           <Filter />
   
           {props.jobs.map(job =>( 
-
             <OneJobListing 
-            id={job._id}
-            key ={job._id} 
-            companyName = {job.company.displayName}
-            position= {job.post.position}
-            city={job.post.city}
-            state={job.post.state}
-            // status={job.statusHistory}
+              id={job._id}
+              key ={job._id} 
+              companyName = {job.company.displayName}
+              position= {job.post.position}
+              city={job.post.city}
+              state={job.post.state}
+              url={job.post.url}
+              // status={job.statusHistory}
             />
           ))}
           

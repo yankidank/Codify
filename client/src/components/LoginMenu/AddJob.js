@@ -60,37 +60,43 @@ function AddJob() {
   return (
     <div>
       <NavBar />
-      <div>
-        <ul className="menuNav">
-          <li>
-            <input placeholder="Company Name" name="companyName" onChange={onPostInput}></input>
-          </li>
-          <li>
-            <input placeholder="Position" name="position" onChange={onPostInput}></input>
-          </li>
-          <li>
-            <input placeholder="City" name="city" onChange={onPostInput}></input>
-          </li>
-          <li>
-            <input placeholder="State" name="state" onChange={onPostInput}></input>
-          </li>
-          <li className="btn-home-login">Job Post URL</li>
-          <li>
-            <input
-              className="menu-url-input-field"
-              id="paste"
-              name="url"
-              placeholder="https://"
-              onChange={onPostInput}
-              value={post.url}
-            ></input>
-          </li>
-          <li>
-            <a href="/jobs/add" className="button btn-job-add" onClick={handleAdd}>
-              Save Job
-            </a>
-          </li>
-        </ul>
+      <div className="menuNav container">
+        <div className="row card-image">
+          <div className="col s12 card-title card-title-add-job">
+            Add New Job
+          </div>
+        </div>
+        <div className="card-add-job card card-padded">
+          <div className="row">
+            <div className="col s12 m12 l6">
+              <input className="menu-input-field" placeholder="Company Name" name="companyName" onChange={onPostInput}></input>
+            </div>
+            <div className="col s12 m12 l6">
+              <input className="menu-input-field" placeholder="Position" name="position" onChange={onPostInput}></input>
+            </div>
+            <div className="col s6 m6 l6">
+              <input className="menu-input-field" placeholder="City" name="city" onChange={onPostInput}></input>
+            </div>
+            <div className="col s6 m6 l6">
+              <input className="menu-input-field" placeholder="State" name="state" onChange={onPostInput}></input>
+            </div>
+            <div className="col s12 m12 l12">
+              <input
+                className="menu-input-field"
+                id="paste"
+                name="url"
+                placeholder="https://"
+                onChange={onPostInput}
+                value={post.url}
+              ></input>
+            </div>
+            <div className="col s12">
+              <a href="/jobs/add" className="button btn-job-add" onClick={handleAdd}>
+                Save Job
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
