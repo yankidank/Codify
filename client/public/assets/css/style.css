@@ -233,7 +233,8 @@ button {
 	padding-bottom: 15px;
 }
 .card-inner .company-image {
-	margin:0 auto;
+  margin:0 auto;
+  padding-left: 24px; /* centering */
 }
 .card-inner .btn-status {
 	padding:15px 15px 15px 0;
