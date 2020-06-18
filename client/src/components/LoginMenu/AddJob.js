@@ -1,45 +1,49 @@
 import React, { useEffect, useState } from 'react';
-
-// import axios from 'axios';
 import NavBar from '../NavBar';
 
 function AddJob() {
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState({
+    displayName: "",
+    position: "",
+    city: "",
+    state: "",
+    url: ""
+  });
 
-  // // Hitting the Post endpoint
+  // Hitting the Post endpoint
   const handleAdd = async () => {
-    
-  };
+  }
 
   const onPostInput = event => {
     const { target: { name, value }} = event;
 
     setPost({ ...post, [name]: value})
+    console.log(post)
   }
 
   useEffect(() => {
-    handleAdd();
+    // handleAdd();
     // Paste Job URL
-    const paste = document.getElementById('paste');
-    paste.addEventListener('click', () => {
-      if (!paste.value) {
-        // Attempt to read clipboard text
-        navigator.clipboard
-          .readText()
-          .then(text => {
-            const pasteText = text.trim();
-            // Check that the clipboard holds a link
-            const checkUrl = pasteText.startsWith('http');
-            if (checkUrl) {
-              setPost({...post, url: pasteText })
-              // paste.value = pasteText;
-            }
-          })
-          .catch(err => {
-            console.log('Something went wrong', err);
-          });
-      }
-    });
+    // const paste = document.getElementById('paste');
+    // paste.addEventListener('click', () => {
+    //   if (!paste.value) {
+    //     // Attempt to read clipboard text
+    //     navigator.clipboard
+    //       .readText()
+    //       .then(text => {
+    //         const pasteText = text.trim();
+    //         // Check that the clipboard holds a link
+    //         const checkUrl = pasteText.startsWith('http');
+    //         if (checkUrl) {
+    //           setPost({...post, url: pasteText })
+    //           // paste.value = pasteText;
+    //         }
+    //       })
+    //       .catch(err => {
+    //         console.log('Something went wrong', err);
+    //       });
+    //   }
+    // });
   });
 
   return (
@@ -47,6 +51,18 @@ function AddJob() {
       <NavBar />
       <div>
         <ul className="menuNav">
+          <li>
+            <input placeholder="Company Name" name="displayName" onChange={onPostInput}></input>
+          </li>
+          <li>
+            <input placeholder="Position" name="position" onChange={onPostInput}></input>
+          </li>
+          <li>
+            <input placeholder="City" name="city" onChange={onPostInput}></input>
+          </li>
+          <li>
+            <input placeholder="State" name="state" onChange={onPostInput}></input>
+          </li>
           <li className="btn-home-login">Job Post URL</li>
           <li>
             <input
@@ -54,12 +70,12 @@ function AddJob() {
               id="paste"
               name="url"
               placeholder="https://"
-              onInput={onPostInput}
+              onChange={onPostInput}
               value={post.url}
             ></input>
           </li>
           <li>
-            <a href="/jobs/add" className="button btn-job-add">
+            <a href="/jobs/add" className="button btn-job-add" onClick={handleAdd}>
               Save Job
             </a>
           </li>
