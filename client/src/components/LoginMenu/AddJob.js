@@ -35,26 +35,26 @@ function AddJob() {
   useEffect(() => {
     // handleAdd();
     // Paste Job URL
-    // const paste = document.getElementById('paste');
-    // paste.addEventListener('click', () => {
-    //   if (!paste.value) {
-    //     // Attempt to read clipboard text
-    //     navigator.clipboard
-    //       .readText()
-    //       .then(text => {
-    //         const pasteText = text.trim();
-    //         // Check that the clipboard holds a link
-    //         const checkUrl = pasteText.startsWith('http');
-    //         if (checkUrl) {
-    //           setPost({...post, url: pasteText })
-    //           // paste.value = pasteText;
-    //         }
-    //       })
-    //       .catch(err => {
-    //         console.log('Something went wrong', err);
-    //       });
-    //   }
-    // });
+    const paste = document.getElementById('paste');
+    paste.addEventListener('click', () => {
+      if (!paste.value) {
+        // Attempt to read clipboard text
+        navigator.clipboard
+          .readText()
+          .then(text => {
+            const pasteText = text.trim();
+            // Check that the clipboard holds a link
+            const checkUrl = pasteText.startsWith('http');
+            if (checkUrl) {
+              setPost({...post, url: pasteText })
+              // paste.value = pasteText;
+            }
+          })
+          .catch(err => {
+            console.log('Something went wrong', err);
+          });
+      }
+    });
   });
 
   return (
