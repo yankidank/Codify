@@ -39,10 +39,9 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
 	const { displayName, logoUrl, location, description, notes } = req.body;
-	let newContactInfo = dropUndefined({ displayName, logoUrl, location, description, notes });
-	console.log(newContactInfo);
+	let newCompanyInfo = dropUndefined({ displayName, logoUrl, location, description, notes });
 	try {
-		let newCompany = await Company.create(newContactInfo);
+		let newCompany = await Company.create(newCompanyInfo);
 
 		res.json(newCompany);
 	} catch (err) {

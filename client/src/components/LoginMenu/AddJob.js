@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../NavBar';
-import {postJob} from "../../utils/API";
 
 function AddJob() {
   const [post, setPost] = useState({
@@ -12,21 +11,7 @@ function AddJob() {
   });
 
   // Hitting the Post endpoint
-  const handleAdd = async (e) => {
-    e.preventDefault();
-    if (post) {
-      console.log(post)
-      postJob(post)
-    }
-    // try {
-    //   console.log(post);
-      
-    //   return await postJob(post)
-    //   // console.log(newJob)
-    // }
-    // catch (error){
-    //   console.log(error)
-    // }
+  const handleAdd = async () => {
   }
 
   const onPostInput = event => {
