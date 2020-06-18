@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const faker = require('faker');
 const { Company, Contact, User, Job } = require('../models');
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/codify', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -122,7 +122,7 @@ const seedJobs = async jobSeed => {
 const seedAll = async () => {
   try {
     await Promise.all([
-      User.deleteMany({}),
+      // User.deleteMany({}),
       Company.deleteMany({}),
       Contact.deleteMany({}),
       Job.deleteMany({}),
@@ -139,7 +139,7 @@ const seedAll = async () => {
     );
     const someContactIds = [contacts[0]._id];
 
-    await seedJobs(jobSeed(someGuysId, someCompanyIds[0], someContactIds));
+    await seedJobs(jobSeed('5eea71fc94a29e1431a2ed89', someCompanyIds[0], someContactIds));
 
     process.exit(0);
   } catch (error) {

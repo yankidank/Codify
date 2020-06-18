@@ -14,7 +14,7 @@ function flatten(obj) {
   const paths = (obj = {}, head = '') => {
     return Object.entries(obj).reduce((product, [key, value]) => {
       let fullPath = addDelimiter(head, key);
-      return isObject(value)
+      return isObject(value) && !isValidObjectId(value)
         ? [...product, ...paths(value, fullPath)]
         : [...product, [fullPath, value]];
     }, []);
