@@ -112,6 +112,14 @@ canvas {
 .job-container .row .col .card {
 	margin-bottom: 35px;
 }
+.card-add-job {
+  width:60%;
+  min-width: 420px;
+}
+.menuNav .row .col.card-title-add-job {
+  margin-bottom: -15px;
+  margin-top: 20px;
+}
 .card {
   display: flex;
   flex-direction: column;
@@ -142,7 +150,6 @@ canvas {
   text-align: center;
   background: rgba(0, 0, 0, 0.45);
 	border-radius: 4px;
-	display:inline-block;
 	float:right;
 }
 .card .card-content {
@@ -226,7 +233,8 @@ button {
 	padding-bottom: 15px;
 }
 .card-inner .company-image {
-	margin:0 auto;
+  margin:0 auto;
+  padding-left: 24px; /* centering */
 }
 .card-inner .btn-status {
 	padding:15px 15px 15px 0;
@@ -366,8 +374,8 @@ textarea:focus{
   background: #787466;
 }
 #paste {
-  background: #ffffff url(../img/icon-paste.png) no-repeat scroll 4px 4px;
-  padding-left: 48px;
+/*   background: #ffffff url(../img/icon-paste.png) no-repeat scroll 4px 4px;
+  padding-left: 48px; */
 }
 .company-header .col {
 	color: #fff;
@@ -540,6 +548,14 @@ p.text-center {
 }
 .menuNav .button {
   position: static;
+  padding:15px 0;
+  left: 0px;
+  top: 20px;
+  margin: 15px 15px 5px 15px;
+  border-radius: 5px;
+}
+.menuNav li a.button {
+  position: static;
   width: 340px;
   height: 49px;
   left: 0px;
@@ -571,17 +587,13 @@ p.text-center {
 .btn-job-add:focus {
   background: #0000007c;
 }
-.menu-url-input {
+.menu-input-field {
   color: #fff;
   border: none;
   background: none;
 }
 .menuNav input:not([type]) {
-  border-radius: 5px;
-  padding: 0 10px;
-  width: 75%;
   color: #000;
-  background: #fff;
 }
 input:not([type]):focus:not([readonly]) {
   border-bottom: 1px solid #fff;
@@ -594,7 +606,7 @@ input:not([type]):focus:not([readonly]) {
   margin-top: 8%;
   color: #fff;
 }
-.menuNav li .button {
+.menuNav li .button, .menuNav .card-add-job .col .button {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -608,10 +620,6 @@ input:not([type]):focus:not([readonly]) {
 }
 .menuNav li .button div.btn-title {
   float: left;
-}
-.menuNav li .menu-url-input-field {
-  margin-top:15px;
-  width: 276px;
 }
 .btn-logo img {
   height: 25px;
