@@ -25,7 +25,7 @@ export const addContact = async (contactProperties, jobId) => {
 };
 
 export const addJob = async (jobProperties) => {
-	// jobProperties := {companyName(required), url, position(required), city(required), state(required)}
+	// jobProperties := {companyName(required), url, position(required), city, state}
 	try {
 		const { companyName: displayName, position, state, city, url } = jobProperties;
 
