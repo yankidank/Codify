@@ -553,6 +553,15 @@ p.text-center {
   margin: 15px 15px 5px 15px;
   border-radius: 5px;
 }
+.menuNav li a.button {
+  position: static;
+  width: 340px;
+  height: 49px;
+  left: 0px;
+  top: 20px;
+  margin: 15px;
+  border-radius: 5px;
+}
 .menuNav .button:hover {
   color: #b9b9b9; /* 05ACE1 */
 }
