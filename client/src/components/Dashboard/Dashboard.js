@@ -1,29 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import DoughtnutChart from './Doughnut';
 import List from '../JobList/List';
 import NavBar from '../NavBar';
-// import { axiosInstance } from '../../utils/API';
+import { axiosInstance } from '../../utils/API';
 
 function Dashboard() {
-	// const [companies, setCompanies] = useState([]);
-	// const [jobs, setJobs] = useState([]);
+	const [companies, setCompanies] = useState([]);
+	const [jobs, setJobs] = useState([]);
 
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		try {
-	// 			const companyArr = await axiosInstance.get('/api/companies');
-	// 			const jobArr = await axiosInstance.get('/api/jobs');
-	// 			setCompanies(companyArr);
-	// 			setJobs(jobArr);
-	// 			console.log(companies);
-	// 			console.log(jobs);
-	// 		} catch (error) {
-	// 			console.log(error);
-	// 		}
-	// 	};
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const companyArr = await axiosInstance.get('/api/companies');
+				const jobArr = await axiosInstance.get('/api/jobs');
+				setCompanies(companyArr);
+				setJobs(jobArr);
+				console.log(companies);
+				console.log(jobs);
+			} catch (error) {
+				console.log(error);
+			}
+		};
 
-	// 	fetchData();
-	// }, [companies, jobs]);
+		fetchData();
+	}, []);
 	return (
 		<div>
 			
