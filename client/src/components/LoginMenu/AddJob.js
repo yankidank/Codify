@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 // import axios from 'axios';
 import NavBar from '../NavBar';
 
@@ -7,8 +6,10 @@ function AddJob() {
   const [post, setPost] = useState({});
 
   // // Hitting the Post endpoint
-  const handleAdd = async () => {
-  };
+  // const handleAdd = () => {
+  //   axios.post('/api/jobs', { post });
+  //   // window.open('/jobs', '_self');
+  // };
 
   const onPostInput = event => {
     const { target: { name, value }} = event;
@@ -17,7 +18,6 @@ function AddJob() {
   }
 
   useEffect(() => {
-    handleAdd();
     // Paste Job URL
     const paste = document.getElementById('paste');
     paste.addEventListener('click', () => {

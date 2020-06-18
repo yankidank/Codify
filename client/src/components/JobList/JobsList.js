@@ -10,7 +10,6 @@ function JobsList() {
     const fetchData = async () => {
       try {
         const jobArrList = await axiosInstance.get('/api/jobs');
-
         console.log(jobArrList)
 				setJobs(jobArrList);
       } catch (error) {
