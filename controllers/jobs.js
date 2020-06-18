@@ -15,6 +15,7 @@ router.get('/', async (request, response) => {
 
   console.log(filter);
   const jobs = await Job.find(filter.length ? { $and: filter } : {user: user._id})
+    .sort({ 'updatedAt': -1 })
     .populate('company')
     .populate('contacts');
 
