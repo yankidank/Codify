@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function OneJobListing(props) {
 
-  const {id, companyName, position, city, state} = props;
+  const {id, companyName, position, city, state, status} = props;
 
   // Create Logo URL
   const logoBase = 'https://logo.clearbit.com/';
@@ -23,7 +23,7 @@ function OneJobListing(props) {
           </a>
         </div>
         <div className="col s4 m4 l3 btn-status">
-          <button className="btn-applied">Applied</button>
+          <button className="btn-applied">{status[0].toUpperCase() + status.slice(1)}</button>
         </div>
       </div>
   );

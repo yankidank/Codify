@@ -112,8 +112,7 @@ canvas {
   letter-spacing: 0.02em;
   padding: 8px 0;
 }
-.btn-filter button:active,
-.btn-filter button:focus {
+.btn-filter button.active {
   background: #000;
 }
 .btn-disabled {
@@ -439,7 +438,7 @@ textarea:focus{
   color: #0000008a;
   background:#fff;
 }
-.btn-filter .btn-filter-disabled:focus {
+.btn-filter .btn-filter-disabled.active {
   color:#fff;
 }
 .company-header .col {
