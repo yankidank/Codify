@@ -23,6 +23,7 @@ nav {
   top: 40px;
 }
 .app-navbar-fixed {
+  position: -webkit-sticky;
   position:sticky;
   top:0;
   z-index:900;
