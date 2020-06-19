@@ -515,7 +515,6 @@ textarea:focus{
 	margin: -17px auto 0 auto;
 }
 .circle-inner{
-	cursor: pointer;
 	position: relative;
 	margin: -17px auto 0 auto;
 	width: 18px;
