@@ -1,115 +1,72 @@
 import React, { useState, useEffect } from 'react';
 import { getAllContacts } from '../../../utils/API';
 import { useParams } from 'react-router-dom';
-import deBounce from '../../../utils/deBounce';
-import ContactCard from "./ContactCard";
+import ContactCard from './ContactCard';
+import _ from 'lodash';
+
+const debouncedUpdateContact = _.debounce(updateContact, 500);
+const debouncedAddContact = _.debounce(addContact, 500);
 
 function ContactCardContainer() {
-	const [contacts, setContacts] = useState([]);
+	const [contacts, setContacts] = useState([{ displayName: '', email: '', phone: '', position: '', notes: '' }]);
 
-	const {id} = useParams();
+	const { id } = useParams();
 
-	const contactAPI = (args) => {
-		console.log(args)
-	}
-
-	const handleChange = (event) => {
-		let indexToChange = event.target.getAttribute('dataindex');
+	const handleInputChange = async (event, index, contactId) => {
 		let newContacts = [...contacts];
 		let shortName = event.target.name;
-		console.log(newContacts)
+		newContacts[index][shortName] = event.target.value;
+		
+		if (contactId && newContacts[index].displayName) {
+			debouncedUpdateContact(newContacts[index], contactId); 
+		} else if (newContacts[index].displayName) {
+			debouncedAddContact(newContacts[index], id)
+		}
+	
+		setContacts(newContacts);
+	};
 
-		if (contacts){
-			newContacts[indexToChange][shortName] = event.target.value;
-			setContacts(newContacts);
-		} 
-
-		deBounce(contactAPI, 500, indexToChange)
-
+	const addContact = () => {
+		let newContact = { displayName: '', email: '', phone: '', position: '', notes: '' };
+		let newContactArr = [...contacts, newContact];
+		setContacts(newContactArr);
 	};
 
 	useEffect(() => {
-		
-		// Add Contact Button
-		const addButton = document.getElementById('new-contact-btn');
-    addButton.addEventListener('click', () => {
-			var div = document.createElement("div");
-			div.classList.add('contactInputs');
-			div.innerHTML = '<hr /><input class="col s6 m6 l6" placeholder="Full Name" dataindex="0" name="displayName"><input class="col s6 m6 l6" placeholder="Position" name="position" dataindex="0"><input class="col s6 m6 l6" placeholder="Email@address.tld" name="email" dataindex="0"><input class="col s6 m6 l6" placeholder="(800) 555-1234" name="phone" dataindex="0"><textarea placeholder="Notes" name="notes" dataindex="0"></textarea>';
-			document.getElementById("contact-wrap").appendChild(div);
-		});
-
 		(async () => {
-			let retrievedContacts = await getAllContacts();
-			if(retrievedContacts){
+			let retrievedContacts = await getContacts(id);
+			if (retrievedContacts.length > 0) {
 				setContacts(retrievedContacts);
-			} else {
-				console.log("Add empty contacts")
 			}
 		})();
 	}, []);
 
-	// console.log(contacts)
 	return (
 		<div className="col s12 m12 l6">
 			<div className="row card-image">
 				<div className="col s6 card-title">Contacts</div>
 				<div className="col s6">
-					<div className="card-button" id="new-contact-btn">
+					<div className="card-button" onClick={addContact} id="new-contact-btn">
 						Add Contact
 					</div>
 				</div>
 			</div>
-			{contacts.length === 0 && (
-				<div className="card card-padded card-contact" id="contact-wrap">
-					<div className="contactInputs">
-						<input
-							className="col s6 m6 l6"
-							onChange={handleChange}
-							placeholder="Full Name"
-							dataindex="0"
-							name="displayName"
-						></input>
-						<input
-							className="col s6 m6 l6"
-							onChange={handleChange}
-							placeholder="Position"
-							name="position"
-							dataindex="0"
-						></input>
-						<input
-							className="col s6 m6 l6"
-							onChange={handleChange}
-							placeholder="Email@address.tld"
-							name="email"
-							dataindex="0"
-						></input>
-						<input
-							className="col s6 m6 l6"
-							onChange={handleChange}
-							placeholder="(800) 555-1234"
-							name="phone"
-							dataindex="0"
-						></input>
-						<textarea placeholder="Notes" onChange={handleChange} name="notes" dataindex="0"></textarea>
-					</div>
-				</div>
-			)}
-			{contacts.length >0 
-			? contacts.map((contact, index) => {
-				console.log("hello map")
-				const { displayName, email, phone, position, notes } = contact;
+			{contacts.map((contact, index) => {
+				const { displayName, position, email, phone, notes } = contact;
 				return (
-				<ContactCard 
-				key = {contact._id}
-				contactInfo = {contact}	
-				handleChange = {handleChange}
-				index = {index}
-				/>
+					<ContactCard
+						key={contact._id || index}
+						id={contact._id}
+						displayName={displayName}
+						email={email}
+						phone={phone}
+						notes={notes}
+						position={position}
+						handleInputChange={handleInputChange}
+						index={index}
+					/>
 				);
-			})
-			:<ContactCard />
-			}
+			})}
 		</div>
 	);
 }
