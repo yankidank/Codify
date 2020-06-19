@@ -8,6 +8,7 @@ function AddJob() {
     position: "",
     city: "",
     state: "",
+    status: "",
     url: ""
   });
 
@@ -15,10 +16,12 @@ function AddJob() {
   const handleAdd = async (e) => {
     e.preventDefault();
     try {
-      console.log(post);
-      
-      let newJob = await addJob(post)
+      let newJob = await addJob({ ...post, status: post.status || 'Saved' })
       console.log(newJob)
+      if (newJob && newJob.status === 200) {
+        const { data: { _id }} = newJob;
+        window.open(`/jobs/${_id}`, '_self');
+      }
     }
     catch (error){
       console.log(error)
