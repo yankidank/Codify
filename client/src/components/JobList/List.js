@@ -32,7 +32,7 @@ function List(props) {
               // status={job.statusHistory}
             />
           ))}
-          <button class="btn btn-card btn-more">Load More</button>
+          <button className="btn btn-card btn-more">Load More</button>
         </div>
       </div>
     </div>
