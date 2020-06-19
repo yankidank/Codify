@@ -1,4 +1,4 @@
-![Website](https://img.shields.io/badge/website-up-red) (https://github.com/ellerbrock/open-source-badges/) ![Lint Rules](https://img.shields.io/badge/codestyle-airbnb-brightgreen) ![Build Status](https://img.shields.io/badge/build-passing-brightgreen) 
+![Website](https://img.shields.io/badge/website-up-red) ![Lint Rules](https://img.shields.io/badge/codestyle-airbnb-brightgreen) ![Build Status](https://img.shields.io/badge/build-passing-brightgreen) 
 
 # Cōdify
 
