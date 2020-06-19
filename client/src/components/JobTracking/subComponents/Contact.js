@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { getAllContacts} from '../../../utils/API';
+import { getAllContacts } from '../../../utils/API';
+import { useParams } from 'react-router-dom';
 
 function ContactCard() {
 	const [contacts, setContacts] = useState([]);
+
+	const {id} = useParams();
 
 	const handleChange = (event) => {
 		let indexToChange = event.target.getAttribute('dataindex');

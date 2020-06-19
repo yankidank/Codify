@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+import { useParams } from 'react-router-dom';
 import NavBar from '../NavBar';
 import CompanyInfo from './subComponents/CompanyInfo';
 import StatusBar from './subComponents/StatusBar';
@@ -7,9 +8,14 @@ import ContactCard from './subComponents/Contact';
 import InterviewCard from './subComponents/Interview';
 import OfferCard from './subComponents/Offer';
 
+
 function Saved() {
+  const [jobId, setJobId] = useState("");
+
+  const {id} = useParams();
 
   useEffect(() => {
+    setJobId(id)
     // Textarea height expansion
     var autoExpand = function (field) {
       // Reset field height
@@ -40,14 +46,10 @@ function Saved() {
         <div className="row">
           <StatusBar state="2" first="Saved" second="Applied" third="Interview" fourth="Offer" />
           <CompanyInfo />
-        </div>
-        <div className="row">
-          <div className="card-container">
-            <PositionCard />
-            <ContactCard />
-            <InterviewCard />
-            <OfferCard />
-          </div>
+          <PositionCard jobId = {jobId}/>
+          <ContactCard />
+          <InterviewCard jobId = {jobId}/>
+          <OfferCard jobId = {jobId}/>
         </div>
       </div>
     </div>

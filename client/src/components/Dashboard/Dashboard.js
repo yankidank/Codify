@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import DoughtnutChart from './Doughnut';
 import List from '../JobList/List';
 import NavBar from '../NavBar';
@@ -38,5 +39,9 @@ function Dashboard() {
     </div>
   );
 }
+
+Dashboard.propTypes = {
+	jobs: PropTypes.object,
+  };
 
 export default Dashboard;
