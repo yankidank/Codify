@@ -701,6 +701,9 @@ input:not([type]):focus:not([readonly]) {
   border: none;
   font-size: 16px;
 }
+.chartjs-render-monitor {
+  margin-bottom:10px;
+}
 @media screen and (max-width:600px) {
 	.company-details #company-name, .company-details #company-jobtitle, .company-details #company-city, .company-details #company-state {
 		text-align:center;
