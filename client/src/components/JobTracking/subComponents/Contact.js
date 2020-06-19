@@ -13,6 +13,16 @@ function ContactCard() {
 	};
 
 	useEffect(() => {
+		
+		// Add Contact Button
+		const addButton = document.getElementById('new-contact-btn');
+    addButton.addEventListener('click', () => {
+			var div = document.createElement("div");
+			div.classList.add('contactInputs');
+			div.innerHTML = '<hr /><input class="col s6 m6 l6" placeholder="Full Name" dataindex="0" name="displayName"><input class="col s6 m6 l6" placeholder="Position" name="position" dataindex="0"><input class="col s6 m6 l6" placeholder="Email@address.tld" name="email" dataindex="0"><input class="col s6 m6 l6" placeholder="(800) 555-1234" name="phone" dataindex="0"><textarea placeholder="Notes" name="notes" dataindex="0"></textarea>';
+			document.getElementById("contact-wrap").appendChild(div);
+		});
+
 		(async () => {
 			let retrievedContacts = await getAllContacts();
 	
@@ -36,7 +46,7 @@ function ContactCard() {
 				</div>
 			</div>
 			{contacts.length === 0 && (
-				<div className="card card-padded card-contact">
+				<div className="card card-padded card-contact" id="contact-wrap">
 					<div className="contactInputs">
 						<input
 							className="col s6 m6 l6"
@@ -73,7 +83,7 @@ function ContactCard() {
 			{contacts.map((contact, index) => {
 				const { displayName, email, phone, position, notes } = contact;
 				return (
-					<div className="card card-padded card-contact" key={index}>
+					<div className="card card-padded card-contact" id="contact-wrap" key={index}>
 						<div className="contactInputs">
 							<input
 								className="col s6 m6 l6"
