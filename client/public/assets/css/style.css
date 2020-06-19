@@ -21,6 +21,10 @@ hr {
 .hidden {
   display: none;
 }
+.toast {
+  border-radius:6px;
+  background-color:#00000070;
+}
 .pushtop {
   position: relative;
   top: 40px;
