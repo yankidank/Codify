@@ -1,18 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { getContacts } from '../../../utils/API';
 import { useParams } from 'react-router-dom';
+import deBounce from '../../../utils/deBounce';
+import ContactCard from "./ContactCard";
 
-function ContactCard() {
+function ContactCardContainer() {
 	const [contacts, setContacts] = useState([]);
 
 	const {id} = useParams();
+
+	const contactAPI = (args) => {
+		console.log(args)
+	}
 
 	const handleChange = (event) => {
 		let indexToChange = event.target.getAttribute('dataindex');
 		let newContacts = [...contacts];
 		let shortName = event.target.name;
-		newContacts[indexToChange][shortName] = event.target.value;
-		setContacts(newContacts);
+		console.log(newContacts)
+
+		if (contacts){
+			newContacts[indexToChange][shortName] = event.target.value;
+			setContacts(newContacts);
+		} 
+
+		deBounce(contactAPI, 500, indexToChange)
+
 	};
 
 	useEffect(() => {
@@ -82,56 +95,23 @@ function ContactCard() {
 					</div>
 				</div>
 			)}
-			{contacts.map((contact, index) => {
+			{contacts.length >0 
+			? contacts.map((contact, index) => {
+				console.log("hello map")
 				const { displayName, email, phone, position, notes } = contact;
 				return (
-					<div className="card card-padded card-contact" id="contact-wrap" key={index}>
-						<div className="contactInputs">
-							<input
-								className="col s6 m6 l6"
-								onChange={handleChange}
-								placeholder="Full Name"
-								dataindex={index}
-								name="displayName"
-								value={displayName}
-							></input>
-							<input
-								className="col s6 m6 l6"
-								onChange={handleChange}
-								placeholder="Position"
-								name="position"
-								dataindex={index}
-								value={position ? position : ''}
-							></input>
-							<input
-								className="col s6 m6 l6"
-								onChange={handleChange}
-								placeholder="Email@address.tld"
-								name="email"
-								dataindex={index}
-								value={email ? email : ''}
-							></input>
-							<input
-								className="col s6 m6 l6"
-								onChange={handleChange}
-								placeholder="(800) 555-1234"
-								name="phone"
-								dataindex={index}
-								value={phone ? phone : ''}
-							></input>
-							<textarea
-								placeholder="Notes"
-								onChange={handleChange}
-								name="notes"
-								dataindex={index}
-								value={notes ? notes : ''}
-							></textarea>
-						</div>
-					</div>
+				<ContactCard 
+				key = {contact._id}
+				contactInfo = {contact}	
+				handleChange = {handleChange}
+				index = {index}
+				/>
 				);
-			})}
+			})
+			:<ContactCard />
+			}
 		</div>
 	);
 }
 
-export default ContactCard;
+export default ContactCardContainer;

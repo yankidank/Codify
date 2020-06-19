@@ -42,7 +42,7 @@ function List(props) {
 
 List.propTypes = {
   cols: PropTypes.string,
-  jobs: PropTypes.object,
+  jobs: PropTypes.array,
 };
 
 export default List;

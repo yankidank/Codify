@@ -4,7 +4,7 @@ import NavBar from '../NavBar';
 import CompanyInfo from './subComponents/CompanyInfo';
 import StatusBar from './subComponents/StatusBar';
 import PositionCard from './subComponents/Position';
-import ContactCard from './subComponents/Contact';
+import ContactCardContainer from './subComponents/ContactCardContainer';
 import InterviewCard from './subComponents/Interview';
 import OfferCard from './subComponents/Offer';
 
@@ -50,7 +50,7 @@ function Saved() {
         <div className="row">
           <div className="card-container">
             <PositionCard jobId = {jobId}/>
-            <ContactCard />
+            <ContactCardContainer />
             <InterviewCard jobId = {jobId}/>
             <OfferCard jobId = {jobId}/>
           </div>
