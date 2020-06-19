@@ -27,7 +27,7 @@ router.get('/:_id', async (request, response) => {
     user,
   } = request;
 
-  const job = await Job.find({ _id, user: user._id }).populate('company').populate('contacts');
+  const job = await Job.findOne({ _id, user: user._id }).populate('company').populate('contacts');
 
   if (!job) response.status(404).send({ error: 'Job not found!' });
 
