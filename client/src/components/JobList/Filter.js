@@ -5,11 +5,21 @@ function Filter() {
     // Toggle Filter Visibility
     const dropdown = document.getElementById('filter-toggle');
     const container = document.getElementById('filter-container');
+    let hidden = container.classList.contains("hidden");
     dropdown.addEventListener(
       'click',
       function () {
-        dropdown.classList.toggle('filter-active');
-        container.classList.toggle('hidden');
+        // if filter is open
+        if(hidden){
+          dropdown.classList.add('filter-active');
+          container.classList.remove('hidden');
+          hidden = false;
+        } else {
+          console.log('hide')
+          dropdown.classList.remove('filter-active');
+          container.classList.add('hidden');
+          hidden = true;
+        }
       },
       false
     );
