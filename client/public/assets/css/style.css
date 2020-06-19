@@ -237,9 +237,10 @@ button {
 }
 #status-menu{
   width:150px;
-}
-#status-menu{
   flex-direction:initial;
+}
+#status-menu:active,#status-menu:focus{
+  background:none;
 }
 .dropdown-content {
   border-radius: 6px;
