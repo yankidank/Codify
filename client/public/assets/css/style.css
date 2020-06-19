@@ -68,10 +68,11 @@ canvas {
   height: 250px !important;
 }
 #filter-container {
-  box-shadow: 1px -0.5px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 1px 0px 0px #0000002b;
+  border-top:1px solid #0000002b;
   background: #ffffff;
   padding: 12px;
-  margin: 0;
+  margin: 0 0 17px 0;
 }
 .row-filter{
 	margin-bottom:10px;
@@ -261,9 +262,6 @@ button {
 .card-padded{
 	padding:10px;
 }
-.card-jobslist .container .card-inner:first-of-type {
-  margin-top:20px;
-}
 .card-inner {
 	box-shadow: 0px 1px 0px 0px #0000002b;
 	padding-bottom: 17px;
@@ -380,6 +378,25 @@ textarea:focus{
   text-decoration: underline;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
+.btn-more {
+  display:none;
+  background: none;
+  color: rgba(0, 0, 0, 0.2);
+  box-shadow: none;
+	border: none;
+	border-radius: 0;
+  border-top: none;
+  margin-bottom:10px;
+}
+.btn-more:hover, 
+.btn-more:active, 
+.btn-more:focus{
+  background: none;
+  color: rgba(0, 0, 0, 0.5);
+}
+.btn-more:hover{
+  text-decoration: underline;
+}
 .btn-status {
   flex: none;
   order: 2;
@@ -416,6 +433,14 @@ textarea:focus{
 }
 .btn-ended {
   background: #787466;
+}
+.btn-filter .btn-filter-disabled {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: #0000008a;
+  background:#fff;
+}
+.btn-filter .btn-filter-disabled:focus {
+  color:#fff;
 }
 .company-header .col {
 	color: #fff;
@@ -509,7 +534,6 @@ textarea:focus{
 	margin: -17px auto 0 auto;
 }
 .circle-inner{
-	cursor: pointer;
 	position: relative;
 	margin: -17px auto 0 auto;
 	width: 18px;
@@ -695,6 +719,9 @@ input:not([type]):focus:not([readonly]) {
   color: #000;
   border: none;
   font-size: 16px;
+}
+.chartjs-render-monitor {
+  margin-bottom:10px;
 }
 @media screen and (max-width:600px) {
 	.company-details #company-name, .company-details #company-jobtitle, .company-details #company-city, .company-details #company-state {
