@@ -35,7 +35,7 @@ router.get(
   '/google/callback',
   passport.authenticate('google', {
     successRedirect,
-    failureRedirect: '/',
+    failureRedirect,
   })
 );
 
@@ -45,7 +45,7 @@ router.get(
   '/github/callback',
   passport.authenticate('github', {
     successRedirect,
-    failureRedirect: '/',
+    failureRedirect,
   })
 );
 
@@ -55,7 +55,7 @@ router.get(
   '/linkedin/callback',
   passport.authenticate('linkedin', {
     successRedirect,
-    failureRedirect: '/',
+    failureRedirect,
   })
 );
 
