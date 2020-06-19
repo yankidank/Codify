@@ -21,6 +21,10 @@ hr {
 .hidden {
   display: none;
 }
+.toast {
+  border-radius:6px;
+  background-color:#00000070;
+}
 .pushtop {
   position: relative;
   top: 40px;
@@ -233,9 +237,10 @@ button {
 }
 #status-menu{
   width:150px;
-}
-#status-menu{
   flex-direction:initial;
+}
+#status-menu:active,#status-menu:focus{
+  background:none;
 }
 .dropdown-content {
   border-radius: 6px;
