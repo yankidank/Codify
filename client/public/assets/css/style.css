@@ -378,6 +378,25 @@ textarea:focus{
   text-decoration: underline;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
+.btn-more {
+  display:none;
+  background: none;
+  color: rgba(0, 0, 0, 0.2);
+  box-shadow: none;
+	border: none;
+	border-radius: 0;
+  border-top: none;
+  margin-bottom:10px;
+}
+.btn-more:hover, 
+.btn-more:active, 
+.btn-more:focus{
+  background: none;
+  color: rgba(0, 0, 0, 0.5);
+}
+.btn-more:hover{
+  text-decoration: underline;
+}
 .btn-status {
   flex: none;
   order: 2;
