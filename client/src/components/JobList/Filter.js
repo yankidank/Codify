@@ -47,7 +47,7 @@ function Filter() {
             <button className="btn-offer">Offer</button>
           </div>
           <div className="btn-filter" id="filter-ended">
-            <button className="btn-ended">Ended</button>
+            <button className="btn-ended btn-filter-disabled">Ended</button>
           </div>
         </div>
       </div>

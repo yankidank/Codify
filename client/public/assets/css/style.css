@@ -415,6 +415,14 @@ textarea:focus{
 .btn-ended {
   background: #787466;
 }
+.btn-filter .btn-filter-disabled {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: #0000008a;
+  background:#fff;
+}
+.btn-filter .btn-filter-disabled:focus {
+  color:#fff;
+}
 .company-header .col {
 	color: #fff;
 	flex-wrap:wrap;
