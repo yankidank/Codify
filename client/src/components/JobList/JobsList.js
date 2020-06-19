@@ -8,9 +8,7 @@ function JobsList() {
 
 	useEffect(() => {
 		(async () => {
-      
       const jobArr = await getAllJobs();
-      console.log(jobArr);
       setJobs(jobArr);
 		})();
 	}, []);

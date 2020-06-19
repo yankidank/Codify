@@ -46,10 +46,14 @@ function Saved() {
         <div className="row">
           <StatusBar state="2" first="Saved" second="Applied" third="Interview" fourth="Offer" />
           <CompanyInfo />
-          <PositionCard jobId = {jobId}/>
-          <ContactCard />
-          <InterviewCard jobId = {jobId}/>
-          <OfferCard jobId = {jobId}/>
+        </div>
+        <div className="row">
+          <div className="card-container">
+            <PositionCard jobId = {jobId}/>
+            <ContactCard />
+            <InterviewCard jobId = {jobId}/>
+            <OfferCard jobId = {jobId}/>
+          </div>
         </div>
       </div>
     </div>

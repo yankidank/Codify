@@ -38,11 +38,9 @@ const jobSchema = new Schema(
       },
       city: {
         type: String,
-        required: true,
       },
       state: {
         type: String,
-        required: true,
       },
       salary: Number,
       bonus: Number,

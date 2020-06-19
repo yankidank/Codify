@@ -8,10 +8,16 @@ export const axiosInstance = axios.create({
 // add endpoints ///////////////////
 ////////////////////////////////////
 
-export const addContact = async (contactProperties) => {
+export const addContact = async (contactProperties, jobId) => {
 	// contactProperties := { displayName(required), company, email, phone, position, notes }
 	try {
-		let newContact = await axiosInstance.post('/api/contacts', contactProperties);
+		let newContact;
+		if (jobId) {
+			let contactInfo = await axiosInstance.post('/api/contacts', contactProperties);
+			newContact = await axiosInstance.put(`/api/jobs/${jobId}`, { push: { contacts: contactInfo.data._id } });
+		} else {
+			newContact = await axiosInstance.post('/api/contacts', contactProperties);
+		}
 		return newContact;
 	} catch (err) {
 		console.log(err);
@@ -19,7 +25,7 @@ export const addContact = async (contactProperties) => {
 };
 
 export const addJob = async (jobProperties) => {
-	// jobProperties := {companyName(required), url, position(required), city(required), state(required)}
+	// jobProperties := {companyName(required), url, position(required), city, state}
 	try {
 		const { companyName: displayName, position, state, city, url } = jobProperties;
 
@@ -119,6 +125,24 @@ export const updateOffer = async (newOffer, jobId, offerId) => {
 // get endpoints ///////////////////
 ////////////////////////////////////
 
+export const getStatusReport = async () => {
+  try {
+    let { data } = await axiosInstance.get('/api/reports/status');
+    return data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const getCommunicationReport = async () => {
+  try {
+    let { data } = await axiosInstance.get('/api/reports/communication');
+    return data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export const getAllJobs = async () => {
 	try {
 		let { data: jobs } = await axiosInstance.get('/api/jobs');
@@ -154,6 +178,11 @@ export const getPosition = async (jobId) => {
 export const getInterviews = async (jobId) => {
 	let {data: {interviews}} = await getJob(jobId);
 	return interviews;
+}
+
+export const getContacts = async (jobId) => {
+	let {data: {contacts}} = await getJob(jobId);
+	return contacts;
 }
 
 export const getOffers = async (jobId) => {

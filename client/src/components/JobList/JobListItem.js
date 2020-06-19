@@ -13,9 +13,7 @@ function OneJobListing(props) {
   return (
       <div className="row card-inner">
         <div className="col s3 m2 l2 company-image">
-          <div className="col s3 m2 l2 company-image">
-            <img src={logoSrc} alt="Company" className="company-img-src" />
-          </div>
+          <img src={logoSrc} alt=" " className="company-img-src" />
         </div>
         <div className="col s5 m6 l7 company-details">
           <a href={`/jobs/${id}`}>

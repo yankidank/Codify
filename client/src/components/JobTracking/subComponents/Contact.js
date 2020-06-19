@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllContacts } from '../../../utils/API';
+import { getContacts } from '../../../utils/API';
 import { useParams } from 'react-router-dom';
 
 function ContactCard() {
@@ -17,8 +17,7 @@ function ContactCard() {
 
 	useEffect(() => {
 		(async () => {
-			let retrievedContacts = await getAllContacts();
-	
+			let retrievedContacts = await getContacts(id);
 			if(retrievedContacts){
 				setContacts(retrievedContacts);
 			} else {
