@@ -31,7 +31,6 @@ export const addJob = async (jobProperties) => {
 
 		let newCompany = await axiosInstance.post('/api/companies', {displayName});
 		let newJob = await axiosInstance.post('/api/jobs', {company: newCompany.data._id, post : {url, position, city, state}});
-		
 		return newJob;
 	} catch (err) {
 		console.log(err);
@@ -68,6 +67,16 @@ export const addOffer = async (newOffer, jobId) => {
 ////////////////////////////////////
 // update endpoints ////////////////
 ////////////////////////////////////
+
+export const updateStatus = async (newStatus, jobId) => {
+	let newStatusHistory = {status: newStatus, date: Date.now()}
+	try {
+		let updatedJob = await axiosInstance.put(`/api/jobs/${jobId}`, {set: {status: newStatus}, push: {statusHistory: newStatusHistory}});
+		return updatedJob.data.status;
+	} catch (err) {
+		console.log(err);
+	}
+}
 
 export const updatePosition = async (newPosition, jobId) => {
 	// newPosition := {position(required), city(required), state(required), salary}
