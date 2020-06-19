@@ -29,7 +29,7 @@ function NavBar() {
           </a>
           <ul className="right hide-on-med-and-down">
             <li>
-              <a href="/">Home</a>
+              <a href="/dashboard">Dashboard</a>
             </li>
             <li>
               <a href="/jobs">Your Jobs</a>
@@ -37,7 +37,6 @@ function NavBar() {
             <li>
               <a href="/jobs/add">Add Job</a>
             </li>
-            {/* <li><a href="/about">About</a></li> */}
             <li>
               <a href="/menu/login">Login</a>
             </li>

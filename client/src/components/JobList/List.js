@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Filter from './Filter';
 import OneJobListing from './JobListItem';
 
 function List(props) {
@@ -17,10 +16,8 @@ function List(props) {
           </a>
         </div>
       </div>
-      <div className="card card-contact">
+      <div className="card card-jobslist">
         <div className="container container-full">
-          <Filter />
-  
           {props.jobs.map(job =>( 
             <OneJobListing 
               id={job._id}

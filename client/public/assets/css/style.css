@@ -231,6 +231,18 @@ button {
 .oneJobListing .btn-status {
 	text-align:right;
 }
+#status-menu{
+  width:150px;
+}
+#status-menu{
+  flex-direction:initial;
+}
+.dropdown-content {
+  border-radius: 6px;
+}
+.dropdown-content li>a, .dropdown-content li>span{
+  color:#000;
+}
 .card-home {
 	padding:10px 25px;
 }
@@ -244,17 +256,27 @@ button {
 .card-padded{
 	padding:10px;
 }
+.card-jobslist .container .card-inner:first-of-type {
+  margin-top:20px;
+}
 .card-inner {
 	box-shadow: 0px 1px 0px 0px #0000002b;
-	padding-bottom: 15px;
+	padding-bottom: 17px;
 }
 .card-inner .company-image {
   margin:0 auto;
   padding-left: 24px; /* centering */
   font-size:0.8rem;
 }
-.card-inner .btn-status {
-	padding:15px 15px 15px 0;
+.card-inner {
+  display: flex;
+}
+.card-inner .btn-status, .card-inner .company-image {
+  text-align: center;
+  align-content: center;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
 }
 .company-header .btn-status {
 	text-align:right;
@@ -373,7 +395,7 @@ textarea:focus{
   font-weight: bold;
   font-size: 1rem;
 	text-align: center;
-	padding: 9px 25px 6px 28px;
+	padding: 8px 20px 8px 20px;
 }
 .btn-saved {
 	background: #00000070;
@@ -673,15 +695,17 @@ input:not([type]):focus:not([readonly]) {
 	.company-details #company-name, .company-details #company-jobtitle, .company-details #company-city, .company-details #company-state {
 		text-align:center;
 	}
-	.card-inner .btn-status {
-		text-align: right;
-	}
+
 	.company-header {
 		display: inherit;
 	}
 	.btn-status, .company-header .btn-status {
 		text-align: center;
-	}
+  }
+  #status-menu{
+    width:60%;
+    margin:0 auto;
+  }
 }
 /* Media query to keep job list elements inside the card */
 @media screen and (max-width: 480px) {

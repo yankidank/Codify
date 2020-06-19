@@ -36,6 +36,7 @@
     "express": "^4.16.3",
     "if-env": "^1.0.4",
     "jquery": "^3.5.1",
+    "materialize-css": "^1.0.0",
     "moment": "^2.26.0",
     "mongoose": "^5.8.11",
     "passport": "^0.4.1",
