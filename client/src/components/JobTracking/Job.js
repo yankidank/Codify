@@ -40,10 +40,14 @@ function Saved() {
         <div className="row">
           <StatusBar state="2" first="Saved" second="Applied" third="Interview" fourth="Offer" />
           <CompanyInfo />
-          <PositionCard />
-          <ContactCard />
-          <InterviewCard />
-          <OfferCard />
+        </div>
+        <div className="row">
+          <div className="card-container">
+            <PositionCard />
+            <ContactCard />
+            <InterviewCard />
+            <OfferCard />
+          </div>
         </div>
       </div>
     </div>
