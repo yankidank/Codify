@@ -28,7 +28,6 @@ export const addJob = async (jobProperties) => {
 	// jobProperties := {companyName(required), url, position(required), city, state}
 	try {
 		const { companyName: displayName, position, state, city, url, status } = jobProperties;
-    console.log(displayName);
 		let newCompany = await axiosInstance.post('/api/companies', {displayName});
 		let newJob = await axiosInstance.post('/api/jobs', {company: newCompany.data._id, post : {url, position, city, state}, status});
 		
