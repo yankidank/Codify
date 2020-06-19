@@ -66,7 +66,7 @@ function DoughtnutChart({ statusReport, loading }) {
 }
 
 DoughtnutChart.propTypes = {
-  statusReport: PropTypes.string,
+  statusReport: PropTypes.array,
   loading: PropTypes.bool,
 }
 
