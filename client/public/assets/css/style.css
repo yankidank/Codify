@@ -268,8 +268,15 @@ button {
   padding-left: 24px; /* centering */
   font-size:0.8rem;
 }
-.card-inner .btn-status {
-	padding:15px 15px 15px 0;
+.card-inner {
+  display: flex;
+}
+.card-inner .btn-status, .card-inner .company-image {
+  text-align: center;
+  align-content: center;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
 }
 .company-header .btn-status {
 	text-align:right;
@@ -388,7 +395,7 @@ textarea:focus{
   font-weight: bold;
   font-size: 1rem;
 	text-align: center;
-	padding: 9px 25px 6px 28px;
+	padding: 8px 20px 8px 20px;
 }
 .btn-saved {
 	background: #00000070;
@@ -688,9 +695,7 @@ input:not([type]):focus:not([readonly]) {
 	.company-details #company-name, .company-details #company-jobtitle, .company-details #company-city, .company-details #company-state {
 		text-align:center;
 	}
-	.card-inner .btn-status {
-		text-align: right;
-	}
+
 	.company-header {
 		display: inherit;
 	}

@@ -32,15 +32,16 @@ function CompanyInfo() {
           </div>
         </div>
         <div className="col s12 m4 l3 btn-status" id="status-btn">
-          <a id="status-menu" className='dropdown-trigger btn btn-applied' href='#awef' data-target='dropdown1'>
+          <a id="status-menu" className='dropdown-trigger btn btn-applied' href='#status' data-target='dropdown-status'>
             Applied
             <i className="btn-icon material-icons">keyboard_arrow_down</i>
           </a>
-          <ul id='dropdown1' className='dropdown-content'>
+          <ul id='dropdown-status' className='dropdown-content'>
             <li><a href="#saved">Saved</a></li>
             <li><a href="#applied">Applied</a></li>
             <li><a href="#interview">Interview</a></li>
             <li><a href="#offer">Offer</a></li>
+            <li><a href="#ended">Ended</a></li>
           </ul>
         </div>
       </div>
