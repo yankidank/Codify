@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllJobs } from '../../utils/API';
+import { getAllJobs} from '../../utils/API';
 import NavBar from '../NavBar';
 import List from './List';
 
@@ -8,7 +8,7 @@ function JobsList() {
 
 	useEffect(() => {
 		(async () => {
-      const jobArr = await getAllJobs();
+			const jobArr = await getAllJobs();
       setJobs(jobArr);
 		})();
 	}, []);
