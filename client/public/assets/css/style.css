@@ -231,6 +231,18 @@ button {
 .oneJobListing .btn-status {
 	text-align:right;
 }
+#status-menu{
+  width:150px;
+}
+#status-menu{
+  flex-direction:initial;
+}
+.dropdown-content {
+  border-radius: 6px;
+}
+.dropdown-content li>a, .dropdown-content li>span{
+  color:#000;
+}
 .card-home {
 	padding:10px 25px;
 }
@@ -684,7 +696,11 @@ input:not([type]):focus:not([readonly]) {
 	}
 	.btn-status, .company-header .btn-status {
 		text-align: center;
-	}
+  }
+  #status-menu{
+    width:60%;
+    margin:0 auto;
+  }
 }
 /* Media query to keep job list elements inside the card */
 @media screen and (max-width: 480px) {
