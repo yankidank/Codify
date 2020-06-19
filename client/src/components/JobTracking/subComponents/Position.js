@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {getPosition, getJob} from "../../../utils/API";
+import {getPosition, deleteJob} from "../../../utils/API";
 import { useParams } from 'react-router-dom';
 
 
@@ -7,6 +7,11 @@ function PositionCard(props) {
   const [position, setPosition] = useState([]);
 
   const {id} = useParams();
+
+  const handleClick = () => {
+    deleteJob(id);
+    window.location.href="/jobs/"
+  }
 
   useEffect(() => {
 		(async () => {
@@ -21,7 +26,7 @@ function PositionCard(props) {
         }
       }
 		})();
-	}, []);
+  }, []);
 
   return (
     <div className="col s12 m12 l6">
@@ -30,6 +35,7 @@ function PositionCard(props) {
           Position
         </div>
       </div>
+      {console.log(position)}
       <div className="card card-padded card-position">
         <div className="positionInputs">
           <input className="col s6 m6 l6" placeholder="Job Title" defaultValue={position.position || ""}></input>
@@ -38,7 +44,7 @@ function PositionCard(props) {
           <input className="col s6 m6 l6" placeholder="State" defaultValue={position.state || ""}></input>
           <textarea placeholder="Notes"></textarea>
           <button className="btn btn-card">View Job Post</button>
-          <button className="btn btn-card btn-remove">Remove Job Post</button>
+          <button className="btn btn-card btn-remove" onClick={handleClick}>Remove Job Post</button>
         </div>
       </div>
     </div>
@@ -46,3 +52,4 @@ function PositionCard(props) {
 }
 
 export default PositionCard;
+
