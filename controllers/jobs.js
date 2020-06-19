@@ -13,7 +13,6 @@ router.get('/', async (request, response) => {
     user: user._id,
   });
 
-  console.log(filter);
   const jobs = await Job.find(filter.length ? { $and: filter } : {user: user._id})
     .sort({ 'updatedAt': -1 })
     .populate('company')
@@ -43,9 +42,9 @@ router.get('/:_id', async (request, response) => {
 });
 
 router.post('/', async (request, response) => {
-  const { body: {post, company}, user } = request;
+  const { body, user } = request;
   try {
-    let newJob = await Job.create({ user: user._id, company, post });
+    let newJob = await Job.create({ user: user._id, ...body });
 
     response.json(newJob);
   } catch (error) {
