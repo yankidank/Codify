@@ -1,5 +1,9 @@
 const passport = require('passport');
 const router = require('express').Router();
+
+const successRedirect = process.env.NODE_ENV === 'prod' ? '/dashboard' : `http://localhost:${process.env.FRONTEND_PORT || 3000}/dashboard`;
+const failureRedirect = process.env.NODE_ENV === 'prod' ? '/' : `http://localhost:${process.env.FRONTEND_PORT || 3000}/`;
+
 // logout route
 router.get('/logout', (req, res) => {
   // deletes req.user object
@@ -7,7 +11,7 @@ router.get('/logout', (req, res) => {
   // deletes cookie from client
   req.session = null;
 
-  res.redirect('http://localhost:3000/');
+  res.redirect('/');
 });
 
 //this route can be used to check authentication status on the front end
@@ -30,7 +34,7 @@ router.get(
 router.get(
   '/google/callback',
   passport.authenticate('google', {
-    successRedirect: 'http://localhost:3000/dashboard',
+    successRedirect,
     failureRedirect: '/',
   })
 );
@@ -40,7 +44,7 @@ router.get('/github', passport.authenticate('github'));
 router.get(
   '/github/callback',
   passport.authenticate('github', {
-    successRedirect: 'http://localhost:3000/dashboard',
+    successRedirect,
     failureRedirect: '/',
   })
 );
@@ -50,7 +54,7 @@ router.get('/linkedin', passport.authenticate('linkedin', { state: true }));
 router.get(
   '/linkedin/callback',
   passport.authenticate('linkedin', {
-    successRedirect: 'http://localhost:3000/dashboard',
+    successRedirect,
     failureRedirect: '/',
   })
 );
