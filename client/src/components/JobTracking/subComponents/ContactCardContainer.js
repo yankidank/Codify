@@ -19,18 +19,22 @@ function ContactCardContainer() {
 		
 		if (contactId && newContacts[index].displayName) {
 			debouncedUpdateContact(newContacts[index], contactId); 
-		} else if (newContacts[index].displayName) {
-			debouncedAddContact(newContacts[index], id)
 		}
 	
 		setContacts(newContacts);
 	};
 
-	const addContact = () => {
+	const addContactField = () => {
 		let newContact = { displayName: '', email: '', phone: '', position: '', notes: '' };
 		let newContactArr = [...contacts, newContact];
 		setContacts(newContactArr);
 	};
+
+	const addNewContact = async (index) => {
+		await addContact(contacts[index], id);
+		let newContacts = await getContacts(id);
+		setContacts(newContacts);
+	}
 
 	useEffect(() => {
 		(async () => {
@@ -46,7 +50,7 @@ function ContactCardContainer() {
 			<div className="row card-image">
 				<div className="col s6 card-title">Contacts</div>
 				<div className="col s6">
-					<div className="card-button" onClick={addContact} id="new-contact-btn">
+					<div className="card-button" onClick={addContactField} id="new-contact-btn">
 						Add Contact
 					</div>
 				</div>
@@ -62,6 +66,7 @@ function ContactCardContainer() {
 						phone={phone}
 						notes={notes}
 						position={position}
+						addNewContact={addNewContact}
 						handleInputChange={handleInputChange}
 						index={index}
 					/>
