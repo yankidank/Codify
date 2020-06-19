@@ -113,6 +113,14 @@ canvas {
   color: #ababab;
   border: 1px solid #ddd;
 }
+.card-container {
+  display:flex;
+  flex-wrap:wrap;
+}
+.job-container .row .card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
 .job-container .row .col .card {
 	margin-bottom: 35px;
 }
