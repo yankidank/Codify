@@ -27,10 +27,10 @@ export const addContact = async (contactProperties, jobId) => {
 export const addJob = async (jobProperties) => {
 	// jobProperties := {companyName(required), url, position(required), city, state}
 	try {
-		const { companyName: displayName, position, state, city, url } = jobProperties;
-
+		const { companyName: displayName, position, state, city, url, status } = jobProperties;
 		let newCompany = await axiosInstance.post('/api/companies', {displayName});
-		let newJob = await axiosInstance.post('/api/jobs', {company: newCompany.data._id, post : {url, position, city, state}});
+		let newJob = await axiosInstance.post('/api/jobs', {company: newCompany.data._id, post : {url, position, city, state}, status});
+		
 		return newJob;
 	} catch (err) {
 		console.log(err);
