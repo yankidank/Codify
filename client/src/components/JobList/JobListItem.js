@@ -34,7 +34,8 @@ OneJobListing.propTypes = {
   companyName: PropTypes.string,
   position: PropTypes.string,
   city: PropTypes.string, 
-  state: PropTypes.string
+  state: PropTypes.string,
+  status: PropTypes.string
 }
 
 export default OneJobListing;

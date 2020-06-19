@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+
 
 function Filter({ handleFilterChange }) {
   useEffect(() => {
@@ -24,7 +26,7 @@ function Filter({ handleFilterChange }) {
       false
     );
     container.querySelectorAll('button').forEach(button => {
-      button.addEventListener('click', event => {
+      button.addEventListener('click', () => {
         //handle click
         console.log(button);
         button.classList.toggle('active')
@@ -91,5 +93,7 @@ function Filter({ handleFilterChange }) {
     </div>
   );
 }
-
+Filter.propTypes = {
+  handleFilterChange: PropTypes.func
+}
 export default Filter;
