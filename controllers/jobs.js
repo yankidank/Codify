@@ -28,10 +28,10 @@ router.get('/:_id', async (request, response) => {
     user,
   } = request;
 
-  const job = await Job.find({ _id, user: user._id }).populate('company').populate('contacts');
+  const job = await Job.findOne({ _id, user: user._id }).populate('company').populate('contacts');
 
   if (!job) response.status(404).send({ error: 'Job not found!' });
-
+  
   if (job.user.toString() !== user._id.toString())
     response.status(401).send({
       error: 'Not authorized! Are you sure this is a job you posted?',
