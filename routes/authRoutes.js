@@ -1,8 +1,8 @@
 const passport = require('passport');
 const router = require('express').Router();
 
-const successRedirect = process.env.NODE_ENV === 'prod' ? '/dashboard' : `http://localhost:${process.env.FRONTEND_PORT || 3000}/dashboard`;
-const failureRedirect = process.env.NODE_ENV === 'prod' ? '/' : `http://localhost:${process.env.FRONTEND_PORT || 3000}/`;
+const successRedirect = process.env.NODE_ENV === 'production' ? '/dashboard' : `http://localhost:${process.env.FRONTEND_PORT || 3000}/dashboard`;
+const failureRedirect = process.env.NODE_ENV === 'production' ? '/' : `http://localhost:${process.env.FRONTEND_PORT || 3000}/`;
 
 // logout route
 router.get('/logout', (req, res) => {
