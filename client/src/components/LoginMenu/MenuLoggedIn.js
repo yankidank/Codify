@@ -13,8 +13,8 @@ function MenuLoggedIn() {
 			<div>
 				<ul className="menuNav">
 					<li>
-						<a href="/" className="button btn-home-login">
-							Home
+						<a href="/dashboard" className="button btn-home-login">
+							Dashboard
 						</a>
 					</li>
 					<li>

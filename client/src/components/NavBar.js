@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 function NavBar() {
 	// Menu back button
@@ -12,22 +12,8 @@ function NavBar() {
 		}
 	};
 
-	// Similar to componentDidMount and componentDidUpdate:
-	useEffect(() => {
-		// Navigation bar shadow when scrolling
-		var scrollnav = document.getElementById('navbar');
-		scrollnav.classList.add('noScroll');
-		window.addEventListener('scroll', () => {
-			if (window.scrollY !== 0) {
-				scrollnav.classList.remove('noScroll');
-			} else {
-				scrollnav.classList.add('noScroll');
-			}
-		});
-	});
-
   return (
-    <div className="navbar-fixed">
+    <div className="app-navbar-fixed">
       <nav id="navbar" className="nav-class">
         <div className="nav-wrapper">
           <button

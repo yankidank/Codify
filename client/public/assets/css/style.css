@@ -22,13 +22,17 @@ nav {
   position: relative;
   top: 40px;
 }
+.app-navbar-fixed {
+  position: -webkit-sticky;
+  position:sticky;
+  top:0;
+  z-index:900;
+}
 button.nav-back {
   background: none;
   border: none;
-}
-button.nav-back {
-  margin-top: 15px;
-  margin-left: 15px;
+  margin-top: 16px;
+  margin-left: 16px;
 }
 .navbar-fixed nav {
   border: none;
@@ -195,7 +199,8 @@ button {
 	margin-top:10px;
 }
 .company-details a {
-	color:rgba(0, 0, 0, 1);
+  color:rgba(0, 0, 0, 1);
+  word-wrap: break-word;
 }
 .company-details a:hover {
 	color:rgba(0, 0, 0, 0.75);
@@ -235,6 +240,7 @@ button {
 .card-inner .company-image {
   margin:0 auto;
   padding-left: 24px; /* centering */
+  font-size:0.8rem;
 }
 .card-inner .btn-status {
 	padding:15px 15px 15px 0;
@@ -359,7 +365,7 @@ textarea:focus{
 	padding: 9px 25px 6px 28px;
 }
 .btn-saved {
-	background: #b9b9b9;
+	background: #00000070;
 }
 .btn-applied {
   background: #05ace1;
@@ -372,10 +378,6 @@ textarea:focus{
 }
 .btn-ended {
   background: #787466;
-}
-#paste {
-/*   background: #ffffff url(../img/icon-paste.png) no-repeat scroll 4px 4px;
-  padding-left: 48px; */
 }
 .company-header .col {
 	color: #fff;
@@ -564,7 +566,7 @@ p.text-center {
   border-radius: 5px;
 }
 .menuNav .button:hover {
-  color: #b9b9b9; /* 05ACE1 */
+  color: #b9b9b9;
 }
 .btn-github:active,
 .btn-github:focus {
@@ -579,13 +581,16 @@ p.text-center {
   background: #e7e7e7;
 }
 .btn-job-add {
-  background: #0000004a;
+  background: #00000070;
   border: none;
   color: #fff;
 }
-.btn-job-add:active,
-.btn-job-add:focus {
+.menuNav .btn-job-add:hover,
+.menuNav .btn-job-add:active,
+.menuNav .btn-job-add:focus {
   background: #0000007c;
+  color:#fff;
+	box-shadow: 0px 1px 4px 1px #00000023;
 }
 .menu-input-field {
   color: #fff;
