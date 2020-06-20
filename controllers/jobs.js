@@ -26,17 +26,20 @@ router.get('/:_id', async (request, response) => {
     params: { _id },
     user,
   } = request;
+  try {
+    const job = await Job.findOne({ _id, user: user._id }).populate('company').populate('contacts');
 
-  const job = await Job.findOne({ _id, user: user._id }).populate('company').populate('contacts');
+    if (!job) response.status(404).send({ error: 'Job not found!' });
 
-  if (!job) response.status(404).send({ error: 'Job not found!' });
-
-  if (!job.user || job.user.toString() !== user._id.toString())
-    response.status(401).send({
-      error: 'Not authorized! Are you sure this is a job you posted?',
-    });
-  else {
-    response.send(job);
+    if (!job.user || job.user.toString() !== user._id.toString())
+      response.status(401).send({
+        error: 'Not authorized! Are you sure this is a job you posted?',
+      });
+    else {
+      response.send(job);
+    }
+  } catch (err) {
+    console.log(err)
   }
 
 });
@@ -62,14 +65,10 @@ router.put('/:_id', async (request, response) => {
   let query = {_id, user: user._id};
   // to update interview/offer array
   if (extraQuery) {
-    (extraQuery.interviewId)
-    ? query["interviews._id"] = extraQuery.interviewId
-    : query["offers._id"] = extraQuery.offerId;
+    query["offers._id"] = extraQuery.offerId;
   }
   try {
-    console.log(query);
     let updatedJob = await Job.findOneAndUpdate( query, dropUndefined({ $set: set, $unset: unset, $push: push, $pull: pull }), {new: true});
-    console.log(updatedJob);
     if (!updatedJob) response.status(404).send({ error: 'Job not found!' });
     else {
       response.json(updatedJob);

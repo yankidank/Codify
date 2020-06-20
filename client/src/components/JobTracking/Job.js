@@ -6,7 +6,7 @@ import StatusBar from './subComponents/StatusBar';
 import PositionCard from './subComponents/Position';
 import ContactCardContainer from './subComponents/ContactCardContainer';
 import InterviewCardContainer from './subComponents/InterviewCardContainer';
-import OfferCard from './subComponents/Offer';
+import OfferCardContainer from './subComponents/OfferCardContainer';
 
 function Saved() {
 	const [jobId, setJobId] = useState('');
@@ -54,7 +54,7 @@ function Saved() {
 						<PositionCard jobId={jobId} />
 						<ContactCardContainer />
 						<InterviewCardContainer />
-						<OfferCard jobId={jobId} />
+						<OfferCardContainer jobId={jobId} />
 					</div>
 				</div>
 			</div>

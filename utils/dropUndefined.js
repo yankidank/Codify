@@ -5,7 +5,7 @@
 function dropUndefined(object) {
 	const keyArr = Object.keys(object);
 	keyArr.forEach((key) => {
-		if (object[key] == undefined || object[key] == "") delete object[key];
+		if (object[key] == undefined || object[key] == "" || object[key] == null) delete object[key];
 	});
 	return object;
 }
