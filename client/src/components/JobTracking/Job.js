@@ -50,7 +50,7 @@ function Saved() {
         <div className="row">
           <div className="card-container">
             <PositionCard jobId = {jobId}/>
-            <ContactCardContainer />
+            <ContactCardContainer jobId = {jobId}/>
             <InterviewCard jobId = {jobId}/>
             <OfferCard jobId = {jobId}/>
           </div>

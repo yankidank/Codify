@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 function ContactCard(props){
     const {index, handleInputChange, addNewContact, displayName, position, email, phone, notes, id} = props;
