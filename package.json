@@ -30,6 +30,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "chart.js": "^2.9.3",
+    "cleave.js": "^1.6.0",
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

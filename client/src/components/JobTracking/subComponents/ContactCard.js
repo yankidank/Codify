@@ -16,7 +16,7 @@ function ContactCard(props){
                 <textarea placeholder="Notes" onChange={(event) => handleInputChange(event, index, id)} name="notes" value={notes || ''}
                 ></textarea>
             </div>
-            {(id) ? '' : <button onClick={() => addNewContact(index)}>Save New Contact</button>}
+            {(id) ? '' : <button className={"btn btn-card"} onClick={() => addNewContact(index)}>Save New Contact</button>}
         </div>
 
     )
