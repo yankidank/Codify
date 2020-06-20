@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {getInterviews, addInterview} from "../../../utils/API";
+import {getInterviews} from "../../../utils/API";
 import { useParams } from 'react-router-dom';
 import M from "materialize-css";
 
-function InterviewCard(props) {
+function InterviewCard() {
   const [interview, setInterview] = useState([]);
 
   const {id} = useParams();

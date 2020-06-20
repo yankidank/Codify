@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {getPosition, getJob} from "../../../utils/API";
+import {getPosition} from "../../../utils/API";
 import { useParams } from 'react-router-dom';
 
 
-function PositionCard(props) {
+function PositionCard() {
   const [position, setPosition] = useState([]);
 
   const {id} = useParams();

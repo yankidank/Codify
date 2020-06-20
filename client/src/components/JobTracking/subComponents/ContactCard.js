@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function ContactCard(props){
     const {index, handleInputChange, addNewContact, displayName, position, email, phone, notes, id} = props;
@@ -21,6 +22,19 @@ function ContactCard(props){
 
     )
 }
+
+ContactCard.propTypes = {
+  jobId: PropTypes.string,
+  index: PropTypes.number,
+  handleInputChange: PropTypes.func,
+  addNewContact: PropTypes.func,
+  displayName: PropTypes.string,
+  position: PropTypes.string,
+  email: PropTypes.string,
+  phone: PropTypes.string,
+  notes: PropTypes.string,
+  id: PropTypes.string
+};
 
 export default ContactCard;
 
