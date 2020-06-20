@@ -67,9 +67,9 @@ router.put('/:_id', async (request, response) => {
     : query["offers._id"] = extraQuery.offerId;
   }
   try {
-    console.log(query);
+
     let updatedJob = await Job.findOneAndUpdate( query, dropUndefined({ $set: set, $unset: unset, $push: push, $pull: pull }), {new: true});
-    console.log(updatedJob);
+
     if (!updatedJob) response.status(404).send({ error: 'Job not found!' });
     else {
       response.json(updatedJob);

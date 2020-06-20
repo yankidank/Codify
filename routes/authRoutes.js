@@ -11,7 +11,7 @@ router.get('/logout', (req, res) => {
   // deletes cookie from client
   req.session = null;
 
-  res.redirect('http://localhost:3000/');
+  res.redirect('/');
 });
 
 //this route can be used to check authentication status on the front end

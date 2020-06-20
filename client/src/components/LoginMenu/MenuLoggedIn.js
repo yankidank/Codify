@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import NavBar from '../NavBar';
 const handleLogout = () => {
-	axios.get('http://localhost:3001/auth/logout');
+	axios.get('/auth/logout');
 	window.location = '/';
 };
 
