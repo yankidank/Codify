@@ -98,7 +98,7 @@ function ContactCardContainer() {
 			{contacts.length >0 
 			? contacts.map((contact, index) => {
 				console.log("hello map")
-				const { displayName, email, phone, position, notes } = contact;
+				// const { displayName, email, phone, position, notes } = contact;
 				return (
 				<ContactCard 
 				key = {contact._id}

@@ -3,7 +3,7 @@ import {getPosition, deleteJob} from "../../../utils/API";
 import { useParams } from 'react-router-dom';
 
 
-function PositionCard(props) {
+function PositionCard() {
   const [position, setPosition] = useState([]);
 
   const {id} = useParams();
