@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {getPosition} from "../../../utils/API";
+import {getPosition, deleteJob} from "../../../utils/API";
 import { useParams } from 'react-router-dom';
 
 
@@ -8,6 +8,11 @@ function PositionCard() {
 
   const {id} = useParams();
 
+  const handleClick = () => {
+    deleteJob(id);
+    window.location.href="/jobs/"
+  }
+  
   useEffect(() => {
 		(async () => {
 
@@ -38,7 +43,7 @@ function PositionCard() {
           <input className="col s6 m6 l6" placeholder="State" defaultValue={position.state || ""}></input>
           <textarea placeholder="Notes"></textarea>
           <button className="btn btn-card">View Job Post</button>
-          <button className="btn btn-card btn-remove">Remove Job Post</button>
+          <button className="btn btn-card btn-remove" onClick={handleClick}>Remove Job Post</button>
         </div>
       </div>
     </div>
@@ -46,3 +51,4 @@ function PositionCard() {
 }
 
 export default PositionCard;
+
