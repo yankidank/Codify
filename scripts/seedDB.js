@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const faker = require('faker');
 const { Company, Contact, User, Job } = require('../models');
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/codify', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
