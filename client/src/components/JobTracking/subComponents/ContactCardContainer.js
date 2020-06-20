@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 import { getContacts, updateContact, addContact } from '../../../utils/API';
 import ContactCard from './ContactCard';
 import _ from 'lodash';
 
-function ContactCardContainer({ jobId }) {
+function ContactCardContainer() {
   const [contacts, setContacts] = useState([
     { _id: '', displayName: '', email: '', phone: '', position: '', notes: '' },
   ]);
-  const [postOut, setPostOut] = useState(false);
+	const [postOut, setPostOut] = useState(false);
+	
+	const {id: jobId} = useParams();
 
   const debouncedUpdateContact = useCallback(
     _.debounce(updateContact, 500),

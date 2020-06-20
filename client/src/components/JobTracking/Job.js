@@ -6,7 +6,7 @@ import StatusBar from './subComponents/StatusBar';
 import PositionCard from './subComponents/Position';
 import ContactCardContainer from './subComponents/ContactCardContainer';
 import InterviewCardContainer from './subComponents/InterviewCardContainer';
-import OfferCard from './subComponents/Offer';
+import OfferCardContainer from './subComponents/OfferCardContainer';
 
 function Saved() {
 
@@ -58,7 +58,7 @@ function Saved() {
             <PositionCard jobId={id} />
             <ContactCardContainer jobId={id} />
             <InterviewCardContainer jobId={id} />
-            <OfferCard jobId={id} />
+            <OfferCardContainer jobId={id} />
           </div>
         </div>
       </div>
