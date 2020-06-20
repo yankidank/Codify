@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {getOffers, addOffer} from "../../../utils/API";
+import {getOffers } from "../../../utils/API";
 import { useParams } from 'react-router-dom';
 
-function OfferCard(props) {
+function OfferCard() {
   const [offer, setOffers] = useState([]);
 
   const {id} = useParams();
@@ -13,7 +13,7 @@ function OfferCard(props) {
 
     setOffers({ ...offer, [name]: value})
   }
-
+  console.log(offer, onPostInput)
   useEffect(() => {
 		(async () => {
 			let retrievedOffers = await getOffers(id);

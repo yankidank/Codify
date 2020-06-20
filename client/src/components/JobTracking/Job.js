@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../NavBar';
 import CompanyInfo from './subComponents/CompanyInfo';

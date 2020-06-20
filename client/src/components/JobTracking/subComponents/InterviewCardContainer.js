@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 const debouncedUpdateInterview = _.debounce(updateInterview, 500);
 
-function InterviewCardContainer(props) {
+function InterviewCardContainer() {
 	const [interviews, setInterviews] = useState([
 		{ date: '', time: '', remote: false, street: '', city: '', state: '', zip: '', notes: '', _id: '' }
 	]);

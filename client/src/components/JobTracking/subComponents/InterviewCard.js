@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Cleave from 'cleave.js/react';
 import M from "materialize-css";
 
 function InterviewCard(props) {
-  const {handleInputChange, time, addNewInterview, date, remote, street, city, state, zip, notes, index, _id} = props;
+  const {handleInputChange, time, addNewInterview, date, remote, street, city, state, notes, index, _id} = props;
 
   useEffect(() => {
     // Change Status Menu
@@ -37,5 +38,19 @@ function InterviewCard(props) {
       </div>
   );
 }
+
+InterviewCard.propTypes = {
+  time: PropTypes.string,
+  index: PropTypes.number,
+  handleInputChange: PropTypes.func,
+  addNewInterview: PropTypes.func,
+  date: PropTypes.string,
+  remote: PropTypes.bool,
+  street: PropTypes.string,
+  state: PropTypes.string,
+  notes: PropTypes.string,
+  city: PropTypes.string,
+  _id: PropTypes.string
+};
 
 export default InterviewCard;
