@@ -198,3 +198,16 @@ export const getOffers = async (jobId) => {
 	let {data: {offers}} = await getJob(jobId);
 	return offers;
 }
+
+////////////////////////////////////
+// delete endpoints ////////////////
+////////////////////////////////////
+
+export const deleteJob = async (jobId) => {
+	try {
+		let job = await axiosInstance.delete(`/api/jobs/${jobId}`);
+		return job;
+	} catch (err) {
+		console.log(err);
+	}
+}

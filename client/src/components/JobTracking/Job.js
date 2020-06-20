@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../NavBar';
 import CompanyInfo from './subComponents/CompanyInfo';
@@ -8,9 +8,10 @@ import ContactCardContainer from './subComponents/ContactCardContainer';
 import InterviewCard from './subComponents/Interview';
 import OfferCard from './subComponents/Offer';
 
+
 function Saved() {
 
-  const { id } = useParams();
+  const {id} = useParams();
 
   useEffect(() => {
     // Textarea height expansion

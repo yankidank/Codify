@@ -1,9 +1,35 @@
-import React, {useEffect} from "react";
+import React, { useState, useEffect } from 'react';
 import M from "materialize-css";
+import {getJob} from "../../../utils/API";
+import { useParams } from 'react-router-dom';
 
 function CompanyInfo() {
+  const [position, setPosition] = useState({
+    companyName: "",
+    position: "",
+    city: "",
+    state: ""
+  });
+  
+  const {id} = useParams();
 
   useEffect(() => {
+    (async () => {
+
+      if (id){
+        let retrievedPosition = await getJob(id);
+	
+        if(retrievedPosition){
+          setPosition({"companyName": retrievedPosition.data.company.displayName, 
+            "position": retrievedPosition.data.post.position,
+            "city": retrievedPosition.data.post.city,
+            "state": retrievedPosition.data.post.state,
+          });
+        } else {
+          console.log("Add empty position")
+        }
+      }
+		})();
     // Change Status Menu
     let dropdowns = document.querySelectorAll('.dropdown-trigger');
     let options = {
@@ -25,10 +51,10 @@ function CompanyInfo() {
         </div>
         <div className="col s12 m6 l7 company-details">
           <div className="row">
-            <input className="col s12 m12 l12 company-input" id="company-name" placeholder="Company Name"></input>
-            <input className="col s12 m12 l12 company-input" id="company-jobtitle" placeholder="Position Title"></input>
-            <input className="col s12 m5 l4 company-input" id="company-city" placeholder="City"></input>
-            <input className="col s12 m5 l4 company-input" id="company-state" placeholder="State"></input>
+            <input className="col s12 m12 l12 company-input" id="company-name" placeholder="Company Name" defaultValue={position.companyName || ""}></input>
+            <input className="col s12 m12 l12 company-input" id="company-jobtitle" placeholder="Position Title" defaultValue={position.position || ""}></input>
+            <input className="col s12 m5 l4 company-input" id="company-city" placeholder="City" defaultValue={position.city || ""}></input>
+            <input className="col s12 m5 l4 company-input" id="company-state" placeholder="State" defaultValue={position.state || ""}></input>
           </div>
         </div>
         <div className="col s12 m4 l3 btn-status" id="status-btn">
