@@ -21,8 +21,12 @@ function InterviewCard(props) {
   return (
       <div className="card card-padded card-position">
         <div className="interviewInputs">
-          <Cleave options={{date:true, delimiter: '/', datePattern:['Y', 'm', 'd']}} className="col s6 m4 l4 datepicker" placeholder="2020/09/15" onChange={(event) => handleInputChange(event, index, _id)} value={date} name="date"/>
-          <Cleave options={{time: true, timePattern: ['h', 'm']}} className="col s6 m4 l4" placeholder="10:30" onChange={(event) => handleInputChange(event, index, _id)} name="time" value={time}/>
+          <div className="input-field ">
+            <Cleave options={{date:true, delimiter: '/', datePattern:['Y', 'm', 'd']}} className="col s6 m4 l4 datepicker" placeholder="2020/09/15" onChange={(event) => handleInputChange(event, index, _id)} value={date} name="date"/>
+          </div>
+          <div className="input-field ">
+            <Cleave options={{time: true, timePattern: ['h', 'm']}} className="col s6 m4 l4" placeholder="10:30" onChange={(event) => handleInputChange(event, index, _id)} name="time" value={time}/>
+          </div>
           <div className="input-field col s6 m4 l4">
             <select placeholder="Remote" id="remote" value={remote}>
               <option value="true">Remote</option>

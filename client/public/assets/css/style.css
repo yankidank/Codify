@@ -675,9 +675,20 @@ p.text-center {
   color: #000;
 }
 input:not([type]):focus:not([readonly]),
-select:not([type]):focus:not([readonly]) {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+select:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default), 
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: none;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;  
+  padding:0 10px;
+}
+input:not([type]):focus:not([readonly]),
+select:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
 .menuNav ul {
   margin-top: -60px;
