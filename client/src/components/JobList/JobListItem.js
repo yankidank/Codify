@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 function OneJobListing(props) {
 
+  const {id, companyName, position, city, state, status} = props;
   const [logo, setLogo] = useState('/assets/img/logo.png');
 
   useEffect(() => {
@@ -26,8 +27,6 @@ function OneJobListing(props) {
     fetchData();
 	}, []);
 
-  const {id, companyName, position, city, state} = props;
-
   return (
       <div className="row card-inner">
         <div className="col s3 m2 l2 company-image">
@@ -41,7 +40,7 @@ function OneJobListing(props) {
           </a>
         </div>
         <div className="col s4 m4 l3 btn-status">
-          <button className="btn-applied">Applied</button>
+          <button className="btn-applied">{status[0].toUpperCase() + status.slice(1)}</button>
         </div>
       </div>
   );
@@ -52,7 +51,8 @@ OneJobListing.propTypes = {
   companyName: PropTypes.string,
   position: PropTypes.string,
   city: PropTypes.string, 
-  state: PropTypes.string
+  state: PropTypes.string,
+  status: PropTypes.string
 }
 
 export default OneJobListing;

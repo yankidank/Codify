@@ -67,6 +67,11 @@ nav .brand-logo {
 canvas {
   height: 250px !important;
 }
+select {
+  display:block;
+  height:auto;
+  border:none;
+}
 #filter-container {
   box-shadow: 0px 1px 0px 0px #0000002b;
   border-top:1px solid #0000002b;
@@ -112,8 +117,7 @@ canvas {
   letter-spacing: 0.02em;
   padding: 8px 0;
 }
-.btn-filter button:active,
-.btn-filter button:focus {
+.btn-filter button.active {
   background: #000;
 }
 .btn-disabled {
@@ -439,7 +443,7 @@ textarea:focus{
   color: #0000008a;
   background:#fff;
 }
-.btn-filter .btn-filter-disabled:focus {
+.btn-filter .btn-filter-disabled.active {
   color:#fff;
 }
 .company-header .col {
