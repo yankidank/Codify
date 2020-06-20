@@ -23,7 +23,7 @@ function AddJob() {
       }
     }
     catch (error){
-      console.log(error)
+      console.error(error);
     }
   }
 
@@ -31,7 +31,6 @@ function AddJob() {
     const { target: { name, value }} = event;
 
     setPost({ ...post, [name]: value})
-    console.log(post)
   }
 
   useEffect(() => {

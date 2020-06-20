@@ -68,11 +68,11 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
 	const { id } = req.params;
-	const { displayName, email, phone, company, position, notes } = req.body;
-	let fieldsToUpdate = dropUndefined({ displayName, email, phone, company, position, notes });
-	let { company: oldCompany } = await Contact.findById(id);
+	const { displayName, email, phone, position, notes } = req.body;
+	let fieldsToUpdate = dropUndefined({ displayName, email, phone, position, notes });
+	// let { company: oldCompany } = await Contact.findById(id);
 	// copies in the old companies associated with specified contact
-	fieldsToUpdate.company = [...oldCompany, company];
+	// fieldsToUpdate.company = [...oldCompany, company];
 	let updatedContact = await Contact.findByIdAndUpdate(id, fieldsToUpdate, { new: true });
 
 	if (!updatedContact) res.status(404).send({ error: 'Contact not found!' });
