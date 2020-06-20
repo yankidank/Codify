@@ -1,13 +1,16 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import NavBar from '../NavBar';
 import CompanyInfo from './subComponents/CompanyInfo';
 import StatusBar from './subComponents/StatusBar';
 import PositionCard from './subComponents/Position';
-import ContactCard from './subComponents/Contact';
+import ContactCardContainer from './subComponents/ContactCardContainer';
 import InterviewCard from './subComponents/Interview';
 import OfferCard from './subComponents/Offer';
 
 function Saved() {
+
+  const { id } = useParams();
 
   useEffect(() => {
     // Textarea height expansion
@@ -17,36 +20,45 @@ function Saved() {
       // Get the computed styles for the element
       var computed = window.getComputedStyle(field);
       // Calculate the height
-      var height = parseInt(computed.getPropertyValue('border-top-width'), 10)
-                   + parseInt(computed.getPropertyValue('padding-top'), 10)
-                   + field.scrollHeight
-                   + parseInt(computed.getPropertyValue('padding-bottom'), 10)
-                   + parseInt(computed.getPropertyValue('border-bottom-width'), 10);
-    
-      field.style.height = height + 'px';
-    
-    };
-    document.addEventListener('input', function (event) {
-      if (event.target.tagName.toLowerCase() !== 'textarea') return;
-      autoExpand(event.target);
-    }, false);
+      var height =
+        parseInt(computed.getPropertyValue('border-top-width'), 10) +
+        parseInt(computed.getPropertyValue('padding-top'), 10) +
+        field.scrollHeight +
+        parseInt(computed.getPropertyValue('padding-bottom'), 10) +
+        parseInt(computed.getPropertyValue('border-bottom-width'), 10);
 
-  });
+      field.style.height = height + 'px';
+    };
+    document.addEventListener(
+      'input',
+      function (event) {
+        if (event.target.tagName.toLowerCase() !== 'textarea') return;
+        autoExpand(event.target);
+      },
+      false
+    );
+  }, []);
 
   return (
     <div className="job">
       <NavBar />
       <div className="container job-container">
         <div className="row">
-          <StatusBar state="2" first="Saved" second="Applied" third="Interview" fourth="Offer" />
+          <StatusBar
+            state="2"
+            first="Saved"
+            second="Applied"
+            third="Interview"
+            fourth="Offer"
+          />
           <CompanyInfo />
         </div>
         <div className="row">
           <div className="card-container">
-            <PositionCard />
-            <ContactCard />
-            <InterviewCard />
-            <OfferCard />
+            <PositionCard jobId={id} />
+            <ContactCardContainer jobId={id} />
+            <InterviewCard jobId={id} />
+            <OfferCard jobId={id} />
           </div>
         </div>
       </div>

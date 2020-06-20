@@ -9,12 +9,12 @@ export const axiosInstance = axios.create({
 ////////////////////////////////////
 
 export const addContact = async (contactProperties, jobId) => {
-	// contactProperties := { displayName(required), company, email, phone, position, notes }
+  // contactProperties := { displayName(required), company, email, phone, position, notes }
 	try {
 		let newContact;
 		if (jobId) {
-			let contactInfo = await axiosInstance.post('/api/contacts', contactProperties);
-			newContact = await axiosInstance.put(`/api/jobs/${jobId}`, { push: { contacts: contactInfo.data._id } });
+			newContact = await axiosInstance.post('/api/contacts', contactProperties);
+			await axiosInstance.put(`/api/jobs/${jobId}`, { push: { contacts: newContact.data._id } });
 		} else {
 			newContact = await axiosInstance.post('/api/contacts', contactProperties);
 		}

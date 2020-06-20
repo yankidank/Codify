@@ -1,6 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import {getOffers } from "../../../utils/API";
+import { useParams } from 'react-router-dom';
 
 function OfferCard() {
+  const [offer, setOffers] = useState([]);
+
+  const {id} = useParams();
+
+  const onPostInput = async event => {
+    event.preventDefault();
+    const { target: { name, value }} = event;
+
+    setOffers({ ...offer, [name]: value})
+  }
+  console.log(offer, onPostInput)
+  useEffect(() => {
+		(async () => {
+			let retrievedOffers = await getOffers(id);
+	
+			if(retrievedOffers){
+        setOffers(retrievedOffers);
+			} else {
+				console.log("Add empty offer")
+			}
+		})();
+	}, []);
+
   return (
     <div className="col s12 m12 l6">
       <div className="row card-image">
