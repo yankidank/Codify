@@ -1,0 +1,58 @@
+#filter-container {
+  box-shadow: 0px 1px 0px 0px #0000002b;
+  border-top:1px solid #0000002b;
+  background: #ffffff;
+  padding: 12px;
+  margin: 0 0 17px 0;
+}
+.card-filter {
+  display: flex;
+  float: right !important;
+  justify-content: flex-end;
+  opacity: 0.4;
+  cursor: pointer;
+}
+.row-filter{
+	margin-bottom:10px;
+}
+.row-filter .card-filter, .row-filter .filter-tags {
+	margin: 15px 12px 0 0;
+}
+.row-filter .filter-active {
+  opacity: 1;
+}
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.btn-filter .btn-filter-disabled {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: #0000008a;
+  background:#fff;
+}
+.btn-filter .btn-filter-disabled.active {
+  color:#fff;
+}
+
+.btn-filter {
+  margin: 5px 10px;
+}
+.btn-filter button {
+  width: 100px;
+  color: #ffffff;
+  border-radius: 4px;
+  border: none;
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  padding: 8px 0;
+}
+.btn-filter button.active {
+  background: #000;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import "./Navbar.css";
 
 function NavBar() {
 	// Menu back button

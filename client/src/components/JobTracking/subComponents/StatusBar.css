@@ -1,0 +1,73 @@
+
+/* Job Status Indicator */
+.statusBar {
+	align-content: center;
+	text-align: center;
+}
+.statusBar .col{
+	align-content: center;
+	text-align: center;
+	padding:0;
+  width: 100%;
+}
+.statusBar .col p {
+	cursor: default;
+	font-size:1rem;
+	font-weight:300;
+	color: rgba(255, 255, 255, 0.5);
+}
+.circle-status{
+	text-align: center;
+	display:inline-block;
+	width:100%;
+	margin-bottom:-20px;
+}
+.statusBar .col .circle-status .row{
+	margin-left:0 !important;
+	margin-right:0 !important;
+}
+.circle-await .circle-inner {
+	background:#fff;
+}
+.circle-connection{
+	width:100%;
+	height:2px;
+	background:#38C976;
+	border-bottom: 4px solid rgba(0, 0, 0, 0.2);
+	display:inline-block;
+}
+.circle-outer{
+	margin-top: -8px;
+	z-index: 1;
+	margin: -17px auto 0 auto;
+}
+.circle-inner{
+	position: relative;
+	margin: -17px auto 0 auto;
+	width: 18px;
+	height: 18px;
+	border: 3px solid #fff;
+	border-radius: 50%;
+	z-index: 3;
+	background:#38C976;
+}
+.statusBar .circle-active p{
+	color:#fff;
+	font-weight:400;
+}
+.circle-inactive{
+	background:none;
+	border:none;
+}
+.circle-await .circle-status .circle-connection{
+	background: #ffffff49;
+}
+.circle-status .row .circle-await {
+	background: #ffffff49;
+}
+.circle-connect-await {
+	background:#ffffff49;
+}
+.circle-await .circle-status .row .circle-inactive{
+	background:none;
+}

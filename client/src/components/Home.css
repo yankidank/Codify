@@ -1,0 +1,25 @@
+.card-home {
+	padding:10px 25px;
+}
+.card-home h3{
+	font-size:2.2rem;
+	margin: 8px 0 0 0;
+}
+.card-home p{
+	font-size:1.2rem;
+}
+.container-home-jobs::after {
+	content: " ";
+  z-index: 10;
+  display: block;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+	background-image: linear-gradient(180deg, #ffffff00,#ffffff50, #ffffff);
+}
+.home-menuNav {
+	min-height:40vh;
+	margin-bottom: 60px;
+}

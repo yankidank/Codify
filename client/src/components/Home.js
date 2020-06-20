@@ -1,6 +1,8 @@
 import React from 'react';
 import NavBar from './NavBar';
 import { Doughnut } from 'react-chartjs-2';
+import "./Home.css";
+import "./JobList/JobListItem.css";
 
 const state = {
   labels: ['Applied', 'Interviews', 'Offers'],

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import M from "materialize-css";
 import {getJob} from "../../../utils/API";
 import { useParams } from 'react-router-dom';
+import "./CompanyInfo.css";
 
 function CompanyInfo() {
 

@@ -1,0 +1,29 @@
+nav {
+  background-image: url("/assets/img/background.jpg");
+  backdrop-filter: blur(5px);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center top;
+  background-size: cover;
+}
+.app-navbar-fixed {
+  position: -webkit-sticky;
+  position:sticky;
+  top:0;
+  z-index:900;
+}
+button.nav-back {
+  background: none;
+  border: none;
+  margin-top: 16px;
+  margin-left: 16px;
+}
+.navbar-fixed nav {
+  border: none;
+}
+.navbar-fixed nav.noScroll {
+  box-shadow: none;
+}
+nav .brand-logo {
+  font-size: 2rem;
+}

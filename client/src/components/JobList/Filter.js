@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import "./Filter.css";
 
 function Filter({ handleFilterChange }) {
   useEffect(() => {
@@ -17,7 +17,6 @@ function Filter({ handleFilterChange }) {
           container.classList.remove('hidden');
           hidden = false;
         } else {
-          console.log('hide');
           dropdown.classList.remove('filter-active');
           container.classList.add('hidden');
           hidden = true;
@@ -28,7 +27,6 @@ function Filter({ handleFilterChange }) {
     container.querySelectorAll('button').forEach(button => {
       button.addEventListener('click', () => {
         //handle click
-        console.log(button);
         button.classList.toggle('active')
       }, false)
     })

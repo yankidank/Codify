@@ -1,0 +1,14 @@
+.company-header .btn-status {
+	text-align:right;
+}
+.company-img-src {
+  height: 90%;
+  width: 90%;
+  max-width:90px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+}
+.company-image,
+.company-details {
+  cursor: pointer;
+}

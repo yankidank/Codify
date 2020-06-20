@@ -1,0 +1,43 @@
+.card-inner .company-image {
+  margin:0 auto;
+  padding-left: 24px; /* centering */
+  font-size:0.8rem;
+}
+.card-inner .btn-status, .card-inner .company-image {
+  text-align: center;
+  align-content: center;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+}
+.card-jobslist .container .row .col .company-img-src {
+  max-width:60px;
+}
+.home-jobslist-col {
+	margin-bottom:-30px;
+}
+.card-home-jobslist {
+	margin-bottom:0;
+}
+.oneJobListing .btn-status {
+	text-align:right;
+}
+.company-details a {
+  color:rgba(0, 0, 0, 1);
+  word-wrap: break-word;
+}
+.company-details a:hover {
+	color:rgba(0, 0, 0, 0.75);
+}
+.company-details p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.3rem;
+  font-weight: 300;
+}
+.company-details h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+}

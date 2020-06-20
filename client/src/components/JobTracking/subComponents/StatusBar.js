@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {getJob} from "../../../utils/API";
 import { useParams } from 'react-router-dom';
+import "./StatusBar.css";
 
 function StatusBar(props) {
   const [status, setStatus] = useState({
