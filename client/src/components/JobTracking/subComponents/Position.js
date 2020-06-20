@@ -12,7 +12,7 @@ function PositionCard() {
     deleteJob(id);
     window.location.href="/jobs/"
   }
-
+  
   useEffect(() => {
 		(async () => {
 
