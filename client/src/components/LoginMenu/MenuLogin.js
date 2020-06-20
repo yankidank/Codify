@@ -12,7 +12,6 @@ function MenuLogin() {
               Home
             </a>
           </li>
-          {/* <li><a onClick={handleAbout} className="btn-home-login">ABOUT</a></li> */}
           <li>
             <a href="http://localhost:3001/auth/github" className="button btn-github">
               <div className="btn-logo">
