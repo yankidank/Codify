@@ -12,9 +12,8 @@ function MenuLogin() {
               Home
             </a>
           </li>
-          {/* <li><a onClick={handleAbout} className="btn-home-login">ABOUT</a></li> */}
           <li>
-            <a href="/auth/github" className="button btn-github">
+            <a href="http://localhost:3001/auth/github" className="button btn-github">
               <div className="btn-logo">
                 <img src="/assets/img/icon-github.png" alt="GitHub"></img>
               </div>
@@ -22,7 +21,7 @@ function MenuLogin() {
             </a>
           </li>
           <li>
-            <a href="/auth/linkedin" className="button btn-linkedin">
+            <a href="http://localhost:3001/auth/linkedin" className="button btn-linkedin">
               <div className="btn-logo">
                 <img src="/assets/img/icon-linkedin.png" alt="LinkedIn"></img>
               </div>
@@ -30,7 +29,7 @@ function MenuLogin() {
             </a>
           </li>
           <li>
-            <a href="/auth/google" className="button btn-google">
+            <a href="http://localhost:3001/auth/google" className="button btn-google">
               <div className="btn-logo">
                 <img src="/assets/img/icon-google.png" alt="Google"></img>
               </div>

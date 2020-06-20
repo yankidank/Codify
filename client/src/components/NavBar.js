@@ -41,7 +41,7 @@ function NavBar() {
               <a href="/menu/login">Login</a>
             </li>
             <li>
-              <a href="/auth/logout">Logout</a>
+              <a href="http://localhost:3001/auth/logout">Logout</a>
             </li>
           </ul>
           <a
