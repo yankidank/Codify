@@ -672,7 +672,7 @@ p.text-center {
 }
 input:not([type]):focus:not([readonly]),
 select:not([type]):focus:not([readonly]) {
-  border-bottom: 2px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   box-shadow: none;
 }
 .menuNav ul {
