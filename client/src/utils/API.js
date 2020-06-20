@@ -113,12 +113,12 @@ export const updateInterview = async (newInterview, jobId, index) => {
 	}
 };
 
-export const updateOffer = async (newOffer, jobId, index) => {
+export const updateOffer = async (newOffer, jobId, offerId) => {
 	// newOffer := {date, startDate, salary, bonus, benefits}
 	try {
-		const offerQuery = `offers.${index}`
 		const updatedOffer = await axiosInstance.put(`/api/jobs/${jobId}`, {
-			set: { [offerQuery]: newOffer }
+			extraQuery: { offerId },
+			set: { 'offers.$': newOffer }
 		});
 		const {
 			data: { offers }

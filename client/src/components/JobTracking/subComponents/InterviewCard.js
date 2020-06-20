@@ -22,25 +22,18 @@ function InterviewCard(props) {
       <div className="card card-padded card-position">
         <div className="interviewInputs">
           <Cleave options={{date:true, delimiter: '/', datePattern:['Y', 'm', 'd']}} className="col s6 m4 l4 datepicker" placeholder="2020/09/15" onChange={(event) => handleInputChange(event, index, _id)} value={date} name="date"/>
-
           <Cleave options={{time: true, timePattern: ['h', 'm']}} className="col s6 m4 l4" placeholder="10:30" onChange={(event) => handleInputChange(event, index, _id)} name="time" value={time}/>
-
           <div className="input-field col s6 m4 l4">
             <select placeholder="Remote" id="remote" value={remote}>
               <option value="true">Remote</option>
               <option value="false">Local</option>
             </select>
           </div>
-
           <input className="col s6 m4 l4" placeholder="Street Address" onChange={(event) => handleInputChange(event, index, _id)} value={street} name="street"></input>
-
           <input className="col s6 m4 l4" placeholder="City" onChange={(event) => handleInputChange(event, index, _id)} value={city} name="city"></input>
-
           <input className="col s6 m4 l4" placeholder="State" onChange={(event) => handleInputChange(event, index, _id)} value={state} name="state"></input>
-
           <textarea placeholder="Notes" onChange={(event) => handleInputChange(event, index, _id)} value={notes} name="notes"></textarea>
         </div>
-
         {(_id) ? '' : <button className={"btn btn-card"} onClick={() => addNewInterview(index)}>Save New Interview</button>}
       </div>
   );
