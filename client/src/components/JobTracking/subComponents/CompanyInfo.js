@@ -4,6 +4,7 @@ import {getJob} from "../../../utils/API";
 import { useParams } from 'react-router-dom';
 
 function CompanyInfo() {
+
   const [position, setPosition] = useState({
     companyName: "",
     position: "",
@@ -12,6 +13,27 @@ function CompanyInfo() {
   });
   
   const {id} = useParams();
+
+  const [logo, setLogo] = useState('/assets/img/logo.png');
+  // Create Logo URL
+  const logoBase = 'https://logo.clearbit.com/';
+  const companyName = position.companyName;
+  const logoCompany = companyName.replace(/[^\w\s]/gi, '').replace(/\s/g,'').toLowerCase()+'.com';
+  const logoUrl = logoBase+logoCompany;
+  // Check that the image exists or fallback to default
+  const getImageOrFallback = (path, fallback) => {
+    return new Promise(resolve => {
+      const img = new Image();
+      img.src = path;
+      img.onload = () => resolve(path);
+      img.onerror = () => resolve(fallback);
+    });
+  };
+  const fetchData = async () => {
+    const data = await getImageOrFallback(logoUrl,'/assets/img/logo.png' );
+    setLogo(data);
+  }
+  fetchData();
 
   useEffect(() => {
     (async () => {
@@ -46,7 +68,7 @@ function CompanyInfo() {
       <div className="row company-header">
         <div className="col s12 m2 l2">
           <div className="one-company-image">
-            <i className="one-company-img-src material-icons">add_a_photo</i>
+            <img src={logo} alt=" " className="company-img-src" />
           </div>
         </div>
         <div className="col s12 m6 l7 company-details">

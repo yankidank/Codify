@@ -308,10 +308,14 @@ button {
 	font-size: 36px;
 }
 .company-img-src {
-  height: 60px;
-  width: 60px;
-  border-radius: 30px;
+  height: 94%;
+  width: 94%;
+  max-width:90px;
+  border-radius: 50%;
   background: rgba(0, 0, 0, 0.2);
+}
+.card-jobslist .container .row .col .company-img-src {
+  max-width:60px;
 }
 .card-filter {
   display: flex;
@@ -494,6 +498,7 @@ textarea:focus{
 }
 .company-details #company-name {
   font-size: 2rem;
+  margin-top: 8px;
 }
 #company-jobtitle, #company-city, #company-state {
 	height:32px;
