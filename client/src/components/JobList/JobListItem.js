@@ -1,19 +1,37 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 function OneJobListing(props) {
 
-  const {id, companyName, position, city, state} = props;
+  const [logo, setLogo] = useState('/assets/img/logo.png');
 
-  // Create Logo URL
-  const logoBase = 'https://logo.clearbit.com/';
-  const logoCompany = companyName.trim().toLowerCase()+'.com';
-  const logoSrc = logoBase+logoCompany;
+  useEffect(() => {
+    // Create Logo URL
+    const logoBase = 'https://logo.clearbit.com/';
+    const logoCompany = companyName.trim().toLowerCase()+'.com';
+    const logoUrl = logoBase+logoCompany;
+    // Check that the image exists or fallback to default
+    const getImageOrFallback = (path, fallback) => {
+      return new Promise(resolve => {
+        const img = new Image();
+        img.src = path;
+        img.onload = () => resolve(path);
+        img.onerror = () => resolve(fallback);
+      });
+    };
+    const fetchData = async () => {
+      const data = await getImageOrFallback(logoUrl,'/assets/img/logo.png' );
+      setLogo(data);
+    }
+    fetchData();
+	}, []);
+
+  const {id, companyName, position, city, state} = props;
 
   return (
       <div className="row card-inner">
         <div className="col s3 m2 l2 company-image">
-          <img src={logoSrc} alt=" " className="company-img-src" />
+          <img src={logo} alt=" " className="company-img-src" />
         </div>
         <div className="col s5 m6 l7 company-details">
           <a href={`/jobs/${id}`}>
