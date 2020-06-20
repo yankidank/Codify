@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {getStatusReport} from "../../../utils/API";
+import {getJob} from "../../../utils/API";
 import { useParams } from 'react-router-dom';
 
 function StatusBar(props) {
-  const [status, setStatus] = useState([]);
+  const [status, setStatus] = useState({
+    status: ""
+  });
 
   const {id} = useParams();
 
   useEffect(() => {
 		(async () => {
-      let retrievedStatus = await getStatusReport(id);
-      setStatus(retrievedStatus);
-      console.log(status)
+      let retrievedStatus = await getJob(id);
+      setStatus({"status":retrievedStatus.data.status});
 		})();
   }, []);
 
@@ -22,7 +23,7 @@ function StatusBar(props) {
   const activeClass = {};
   const connectDefault = 'col s6 m6 l6 circle-connection';
   const activeDefault = 'col s3 m3 l3';
-  if (state === '1'){
+  if (status.status === 'saved'){
     stateClass.one = connectDefault+' circle-connect-await'
     stateClass.two = connectDefault+' circle-connect-await'
     stateClass.three = connectDefault+' circle-connect-await'
@@ -33,7 +34,7 @@ function StatusBar(props) {
     activeClass.two = activeDefault+' circle-await';
     activeClass.three = activeDefault+' circle-await';
     activeClass.four = activeDefault+' circle-await';
-  } else if (state === '2'){
+  } else if (state === 'applied'){
     stateClass.one = connectDefault;
     stateClass.two = connectDefault;
     stateClass.three = connectDefault+' circle-connect-await'
@@ -44,7 +45,7 @@ function StatusBar(props) {
     activeClass.two = activeDefault+' circle-active';
     activeClass.three = activeDefault+' circle-await';
     activeClass.four = activeDefault+' circle-await';
-  } else if (state === '3'){
+  } else if (state === 'interview'){
     stateClass.one = connectDefault;
     stateClass.two = connectDefault;
     stateClass.three = connectDefault;
@@ -55,7 +56,7 @@ function StatusBar(props) {
     activeClass.two = activeDefault;
     activeClass.three = activeDefault+' circle-active';
     activeClass.four = activeDefault+' circle-await';
-  } else if (state === '4'){
+  } else if (state === 'offer'){
     stateClass.one = connectDefault;
     stateClass.two = connectDefault;
     stateClass.three = connectDefault;
@@ -70,7 +71,6 @@ function StatusBar(props) {
 
   return (
     <div className="col s12 m12 l12">
-      {console.log(status)}
       <div className="row statusBar">
         <div className={activeClass.one}>
           <p>{props.first}</p>

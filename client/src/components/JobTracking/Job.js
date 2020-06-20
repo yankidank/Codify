@@ -45,7 +45,7 @@ function Saved() {
       <div className="container job-container">
         <div className="row">
           <StatusBar state="2" first="Saved" second="Applied" third="Interview" fourth="Offer" />
-          <CompanyInfo />
+          <CompanyInfo jobId = {jobId}/>
         </div>
         <div className="row">
           <div className="card-container">
