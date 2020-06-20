@@ -16,7 +16,7 @@ function AddJob() {
   const handleAdd = async (e) => {
     e.preventDefault();
     try {
-      let newJob = await addJob({ ...post, status: post.status || 'Saved' })
+      let newJob = await addJob({ ...post, status: post.status || 'saved' })
       console.log(newJob)
       if (newJob && newJob.status === 200) {
         const { data: { _id }} = newJob;
