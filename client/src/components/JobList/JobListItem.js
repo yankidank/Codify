@@ -9,8 +9,9 @@ function OneJobListing(props) {
   useEffect(() => {
     // Create Logo URL
     const logoBase = 'https://logo.clearbit.com/';
-    const logoCompany = companyName.trim().toLowerCase()+'.com';
+    const logoCompany = companyName.replace(/[^\w\s]/gi, '').replace(/\s/g,'').toLowerCase()+'.com';
     const logoUrl = logoBase+logoCompany;
+    console.log(logoUrl)
     // Check that the image exists or fallback to default
     const getImageOrFallback = (path, fallback) => {
       return new Promise(resolve => {
