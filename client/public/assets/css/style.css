@@ -325,8 +325,11 @@ button {
 .company-details {
   cursor: pointer;
 }
-.card div input {
+.card div input, .card div select {
 	border-bottom:1px solid #f1f1f1;
+}
+textarea{
+  resize: none;
 }
 textarea:focus{
 	outline:1px solid #4f4f4fd7;
@@ -667,8 +670,9 @@ p.text-center {
 .menuNav input:not([type]) {
   color: #000;
 }
-input:not([type]):focus:not([readonly]) {
-  border-bottom: 1px solid #fff;
+input:not([type]):focus:not([readonly]),
+select:not([type]):focus:not([readonly]) {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.25);
   box-shadow: none;
 }
 .menuNav ul {
