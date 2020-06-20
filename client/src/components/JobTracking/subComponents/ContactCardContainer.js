@@ -4,13 +4,11 @@ import { useParams } from 'react-router-dom';
 import ContactCard from './ContactCard';
 import _ from 'lodash';
 
-function ContactCardContainer() {
+function ContactCardContainer({jobId}) {
   const [contacts, setContacts] = useState([
     { _id: '', displayName: '', email: '', phone: '', position: '', notes: '' },
   ]);
   const [postOut, setPostOut] = useState(false);
-
-  const { id } = useParams();
 
   const debouncedUpdateContact = useCallback(
     _.debounce(updateContact, 500),
@@ -19,10 +17,8 @@ function ContactCardContainer() {
 
   const debouncedAddContact = useCallback(
     _.debounce(async (index, contact, jobId) => {
-      console.log({ contacts });
       let newContacts = contacts.concat();
       const response = await addContact(contact, jobId);
-      console.log(response);
       const { data: newContact } = response;
       if (newContacts[index]) {
         newContacts[index]._id = newContact._id;
@@ -31,7 +27,7 @@ function ContactCardContainer() {
       setContacts(newContacts);
       setPostOut(false);
     }, 500),
-    []
+    [contacts]
   );
 
   const handleInputChange = async (event, index, contactId) => {
@@ -46,7 +42,7 @@ function ContactCardContainer() {
         debouncedUpdateContact(newContacts[index], contactId);
       } else if (!postOut) {
         setPostOut(true);
-        debouncedAddContact(index, newContacts[index], id);
+        debouncedAddContact(index, newContacts[index], jobId);
       }
     }
 
@@ -68,14 +64,15 @@ function ContactCardContainer() {
   };
 
   const addNewContact = async index => {
-    await addContact(contacts[index], id);
-    let newContacts = await getContacts(id);
+    await addContact(contacts[index], jobId);
+    let newContacts = await getContacts(jobId);
     setContacts(newContacts);
   };
 
   useEffect(() => {
     (async () => {
-      let retrievedContacts = await getContacts(id);
+      console.log({jobId})
+      let retrievedContacts = await getContacts(jobId);
       retrievedContacts.reverse();
       if (retrievedContacts.length > 0) {
         setContacts(retrievedContacts);
