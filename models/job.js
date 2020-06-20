@@ -19,6 +19,7 @@ const jobSchema = new Schema(
     interviews: [
       {
         date: Date,
+        time: String,
         location: {
           remote: Boolean,
           street: String,
