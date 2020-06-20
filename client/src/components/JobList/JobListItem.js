@@ -40,7 +40,7 @@ function OneJobListing(props) {
           </a>
         </div>
         <div className="col s4 m4 l3 btn-status">
-          {/* <button className="btn-applied">{status[0].toUpperCase() + status.slice(1)}</button> */}
+          <button className="btn-applied">{status[0].toUpperCase() + status.slice(1)}</button>
         </div>
       </div>
   );
