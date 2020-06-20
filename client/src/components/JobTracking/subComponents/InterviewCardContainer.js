@@ -39,7 +39,8 @@ function InterviewCardContainer(props) {
 		newInterviews[index][shortName] = event.target.value;
 
 		if (interviewId) {
-			const { date, remote, street, city, state, zip, notes } = newInterviews[index];
+      const { date, remote, street, city, state, zip, notes } = newInterviews[index];
+      date = new Date(date);
 			const formattedInterview = { date, location: { remote, street, city, state, zip }, notes };
 			debouncedUpdateInterview(formattedInterview, interviewId);
 		}
@@ -56,7 +57,8 @@ function InterviewCardContainer(props) {
 	const addNewInterview = async (index) => {
     const { date, remote, street, city, state, zip, notes } = interviews[index];
     if (date || remote || street || city || state || zip || notes ) {
-      const formattedInterview = { date, location: { remote, street, city, state, zip }, notes };
+      let formattedDate = new Date(date);
+      const formattedInterview = { date: formattedDate, location: { remote, street, city, state, zip }, notes };
       await addInterview(formattedInterview, id);
       let newInterviews = await getInterviews(id);
       setInterviews(newInterviews);

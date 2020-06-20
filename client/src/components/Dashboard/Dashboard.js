@@ -3,28 +3,41 @@ import PropTypes from 'prop-types';
 import DoughtnutChart from './Doughnut';
 import List from '../JobList/List';
 import NavBar from '../NavBar';
-import { getAllJobs } from '../../utils/API';
+import {
+  getAllJobs,
+  getStatusReport,
+  // getCommunicationReport,
+} from '../../utils/API';
 
 function Dashboard() {
-	const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [jobs, setJobs] = useState([]);
+  const [statusReport, setStatusReport] = useState([]);
+  // const [communicationReport, setcommunicationReport] = useState([]);
 
-	useEffect(() => {
-		(async () => {
-			const jobArr = await getAllJobs();
-			setJobs(jobArr);
-		})();
-	}, []);
-	return (
-		<div>
-			<NavBar />
-			<div className="container pushtop dashboard">
-				<div className="row">
-					<DoughtnutChart />
-					<List cols="col s12 m12 l8" jobs={jobs}/>
-				</div>
-			</div>
-		</div>
-	);
+  useEffect(() => {
+    (async () => {
+      const jobs = await getAllJobs();
+      const statusReport = await getStatusReport();
+      // const communicationReport = await getCommunicationReport();
+
+      setJobs(jobs);
+      setStatusReport(statusReport);
+      // setcommunicationReport(communicationReport);
+      setLoading(false);
+    })();
+  }, []);
+  return (
+    <div>
+      <NavBar />
+      <div className="container pushtop dashboard">
+        <div className="row">
+          <DoughtnutChart statusReport={statusReport} loading={loading} />
+          <List cols="col s12 m12 l8" jobs={jobs} />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 Dashboard.propTypes = {
