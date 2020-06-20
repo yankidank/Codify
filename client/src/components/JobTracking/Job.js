@@ -5,7 +5,7 @@ import CompanyInfo from './subComponents/CompanyInfo';
 import StatusBar from './subComponents/StatusBar';
 import PositionCard from './subComponents/Position';
 import ContactCardContainer from './subComponents/ContactCardContainer';
-import InterviewCard from './subComponents/Interview';
+import InterviewCardContainer from './subComponents/InterviewCardContainer';
 import OfferCard from './subComponents/Offer';
 
 function Saved() {
@@ -57,7 +57,7 @@ function Saved() {
           <div className="card-container">
             <PositionCard jobId={id} />
             <ContactCardContainer jobId={id} />
-            <InterviewCard jobId={id} />
+            <InterviewCardContainer jobId={id} />
             <OfferCard jobId={id} />
           </div>
         </div>
