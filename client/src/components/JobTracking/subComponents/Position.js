@@ -35,7 +35,6 @@ function PositionCard(props) {
           Position
         </div>
       </div>
-      {console.log(position)}
       <div className="card card-padded card-position">
         <div className="positionInputs">
           <input className="col s6 m6 l6" placeholder="Job Title" defaultValue={position.position || ""}></input>

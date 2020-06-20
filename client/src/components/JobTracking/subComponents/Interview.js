@@ -41,15 +41,18 @@ function InterviewCard(props) {
       </div>
       <div className="card card-padded card-position">
         <div className="interviewInputs">
-          <input className="col s6 m4 l4 datepicker" placeholder="01/01/2000" onChange={onPostInput}></input>
-          <input className="col s6 m4 l4" placeholder="10:30 AM" onChange={onPostInput}></input>
-          <select className="col s6 m4 l4" placeholder="Remote" id="remote">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
-          <input className="col s6 m4 l4" placeholder="Street Address" onChange={onPostInput}></input>
-          <input className="col s6 m4 l4" placeholder="City" onChange={onPostInput}></input>
-          <input className="col s6 m4 l4" placeholder="State" onChange={onPostInput}></input>
+          <input className="col s6 m4 l4 datepicker" placeholder="01/01/2000"></input>
+          <input className="col s6 m4 l4" placeholder="10:30 AM"></input>
+          <div className="input-field col s6 m4 l4">
+            <select placeholder="Remote" id="remote">
+              <option value="yes">Yes</option>
+              <option value="no" selected>No</option>
+              <label>Materialize Select</label>
+            </select>
+          </div>
+          <input className="col s6 m4 l4" placeholder="Street Address"></input>
+          <input className="col s6 m4 l4" placeholder="City"></input>
+          <input className="col s6 m4 l4" placeholder="State"></input>
           <textarea placeholder="Notes"></textarea>
         </div>
       </div>

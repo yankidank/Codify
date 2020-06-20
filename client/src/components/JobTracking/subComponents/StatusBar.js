@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import {getStatusReport} from "../../../utils/API";
+import { useParams } from 'react-router-dom';
 
 function StatusBar(props) {
+  const [status, setStatus] = useState([]);
+
+  const {id} = useParams();
+
+  useEffect(() => {
+		(async () => {
+      let retrievedStatus = await getStatusReport(id);
+      setStatus(retrievedStatus);
+      console.log(status)
+		})();
+  }, []);
+
+
   const state = props.state;
   const stateClass = {};
   const activeClass = {};
@@ -55,6 +70,7 @@ function StatusBar(props) {
 
   return (
     <div className="col s12 m12 l12">
+      {console.log(status)}
       <div className="row statusBar">
         <div className={activeClass.one}>
           <p>{props.first}</p>
