@@ -94,7 +94,7 @@ function CompanyInfo(props) {
             <i className="btn-icon material-icons">keyboard_arrow_down</i>
           </a>
           <ul id='dropdown-status' className='dropdown-content'>
-            <li><a href="#saved"onClick={()=>setStatus("saved")}>Saved</a></li>
+            <li><a href="#saved" onClick={()=>setStatus("saved")}>Saved</a></li>
             <li><a href="#applied"  onClick={()=>setStatus("applied")}>Applied</a></li>
             <li><a href="#interview" onClick={()=>setStatus("interview")}>Interview</a></li>
             <li><a href="#offer" onClick={()=>setStatus("offer")}>Offer</a></li>
