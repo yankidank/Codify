@@ -210,3 +210,12 @@ export const deleteJob = async (jobId) => {
 		console.log(err);
 	}
 }
+
+export const deleteContact = async (contactId) => {
+	try {
+		let contact = await axiosInstance.delete(`/api/contacts/${contactId}`);
+		return contact;
+	} catch (err) {
+		console.log(err);
+	}
+}

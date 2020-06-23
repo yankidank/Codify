@@ -30,6 +30,7 @@ GITHUB_CLIENT_SECRET = ""
 LINKEDIN_CLIENT_ID = ""
 LINKEDIN_CLIENT_SECRET = ""
 COOKIE_KEY = ""
+MONGODB_URI = "mongodb://localhost/codify"
 ```
 
 ### Production
