@@ -1,4 +1,10 @@
 import React from 'react';
+import axios from 'axios';
+
+const handleLogout = () => {
+	axios.get('/auth/logout');
+	window.location.href = '/';
+};
 
 function NavBar() {
 	// Menu back button
@@ -41,7 +47,7 @@ function NavBar() {
               <a href="/menu/login">Login</a>
             </li>
             <li>
-              <a href="http://localhost:3001/auth/logout">Logout</a>
+              <a onClick={handleLogout} >Logout</a>
             </li>
           </ul>
           <a
