@@ -777,8 +777,3 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 		width:100%;
 	}
 }
-
-.buttonText { 
-  color: red;
-  text-transform: capitalize;
-}
