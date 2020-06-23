@@ -88,7 +88,6 @@ function InterviewCardContainer() {
 			</div>
 			{interviews.map((interview, index) => {
         const { date, time, remote, street, city, state, zip, notes } = interview;
-        console.log(interview);
 				return (
 					<InterviewCard
 						key={interview._id || index}

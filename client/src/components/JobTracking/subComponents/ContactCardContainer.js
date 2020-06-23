@@ -72,7 +72,7 @@ function ContactCardContainer() {
 
   useEffect(() => {
     (async () => {
-      console.log({ jobId });
+      // console.log({ jobId });
       let retrievedContacts = await getContacts(jobId);
       retrievedContacts.reverse();
       if (retrievedContacts.length > 0) {
@@ -117,7 +117,7 @@ function ContactCardContainer() {
 }
 
 ContactCardContainer.propTypes = {
-  jobId: PropTypes.string
+  jobId: PropTypes.string, 
 }
 
 export default ContactCardContainer;
