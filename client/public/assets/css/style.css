@@ -194,6 +194,11 @@ select {
 	justify-items: center;
 	display: flex;
 }
+#dropdown-status .dropdown-ended {
+  color:#00000061;
+  background:#00000007;
+  text-shadow: 0px -1px 2px #fff;
+}
 .card-content {
   display: flex;
   flex-direction: column;
@@ -444,6 +449,7 @@ textarea:focus{
 }
 .btn-ended {
   background: #787466;
+  color: rgba(255, 255, 255, 0.65);
 }
 .btn-filter .btn-filter-disabled {
   border: 1px solid rgba(0, 0, 0, 0.15);
