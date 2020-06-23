@@ -98,7 +98,7 @@ function CompanyInfo(props) {
             <li><a href="#applied" onClick={()=>setStatus("applied")}>Applied</a></li>
             <li><a href="#interview" onClick={()=>setStatus("interview")}>Interview</a></li>
             <li><a href="#offer" onClick={()=>setStatus("offer")}>Offer</a></li>
-            <li><a href="#ended" onClick={()=>setStatus("ended")}>Ended</a></li>
+            <li><a href="#ended" className="dropdown-ended" onClick={()=>setStatus("ended")}>Ended</a></li>
           </ul>
         </div>
       </div>
