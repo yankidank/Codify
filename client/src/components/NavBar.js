@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const handleLogout = () => {
 	axios.get('/auth/logout');
-	window.location.href = '/';
 };
 
 function NavBar() {
@@ -47,7 +46,7 @@ function NavBar() {
               <a href="/menu/login">Login</a>
             </li>
             <li>
-              <a onClick={handleLogout} >Logout</a>
+              <a href="/" onClick={handleLogout} >Logout</a>
             </li>
           </ul>
           <a
