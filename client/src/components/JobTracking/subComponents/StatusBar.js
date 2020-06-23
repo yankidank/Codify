@@ -1,29 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {getJob} from "../../../utils/API";
-import { useParams } from 'react-router-dom';
 
 function StatusBar(props) {
-  const [status, setStatus] = useState({
-    status: ""
-  });
 
-  const {id} = useParams();
-
-  useEffect(() => {
-		(async () => {
-      let retrievedStatus = await getJob(id);
-      setStatus({"status":retrievedStatus.data.status});
-		})();
-  }, []);
-
-
-  const state = props.state;
   const stateClass = {};
   const activeClass = {};
   const connectDefault = 'col s6 m6 l6 circle-connection';
   const activeDefault = 'col s3 m3 l3';
-  if (status.status === 'saved'){
+  if (props.status === 'saved'){
     stateClass.one = connectDefault+' circle-connect-await'
     stateClass.two = connectDefault+' circle-connect-await'
     stateClass.three = connectDefault+' circle-connect-await'
@@ -34,7 +18,7 @@ function StatusBar(props) {
     activeClass.two = activeDefault+' circle-await';
     activeClass.three = activeDefault+' circle-await';
     activeClass.four = activeDefault+' circle-await';
-  } else if (state === 'applied'){
+  } else if (props.status === 'applied'){
     stateClass.one = connectDefault;
     stateClass.two = connectDefault;
     stateClass.three = connectDefault+' circle-connect-await'
@@ -45,7 +29,7 @@ function StatusBar(props) {
     activeClass.two = activeDefault+' circle-active';
     activeClass.three = activeDefault+' circle-await';
     activeClass.four = activeDefault+' circle-await';
-  } else if (state === 'interview'){
+  } else if (props.status === 'interview'){
     stateClass.one = connectDefault;
     stateClass.two = connectDefault;
     stateClass.three = connectDefault;
@@ -56,7 +40,7 @@ function StatusBar(props) {
     activeClass.two = activeDefault;
     activeClass.three = activeDefault+' circle-active';
     activeClass.four = activeDefault+' circle-await';
-  } else if (state === 'offer'){
+  } else if (props.status === 'offer'){
     stateClass.one = connectDefault;
     stateClass.two = connectDefault;
     stateClass.three = connectDefault;
@@ -126,6 +110,7 @@ function StatusBar(props) {
 }
 
 StatusBar.propTypes = {
+  status: PropTypes.string,
   state: PropTypes.string,
   first: PropTypes.string,
   second: PropTypes.string,

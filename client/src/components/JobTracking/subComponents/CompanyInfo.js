@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import M from "materialize-css";
-import {getJob} from "../../../utils/API";
+import {getJob, updateStatus} from "../../../utils/API";
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-function CompanyInfo() {
-
+function CompanyInfo(props) {
   const [position, setPosition] = useState({
     companyName: "",
     position: "",
     city: "",
-    state: ""
+    state: "", 
+    status: ""
   });
   
   const {id} = useParams();
+
+  const setStatus = (selection)=>{
+    const type = selection
+    updateStatus(type, id);
+    setPosition({...position, "status": type});
+    props.setStatus(type)    
+  }
 
   const [logo, setLogo] = useState('/assets/img/logo.png');
   // Create Logo URL
@@ -46,6 +54,7 @@ function CompanyInfo() {
             "position": retrievedPosition.data.post.position,
             "city": retrievedPosition.data.post.city,
             "state": retrievedPosition.data.post.state,
+            "status": retrievedPosition.data.status
           });
         } else {
           console.log("Add empty position")
@@ -80,21 +89,25 @@ function CompanyInfo() {
           </div>
         </div>
         <div className="col s12 m4 l3 btn-status" id="status-btn">
-          <a id="status-menu" className='dropdown-trigger btn btn-applied' href='#status' data-target='dropdown-status'>
-            Applied
+          <a id="status-menu" className={`dropdown-trigger btn btn-${position.status}`} href='#{status}' data-target='dropdown-status'>
+            {position.status}
             <i className="btn-icon material-icons">keyboard_arrow_down</i>
           </a>
           <ul id='dropdown-status' className='dropdown-content'>
-            <li><a href="#saved">Saved</a></li>
-            <li><a href="#applied">Applied</a></li>
-            <li><a href="#interview">Interview</a></li>
-            <li><a href="#offer">Offer</a></li>
-            <li><a href="#ended">Ended</a></li>
+            <li><a href="#saved"onClick={()=>setStatus("saved")}>Saved</a></li>
+            <li><a href="#applied"  onClick={()=>setStatus("applied")}>Applied</a></li>
+            <li><a href="#interview" onClick={()=>setStatus("interview")}>Interview</a></li>
+            <li><a href="#offer" onClick={()=>setStatus("offer")}>Offer</a></li>
+            <li><a href="#ended" onClick={()=>setStatus("ended")}>Ended</a></li>
           </ul>
         </div>
       </div>
     </div>
   );
+}
+
+CompanyInfo.propTypes = {
+  setStatus: PropTypes.func, 
 }
 
 export default CompanyInfo;
