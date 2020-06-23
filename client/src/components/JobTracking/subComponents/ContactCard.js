@@ -4,7 +4,7 @@ import {deleteContact} from "../../../utils/API";
 
 
 function ContactCard(props){
-    const {index, handleInputChange, addNewContact, displayName, position, email, phone, notes, id} = props;
+    const {index, handleInputChange, /* addNewContact,  */ displayName, position, email, phone, notes, id} = props;
 
     const handleClick = () => {
         deleteContact(id);
@@ -34,7 +34,7 @@ ContactCard.propTypes = {
   jobId: PropTypes.string,
   index: PropTypes.number,
   handleInputChange: PropTypes.func,
-  addNewContact: PropTypes.func,
+/*   addNewContact: PropTypes.func, */
   displayName: PropTypes.string,
   position: PropTypes.string,
   email: PropTypes.string,
