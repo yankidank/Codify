@@ -53,7 +53,7 @@ function DoughtnutChart({ statusReport, loading }) {
                   }}
                 />
               ) : (
-                <h3>You currently have 0 jobs saved!</h3>
+                <p className="center">You haven't acted on any jobs yet!</p>
               )}
             </div>
           ) : (

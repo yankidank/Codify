@@ -51,18 +51,22 @@ function List(props) {
       <div className="card card-jobslist">
         <div className="container container-full">
           <Filter handleFilterChange={handleFilterChange}/>
-          {jobs.map(job => (
-            <OneJobListing
-              id={job._id}
-              key={job._id}
-              companyName={job.company.displayName}
-              position={job.post.position}
-              city={job.post.city}
-              state={job.post.state}
-              url={job.post.url}
-              status={job.status}
-            />
-          ))}
+          {jobs.length ? (
+            jobs.map(job => (
+              <OneJobListing
+                id={job._id}
+                key={job._id}
+                companyName={job.company.displayName}
+                position={job.post.position}
+                city={job.post.city}
+                state={job.post.state}
+                url={job.post.url}
+                status={job.status}
+              />
+            ))
+          ) : (
+            <p className="center">No Jobs Returned. <a href="/jobs/add">Add a New Job</a>?</p>
+          )}
           <button className="btn btn-card btn-more">Load More</button>
         </div>
       </div>
