@@ -46,11 +46,16 @@ app.use(
 // );
 app.use(passport.initialize());
 app.use(passport.session());
+
+// ROUTING
+app.use('/auth', authRoutes); // authentication
+app.use('/api', protectApi, apiRoutes);
+
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
-  app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, './client/build/index.html'));
+  app.use((req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build/index.html'));
   });
 }
 // Connect to the Mongo DB
@@ -59,9 +64,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/codify', {
   useNewUrlParser: true,
   useCreateIndex: true,
 });
-// ROUTING
-app.use('/auth', authRoutes); // authentication
-app.use('/api', protectApi, apiRoutes);
+
 // app.use('/api', protectApi, apiRoutes);
 
 app.listen(PORT, function () {
