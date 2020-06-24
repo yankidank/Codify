@@ -1,22 +1,11 @@
-import React, { useEffect } from 'react';
+// import React, { useEffect } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import Cleave from 'cleave.js/react';
-import M from "materialize-css";
+import Checkbox from '../../Form/Checkbox';
 
 function InterviewCard(props) {
   const {handleInputChange, time, addNewInterview, date, remote, street, city, state, notes, index, _id} = props;
-
-  useEffect(() => {
-    // Change Status Menu
-    let dropdowns = document.getElementById('#remote');
-    let options = {
-        inDuration: 300,
-        outDuration: 300,
-        hover: true,
-        coverTrigger: false, // Displays dropdown below the button
-    };
-    M.Dropdown.init(dropdowns, options);
-  })
 
   return (
       <div className="card card-padded card-position">
@@ -28,10 +17,13 @@ function InterviewCard(props) {
             <Cleave options={{time: true, timePattern: ['h', 'm']}} className="col s6 m4 l4" placeholder="10:30" onChange={(event) => handleInputChange(event, index, _id)} name="time" value={time}/>
           </div>
           <div className="input-field col s6 m4 l4">
-            <select placeholder="Remote" id="remote" value={remote}>
-              <option value="true">Remote</option>
-              <option value="false">Local</option>
-            </select>
+            <div className="container">
+              <div className="row">
+                <div className="col s12">
+                  <Checkbox label="Remote" type="checkbox" value="remote" name="remote" checked={remote} className="filled-in" id={_id} toggleCheckboxChange="" />
+                </div>
+              </div>
+            </div>
           </div>
           <input className="col s6 m4 l4" placeholder="Street Address" onChange={(event) => handleInputChange(event, index, _id)} value={street} name="street"></input>
           <input className="col s6 m4 l4" placeholder="City" onChange={(event) => handleInputChange(event, index, _id)} value={city} name="city"></input>
