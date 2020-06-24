@@ -8,7 +8,11 @@ function PositionCard() {
 
   const {id} = useParams();
 
-  const handleClick = () => {
+  const handleUrl = () => {
+    window.open(position.url, "_blank", "toolbar=no,scrollbars=yes,resizable=yes,left=200,width=800,height=800");
+  }
+
+  const handleDelete = () => {
     deleteJob(id);
     window.location.href="/jobs/"
   }
@@ -42,8 +46,9 @@ function PositionCard() {
           <input className="col s6 m6 l6" placeholder="Salary" defaultValue={position.salary || ""}></input>
           <input className="col s6 m6 l6" placeholder="State" defaultValue={position.state || ""}></input>
           <textarea placeholder="Notes"></textarea>
-          <button className="btn btn-card">View Job Post</button>
-          <button className="btn btn-card btn-remove" onClick={handleClick}>Remove Job Post</button>
+          <input className="col s12 m12 l12" placeholder="URL" defaultValue={position.url || ""}></input>
+          <button className="btn btn-card" onClick={handleUrl}>View Job Post</button>
+          <button className="btn btn-card btn-remove" onClick={handleDelete}>Remove Job Post</button>
         </div>
       </div>
     </div>
