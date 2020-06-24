@@ -71,7 +71,6 @@ function InterviewCardContainer() {
       });
       setInterviews(formattedInterviews);
     } else {
-			console.log('toast should send');
 			M.toast({ html: 'Please fill out at least one field' });
     }
 	};
@@ -92,6 +91,7 @@ function InterviewCardContainer() {
 					<InterviewCard
 						key={interview._id || index}
 						_id={interview._id}
+						jobId={id}
             date={date}
             time={time}
 						remote={remote}

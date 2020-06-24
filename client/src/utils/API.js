@@ -219,3 +219,13 @@ export const deleteContact = async (contactId) => {
 		console.log(err);
 	}
 }
+
+export const deleteInterview = async (jobId, interviewId) => {
+	try {
+		// Not functional
+		let interview = await axiosInstance.put(`/api/jobs/${jobId}`, { _id: interviewId , push: { date:null, time:null, location:{}, notes:null} });
+		return interview;
+	} catch (err) {
+		console.log(err);
+	}
+}

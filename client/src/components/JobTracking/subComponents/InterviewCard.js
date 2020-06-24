@@ -1,10 +1,16 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { deleteInterview } from '../../../utils/API';
 import Cleave from 'cleave.js/react';
 import M from "materialize-css";
 
 function InterviewCard(props) {
-  const {handleInputChange, time, addNewInterview, date, remote, street, city, state, notes, index, _id} = props;
+  const {handleInputChange, time, addNewInterview, date, remote, street, city, state, notes, index, _id, jobId} = props;
+
+  const removeInterview = (jobId, interviewId) => {
+    // Need to make this functional in API.js
+    deleteInterview(jobId, interviewId);
+  }
 
   useEffect(() => {
     // Change Status Menu
@@ -38,6 +44,7 @@ function InterviewCard(props) {
           <input className="col s6 m4 l4" placeholder="State" onChange={(event) => handleInputChange(event, index, _id)} value={state} name="state"></input>
           <textarea placeholder="Notes" onChange={(event) => handleInputChange(event, index, _id)} value={notes} name="notes"></textarea>
         </div>
+        {(!_id) ? '' : <button className={"btn btn-card btn-remove"} onClick={() => removeInterview(jobId, _id)}>Remove Interview</button>}
         {(_id) ? '' : <button className={"btn btn-card"} onClick={() => addNewInterview(index)}>Save New Interview</button>}
       </div>
   );
