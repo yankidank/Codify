@@ -3,7 +3,7 @@ import axios from 'axios';
 import NavBar from '../NavBar';
 const handleLogout = () => {
 	axios.get('/auth/logout');
-	window.location = '/';
+	window.location.href = '/';
 };
 
 function MenuLoggedIn() {

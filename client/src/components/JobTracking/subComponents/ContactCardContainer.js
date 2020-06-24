@@ -116,7 +116,7 @@ function ContactCardContainer() {
 }
 
 ContactCardContainer.propTypes = {
-  jobId: PropTypes.string
+  jobId: PropTypes.string, 
 }
 
 export default ContactCardContainer;

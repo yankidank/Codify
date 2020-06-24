@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../NavBar';
 import CompanyInfo from './subComponents/CompanyInfo';
@@ -7,10 +7,21 @@ import PositionCard from './subComponents/Position';
 import ContactCardContainer from './subComponents/ContactCardContainer';
 import InterviewCardContainer from './subComponents/InterviewCardContainer';
 import OfferCardContainer from './subComponents/OfferCardContainer';
+import { getJob} from '../../utils/API'
+
 
 function Saved() {
 
   const { id } = useParams();
+  const [currentStatus, setCurrentStatus ] = useState( "saved")
+
+
+  useEffect(() => {
+		(async () => {
+      let retrievedStatus = await getJob(id);
+      setCurrentStatus(retrievedStatus.data.status);
+		})();
+  }, []);
 
   useEffect(() => {
     // Textarea height expansion
@@ -45,13 +56,13 @@ function Saved() {
       <div className="container job-container">
         <div className="row">
           <StatusBar
-            state="2"
+            status ={currentStatus}
             first="Saved"
             second="Applied"
             third="Interview"
             fourth="Offer"
           />
-          <CompanyInfo />
+          <CompanyInfo setStatus = {setCurrentStatus} />
         </div>
         <div className="row">
           <div className="card-container">
