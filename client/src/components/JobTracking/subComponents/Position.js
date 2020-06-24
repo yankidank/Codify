@@ -47,7 +47,7 @@ function PositionCard() {
           <input className="col s6 m6 l6" placeholder="State" defaultValue={position.state || ""}></input>
           <textarea placeholder="Notes"></textarea>
           <input className="col s12 m12 l12" placeholder="URL" defaultValue={position.url || ""}></input>
-          <button className="btn btn-card" onClick={handleUrl}>View Job Post</button>
+          {position.url ? <button className="btn btn-card" onClick={handleUrl}>View Job Post</button> : '' }
           <button className="btn btn-card btn-remove" onClick={handleDelete}>Remove Job Post</button>
         </div>
       </div>
