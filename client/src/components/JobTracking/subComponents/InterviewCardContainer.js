@@ -23,11 +23,12 @@ function InterviewCardContainer() {
   const debouncedAddInterview = useCallback(
     _.debounce(async (index, interview, jobId) => {
       let newInterviews = interviews.concat();
-      const { _id, ...rest} = interview;
-      const response = await addInterview(rest, jobId);
-      const newInterview = response;
+      let { _id, ...rest } = interview;
+
+      const newInterview = await addInterview(rest, jobId);
       if (newInterviews[index]) {
-        newInterviews[index]._id = newInterview._id;
+        _id = newInterview._id;
+        newInterviews[index]._id = _id;
       }
 
       setInterviews(newInterviews);
