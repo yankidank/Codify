@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import {getPosition, deleteJob} from "../../../utils/API";
+import React, { useState, useEffect, useCallback } from 'react';
+import {getPosition, updatePosition, deleteJob} from "../../../utils/API";
 import { useParams } from 'react-router-dom';
+import Cleave from 'cleave.js/react';
+import _ from 'lodash';
+import {convertMoneyToNumber} from '../../../utils/formatCleave';
 
 
 function PositionCard() {
@@ -15,6 +18,21 @@ function PositionCard() {
   const handleDelete = () => {
     deleteJob(id);
     window.location.href="/jobs/"
+  }
+
+  const debouncedUpdatedPosition = useCallback( _.debounce(updatePosition, 500), []);
+
+  const handleInputChange = (event) => {
+    const newPosition = {...position};
+    const inputName = event.target.name;
+    let inputValue = event.target.value;
+    if (inputName == 'salary') {
+      inputValue = convertMoneyToNumber(inputValue);
+    }
+    newPosition[inputName] = inputValue;
+    console.log(newPosition);
+    setPosition(newPosition);
+    debouncedUpdatedPosition(newPosition, id);
   }
   
   useEffect(() => {
@@ -41,11 +59,10 @@ function PositionCard() {
       </div>
       <div className="card card-padded card-position">
         <div className="positionInputs">
-          <input className="col s6 m6 l6" placeholder="Job Title" defaultValue={position.position || ""}></input>
-          <input className="col s6 m6 l6" placeholder="City" defaultValue={position.city || ""}></input>
-          <input className="col s6 m6 l6" placeholder="Salary" defaultValue={position.salary || ""}></input>
-          <input className="col s6 m6 l6" placeholder="State" defaultValue={position.state || ""}></input>
-          <textarea placeholder="Notes"></textarea>
+          <input className="col s6 m6 l6" placeholder="Job Title" name="position" onChange={(event) => handleInputChange(event)} value={position.position || ""}></input>
+          <input className="col s6 m6 l6" placeholder="City" name="city" onChange={(event) => handleInputChange(event)} value={position.city || ""}></input>
+          <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} className="col s6 m6 l6" placeholder="Salary" name="salary" onChange={(event) => handleInputChange(event)} value={position.salary || ""}/>
+          <input className="col s6 m6 l6" placeholder="State" name="state" onChange={(event) => handleInputChange(event)} value={position.state || ""}></input>
           <input className="col s12 m12 l12" placeholder="URL" defaultValue={position.url || ""}></input>
           {position.url ? <button className="btn btn-card" onClick={handleUrl}>View Job Post</button> : '' }
           <button className="btn btn-card btn-remove" onClick={handleDelete}>Remove Job Post</button>

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import OfferCard from './OfferCard';
 import M from 'materialize-css';
 import _ from 'lodash';
+import {convertMoneyToNumber} from '../../../utils/formatCleave';
 
 function OfferCardContainer() {
 	const [offers, setOffers] = useState([{ salary: '', bonus: '', benefits: '' }]);
@@ -18,14 +19,6 @@ function OfferCardContainer() {
 			if (retrievedOffers.length > 0) setOffers(retrievedOffers);
 		})();
 	}, []);
-
-	const convertMoneyToNumber = (money) => {
-		if (typeof money === 'string') {
-			return money.replace('$ ', '').split(',').join('');
-		} else {
-			return money;
-		}
-	};
 
 	const handleInputChange = async (event, index, offerId) => {
 		let newOffers = [...offers];
