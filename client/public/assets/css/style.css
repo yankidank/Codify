@@ -708,9 +708,23 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: none;
 }
+input:not([type]):hover:not([readonly]),
 input:not([type]):focus:not([readonly]),
 select:not([type]):focus:not([readonly]),
 input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+.input-field .checkbox-wrapper {
+  padding-top: 10px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #e5e5e5;
+  border-radius: 0;
+  outline: none;
+  margin-top: 1px;
+  height: 3rem;
+}
+.checkbox-wrapper:active, .checkbox-wrapper:focus, .checkbox-wrapper:hover{
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
 .btn-logo img {

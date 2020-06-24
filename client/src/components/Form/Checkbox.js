@@ -27,8 +27,8 @@ function Checkbox(props) {
 	}
 	
 	return (
-		<div className={type} style={boxCheck()}>
-			<form>
+		<div className="input-field">
+			<div className="col s4 m4 l4 checkbox-wrapper">
 				<label>
 					<input
 						type={type}
@@ -36,13 +36,14 @@ function Checkbox(props) {
 						name={name}
 						checked={remoteChecked}
 						className={className}
+						style={boxCheck()}
 						id={id}
 						// onChange={ checkClick}
 						onClick={ checkClick}
 					/>
 					<span>{label}</span>
 				</label>
-			</form>
+			</div>
 		</div>
 	)
 }
