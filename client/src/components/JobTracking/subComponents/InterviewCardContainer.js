@@ -1,31 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { getInterviews, addInterview, updateInterview } from '../../../utils/API';
 import { useParams } from 'react-router-dom';
 import InterviewCard from './InterviewCard';
 import M from "materialize-css";
 import _ from 'lodash';
 
-const debouncedUpdateInterview = _.debounce(updateInterview, 500);
 
 function InterviewCardContainer() {
 	const [interviews, setInterviews] = useState([
 		{ date: '', time: '', remote: false, street: '', city: '', state: '', zip: '', notes: '', _id: '' }
 	]);
 
-	const { id } = useParams();
+  const [postOut, setPostOut] = useState(false);
+
+	const { id: jobId } = useParams();
+
+  const debouncedUpdateInterview = useCallback(
+    _.debounce(updateInterview, 500),
+    []
+  );
+
+  const debouncedAddInterview = useCallback(
+    _.debounce(async (index, interview, jobId) => {
+      let newInterviews = interviews.concat();
+      const { _id, ...rest} = interview;
+      const response = await addInterview(rest, jobId);
+      const newInterview = response;
+      if (newInterviews[index]) {
+        newInterviews[index]._id = newInterview._id;
+      }
+
+      setInterviews(newInterviews);
+      setPostOut(false);
+    }, 500),
+    [interviews]
+  );
 
 	useEffect(() => {
 		(async () => {
-			let retrievedInterviews = await getInterviews(id);
+			let retrievedInterviews = await getInterviews(jobId);
 			if (retrievedInterviews.length > 0) {
 				let formattedInterviews = retrievedInterviews.map((interview) => {
 					const {
 						date, time,
-						location: { remote, street, city, state, zip },
+						location,
 						notes,
 						_id
 					} = interview;
-					return { date, time, remote, street, city, state, zip, notes, _id };
+					return { date, time, notes, _id, ...location };
 				});
 				setInterviews(formattedInterviews);
 			}
@@ -39,27 +61,31 @@ function InterviewCardContainer() {
 
 		if (interviewId) {
       const { date, time, remote, street, city, state, zip, notes } = newInterviews[index];
-      let formattedDate = new Date(date);
+      let formattedDate = date ? new Date(date) : '';
 			const formattedInterview = { date: formattedDate, time, location: { remote, street, city, state, zip }, notes };
-			debouncedUpdateInterview(formattedInterview, id, index);
-		}
+			debouncedUpdateInterview(formattedInterview, jobId, index);
+		} else if (!postOut) {
+      setPostOut(true);
+      debouncedAddInterview(index, newInterviews[index], jobId);
+    }
 
 		setInterviews(newInterviews);
 	};
 
 	const addInterviewField = () => {
 		const newInterview = { date: '', time: '', remote: false, street: '', city: '', state: '', zip: '', notes: '', _id: '' };
-		const newInterviewArr = [...interviews, newInterview];
+		const newInterviewArr = [newInterview, ...interviews];
 		setInterviews(newInterviewArr);
 	};
 
 	const addNewInterview = async (index) => {
-		const { date, time, remote, street, city, state, zip, notes } = interviews[index];
+    const { date, time, remote, street, city, state, zip, notes } = interviews[index];
+
     if ( date || time || remote || street || city || state || zip || notes ) {
-      let formattedDate = new Date(date);
+      let formattedDate = date ? new Date(date) : '';
       const formattedInterview = { date: formattedDate, time, location: { remote, street, city, state, zip }, notes };
-      await addInterview(formattedInterview, id);
-      let newInterviews = await getInterviews(id);
+      await addInterview(formattedInterview, jobId);
+      let newInterviews = await getInterviews(jobId);
       let formattedInterviews = newInterviews.map((interview) => {
         const {
           date, time,

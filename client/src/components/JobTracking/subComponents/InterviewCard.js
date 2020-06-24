@@ -28,7 +28,7 @@ function InterviewCard(props) {
             <Cleave options={{time: true, timePattern: ['h', 'm']}} className="col s6 m4 l4" placeholder="10:30" onChange={(event) => handleInputChange(event, index, _id)} name="time" value={time}/>
           </div>
           <div className="input-field col s6 m4 l4">
-            <select placeholder="Remote" id="remote" value={remote}>
+            <select placeholder="Remote" id="remote" value={remote} onChange={(event) => handleInputChange(event, index, _id)}>
               <option value="true">Remote</option>
               <option value="false">Local</option>
             </select>
