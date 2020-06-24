@@ -51,12 +51,27 @@ router.get(
 
 // LinkedIn Oauth Routes
 router.get('/linkedin', passport.authenticate('linkedin', { state: true }));
+// router.get(
+//   '/linkedin/callback',
+//   passport.authenticate('linkedin', {
+//     successRedirect,
+//     failureRedirect,
+//   })
+// );
 router.get(
-  '/linkedin/callback',
-  passport.authenticate('linkedin', {
-    successRedirect,
-    failureRedirect,
-  })
-);
+  '/linkedin/callback', (req, res, next) => {
+    passport.authenticate('linkedin', (error, user) => {
+      if (error || !user) {
+        res.redirect(failureRedirect);
+      } 
+      req.login(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect(successRedirect);
+      })
+    }) (req, res, next);
+});
+
 
 module.exports = router;

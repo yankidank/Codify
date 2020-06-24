@@ -72,7 +72,6 @@ function ContactCardContainer() {
 
   useEffect(() => {
     (async () => {
-      console.log({ jobId });
       let retrievedContacts = await getContacts(jobId);
       retrievedContacts.reverse();
       if (retrievedContacts.length > 0) {

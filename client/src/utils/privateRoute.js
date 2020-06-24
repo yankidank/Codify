@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {axiosInstance} from './API';
 
-function PrivateRoute({ component: Component, ...rest }) {
+const PrivateRoute = ({ component: Component, ...rest }) => {
 	const [isAuthenticated, setAuthenticated] = useState(false);
 
 	useEffect(() => {
