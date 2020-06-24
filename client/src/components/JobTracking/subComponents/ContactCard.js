@@ -1,9 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {deleteContact} from "../../../utils/API";
+
 
 function ContactCard(props){
-    const {index, handleInputChange, addNewContact, displayName, position, email, phone, notes, id} = props;
+    const {index, handleInputChange, /* addNewContact,  */ displayName, position, email, phone, notes, id} = props;
 
+    const handleClick = () => {
+        deleteContact(id);
+    }
+    
     return (
         <div className="card card-padded card-contact" id="contact-wrap">
             <div className="contactInputs">
@@ -17,7 +23,8 @@ function ContactCard(props){
                 <textarea placeholder="Notes" onChange={(event) => handleInputChange(event, index, id)} name="notes" value={notes || ''}
                 ></textarea>
             </div>
-            {(id) ? '' : <button className={"btn btn-card"} onClick={() => addNewContact(index)}>Save New Contact</button>}
+            {(!id) ? '' :  <button className="btn btn-card btn-remove" onClick={handleClick}>Remove Contact</button>}
+           
         </div>
 
     )
@@ -27,7 +34,7 @@ ContactCard.propTypes = {
   jobId: PropTypes.string,
   index: PropTypes.number,
   handleInputChange: PropTypes.func,
-  addNewContact: PropTypes.func,
+/*   addNewContact: PropTypes.func, */
   displayName: PropTypes.string,
   position: PropTypes.string,
   email: PropTypes.string,

@@ -51,6 +51,17 @@ function StatusBar(props) {
     activeClass.two = activeDefault;
     activeClass.three = activeDefault;
     activeClass.four = activeDefault+' circle-active';   
+  } else {
+    stateClass.one = connectDefault+' circle-connect-await'
+    stateClass.two = connectDefault+' circle-connect-await'
+    stateClass.three = connectDefault+' circle-connect-await'
+    stateClass.four = connectDefault+' circle-connect-await'
+    stateClass.five = connectDefault+' circle-connect-await'
+    stateClass.six = connectDefault+' circle-connect-await'
+    activeClass.one = activeDefault+' circle-await';
+    activeClass.two = activeDefault+' circle-await';
+    activeClass.three = activeDefault+' circle-await';
+    activeClass.four = activeDefault+' circle-await';
   }
 
   return (
