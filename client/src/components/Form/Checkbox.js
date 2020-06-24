@@ -18,12 +18,11 @@ function Checkbox(props) {
 	
 	// Change style when checked
 	const boxCheck = () => {
-		return check ? { } : {}
+		return check ? {} : {}
 	}
 
 	// Set checkbox state on click
 	const checkClick = () => {
-		console.log(check)
 		setCheck(!check)
 	}
 	
@@ -50,7 +49,7 @@ function Checkbox(props) {
 
 Checkbox.propTypes = {
 	label: PropTypes.string,
-  type: PropTypes.string,
+	type: PropTypes.string,
 	value: PropTypes.string,
 	name: PropTypes.string,
 	checked: PropTypes.bool,
