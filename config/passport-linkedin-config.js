@@ -11,8 +11,8 @@ passport.use(
       scope: ['r_liteprofile', 'r_emailaddress'],
     },
     async (accessToken, refreshToken, profile, done) => {
-      const { id, displayName, emails } = profile;
       try {
+        const { id, displayName, emails } = profile;
         let user = await User.find({
           $or: [{ linkedin: { id: id } }, { email: emails[0].value }],
         });

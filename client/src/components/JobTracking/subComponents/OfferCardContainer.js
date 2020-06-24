@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { getOffers, updateOffer, addOffer } from '../../../utils/API';
 import { useParams } from 'react-router-dom';
 import OfferCard from './OfferCard';
 import M from 'materialize-css';
 import _ from 'lodash';
 
-const debouncedUpdateOffer = _.debounce(updateOffer, 500);
-
 function OfferCardContainer() {
 	const [offers, setOffers] = useState([{ salary: '', bonus: '', benefits: '' }]);
 
 	const { id } = useParams();
+
+	const debouncedUpdateOffer = useCallback(_.debounce(updateOffer, 500), []);
 
 	useEffect(() => {
 		(async () => {
@@ -21,10 +21,8 @@ function OfferCardContainer() {
 
 	const convertMoneyToNumber = (money) => {
 		if (typeof money === 'string') {
-			console.log('string ' + money);
 			return money.replace('$ ', '').split(',').join('');
 		} else {
-			console.log('number ' + money);
 			return money;
 		}
 	};
@@ -49,7 +47,7 @@ function OfferCardContainer() {
 			};
 			debouncedUpdateOffer(formattedOffer, id, index);
 		}
-		console.log(newOffers);
+
 		setOffers(newOffers);
 	};
 
@@ -61,15 +59,12 @@ function OfferCardContainer() {
 
 	const addNewOffer = async (index) => {
 		const { startDate, date, salary, bonus, benefits } = offers[index];
-		console.log({ startDate, date, salary, bonus, benefits });
-		if (startDate || date || salary || bonus || benefits) {
+		const formattedSalary = convertMoneyToNumber(salary);
+		const formattedBonus = convertMoneyToNumber(bonus);
+
+		if (startDate || date || formattedSalary || formattedBonus || benefits) {
 			let formattedDate = date && new Date(date);
 			let formattedStartDate = startDate && new Date(startDate);
-			console.log(salary);
-			let formattedSalary = convertMoneyToNumber(salary);
-			console.log(bonus);
-			let formattedBonus = convertMoneyToNumber(bonus);
-			console.log(formattedSalary);
 			const formattedOffer = {
 				date: formattedDate,
 				startDate: formattedStartDate,

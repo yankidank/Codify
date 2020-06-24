@@ -54,8 +54,7 @@ function InterviewCardContainer() {
 	};
 
 	const addNewInterview = async (index) => {
-    const { date, time, remote, street, city, state, zip, notes } = interviews[index];
-    console.log(interviews[index]);
+		const { date, time, remote, street, city, state, zip, notes } = interviews[index];
     if ( date || time || remote || street || city || state || zip || notes ) {
       let formattedDate = new Date(date);
       const formattedInterview = { date: formattedDate, time, location: { remote, street, city, state, zip }, notes };
@@ -72,7 +71,8 @@ function InterviewCardContainer() {
       });
       setInterviews(formattedInterviews);
     } else {
-      M.toast({html: 'Please fill out at least one field'});
+			console.log('toast should send');
+			M.toast({ html: 'Please fill out at least one field' });
     }
 	};
 
