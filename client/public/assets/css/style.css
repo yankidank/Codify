@@ -378,12 +378,14 @@ textarea:focus{
   line-height: 18px;
 }
 .btn-remove {
+  width:auto;
+  text-align:center;
+  margin:0 auto;
   background: none;
   color: red;
   box-shadow: none;
 	border: none;
 	border-radius: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 .btn-remove:hover,
 .btn-remove:active,
@@ -392,7 +394,6 @@ textarea:focus{
   box-shadow: none;
   border: none;
   text-decoration: underline;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 .btn-more {
   display:none;
