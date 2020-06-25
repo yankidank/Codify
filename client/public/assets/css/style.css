@@ -714,6 +714,10 @@ select:not([type]):focus:not([readonly]),
 input[type=text]:not(.browser-default):focus:not([readonly]) {
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
+.card input[type=text]{
+  padding: 0 .75rem;
+  box-sizing: border-box;
+}
 .input-field .checkbox-wrapper {
   padding-top: 10px;
   background-color: transparent;
