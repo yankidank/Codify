@@ -606,14 +606,12 @@ textarea:focus{
 .dashboard-login {
 	background-image: linear-gradient(105deg, #eededea1,#fffffff3,#ffffff, #a8c8d3af);
 	box-shadow: 1px -0.5px 1px rgba(0, 0, 0, 0.25);
-/* 	transform: skewY(-3deg);
- */	width:100%;
+	width:100%;
 	margin:120px 0 0 0;
 	padding:60px 0 10px 0;
 }
 .dashLogin {
-/* 	transform: skewY(3deg);
- */	min-height: 60vh;
+	min-height: 60vh;
 }
 .home-jobslist-col {
 	margin-bottom:-30px;
@@ -673,26 +671,6 @@ p.text-center {
   color:#fff;
 	box-shadow: 0px 1px 4px 1px #00000023;
 }
-.menu-input-field {
-  color: #fff;
-  border: none;
-  background: none;
-}
-.menuNav input:not([type]) {
-  color: #000;
-}
-input:not([type]):focus:not([readonly]),
-select:not([type]):focus:not([readonly]),
-input[type=text]:not(.browser-default), 
-input[type=text]:not(.browser-default):focus:not([readonly]) {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: none;
-}
-input:not([type]):focus:not([readonly]),
-select:not([type]):focus:not([readonly]),
-input[type=text]:not(.browser-default):focus:not([readonly]) {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-}
 .menuNav ul {
   margin-top: -60px;
 }
@@ -714,6 +692,40 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 }
 .menuNav li .button div.btn-title {
   float: left;
+}
+.menu-input-field {
+  color: #fff;
+  border: none;
+  background: none;
+}
+.menuNav input:not([type]) {
+  color: #000;
+}
+input:not([type]):focus:not([readonly]),
+select:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default), 
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: none;
+}
+input:not([type]):hover:not([readonly]),
+input:not([type]):focus:not([readonly]),
+select:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+.input-field .checkbox-wrapper {
+  padding-top: 10px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #e5e5e5;
+  border-radius: 0;
+  outline: none;
+  margin-top: 1px;
+  height: 3rem;
+}
+.checkbox-wrapper:active, .checkbox-wrapper:focus, .checkbox-wrapper:hover{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
 .btn-logo img {
   height: 25px;

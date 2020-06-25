@@ -1,0 +1,9 @@
+
+[type="checkbox"].filled-in:checked+span:not(.lever):after {
+  border-color:#2ed47a;
+  background-color:#2ed47a;
+}
+[type="checkbox"].filled-in:not(:checked)+span:not(.lever):after {
+  border-color:rgba(0, 0, 0, 0.25);
+  background-color:#fff;
+}
