@@ -249,9 +249,6 @@ button {
   width:150px;
   flex-direction:initial;
 }
-#status-menu:active,#status-menu:focus{
-  background:none;
-}
 .dropdown-content {
   border-radius: 6px;
 }
@@ -356,21 +353,16 @@ textarea:focus{
   padding-left: 10px;
 }
 .btn {
+  background:none;
   display: flex;
   flex-direction: column;
   padding: 26px 10px;
   border-radius: 5px;
-  background: #4f4f4f;
   align-items: center;
   justify-content: center;
   font-weight: 500;
 	font-size: 1.1rem;
 	text-transform: capitalize;
-}
-.btn:hover,
-.btn:active,
-.btn:focus {
-  background: rgb(66, 66, 66);
 }
 .btn-card {
   width: 100%;
@@ -436,21 +428,24 @@ textarea:focus{
 	text-align: center;
 	padding: 8px 20px 8px 20px;
 }
-.btn-saved {
-	background: #00000070;
+.btn-saved, .btn-saved:hover, .btn-saved:focus {
+	background: #646979;
 }
-.btn-applied {
+.btn-applied, .btn-applied:hover, .btn-applied:focus {
   background: #05ace1;
 }
-.btn-interview {
-  background: #32cec5;
+.btn-interview, .btn-interview:hover, .btn-interview:focus {
+  background: #32c8c1;
 }
-.btn-offer {
+.btn-offer, .btn-offer:hover, .btn-offer:focus {
   background: #2ed47a;
 }
-.btn-ended {
-  background: #787466;
-  color: rgba(255, 255, 255, 0.65);
+.btn-ended, .btn-ended:hover, .btn-ended:focus {
+  background: #9094a065;
+  color: rgba(255, 255, 255, 0.5);
+}
+.card-jobslist .btn-status button {
+  cursor: default; /* Set until buttons are functional */
 }
 .btn-filter .btn-filter-disabled {
   border: 1px solid rgba(0, 0, 0, 0.15);
