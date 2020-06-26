@@ -11,7 +11,7 @@ function OneJobListing(props) {
     const logoBase = 'https://logo.clearbit.com/';
     const logoCompany = companyName.replace(/[^\w\s]/gi, '').replace(/\s/g,'').toLowerCase()+'.com';
     const logoUrl = logoBase+logoCompany;
-    console.log(logoUrl)
+    //console.log(logoUrl)
     // Check that the image exists or fallback to default
     const getImageOrFallback = (path, fallback) => {
       return new Promise(resolve => {
@@ -29,21 +29,23 @@ function OneJobListing(props) {
 	}, []);
 
   return (
-      <div className="row card-inner">
-        <div className="col s3 m2 l2 company-image">
+    <div className="row card-inner">
+      <div className="col s3 m2 l2 company-image">
+        <a href={`/jobs/${id}`}>
           <img src={logo} alt=" " className="company-img-src" />
-        </div>
-        <div className="col s5 m6 l7 company-details">
-          <a href={`/jobs/${id}`}>
-            <h3>{companyName}</h3>
-            <p>{position}</p>
-            <p>{city}, {state}</p>
-          </a>
-        </div>
-        <div className="col s4 m4 l3 btn-status">
-          <button className={`btn-${status}`}>{status[0].toUpperCase() + status.slice(1)}</button>
-        </div>
+        </a>
       </div>
+      <div className="col s5 m6 l7 company-details">
+        <a href={`/jobs/${id}`}>
+          <h3>{companyName}</h3>
+          <p>{position}</p>
+          <p>{city}, {state}</p>
+        </a>
+      </div>
+      <div className="col s4 m4 l3 btn-status">
+        <button className={`btn-${status}`}>{status[0].toUpperCase() + status.slice(1)}</button>
+      </div>
+    </div>
   );
 }
 
