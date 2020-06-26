@@ -444,8 +444,17 @@ textarea:focus{
   background: #9094a065;
   color: rgba(255, 255, 255, 0.5);
 }
-.card-jobslist .btn-status button {
+.container-home-jobs .card-content {
+  box-shadow:none;
+  padding-top: 20px;
+}
+.card-jobslist .btn-status button, .card-home-jobslist .card-content .btn-status button {
   cursor: default; /* Set until buttons are functional */
+  width:80%;
+  max-width:120px;
+}
+.card-jobslist .btn-status button:hover {
+  color:#fff;
 }
 .btn-filter .btn-filter-disabled {
   border: 1px solid rgba(0, 0, 0, 0.15);
