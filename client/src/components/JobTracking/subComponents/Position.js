@@ -62,6 +62,7 @@ function PositionCard() {
           <input className="col s6 m6 l6" placeholder="Job Title" name="position" onChange={(event) => handleInputChange(event)} value={position.position || ""}></input>
           <input className="col s6 m6 l6" placeholder="City" name="city" onChange={(event) => handleInputChange(event)} value={position.city || ""}></input>
           <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} className="col s6 m6 l6" placeholder="Salary" name="salary" onChange={(event) => handleInputChange(event)} value={position.salary || ""}/>
+          {/* <input className="col s6 m6 l6" placeholder="Salary" name="salary" onChange={(event) => handleInputChange(event)} defaultValue={position.salary || ""}></input> */}
           <input className="col s6 m6 l6" placeholder="State" name="state" onChange={(event) => handleInputChange(event)} value={position.state || ""}></input>
           <input className="col s12 m12 l12" placeholder="URL" defaultValue={position.url || ""}></input>
           {position.url ? <button className="btn btn-card" onClick={handleUrl}>View Job Post</button> : '' }
