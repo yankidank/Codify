@@ -26,7 +26,7 @@ function PositionCard() {
     const newPosition = {...position};
     const inputName = event.target.name;
     let inputValue = event.target.value;
-    if (inputName == 'salary') {
+    if (inputName === 'salary') {
       inputValue = convertMoneyToNumber(inputValue);
     }
     newPosition[inputName] = inputValue;

@@ -1,0 +1,11 @@
+
+[type="checkbox"].filled-in:checked+span:not(.lever):after,
+[type="checkbox"].filled-in-tab:checked+span:not(.lever):after,
+[type="checkbox"].filled-in.tabbed:checked:focus+span:not(.lever):after {
+  border:2px solid #2ed47a;
+  background-color:#2ed47a;
+}
+[type="checkbox"].filled-in:not(:checked)+span:not(.lever):after {
+  border:2px solid rgba(0, 0, 0, 0.25);
+  background-color:#fff;
+}
