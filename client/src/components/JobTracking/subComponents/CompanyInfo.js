@@ -66,7 +66,7 @@ function CompanyInfo(props) {
     let options = {
         inDuration: 300,
         outDuration: 300,
-        hover: true,
+        hover: false,
         coverTrigger: false, // Displays dropdown below the button
     };
     M.Dropdown.init(dropdowns, options);

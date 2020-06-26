@@ -2,7 +2,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Cleave from 'cleave.js/react';
-import Checkbox from '../../Form/Checkbox';
 
 function InterviewCard(props) {
   const {handleInputChange, time, addNewInterview, date, remote, street, city, state, notes, index, _id} = props;
