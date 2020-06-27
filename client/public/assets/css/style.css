@@ -344,20 +344,22 @@ textarea:focus{
 	padding:10px;
 	border:1px solid rgba(0, 0, 0, 0.1);
 	border-radius:5px;
-	min-height: 3em;
-	max-height: 85vh;
+	max-height: 50vh;
 	width: 100%;
   font-size:1rem;
   margin:5px 0 7px 0;
-  -webkit-transition: min-height 0.5s;
-	-moz-transition: min-height 0.5s;
-	transition: min-height 0.5s;
 }
-.col .card div textarea:not(:placeholder-shown):hover, .col .card div textarea:not(:placeholder-shown):active {
-  min-height:40vh;
-  -webkit-transition: min-height 0.5s;
-	-moz-transition: min-height 0.5s;
-	transition: min-height 0.5s;
+.col .card div textarea:not(:placeholder-shown){
+  height:15vh;
+  -webkit-transition: height 0.6s;
+	-moz-transition: height 0.6s;
+	transition: height 0.6s;
+}
+.col .card div textarea:not(:placeholder-shown):hover{
+  height: 50vh;
+  -webkit-transition: height 0.5s;
+	-moz-transition: height 0.5s;
+	transition: height 0.5s;
 }
 .card .inputs {
   padding-left: 10px;
@@ -732,6 +734,12 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 .card input[type=text]{
   padding: 0 .75rem;
   box-sizing: border-box;
+}
+.input-field{
+  position: relative;
+  top: -1px;
+  margin-top:0;
+  margin-bottom: 0;
 }
 .input-field .checkbox-wrapper {
   padding-top: 10px;

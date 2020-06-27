@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import './Checkbox.css';
+import './Switch.css';
 
-// <Checkbox className="col s4 m4 l4" label="Remote" type="checkbox" value="true" name="remote" checked={position.remote} id="" />
+// <Switch className="col s4 m4 l4" label="Remote" type="checkbox" value="" name="remote" checked={position.remote} id="" />
 
 function Checkbox(props) {
 
-	const {label, type, value, name, checked, className, id} = props;
+	const {label1, label2, value, name, checked, className, id} = props;
 		
 	// Track checkbox state
 	const [check, setCheck] = useState(checked);
@@ -17,11 +17,6 @@ function Checkbox(props) {
 	if (check){
 		remoteChecked = 'checked';
 	}
-	
-	// Change style when checked
-	const boxCheck = () => {
-		return check ? {} : {}
-	}
 
 	// Set checkbox state on click
 	const checkClick = () => {
@@ -30,19 +25,12 @@ function Checkbox(props) {
 	
 	return (
 		<div className="input-field">
-			<div className={`${className} checkbox-wrapper`}>
+			<div className={`${className} checkbox-wrapper switch`}>
 				<label>
-					<input
-						type={type}
-						value={value}
-						name={name}
-						checked={remoteChecked}
-						style={boxCheck()}
-						id={id}
-						// onChange={ checkClick}
-						onClick={ checkClick}
-					/>
-					<span>{label}</span>
+					{label1}
+					<input type="checkbox" checked={remoteChecked} name={name} value={value} id={id} onClick={checkClick} />
+					<span class="lever"></span>
+					{label2}
 				</label>
 			</div>
 		</div>

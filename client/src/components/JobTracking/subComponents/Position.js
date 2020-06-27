@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {getPosition, updatePosition, deleteJob} from "../../../utils/API";
 import { useParams } from 'react-router-dom';
 import Cleave from 'cleave.js/react';
+import Switch from '../../Form/Switch'
 import _ from 'lodash';
 import {convertMoneyToNumber} from '../../../utils/formatCleave';
 
@@ -60,14 +61,12 @@ function PositionCard() {
       <div className="card card-padded card-position">
         <div className="positionInputs">
           <input className="col s12 m12 l12" placeholder="Job Title" name="position" onChange={(event) => handleInputChange(event)} value={position.position || ""}></input>
-          <input className="col s6 m6 l6" placeholder="City" name="city" onChange={(event) => handleInputChange(event)} value={position.city || ""}></input>
-          <input className="col s6 m6 l6" placeholder="State" name="state" onChange={(event) => handleInputChange(event)} value={position.state || ""}></input>
+          <Switch className="col s12 m12 l12" label1="Local" label2="Remote" value="" name="remote" checked={position.remote} id="" />
+          <input className="col s6 m6 l6" id="position-city" placeholder="City" name="city" onChange={(event) => handleInputChange(event)} value={position.city || ""}></input>
+          <input className="col s6 m6 l6" id="position-state" placeholder="State" name="state" onChange={(event) => handleInputChange(event)} value={position.state || ""}></input>
           <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} className="col s6 m6 l6" placeholder="Salary" name="salary" onChange={(event) => handleInputChange(event)} value={position.salary || ""}/>
           <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} className="col s6 m6 l6" placeholder="Bonus" name="bonus" onChange={(event) => handleInputChange(event)} value={position.bonus || ""}/>
-          <textarea className="col s12 m12 l12" placeholder="Responsibilities" name="responsibilities" onChange={(event) => handleInputChange(event)} value={position.responsibilities || ''} ></textarea>
-          <textarea className="col s12 m12 l12" placeholder="Requirements" name="requirements" onChange={(event) => handleInputChange(event)} value={position.requirements || ''} ></textarea>
-          <textarea className="col s12 m12 l12" placeholder="Benefits" name="benefits" onChange={(event) => handleInputChange(event)} value={position.benefits || ''} ></textarea>
-          <textarea className="col s12 m12 l12" placeholder="Notes" name="notes" onChange={(event) => handleInputChange(event)} value={position.notes || ''} ></textarea>
+          <textarea className="col s12 m12 l12 textarea" placeholder="Notes" name="notes" onChange={(event) => handleInputChange(event)} value={position.notes || ''} ></textarea>
           <input className="col s12 m12 l12" placeholder="URL" defaultValue={position.url || ""}></input>
           {position.url ? <button className="btn btn-card" onClick={handleUrl}>View Job Post</button> : '' }
           <button className="btn btn-card btn-remove" onClick={handleDelete}>Remove Job Post</button>

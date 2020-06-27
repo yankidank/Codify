@@ -43,11 +43,9 @@ const jobSchema = new Schema(
       state: {
         type: String,
       },
+      remote: Boolean,
       salary: Number,
       bonus: Number,
-      responsibilities: String,
-      requirements: String,
-      benefits: String,
       notes: String,
     },
     offers: [

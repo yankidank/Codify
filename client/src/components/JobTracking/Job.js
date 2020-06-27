@@ -20,10 +20,8 @@ function Saved() {
 		(async () => {
       let retrievedStatus = await getJob(id);
       setCurrentStatus(retrievedStatus.data.status);
-		})();
-  }, []);
-
-  useEffect(() => {
+    })();
+    
     // Textarea height expansion
     var autoExpand = function (field) {
       // Reset field height
@@ -40,8 +38,20 @@ function Saved() {
 
       field.style.height = height + 'px';
     };
+/* 
+    var textareas = window.document.getElementsByClassName("textarea");
+    autoExpand(textareas);
+     */
     document.addEventListener(
       'input',
+      function (event) {
+        if (event.target.tagName.toLowerCase() !== 'textarea') return;
+        autoExpand(event.target);
+      },
+      false
+    );
+    document.addEventListener(
+      'click',
       function (event) {
         if (event.target.tagName.toLowerCase() !== 'textarea') return;
         autoExpand(event.target);
