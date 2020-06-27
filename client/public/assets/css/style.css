@@ -340,14 +340,24 @@ textarea:focus{
 	outline:1px solid #4f4f4fd7;
 	box-shadow: 2px 3px 11px -10px #000
 }
-.card div textarea {
+.col .card div textarea {
 	padding:10px;
 	border:1px solid rgba(0, 0, 0, 0.1);
 	border-radius:5px;
-	min-height: 5em;
-	max-height: 50vh;
+	min-height: 3em;
+	max-height: 85vh;
 	width: 100%;
-	font-size:1rem;
+  font-size:1rem;
+  margin:5px 0 7px 0;
+  -webkit-transition: min-height 0.5s;
+	-moz-transition: min-height 0.5s;
+	transition: min-height 0.5s;
+}
+.col .card div textarea:not(:placeholder-shown):hover, .col .card div textarea:not(:placeholder-shown):active {
+  min-height:40vh;
+  -webkit-transition: min-height 0.5s;
+	-moz-transition: min-height 0.5s;
+	transition: min-height 0.5s;
 }
 .card .inputs {
   padding-left: 10px;

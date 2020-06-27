@@ -91,7 +91,7 @@ router.delete('/:_id', async (request, response) => {
 
   try {
     const deleted = await Job.findOneAndRemove({ _id, user: user._id });
-    console.log(deleted);
+    //console.log(deleted);
 
     if (!deleted) response.status(404).send({ error: 'Job not found!' });
 

@@ -45,6 +45,9 @@ const jobSchema = new Schema(
       },
       salary: Number,
       bonus: Number,
+      responsibilities: String,
+      requirements: String,
+      benefits: String,
       notes: String,
     },
     offers: [

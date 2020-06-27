@@ -26,11 +26,11 @@ function PositionCard() {
     const newPosition = {...position};
     const inputName = event.target.name;
     let inputValue = event.target.value;
-    if (inputName === 'salary') {
+    if (inputName === 'salary' || inputName === 'bonus') {
       inputValue = convertMoneyToNumber(inputValue);
     }
     newPosition[inputName] = inputValue;
-    console.log(newPosition);
+    //console.log(newPosition);
     setPosition(newPosition);
     debouncedUpdatedPosition(newPosition, id);
   }
@@ -44,7 +44,7 @@ function PositionCard() {
         if(retrievedPosition){
           setPosition(retrievedPosition);
         } else {
-          console.log("Add empty position")
+          //console.log("Add empty position")
         }
       }
 		})();
@@ -59,11 +59,15 @@ function PositionCard() {
       </div>
       <div className="card card-padded card-position">
         <div className="positionInputs">
-          <input className="col s6 m6 l6" placeholder="Job Title" name="position" onChange={(event) => handleInputChange(event)} value={position.position || ""}></input>
+          <input className="col s12 m12 l12" placeholder="Job Title" name="position" onChange={(event) => handleInputChange(event)} value={position.position || ""}></input>
           <input className="col s6 m6 l6" placeholder="City" name="city" onChange={(event) => handleInputChange(event)} value={position.city || ""}></input>
-          <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} className="col s6 m6 l6" placeholder="Salary" name="salary" onChange={(event) => handleInputChange(event)} value={position.salary || ""}/>
-          {/* <input className="col s6 m6 l6" placeholder="Salary" name="salary" onChange={(event) => handleInputChange(event)} defaultValue={position.salary || ""}></input> */}
           <input className="col s6 m6 l6" placeholder="State" name="state" onChange={(event) => handleInputChange(event)} value={position.state || ""}></input>
+          <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} className="col s6 m6 l6" placeholder="Salary" name="salary" onChange={(event) => handleInputChange(event)} value={position.salary || ""}/>
+          <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} className="col s6 m6 l6" placeholder="Bonus" name="bonus" onChange={(event) => handleInputChange(event)} value={position.bonus || ""}/>
+          <textarea className="col s12 m12 l12" placeholder="Responsibilities" name="responsibilities" onChange={(event) => handleInputChange(event)} value={position.responsibilities || ''} ></textarea>
+          <textarea className="col s12 m12 l12" placeholder="Requirements" name="requirements" onChange={(event) => handleInputChange(event)} value={position.requirements || ''} ></textarea>
+          <textarea className="col s12 m12 l12" placeholder="Benefits" name="benefits" onChange={(event) => handleInputChange(event)} value={position.benefits || ''} ></textarea>
+          <textarea className="col s12 m12 l12" placeholder="Notes" name="notes" onChange={(event) => handleInputChange(event)} value={position.notes || ''} ></textarea>
           <input className="col s12 m12 l12" placeholder="URL" defaultValue={position.url || ""}></input>
           {position.url ? <button className="btn btn-card" onClick={handleUrl}>View Job Post</button> : '' }
           <button className="btn btn-card btn-remove" onClick={handleDelete}>Remove Job Post</button>
