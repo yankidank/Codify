@@ -1,0 +1,20 @@
+.timepicker-digital-display {
+	background: linear-gradient(330deg, #460318, #55051c, #350a3d, #070c3b);
+	background-size:150%;
+}
+.timepicker-tick.active, 
+.timepicker-tick:hover {
+	background-color:rgba(0,0,0,0.25)
+}
+.timepicker-canvas line, 
+.timepicker-canvas-bg, 
+.timepicker-canvas-bearing {
+	stroke:#00000020;
+	fill:#00000020;
+}
+.timepicker-clear{
+	color:red;
+}
+.timepicker-close{
+	color:#000;
+}

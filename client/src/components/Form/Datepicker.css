@@ -5,19 +5,19 @@
 .datepicker-table td.is-selected {
 	background-color:#54051c;
 }
-.datepicker-clear, .datepicker-today, .datepicker-done {
+.datepicker-clear {
+	color:red;
+}
+.datepicker-today, 
+.datepicker-cancel, 
+.datepicker-done {
 	color:#000;
-}
-.datepicker-cancel {
-	color:rgba(0, 0, 0, 0.4);
-}
-.datepicker-done{
-	color:#26a69a;
 }
 .datepicker-table td.is-today {
 	color:#ee3272;
 }
-.orig-select-month, .orig-select-year {
+.orig-select-month, 
+.orig-select-year {
 	display:none;
 }
 .datepicker-modal{
@@ -30,9 +30,11 @@
 	background:#070c3b;
 	color:#fff;
 }
-button:focus, .datepicker-day-button:focus {
+button:focus, 
+.datepicker-day-button:focus {
 	background:#0000002f;
 }
-.month-prev, .month-next {
+.month-prev, 
+.month-next {
 	background-color: #b21a1a00;
 }
