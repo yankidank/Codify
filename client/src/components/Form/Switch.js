@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import './Switch.css';
 
-// <Switch className="col s4 m4 l4" label="Remote" type="checkbox" value="" name="remote" checked={position.remote} id="" />
+// <Switch className="col s4 m4 l4" label="Remote" value="" name="remote" checked={position.remote} id="" />
 
 function Checkbox(props) {
 
@@ -28,8 +28,16 @@ function Checkbox(props) {
 			<div className={`${className} checkbox-wrapper switch`}>
 				<label>
 					{label1}
-					<input type="checkbox" checked={remoteChecked} name={name} value={value} id={id} onClick={checkClick} />
-					<span class="lever"></span>
+					<input 
+						type="checkbox" 
+						checked={remoteChecked} 
+						name={name} 
+						value={value} 
+						id={id} 
+						onChange={checkClick}
+						/* onClick={checkClick}  */
+					/>
+					<span className="lever"></span>
 					{label2}
 				</label>
 			</div>
@@ -39,7 +47,6 @@ function Checkbox(props) {
 
 Checkbox.propTypes = {
 	label: PropTypes.string,
-	type: PropTypes.string,
 	value: PropTypes.string,
 	name: PropTypes.string,
 	checked: PropTypes.bool,

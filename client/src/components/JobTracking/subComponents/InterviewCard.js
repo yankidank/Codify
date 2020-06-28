@@ -2,6 +2,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Cleave from 'cleave.js/react';
+import Datepicker from '../../Form/Datepicker'
 
 function InterviewCard(props) {
   const {handleInputChange, time, addNewInterview, date, remote, street, city, state, notes, index, _id} = props;
@@ -9,9 +10,7 @@ function InterviewCard(props) {
   return (
       <div className="card card-padded card-position">
         <div className="interviewInputs">
-          <div className="input-field ">
-            <Cleave options={{date:true, delimiter: '/', datePattern:['Y', 'm', 'd']}} className="col s4 m4 l4 datepicker" placeholder="2020/09/15" onChange={(event) => handleInputChange(event, index, _id)} value={date} name="date"/>
-          </div>
+          <Datepicker className="col s6 m6 l6" placeholder="YYYY/MM/DD" value={date} name="date" id="datepicker" />
           <div className="input-field ">
             <Cleave options={{time: true, timePattern: ['h', 'm']}} className="col s6 m4 l4" placeholder="10:30" onChange={(event) => handleInputChange(event, index, _id)} name="time" value={time}/>
           </div>

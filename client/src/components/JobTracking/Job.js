@@ -38,10 +38,6 @@ function Saved() {
 
       field.style.height = height + 'px';
     };
-/* 
-    var textareas = window.document.getElementsByClassName("textarea");
-    autoExpand(textareas);
-     */
     document.addEventListener(
       'input',
       function (event) {
