@@ -28,7 +28,7 @@ function InterviewCard(props) {
           <input className="col s4 m4 l4" placeholder="State" onChange={(event) => handleInputChange(event, index, _id)} value={state} name="state"></input>
           <textarea placeholder="Notes" onChange={(event) => handleInputChange(event, index, _id)} value={notes} name="notes"></textarea>
         </div>
-        {(_id) ? '' : <button className={"btn btn-card"} onClick={() => addNewInterview(index)}>Save New Interview</button>}
+        {(_id) ? '' : <button className={"btn btn-card"} onClick={() => addNewInterview(index)}>Save Interview</button>}
       </div>
   );
 }

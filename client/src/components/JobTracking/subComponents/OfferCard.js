@@ -41,7 +41,7 @@ function OfferCard(props) {
 				/>
 				<textarea placeholder="Benefits" name="benefits" onChange={(event) => handleInputChange(event, index, _id)}
 					value={benefits}></textarea>
-				{(_id) ? '' : <button className="btn btn-card" onClick={()=>addNewOffer(index)}>Add New Offer</button>}
+				{(_id) ? '' : <button className="btn btn-card" onClick={()=>addNewOffer(index)}>Save Offer</button>}
 			</div>
 		</div>
 	);
