@@ -20,7 +20,7 @@ hr {
 }
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 9px;
 }
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
@@ -344,6 +344,12 @@ button {
 .company-details {
   cursor: pointer;
 }
+.input-field>label {
+  color:rgba(0, 0, 0, 0.4)
+}
+.input-field>label {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
 .card div input, .card div select {
 	border-bottom:1px solid #f1f1f1;
 }
@@ -553,15 +559,75 @@ textarea.materialize-textarea{
 #company-jobtitle, #company-city, #company-state {
 	height:32px;
 }
-.material-icons.prefix {
+.input-field .postfix ~ input, 
+.input-field .postfix ~ textarea, 
+.input-field .postfix ~ label, 
+.input-field .postfix ~ .validate ~ label, 
+.input-field .postfix ~ .helper-text, 
+.input-field .postfix ~ .autocomplete-content {
+  margin-right: 3rem;
+  width: 92%;
+  width: calc(100% - 3rem);
+}
+.material-icons.postfix {
   color:rgba(0, 0, 0, 0.4);
   text-align:center;
+  position: absolute;
+  width: 3rem;
+  font-size: 2rem;
+  -webkit-transition: color .2s;
+  transition: color .2s;
+  top: .5rem;
+  right: 0;
+}
+.material-icons.url-icon-edit:hover{
+  color:#000;
+  -webkit-transition: color .5s;
+  transition: color .5s;
+}
+.material-icons.url-icon-link,
+.material-icons.url-icon-edit{
+  cursor:pointer;
+}
+.material-icons.url-icon-link{
+  color:#000000;
+}
+input.valid:not([type]), 
+input.valid:not([type]):focus, 
+input.valid[type=text]:not(.browser-default), 
+input.valid[type=text]:not(.browser-default):focus, 
+input.valid[type=password]:not(.browser-default), 
+input.valid[type=password]:not(.browser-default):focus, 
+input.valid[type=email]:not(.browser-default), 
+input.valid[type=email]:not(.browser-default):focus, 
+input.valid[type=url]:not(.browser-default), 
+input.valid[type=url]:not(.browser-default):focus, 
+input.valid[type=time]:not(.browser-default), 
+input.valid[type=time]:not(.browser-default):focus, 
+input.valid[type=date]:not(.browser-default), 
+input.valid[type=date]:not(.browser-default):focus, 
+input.valid[type=datetime]:not(.browser-default), 
+input.valid[type=datetime]:not(.browser-default):focus, 
+input.valid[type=datetime-local]:not(.browser-default), 
+input.valid[type=datetime-local]:not(.browser-default):focus, 
+input.valid[type=tel]:not(.browser-default), 
+input.valid[type=tel]:not(.browser-default):focus, 
+input.valid[type=number]:not(.browser-default), 
+input.valid[type=number]:not(.browser-default):focus, 
+input.valid[type=search]:not(.browser-default), 
+input.valid[type=search]:not(.browser-default):focus, 
+textarea.materialize-textarea.valid, 
+textarea.materialize-textarea.valid:focus, 
+.select-wrapper.valid>input.select-dropdown {
+  border-bottom: 1px solid #068f288c;
+  -webkit-box-shadow: 0 1px 0 0 #068f288c;
+  box-shadow: 0 1px 0 0 #068f288c;
 }
 .url-input-linked {
   padding:0 .75rem !important;
   color:rgba(0, 0, 0, 0.4);
   border-bottom: 1px solid rgba(255, 255, 255, 0) !important;
-  cursor: pointer;
+  cursor: default;
   pointer-events: all;
   caret-color: rgba(255, 255, 255, 0);
   text-decoration:underline;

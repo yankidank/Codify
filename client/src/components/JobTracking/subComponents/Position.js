@@ -99,7 +99,7 @@ function PositionCard() {
             <label for="position-notes" className={position.notes ? "active" : ""}>Notes</label>
           </div>
           <div className="input-field col s12">
-            <i className="material-icons prefix" id="position-url-edit" onClick={handleUrlEdit}>edit</i>
+            <i className={!urlEditable ? "material-icons postfix url-icon-edit" : "material-icons postfix url-icon-link"} id="position-url-edit" onClick={handleUrlEdit}>{position.url ? "edit" : ""}</i>
             {!position.url || urlEditable ?
               <input name="url" id="position-url-input" className="validate" type="text" placeholder={!position.url ? 'Job Posting URL': ''} onChange={(event) => handleInputChange(event)} value={position.url || ''}></input>
             :
