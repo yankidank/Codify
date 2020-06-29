@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import './Datepicker.css';
 import M from "materialize-css";
 
-// <Datepicker className="col s12 m12 l12" placeholder="YYYY/MM/DD" value={date} name="datepicker" id="datepicker" />
+// <Datepicker value={date} name="datepicker" id="datepicker" />
 
 function Datepicker(props) {
 
-	const {placeholder, value, name, className, id} = props;
+	const {value, name, id} = props;
 		
 	// Track checkbox state
 	const [click, setClick] = useState(false);
@@ -33,29 +33,24 @@ function Datepicker(props) {
 	}, []);
 	
 	return (
-		<div className="input-field">
-			<div className={`${className} datepicker-wrapper`}>
-				<input 
-					type="text" 
-					className="datepicker"
-					placeholder={placeholder}
-					value={value} 
-					name={name} 
-					id={id} 
-					onChange={checkClick}
-					/* onClick={checkClick}  */
-				/>
-			</div>
+		<div className="datepicker-wrapper">
+			<input 
+				type="text" 
+				className="datepicker"
+				value={value} 
+				name={name} 
+				id={id} 
+				onChange={checkClick}
+				/* onClick={checkClick}  */
+			/>
 		</div>
 	)
 }
 
 Datepicker.propTypes = {
-	placeholder: PropTypes.string,
 	value: PropTypes.string,
 	name: PropTypes.string,
 	checked: PropTypes.bool,
-	className: PropTypes.string,
 	id: PropTypes.string,
 };
 

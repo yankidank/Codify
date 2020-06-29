@@ -38,7 +38,7 @@ function Checkbox(props) {
 					checked={remoteChecked}
 					style={boxCheck()}
 					id={id}
-					// onChange={checkClick}
+					onChange={checkClick}
 					onClick={checkClick}
 				/>
 				<span>{label}</span>

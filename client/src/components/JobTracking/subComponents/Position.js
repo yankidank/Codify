@@ -95,8 +95,8 @@ function PositionCard() {
             <label htmlFor="input-bonus" className={position.bonus ? "active" : ""}>Bonus</label>
           </div>
           <div className="input-field col s12">
-            <textarea id="position-notes" className="materialize-textarea" name="notes" type="text" onChange={(event) => handleInputChange(event)} value={position.notes || ''} ></textarea>
-            <label for="position-notes" className={position.notes ? "active" : ""}>Notes</label>
+            <textarea name="notes" value={position.notes || ''} id="position-notes" className="materialize-textarea" type="text" onChange={(event) => handleInputChange(event)} ></textarea>
+            <label htmlFor="position-notes" className={position.notes ? "active" : ""}>Notes</label>
           </div>
           <div className="input-field col s12">
             <i className={!urlEditable ? "material-icons postfix url-icon-edit" : "material-icons postfix url-icon-link"} id="position-url-edit" onClick={handleUrlEdit}>{position.url ? "edit" : ""}</i>

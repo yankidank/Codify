@@ -11,9 +11,17 @@ function InterviewCard(props) {
   return (
       <div className="card card-padded card-position">
         <div className="interviewInputs">
-          <Datepicker className="col s5 m5 l5" placeholder="YYYY/MM/DD" value={date} name="date" id="datepicker" />
-          <Timepicker className="col s3 m3 l3" placeholder="10:30" value={time} name="time" id="timepicker" />
-          <Checkbox className="col s4 m4 l4" label="Remote" value="true" name="remote" checked={remote} id="" />
+          <div className="input-field col s5">
+            <Datepicker value={date} name="date" id={`datepicker interview-date-${_id}`} />
+            <label htmlFor={`interview-date-${_id}`} className={date ? "active" : ""}>Date</label>
+          </div>
+          <div className="input-field col s3">
+            <Timepicker value={time} name="time" id={`interview-timepicker-${_id}`} />
+            <label htmlFor={`interview-timepicker-${_id}`} className={date ? "active" : ""}>Date</label>
+          </div>
+          <div className="input-field col s4">
+            <Checkbox label="Remote" value="true" name="remote" checked={remote} />
+          </div>
           {/* <Switch className="col s12 m6 l6" label1="Local" label2="Remote" value="" name="remote" checked={remote} id="" /> */}
           {/* 
           <div className="input-field col s6 m4 l4">
@@ -23,10 +31,22 @@ function InterviewCard(props) {
             </select>
           </div>
            */}
-          <input className="col s12 m12 l12" placeholder="Street Address" onChange={(event) => handleInputChange(event, index, _id)} value={street} name="street"></input>
-          <input className="col s8 m8 l8" placeholder="City" onChange={(event) => handleInputChange(event, index, _id)} value={city} name="city"></input>
-          <input className="col s4 m4 l4" placeholder="State" onChange={(event) => handleInputChange(event, index, _id)} value={state} name="state"></input>
-          <textarea placeholder="Notes" onChange={(event) => handleInputChange(event, index, _id)} value={notes} name="notes"></textarea>
+          <div className="input-field col s12">
+            <input name="street" value={street} id={`interview-street-${_id}`} className="validate" type="text" onChange={(event) => handleInputChange(event, index, _id)}></input>
+            <label htmlFor={`interview-street-${_id}`} className={street ? "active" : ""}>Street Address</label>
+          </div>
+          <div className="input-field col s8">
+            <input name="city" value={city} id={`interview-city-${_id}`} className="validate" type="text" onChange={(event) => handleInputChange(event, index, _id)}></input>
+            <label htmlFor={`interview-city-${_id}`} className={city ? "active" : ""}>City</label>
+          </div>
+          <div className="input-field col s4">
+            <input name="state" value={state} id={`interview-state-${_id}`} className="validate" type="text" onChange={(event) => handleInputChange(event, index, _id)}></input>
+            <label htmlFor={`interview-state-${_id}`} className={state ? "active" : ""}>State</label>
+          </div>
+          <div className="input-field col s12">
+            <textarea name="notes" value={notes || ''} id={`interview-notes-${_id}`} className="materialize-textarea" type="text" onChange={(event) => handleInputChange(event, index, _id)} ></textarea>
+            <label htmlFor={`interview-notes-${_id}`} className={notes ? "active" : ""}>Notes</label>
+          </div>
         </div>
         {(_id) ? '' : <button className={"btn btn-card"} onClick={() => addNewInterview(index)}>Save Interview</button>}
       </div>

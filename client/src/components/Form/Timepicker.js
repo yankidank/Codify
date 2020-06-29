@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import './Timepicker.css';
 import M from "materialize-css";
 
-// <Timepicker className="col s12 m12 l12" placeholder="YYYY/MM/DD" value={date} name="timepicker" id="timepicker" />
+// <Timepicker placeholder="YYYY/MM/DD" value={date} name="timepicker" id="timepicker" />
 
 function Timepicker(props) {
 
-	const {placeholder, value, name, className, id} = props;
+	const {placeholder, value, name, id} = props;
 		
 	// Track checkbox state
 	const [click, setClick] = useState(false);
@@ -31,19 +31,17 @@ function Timepicker(props) {
 	}, []);
 	
 	return (
-		<div className="input-field">
-			<div className={`${className} timepicker-wrapper`}>
-				<input 
-					type="text" 
-					className="timepicker"
-					placeholder={placeholder}
-					value={value} 
-					name={name} 
-					id={id} 
-					onChange={checkClick}
-					/* onClick={checkClick}  */
-				/>
-			</div>
+		<div className="timepicker-wrapper">
+			<input 
+				type="text" 
+				className="timepicker"
+				placeholder={placeholder}
+				value={value} 
+				name={name} 
+				id={id} 
+				onChange={checkClick}
+				/* onClick={checkClick}  */
+			/>
 		</div>
 	)
 }
@@ -53,7 +51,6 @@ Timepicker.propTypes = {
 	value: PropTypes.string,
 	name: PropTypes.string,
 	checked: PropTypes.bool,
-	className: PropTypes.string,
 	id: PropTypes.string,
 };
 
