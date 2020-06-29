@@ -5,13 +5,12 @@ import Cleave from 'cleave.js/react';
 import Checkbox from '../../Form/Checkbox'
 import _ from 'lodash';
 import {convertMoneyToNumber} from '../../../utils/formatCleave';
-
+import M from "materialize-css";
 
 function PositionCard() {
   const [position, setPosition] = useState([]);
-
   const {id} = useParams();
-
+  
   const handleUrl = () => {
     window.open(position.url, "_blank", "toolbar=no,scrollbars=yes,resizable=yes,left=200,width=800,height=800");
   }
@@ -38,7 +37,6 @@ function PositionCard() {
   
   useEffect(() => {
 		(async () => {
-
       if (id){
         let retrievedPosition = await getPosition(id);
 	
@@ -48,7 +46,13 @@ function PositionCard() {
           //console.log("Add empty position")
         }
       }
-		})();
+    })();
+    
+    document.addEventListener("DOMContentLoaded", function(){
+      // Input Placeholders
+      M.updateTextFields();
+    });
+
 	}, []);
 
   return (
@@ -60,16 +64,39 @@ function PositionCard() {
       </div>
       <div className="card card-padded card-position">
         <div className="positionInputs">
-          <input className="col s12 m8 l8" placeholder="Job Title" name="position" onChange={(event) => handleInputChange(event)} value={position.position || ""}></input>
-          <Checkbox className="col s12 m4 l4" label="Remote" value="true" name="remote" checked={position.remote} id="" />
+          <div className="input-field col s12 m8">
+            <input name="position" id="position-title" className="validate" type="text" onChange={(event) => handleInputChange(event)} value={position.position || ""} />
+            <label htmlFor="position-title" className={position.position ? "active" : ""} >Job Title</label>
+          </div>
+          <div className="input-field col s12 m4">
+            <Checkbox label="Remote" value="true" name="remote" checked={position.remote} id="" />
+          </div>
           {/* <Switch className="col s12 m12 l12" label1="Local" label2="Remote" value="" name="remote" checked={position.remote} id="" /> */}
-          <input className="col s8 m8 l8" id="position-city" placeholder="City" name="city" onChange={(event) => handleInputChange(event)} value={position.city || ""}></input>
-          <input className="col s4 m4 l4" id="position-state" placeholder="State" name="state" onChange={(event) => handleInputChange(event)} value={position.state || ""}></input>
-          <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} className="col s6 m6 l6" placeholder="Salary" name="salary" onChange={(event) => handleInputChange(event)} value={position.salary || ""}/>
-          <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} className="col s6 m6 l6" placeholder="Bonus" name="bonus" onChange={(event) => handleInputChange(event)} value={position.bonus || ""}/>
-          <textarea className="col s12 m12 l12 textarea" placeholder="Notes" name="notes" onChange={(event) => handleInputChange(event)} value={position.notes || ''} ></textarea>
-          <input className="col s12 m12 l12" placeholder="URL" name="url" defaultValue={position.url || ""} onChange={(event) => handleInputChange(event)} value={position.url || ''}></input>
-          {position.url ? <button className="btn btn-card" onClick={handleUrl}>View Job Post</button> : '' }
+          <div className="input-field col s8">
+            <input name="city" id="position-city" className="validate" type="text" onChange={(event) => handleInputChange(event)} value={position.city || ""}></input>
+            <label htmlFor="position-city" className={position.city ? "active" : ""}>City</label>
+          </div>
+          <div className="input-field col s4">
+            <input name="state" id="position-state" className="validate" type="text" onChange={(event) => handleInputChange(event)} value={position.state || ""}></input>
+            <label htmlFor="position-state" className={position.state ? "active" : ""}>State</label>
+          </div>
+          <div className="input-field col s8">
+            <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} name="salary" id="input-salary" className="validate" type="text" onChange={(event) => handleInputChange(event)} value={position.salary || ""}/>
+            <label htmlFor="input-salary" className={position.salary ? "active" : ""}>Salary</label>
+          </div>
+          <div className="input-field col s4">
+            <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} name="bonus" id="input-bonus" className="validate" type="text" onChange={(event) => handleInputChange(event)} value={position.bonus || ""}/>
+            <label htmlFor="input-bonus" className={position.bonus ? "active" : ""}>Bonus</label>
+          </div>
+          <textarea className="col s12 textarea" placeholder="Notes" name="notes" onChange={(event) => handleInputChange(event)} value={position.notes || ''} ></textarea>
+          <div className="input-field col s12">
+            <i className="material-icons prefix">edit</i>
+            {!position.url ?
+              <input name="url" id="position-url-input" className="validate" type="text" placeholder={!position.url ? 'Job Posting URL': ''} onChange={(event) => handleInputChange(event)} value={position.url || ''}></input>
+            :
+              <input className="url-input-linked" onClick={handleUrl} value={position.url}></input>
+            }
+          </div>
           <button className="btn btn-card btn-remove" onClick={handleDelete}>Remove Job Post</button>
         </div>
       </div>

@@ -266,7 +266,7 @@ button {
 	font-size:1.2rem;
 }
 .card-padded{
-	padding:10px;
+	padding:15px 10px 10px 10px;
 }
 .card-inner {
 	box-shadow: 0px 1px 0px 0px #0000002b;
@@ -347,7 +347,7 @@ textarea:focus{
 	max-height: 50vh;
 	width: 100%;
   font-size:1rem;
-  margin:5px 0 7px 0;
+  margin:5px 0 12px 0;
 }
 .col .card div textarea:not(:placeholder-shown){
   height:15vh;
@@ -526,6 +526,19 @@ textarea:focus{
 }
 #company-jobtitle, #company-city, #company-state {
 	height:32px;
+}
+.material-icons.prefix {
+  color:rgba(0, 0, 0, 0.4);
+}
+.url-input-linked {
+  color:rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0) !important;
+  cursor: pointer;
+  pointer-events: all;
+  caret-color: rgba(255, 255, 255, 0);
+}
+.url-input-linked:hover {
+  border-bottom:1px solid rgba(0, 0, 0, 0.4) !important;
 }
 /* Job Status Indicator */
 .statusBar {
@@ -737,8 +750,7 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 }
 .input-field{
   position: relative;
-  top: -1px;
-  margin-top:0;
+  margin-top:10px;
   margin-bottom: 0;
 }
 .input-field .checkbox-wrapper {
@@ -818,5 +830,12 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 	}
 	.container-full {
 		width:100%;
-	}
+  }
+}
+@media only screen and (max-width: 993px){
+  .input-field .checkbox-wrapper {
+    padding-top:0;
+    margin-bottom: 6px;
+    margin-top:0;
+  }
 }

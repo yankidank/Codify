@@ -26,8 +26,8 @@ function Timepicker(props) {
 				console.log('Calendar Date: '+date);
 			},
     };
-			var elems = document.querySelectorAll('.timepicker');
-			M.Timepicker.init(elems, options);
+		var elems = document.querySelectorAll('.timepicker');
+		M.Timepicker.init(elems, options);
 	}, []);
 	
 	return (
