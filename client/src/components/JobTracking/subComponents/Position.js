@@ -94,7 +94,10 @@ function PositionCard() {
             <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} name="bonus" id="input-bonus" className="validate" type="text" onChange={(event) => handleInputChange(event)} value={position.bonus || ""}/>
             <label htmlFor="input-bonus" className={position.bonus ? "active" : ""}>Bonus</label>
           </div>
-          <textarea className="col s12 textarea" placeholder="Notes" name="notes" onChange={(event) => handleInputChange(event)} value={position.notes || ''} ></textarea>
+          <div className="input-field col s12">
+            <textarea id="position-notes" className="materialize-textarea" name="notes" type="text" onChange={(event) => handleInputChange(event)} value={position.notes || ''} ></textarea>
+            <label for="position-notes" className={position.notes ? "active" : ""}>Notes</label>
+          </div>
           <div className="input-field col s12">
             <i className="material-icons prefix" id="position-url-edit" onClick={handleUrlEdit}>edit</i>
             {!position.url || urlEditable ?

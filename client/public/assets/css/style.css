@@ -341,13 +341,8 @@ textarea:focus{
 	box-shadow: 2px 3px 11px -10px #000
 }
 .col .card div textarea {
-	padding:10px;
-	border:1px solid rgba(0, 0, 0, 0.1);
-	border-radius:5px;
 	max-height: 50vh;
-	width: 100%;
-  font-size:1rem;
-  margin:5px 0 12px 0;
+  width: 100%;
 }
 .col .card div textarea:not(:placeholder-shown){
   height:15vh;
@@ -357,9 +352,26 @@ textarea:focus{
 }
 .col .card div textarea:not(:placeholder-shown):hover{
   height: 50vh;
-  -webkit-transition: height 0.5s;
-	-moz-transition: height 0.5s;
-	transition: height 0.5s;
+  -webkit-transition: height 0.7s;
+	-moz-transition: height 0.7s;
+	transition: height 0.7s;
+}
+textarea.materialize-textarea {
+  margin-top:6px;
+  padding:10px;
+}
+textarea.materialize-textarea:active,textarea.materialize-textarea:focus {
+  border-left:0;
+  outline: none;
+}
+textarea.materialize-textarea{
+  overflow-y: scroll;
+}
+.input-field>label:not(.label-icon).active {
+  color:rgba(0, 0, 0, 0.4);
+}
+.waves-effect.waves-green .waves-ripple {
+  color:rgba(0, 0, 0, 0.4);
 }
 .card .inputs {
   padding-left: 10px;
@@ -529,13 +541,16 @@ textarea:focus{
 }
 .material-icons.prefix {
   color:rgba(0, 0, 0, 0.4);
+  text-align:center;
 }
 .url-input-linked {
+  padding:0 .75rem !important;
   color:rgba(0, 0, 0, 0.4);
   border-bottom: 1px solid rgba(255, 255, 255, 0) !important;
   cursor: pointer;
   pointer-events: all;
   caret-color: rgba(255, 255, 255, 0);
+  text-decoration:underline;
 }
 .input-field .material-icons.prefix.active {
   color:#000;
@@ -750,7 +765,7 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 }
 .input-field{
   position: relative;
-  margin-top:10px;
+  margin-top:12px;
   margin-bottom: 0;
 }
 .input-field .checkbox-wrapper {
