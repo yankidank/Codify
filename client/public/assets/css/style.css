@@ -18,6 +18,20 @@ nav {
 hr {
   border-color:#cecece4d;
 }
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #00000040;  
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00000040;
+}
 .hidden {
   display: none;
 }
