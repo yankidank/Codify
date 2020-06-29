@@ -31,7 +31,7 @@ function ContactCard(props){
                 </div>
                 <div className="input-field col s12">
                     <textarea name="notes" value={notes || ''} id={`contact-notes-${id}`} className="validate materialize-textarea" type="text" onChange={(event) => handleInputChange(event, index, id)} />
-                    <label htmlFor={`contact-notes-${id}`} className={notes ? "active" : ""}>Position</label>
+                    <label htmlFor={`contact-notes-${id}`} className={notes ? "active" : ""}>Notes</label>
                 </div>
             </div>
             {(!id) ? '' :  <button className="btn btn-card btn-remove" onClick={handleClick}>Remove Contact</button>}

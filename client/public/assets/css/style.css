@@ -358,20 +358,17 @@ textarea:focus{
 	box-shadow: 2px 3px 11px -10px #000
 }
 .col .card div textarea {
-	max-height: 50vh;
+  max-height: 50vh;
   width: 100%;
 }
 .col .card div textarea:not(:placeholder-shown){
-  height:15vh;
-  -webkit-transition: height 0.6s;
-	-moz-transition: height 0.6s;
-	transition: height 0.6s;
+  min-height:14vh;
 }
 .col .card div textarea:not(:placeholder-shown):hover{
   height: 25vh;
-  -webkit-transition: height 0.7s;
-	-moz-transition: height 0.7s;
-	transition: height 0.7s;
+  -webkit-transition: height 0.75s;
+	-moz-transition: height 0.75s;
+	transition: height 0.75s;
 }
 textarea.materialize-textarea {
   margin-top:6px;

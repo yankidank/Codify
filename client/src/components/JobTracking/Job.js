@@ -37,6 +37,7 @@ function Saved() {
         parseInt(computed.getPropertyValue('border-bottom-width'), 10);
 
       field.style.height = height + 'px';
+      field.style.minHeight = '25vh';
     };
     document.addEventListener(
       'input',
