@@ -68,7 +68,7 @@ function PositionCard() {
           <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} className="col s6 m6 l6" placeholder="Salary" name="salary" onChange={(event) => handleInputChange(event)} value={position.salary || ""}/>
           <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} className="col s6 m6 l6" placeholder="Bonus" name="bonus" onChange={(event) => handleInputChange(event)} value={position.bonus || ""}/>
           <textarea className="col s12 m12 l12 textarea" placeholder="Notes" name="notes" onChange={(event) => handleInputChange(event)} value={position.notes || ''} ></textarea>
-          <input className="col s12 m12 l12" placeholder="URL" defaultValue={position.url || ""}></input>
+          <input className="col s12 m12 l12" placeholder="URL" name="url" defaultValue={position.url || ""} onChange={(event) => handleInputChange(event)} value={position.url || ''}></input>
           {position.url ? <button className="btn btn-card" onClick={handleUrl}>View Job Post</button> : '' }
           <button className="btn btn-card btn-remove" onClick={handleDelete}>Remove Job Post</button>
         </div>
