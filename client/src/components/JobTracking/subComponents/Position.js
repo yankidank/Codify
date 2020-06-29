@@ -71,39 +71,39 @@ function PositionCard() {
       <div className="card card-padded card-position">
         <div className="positionInputs">
           <div className="input-field col s12 m8">
-            <input name="position" id="position-title" className="validate" type="text" onChange={(event) => handleInputChange(event)} value={position.position || ""} />
+            <input name="position" value={position.position || ""} id="position-title" className="validate" type="text" onChange={(event) => handleInputChange(event)} />
             <label htmlFor="position-title" className={position.position ? "active" : ""} >Job Title</label>
           </div>
           <div className="input-field col s12 m4">
             <Checkbox label="Remote" value="true" name="remote" checked={position.remote} id="" />
           </div>
-          {/* <Switch className="col s12 m12 l12" label1="Local" label2="Remote" value="" name="remote" checked={position.remote} id="" /> */}
+          {/* <Switch label1="Local" label2="Remote" value="" name="remote" checked={position.remote} id="" /> */}
           <div className="input-field col s8">
-            <input name="city" id="position-city" className="validate" type="text" onChange={(event) => handleInputChange(event)} value={position.city || ""}></input>
+            <input name="city" value={position.city || ""} id="position-city" className="validate" type="text" onChange={(event) => handleInputChange(event)} />
             <label htmlFor="position-city" className={position.city ? "active" : ""}>City</label>
           </div>
           <div className="input-field col s4">
-            <input name="state" id="position-state" className="validate" type="text" onChange={(event) => handleInputChange(event)} value={position.state || ""}></input>
+            <input name="state" value={position.state || ""} id="position-state" className="validate" type="text" onChange={(event) => handleInputChange(event)} />
             <label htmlFor="position-state" className={position.state ? "active" : ""}>State</label>
           </div>
           <div className="input-field col s8">
-            <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} name="salary" id="input-salary" className="validate" type="text" onChange={(event) => handleInputChange(event)} value={position.salary || ""}/>
+            <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} name="salary" value={position.salary || ""} id="input-salary" className="validate" type="text" onChange={(event) => handleInputChange(event)} />
             <label htmlFor="input-salary" className={position.salary ? "active" : ""}>Salary</label>
           </div>
           <div className="input-field col s4">
-            <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} name="bonus" id="input-bonus" className="validate" type="text" onChange={(event) => handleInputChange(event)} value={position.bonus || ""}/>
+            <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} name="bonus" value={position.bonus || ""} id="input-bonus" className="validate" type="text" onChange={(event) => handleInputChange(event)} />
             <label htmlFor="input-bonus" className={position.bonus ? "active" : ""}>Bonus</label>
           </div>
           <div className="input-field col s12">
-            <textarea name="notes" value={position.notes || ''} id="position-notes" className="materialize-textarea" type="text" onChange={(event) => handleInputChange(event)} ></textarea>
+            <textarea name="notes" value={position.notes || ''} id="position-notes" className="materialize-textarea" type="text" onChange={(event) => handleInputChange(event)} />
             <label htmlFor="position-notes" className={position.notes ? "active" : ""}>Notes</label>
           </div>
           <div className="input-field col s12">
             <i className={!urlEditable ? "material-icons postfix url-icon-edit" : "material-icons postfix url-icon-link"} id="position-url-edit" onClick={handleUrlEdit}>{position.url ? "edit" : ""}</i>
             {!position.url || urlEditable ?
-              <input name="url" id="position-url-input" className="validate" type="text" placeholder={!position.url ? 'Job Posting URL': ''} onChange={(event) => handleInputChange(event)} value={position.url || ''}></input>
+              <input name="url" value={position.url || ''} id="position-url-input" className="validate" type="text" placeholder={!position.url ? 'Job Posting URL': ''} onChange={(event) => handleInputChange(event)} />
             :
-              <input className="url-input-linked" onClick={handleUrl} value={position.url}></input>
+              <input value={position.url} className="url-input-linked" onClick={handleUrl} />
             }
           </div>
           <button className="btn btn-card btn-remove" onClick={handleDelete}>Remove Job Post</button>

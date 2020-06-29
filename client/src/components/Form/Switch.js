@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import './Switch.css';
 
-// <Switch className="col s4 m4 l4" label="Remote" value="" name="remote" checked={position.remote} id="" />
+// <Switch label="Remote" value="" name="remote" checked={position.remote} id="" />
 
 function Checkbox(props) {
 
-	const {label1, label2, value, name, checked, className, id} = props;
+	const {label1, label2, value, name, checked, id} = props;
 		
 	// Track checkbox state
 	const [check, setCheck] = useState(checked);
@@ -25,7 +25,7 @@ function Checkbox(props) {
 	
 	return (
 		<div className="input-field">
-			<div className={`${className} checkbox-wrapper switch`}>
+			<div className="checkbox-wrapper switch">
 				<label>
 					{label1}
 					<input 
@@ -50,7 +50,6 @@ Checkbox.propTypes = {
 	value: PropTypes.string,
 	name: PropTypes.string,
 	checked: PropTypes.bool,
-	className: PropTypes.string,
 	id: PropTypes.string,
 };
 

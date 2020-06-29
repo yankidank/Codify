@@ -20,10 +20,10 @@ hr {
 }
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 9px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #00000008;
 }
 ::-webkit-scrollbar-thumb {
   background: #00000040;  
@@ -345,10 +345,7 @@ button {
   cursor: pointer;
 }
 .input-field>label {
-  color:rgba(0, 0, 0, 0.4)
-}
-.input-field>label {
-  color: rgba(0, 0, 0, 0.6) !important;
+  color:rgba(0, 0, 0, 0.4) !important;
 }
 .card div input, .card div select {
 	border-bottom:1px solid #f1f1f1;
@@ -371,7 +368,7 @@ textarea:focus{
 	transition: height 0.6s;
 }
 .col .card div textarea:not(:placeholder-shown):hover{
-  height: 50vh;
+  height: 25vh;
   -webkit-transition: height 0.7s;
 	-moz-transition: height 0.7s;
 	transition: height 0.7s;
@@ -379,13 +376,16 @@ textarea:focus{
 textarea.materialize-textarea {
   margin-top:6px;
   padding:10px;
+  overflow-y: scroll;
 }
 textarea.materialize-textarea:active,textarea.materialize-textarea:focus {
   border-left:0;
   outline: none;
 }
-textarea.materialize-textarea{
-  overflow-y: scroll;
+textarea.materialize-textarea:focus:not([readonly]){
+  border-bottom:1px solid rgba(109, 4, 48, 0.9);
+  box-shadow: 0 1px 0 0 rgba(109, 4, 48, 0.9);
+  -webkit-box-shadow: 0 1px 0 0 rgba(109, 4, 48, 0.9);
 }
 .input-field>label:not(.label-icon).active {
   color:rgba(0, 0, 0, 0.4);
