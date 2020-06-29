@@ -10,7 +10,13 @@ import M from "materialize-css";
 function PositionCard() {
   const [position, setPosition] = useState([]);
   const {id} = useParams();
-  
+  const [urlEditable, seturlEditable] = useState(false);
+
+  const handleUrlEdit = () => {
+    seturlEditable(!urlEditable)
+    console.log(urlEditable)
+  }
+
   const handleUrl = () => {
     window.open(position.url, "_blank", "toolbar=no,scrollbars=yes,resizable=yes,left=200,width=800,height=800");
   }
@@ -90,8 +96,8 @@ function PositionCard() {
           </div>
           <textarea className="col s12 textarea" placeholder="Notes" name="notes" onChange={(event) => handleInputChange(event)} value={position.notes || ''} ></textarea>
           <div className="input-field col s12">
-            <i className="material-icons prefix">edit</i>
-            {!position.url ?
+            <i className="material-icons prefix" id="position-url-edit" onClick={handleUrlEdit}>edit</i>
+            {!position.url || urlEditable ?
               <input name="url" id="position-url-input" className="validate" type="text" placeholder={!position.url ? 'Job Posting URL': ''} onChange={(event) => handleInputChange(event)} value={position.url || ''}></input>
             :
               <input className="url-input-linked" onClick={handleUrl} value={position.url}></input>
