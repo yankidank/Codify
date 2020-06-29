@@ -324,8 +324,11 @@ button {
 	font-size: 36px;
 }
 .company-img-src {
-  height: 94%;
-  width: 94%;
+  object-fit: scale-down;
+  object-position: center;
+  min-height:60px;
+  min-width:60px;
+  max-height:90px;
   max-width:90px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.2);
