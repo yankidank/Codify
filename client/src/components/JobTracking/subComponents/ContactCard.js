@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {deleteContact} from "../../../utils/API";
+import "cleave.js/dist/addons/cleave-phone.us";
+import Cleave from 'cleave.js/react';
 
 
 function ContactCard(props){
@@ -26,7 +28,15 @@ function ContactCard(props){
                     <label htmlFor={`contact-email-${id}`} className={email ? "active" : ""}>Email</label>
                 </div>
                 <div className="input-field col s6">
-                    <input name="phone" value={phone || ''} id={`contact-phone-${id}`} className="validate" type="text" onChange={(event) => handleInputChange(event, index, id)} />
+                    <Cleave
+                        options={{ phone: true, phoneRegionCode: "US" }}
+                        name="phone"
+                        value={phone}
+                        id={`contact-phone-${id}`}
+                        className="validate"
+                        type="text"	
+                        onChange={(event) => handleInputChange(event, index, id)}
+					/>
                     <label htmlFor={`contact-phone-${id}`} className={phone ? "active" : ""}>Phone</label>
                 </div>
                 <div className="input-field col s12">

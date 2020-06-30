@@ -12,15 +12,34 @@ function InterviewCard(props) {
       <div className="card card-padded card-position">
         <div className="interviewInputs">
           <div className="input-field col s5">
-            <Datepicker value={date} name="date" id={`datepicker interview-date-${_id}`} />
+            <Datepicker 
+              value={date} 
+              name="date" 
+              id={`datepicker interview-date-${_id}`}
+              className="validate"
+              type="text"	
+              onChange={(event) => handleInputChange(event, index, _id)}
+            />
             <label htmlFor={`interview-date-${_id}`} className={date ? "active" : ""}>Date</label>
           </div>
           <div className="input-field col s3">
-            <Timepicker value={time} name="time" id={`interview-timepicker-${_id}`} />
-            <label htmlFor={`interview-timepicker-${_id}`} className={date ? "active" : ""}>Date</label>
+            <Timepicker 
+              name="time" 
+              value={time}
+              id={`interview-time-${_id}`} 
+              className="validate"
+              type="text"	
+              onChange={(event) => handleInputChange(event, index, _id)}
+            />
+            <label htmlFor={`interview-time-${_id}`} className={time ? "active" : ""}>Time</label>
           </div>
           <div className="input-field col s4">
-            <Checkbox label="Remote" value="true" name="remote" checked={remote} />
+            <Checkbox 
+              name="remote" 
+              label="Remote" 
+              value={remote} 
+              onChange={(event) => handleInputChange(event, index, _id)}
+            />
           </div>
           {/* <Switch className="col s12 m6 l6" label1="Local" label2="Remote" value="" name="remote" checked={remote} id="" /> */}
           {/* 

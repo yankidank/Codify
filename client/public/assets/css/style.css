@@ -365,10 +365,10 @@ textarea:focus{
   width: 100%;
 }
 .col .card div textarea:not(:placeholder-shown){
-  min-height:14vh;
+  min-height:18vh;
 }
 .col .card div textarea:not(:placeholder-shown):hover{
-  height: 25vh;
+  height: 30vh;
   -webkit-transition: height 0.75s;
 	-moz-transition: height 0.75s;
 	transition: height 0.75s;
@@ -382,10 +382,41 @@ textarea.materialize-textarea:active,textarea.materialize-textarea:focus {
   border-left:0;
   outline: none;
 }
+.input-field textarea.materialize-textarea.valid, 
+.input-field textarea.materialize-textarea.valid:focus{
+  border-bottom:1px solid rgba(0, 0, 0, 0.2);
+  box-shadow:none;
+}
+input.valid:not([type]), 
+input.valid:not([type]):focus, 
+input.valid[type=text]:not(.browser-default), 
+input.valid[type=text]:not(.browser-default):focus, 
+input.valid[type=password]:not(.browser-default), 
+input.valid[type=password]:not(.browser-default):focus, 
+input.valid[type=email]:not(.browser-default), 
+input.valid[type=email]:not(.browser-default):focus, 
+input.valid[type=url]:not(.browser-default), 
+input.valid[type=url]:not(.browser-default):focus, 
+input.valid[type=time]:not(.browser-default), 
+input.valid[type=time]:not(.browser-default):focus, 
+input.valid[type=date]:not(.browser-default), 
+input.valid[type=date]:not(.browser-default):focus, 
+input.valid[type=datetime]:not(.browser-default), 
+input.valid[type=datetime]:not(.browser-default):focus, 
+input.valid[type=datetime-local]:not(.browser-default), 
+input.valid[type=datetime-local]:not(.browser-default):focus, 
+input.valid[type=tel]:not(.browser-default), 
+input.valid[type=tel]:not(.browser-default):focus, 
+input.valid[type=number]:not(.browser-default), 
+input.valid[type=number]:not(.browser-default):focus, 
+input.valid[type=search]:not(.browser-default), 
+input.valid[type=search]:not(.browser-default):focus, 
+textarea.materialize-textarea.valid, 
+textarea.materialize-textarea.valid:focus, 
+.select-wrapper.valid>input.select-dropdown,
 textarea.materialize-textarea:focus:not([readonly]){
-  border-bottom:1px solid rgba(109, 4, 48, 0.9);
-  box-shadow: 0 1px 0 0 rgba(109, 4, 48, 0.9);
-  -webkit-box-shadow: 0 1px 0 0 rgba(109, 4, 48, 0.9);
+  border-bottom: 1px solid;
+  border-image: linear-gradient(to right, #df0a6d, #da0bb8, #aa1fe0, #0713b9) 1;
 }
 .input-field>label:not(.label-icon).active {
   color:rgba(0, 0, 0, 0.4);

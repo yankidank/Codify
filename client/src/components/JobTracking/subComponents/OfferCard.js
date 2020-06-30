@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 function OfferCard(props) {
 	const { startDate, date, salary, bonus, benefits, index, _id, handleInputChange, addNewOffer} = props;
+
 	return (
 		<div className="card card-padded card-offer">
 			<div className="offerInputs">

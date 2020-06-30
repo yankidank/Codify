@@ -6,10 +6,10 @@ import './Checkbox.css';
 
 function Checkbox(props) {
 
-	const {label, value, name, checked, id} = props;
+	const {label, value, name, id} = props;
 		
 	// Track checkbox state
-	const [check, setCheck] = useState(checked);
+	const [check, setCheck] = useState(value);
 	
 	// Empty default checked state
 	let remoteChecked = '';
@@ -18,11 +18,6 @@ function Checkbox(props) {
 		remoteChecked = 'checked';
 	}
 	
-	// Change style when checked
-	const boxCheck = () => {
-		return check ? {} : {}
-	}
-
 	// Set checkbox state on click
 	const checkClick = () => {
 		setCheck(!check)
@@ -35,11 +30,9 @@ function Checkbox(props) {
 					type="checkbox"
 					value={value}
 					name={name}
-					checked={remoteChecked}
-					style={boxCheck()}
 					id={id}
+					checked={remoteChecked}
 					onChange={checkClick}
-					onClick={checkClick}
 				/>
 				<span>{label}</span>
 			</label>
@@ -49,9 +42,8 @@ function Checkbox(props) {
 
 Checkbox.propTypes = {
 	label: PropTypes.string,
-	value: PropTypes.string,
+	value: PropTypes.bool,
 	name: PropTypes.string,
-	checked: PropTypes.bool,
 	id: PropTypes.string,
 };
 

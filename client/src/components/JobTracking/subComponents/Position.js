@@ -75,7 +75,12 @@ function PositionCard() {
             <label htmlFor="position-title" className={position.position ? "active" : ""} >Job Title</label>
           </div>
           <div className="input-field col s12 m4">
-            <Checkbox label="Remote" value="true" name="remote" checked={position.remote} id="" />
+            <Checkbox 
+              label="Remote"
+              value={position.remote} 
+              name="remote" 
+              id="" 
+            />
           </div>
           {/* <Switch label1="Local" label2="Remote" value="" name="remote" checked={position.remote} id="" /> */}
           <div className="input-field col s8">
