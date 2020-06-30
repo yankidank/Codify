@@ -375,7 +375,7 @@ textarea:focus{
 }
 textarea.materialize-textarea {
   margin-top:6px;
-  padding:10px;
+  padding:10px 0;
   overflow-y: scroll;
 }
 textarea.materialize-textarea:active,textarea.materialize-textarea:focus {
@@ -655,7 +655,6 @@ textarea.materialize-textarea.valid:focus,
   box-shadow: 0 1px 0 0 #068f288c;
 }
 .url-input-linked {
-  padding:0 .75rem !important;
   color:rgba(0, 0, 0, 0.4);
   border-bottom: 1px solid rgba(255, 255, 255, 0) !important;
   cursor: default;
@@ -871,7 +870,6 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
 .card input[type=text]{
-  padding: 0 .75rem;
   box-sizing: border-box;
 }
 .input-field{
