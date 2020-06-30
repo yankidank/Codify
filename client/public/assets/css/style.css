@@ -384,7 +384,7 @@ textarea:focus{
 }
 textarea.materialize-textarea {
   margin-top:6px;
-  padding:10px 0;
+  padding:10px;
   overflow-y: scroll;
 }
 textarea.materialize-textarea:active,textarea.materialize-textarea:focus {
