@@ -422,6 +422,9 @@ textarea.materialize-textarea:focus:not([readonly]){
   border-bottom: 1px solid;
   border-image: linear-gradient(to right, #df0a6d, #da0bb8, #aa1fe0, #0713b9) 1;
 }
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea{
+  border-bottom:1px solid rgba(0, 0, 0, 0.1);
+}
 input:not([type]):focus:not([readonly]), 
 input[type=text]:not(.browser-default):focus:not([readonly]), 
 input[type=password]:not(.browser-default):focus:not([readonly]), 
@@ -437,11 +440,12 @@ input[type=search]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]),
 .input-field textarea.materialize-textarea.valid, 
 .input-field textarea.materialize-textarea.valid:focus {
-  border-bottom: 12px;
-  border-radius: 4px;
-  border-image: linear-gradient(to right, #df0a6d, #da0bb8, #aa1fe0, #0713b9) 1;
-  -webkit-box-shadow: 0px 0px 0px 1px #00000020;
+  /* 
   box-shadow: 0px 0px 0px 1px #00000020;
+  -webkit-box-shadow: 0px 0px 0px 1px #00000020;
+  border-radius: 4px;
+ */
+  border-image: linear-gradient(to right, #df0a6d, #da0bb8, #aa1fe0, #0713b9) 1;
 }
 .input-field>label:not(.label-icon).active {
   color:rgba(0, 0, 0, 0.4);
