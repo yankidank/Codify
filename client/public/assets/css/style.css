@@ -439,7 +439,10 @@ input[type=number]:not(.browser-default):focus:not([readonly]),
 input[type=search]:not(.browser-default):focus:not([readonly]), 
 textarea.materialize-textarea:focus:not([readonly]),
 .input-field textarea.materialize-textarea.valid, 
-.input-field textarea.materialize-textarea.valid:focus {
+.input-field textarea.materialize-textarea.valid:focus,
+.input-field .checkbox-wrapper:active, 
+.input-field .checkbox-wrapper:focus, 
+.input-field .checkbox-wrapper:hover {
   /* 
   box-shadow: 0px 0px 0px 1px #00000020;
   -webkit-box-shadow: 0px 0px 0px 1px #00000020;
@@ -679,9 +682,9 @@ input.valid[type=search]:not(.browser-default):focus,
 textarea.materialize-textarea.valid, 
 textarea.materialize-textarea.valid:focus, 
 .select-wrapper.valid>input.select-dropdown {
-  border-bottom: 1px solid #068f288c;
-  -webkit-box-shadow: 0 1px 0 0 #068f288c;
-  box-shadow: 0 1px 0 0 #068f288c;
+  border-bottom: linear-gradient(to right, #df0a6d, #da0bb8, #aa1fe0, #0713b9) 2;
+  box-shadow:none;
+  -webkit-box-shadow:none;
 }
 .url-input-linked {
   color:rgba(0, 0, 0, 0.4);
