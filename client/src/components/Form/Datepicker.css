@@ -21,7 +21,8 @@
 	display:none;
 }
 .datepicker-modal{
-	border-radius:10px;
+	border-radius:8px;
+	box-shadow:none;
 }
 .selects-container .select-wrapper .select-dropdown{
 	padding:0;

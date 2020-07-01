@@ -18,3 +18,7 @@
 .timepicker-close{
 	color:#000;
 }
+.timepicker-modal{
+	border-radius:8px;
+	box-shadow:none;
+}
