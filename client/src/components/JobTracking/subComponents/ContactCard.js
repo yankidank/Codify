@@ -6,9 +6,10 @@ import Cleave from 'cleave.js/react';
 
 
 function ContactCard(props){
-    const {index, handleInputChange, /* addNewContact,  */ displayName, position, email, phone, notes, id} = props;
+    const {index, handleInputChange, /*addNewContact,*/ removeContactField, displayName, position, email, phone, notes, id} = props;
 
     const handleClick = () => {
+        removeContactField(id);
         deleteContact(id);
     }
     
@@ -36,7 +37,7 @@ function ContactCard(props){
                         className="validate"
                         type="text"	
                         onChange={(event) => handleInputChange(event, index, id)}
-					/>
+                    />
                     <label htmlFor={`contact-phone-${id}`} className={phone ? "active" : ""}>Phone</label>
                 </div>
                 <div className="input-field col s12">
@@ -45,7 +46,6 @@ function ContactCard(props){
                 </div>
             </div>
             {(!id) ? '' :  <button className="btn btn-card btn-remove" onClick={handleClick}>Remove Contact</button>}
-           
         </div>
 
     )
@@ -55,7 +55,8 @@ ContactCard.propTypes = {
   jobId: PropTypes.string,
   index: PropTypes.number,
   handleInputChange: PropTypes.func,
-/*   addNewContact: PropTypes.func, */
+  addNewContact: PropTypes.func, 
+  removeContactField: PropTypes.func,
   displayName: PropTypes.string,
   position: PropTypes.string,
   email: PropTypes.string,

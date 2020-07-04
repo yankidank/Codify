@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { getContacts, updateContact, addContact } from '../../../utils/API';
 import ContactCard from './ContactCard';
+import M from 'materialize-css';
 import _ from 'lodash';
 
 function ContactCardContainer() {
@@ -42,13 +43,32 @@ function ContactCardContainer() {
     if (newContacts[index].displayName) {
       if (contactId) {
         debouncedUpdateContact(newContacts[index], contactId);
+        /* M.toast({ html: 'Saved Contact' }); */
       } else if (!postOut) {
         setPostOut(true);
         debouncedAddContact(index, newContacts[index], jobId);
+        /* M.toast({ html: 'Created New Contact' }); */
       }
     }
 
     setContacts(newContacts);
+  };
+
+  const removeContactField = (id) => {
+    const filteredContacts =  contacts.filter(function(contact) {
+      return contact._id !== id;
+    });
+    let emptyContact = {
+      _id: '',
+      displayName: '',
+      email: '',
+      phone: '',
+      position: '',
+      notes: '',
+    };
+    let newContactArr = [emptyContact, ...filteredContacts];
+    setContacts(newContactArr);
+    M.toast({ html: 'Removed Contact' });
   };
 
   const addContactField = () => {
@@ -62,6 +82,7 @@ function ContactCardContainer() {
     };
     let newContactArr = [newContact, ...contacts];
     setContacts(newContactArr);
+    M.toast({ html: 'Contact Card Added' });
   };
 
   const addNewContact = async index => {
@@ -105,8 +126,10 @@ function ContactCardContainer() {
             phone={phone}
             notes={notes}
             position={position}
-            addNewContact={addNewContact}
             handleInputChange={handleInputChange}
+            removeContactField={removeContactField}
+            addNewContact={addNewContact}
+            addContactField={addContactField}
             index={index}
           />
         );
