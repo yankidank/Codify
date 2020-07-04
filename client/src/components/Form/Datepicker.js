@@ -28,8 +28,8 @@ function Datepicker(props) {
 				console.log('Calendar Date: '+date);
 			},
     };
-			var elems = document.querySelectorAll('.datepicker');
-			M.Datepicker.init(elems, options);
+		var elems = document.querySelectorAll('.datepicker');
+		M.Datepicker.init(elems, options);
 	}, []);
 	
 	return (
