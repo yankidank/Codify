@@ -41,9 +41,9 @@ function InterviewCard(props) {
               onChange={(event) => handleInputChange(event, index, _id)}
             />
           </div>
-          {/* <Switch className="col s12 m6 l6" label1="Local" label2="Remote" value="" name="remote" checked={remote} id="" /> */}
+          {/* <Switch className="col s4" label1="Local" label2="Remote" value="" name="remote" checked={remote} id="" /> */}
           {/* 
-          <div className="input-field col s6 m4 l4">
+          <div className="input-field col s4">
             <select placeholder="Remote" id="remote" name="remote" onChange={(event) => handleInputChange(event, index, _id)} value={remote}>
               <option value="true">Remote</option>
               <option value="false">Local</option>

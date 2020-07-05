@@ -4,7 +4,7 @@ import './Switch.css';
 
 // <Switch label="Remote" value="" name="remote" checked={position.remote} id="" />
 
-function Checkbox(props) {
+function Switch(props) {
 
 	const {label1, label2, value, name, checked, id} = props;
 		
@@ -45,7 +45,7 @@ function Checkbox(props) {
 	)
 }
 
-Checkbox.propTypes = {
+Switch.propTypes = {
 	label: PropTypes.string,
 	value: PropTypes.string,
 	name: PropTypes.string,
@@ -53,4 +53,4 @@ Checkbox.propTypes = {
 	id: PropTypes.string,
 };
 
-export default Checkbox;
+export default Switch;
