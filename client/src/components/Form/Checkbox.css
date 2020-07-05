@@ -9,3 +9,6 @@
   border:2px solid rgba(0, 0, 0, 0.25);
   background-color:#fff;
 }
+.checkbox-wrapper [type="checkbox"]+span:not(.lever){
+  margin-left:6px;
+}

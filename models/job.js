@@ -43,16 +43,17 @@ const jobSchema = new Schema(
       state: {
         type: String,
       },
-      salary: Number,
-      bonus: Number,
+      remote: Boolean,
+      salary: String,
+      bonus: String,
       notes: String,
     },
     offers: [
       {
         date: Date,
         startDate: Date,
-        salary: Number,
-        bonus: Number,
+        salary: String,
+        bonus: String,
         benefits: String,
       },
     ],

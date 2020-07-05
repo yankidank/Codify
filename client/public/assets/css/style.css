@@ -7,7 +7,9 @@ body {
   background-size: cover;
   font-family: "Roboto", sans-serif;
 }
+.app-navbar-fixed nav,
 nav {
+  background-color:initial;
   background-image: url("../img/background.jpg");
   backdrop-filter: blur(5px);
   background-repeat: no-repeat;
@@ -18,8 +20,29 @@ nav {
 hr {
   border-color:#cecece4d;
 }
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #00000008;
+}
+::-webkit-scrollbar-thumb {
+  background: #00000040;  
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00000040;
+}
 .hidden {
   display: none;
+}
+#toast-container {
+  display: inline-grid;
+  position: sticky;
+  top: 0 !important;
+  left:1% !important;
+  bottom: 2% !important;
 }
 .toast {
   border-radius:6px;
@@ -32,7 +55,7 @@ hr {
 .app-navbar-fixed {
   position: -webkit-sticky;
   position:sticky;
-  top:0;
+  top:-2px;
   z-index:900;
 }
 button.nav-back {
@@ -266,7 +289,7 @@ button {
 	font-size:1.2rem;
 }
 .card-padded{
-	padding:10px;
+	padding:15px 10px 10px 10px;
 }
 .card-inner {
 	box-shadow: 0px 1px 0px 0px #0000002b;
@@ -310,8 +333,11 @@ button {
 	font-size: 36px;
 }
 .company-img-src {
-  height: 94%;
-  width: 94%;
+  object-fit: scale-down;
+  object-position: center;
+  min-height:60px;
+  min-width:60px;
+  max-height:90px;
   max-width:90px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.2);
@@ -330,6 +356,9 @@ button {
 .company-details {
   cursor: pointer;
 }
+.input-field>label {
+  color:rgba(0, 0, 0, 0.4) !important;
+}
 .card div input, .card div select {
 	border-bottom:1px solid #f1f1f1;
 }
@@ -340,14 +369,94 @@ textarea:focus{
 	outline:1px solid #4f4f4fd7;
 	box-shadow: 2px 3px 11px -10px #000
 }
-.card div textarea {
-	padding:10px;
-	border:1px solid rgba(0, 0, 0, 0.1);
-	border-radius:5px;
-	min-height: 5em;
-	max-height: 50vh;
-	width: 100%;
-	font-size:1rem;
+.col .card div textarea {
+  max-height: 50vh;
+  width: 100%;
+}
+.col .card div textarea:not(:placeholder-shown){
+  min-height:18vh;
+}
+.col .card div textarea:not(:placeholder-shown):hover{
+  height: 30vh;
+  -webkit-transition: height 0.75s;
+	-moz-transition: height 0.75s;
+	transition: height 0.75s;
+}
+textarea.materialize-textarea {
+  margin-top:6px;
+  padding:10px;
+  overflow-y: scroll;
+}
+textarea.materialize-textarea:active,textarea.materialize-textarea:focus {
+  border-left:0;
+  outline: none;
+}
+select:active,
+select:focus,
+input.valid:not([type]), 
+input.valid:not([type]):focus, 
+input.valid[type=text]:not(.browser-default), 
+input.valid[type=text]:not(.browser-default):focus, 
+input.valid[type=password]:not(.browser-default), 
+input.valid[type=password]:not(.browser-default):focus, 
+input.valid[type=email]:not(.browser-default), 
+input.valid[type=email]:not(.browser-default):focus, 
+input.valid[type=url]:not(.browser-default), 
+input.valid[type=url]:not(.browser-default):focus, 
+input.valid[type=time]:not(.browser-default), 
+input.valid[type=time]:not(.browser-default):focus, 
+input.valid[type=date]:not(.browser-default), 
+input.valid[type=date]:not(.browser-default):focus, 
+input.valid[type=datetime]:not(.browser-default), 
+input.valid[type=datetime]:not(.browser-default):focus, 
+input.valid[type=datetime-local]:not(.browser-default), 
+input.valid[type=datetime-local]:not(.browser-default):focus, 
+input.valid[type=tel]:not(.browser-default), 
+input.valid[type=tel]:not(.browser-default):focus, 
+input.valid[type=number]:not(.browser-default), 
+input.valid[type=number]:not(.browser-default):focus, 
+input.valid[type=search]:not(.browser-default), 
+input.valid[type=search]:not(.browser-default):focus, 
+textarea.materialize-textarea.valid, 
+textarea.materialize-textarea.valid:focus, 
+.select-wrapper.valid>input.select-dropdown,
+textarea.materialize-textarea:focus:not([readonly]){
+  border-bottom: 1px solid;
+  border-image: linear-gradient(to right, #df0a6d, #da0bb8, #aa1fe0, #0713b9) 1;
+}
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea{
+  border-bottom:1px solid rgba(0, 0, 0, 0.1);
+}
+input:not([type]):focus:not([readonly]), 
+input[type=text]:not(.browser-default):focus:not([readonly]), 
+input[type=password]:not(.browser-default):focus:not([readonly]), 
+input[type=email]:not(.browser-default):focus:not([readonly]), 
+input[type=url]:not(.browser-default):focus:not([readonly]), 
+input[type=time]:not(.browser-default):focus:not([readonly]), 
+input[type=date]:not(.browser-default):focus:not([readonly]), 
+input[type=datetime]:not(.browser-default):focus:not([readonly]), 
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]), 
+input[type=tel]:not(.browser-default):focus:not([readonly]), 
+input[type=number]:not(.browser-default):focus:not([readonly]), 
+input[type=search]:not(.browser-default):focus:not([readonly]), 
+textarea.materialize-textarea:focus:not([readonly]),
+.input-field textarea.materialize-textarea.valid, 
+.input-field textarea.materialize-textarea.valid:focus,
+.input-field .checkbox-wrapper:active, 
+.input-field .checkbox-wrapper:focus, 
+.input-field .checkbox-wrapper:hover {
+  /* 
+  box-shadow: 0px 0px 0px 1px #00000020;
+  -webkit-box-shadow: 0px 0px 0px 1px #00000020;
+  border-radius: 4px;
+ */
+  border-image: linear-gradient(to right, #df0a6d, #da0bb8, #aa1fe0, #0713b9) 1;
+}
+.input-field>label:not(.label-icon).active {
+  color:rgba(0, 0, 0, 0.4);
+}
+.waves-effect.waves-green .waves-ripple {
+  color:rgba(0, 0, 0, 0.4);
 }
 .card .inputs {
   padding-left: 10px;
@@ -514,6 +623,81 @@ textarea:focus{
 }
 #company-jobtitle, #company-city, #company-state {
 	height:32px;
+}
+.input-field .postfix ~ input, 
+.input-field .postfix ~ textarea, 
+.input-field .postfix ~ label, 
+.input-field .postfix ~ .validate ~ label, 
+.input-field .postfix ~ .helper-text, 
+.input-field .postfix ~ .autocomplete-content {
+  margin-right: 3rem;
+  width: 92%;
+  width: calc(100% - 3rem);
+}
+.material-icons.postfix {
+  color:rgba(0, 0, 0, 0.4);
+  text-align:center;
+  position: absolute;
+  width: 3rem;
+  font-size: 2rem;
+  -webkit-transition: color .2s;
+  transition: color .2s;
+  top: .5rem;
+  right: 0;
+}
+.material-icons.url-icon-edit:hover{
+  color:#000;
+  -webkit-transition: color .5s;
+  transition: color .5s;
+}
+.material-icons.url-icon-link,
+.material-icons.url-icon-edit{
+  cursor:pointer;
+}
+.material-icons.url-icon-link{
+  color:#000000;
+}
+input.valid:not([type]), 
+input.valid:not([type]):focus, 
+input.valid[type=text]:not(.browser-default), 
+input.valid[type=text]:not(.browser-default):focus, 
+input.valid[type=password]:not(.browser-default), 
+input.valid[type=password]:not(.browser-default):focus, 
+input.valid[type=email]:not(.browser-default), 
+input.valid[type=email]:not(.browser-default):focus, 
+input.valid[type=url]:not(.browser-default), 
+input.valid[type=url]:not(.browser-default):focus, 
+input.valid[type=time]:not(.browser-default), 
+input.valid[type=time]:not(.browser-default):focus, 
+input.valid[type=date]:not(.browser-default), 
+input.valid[type=date]:not(.browser-default):focus, 
+input.valid[type=datetime]:not(.browser-default), 
+input.valid[type=datetime]:not(.browser-default):focus, 
+input.valid[type=datetime-local]:not(.browser-default), 
+input.valid[type=datetime-local]:not(.browser-default):focus, 
+input.valid[type=tel]:not(.browser-default), 
+input.valid[type=tel]:not(.browser-default):focus, 
+input.valid[type=number]:not(.browser-default), 
+input.valid[type=number]:not(.browser-default):focus, 
+input.valid[type=search]:not(.browser-default), 
+input.valid[type=search]:not(.browser-default):focus, 
+textarea.materialize-textarea.valid, 
+textarea.materialize-textarea.valid:focus, 
+.select-wrapper.valid>input.select-dropdown {
+  border-bottom: linear-gradient(to right, #df0a6d, #da0bb8, #aa1fe0, #0713b9) 2;
+  box-shadow:none;
+  -webkit-box-shadow:none;
+}
+.url-input-linked {
+  color:rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0) !important;
+  cursor: default;
+  pointer-events: all;
+  caret-color: rgba(255, 255, 255, 0);
+  text-decoration:underline;
+}
+.input-field .material-icons.prefix.active {
+  color:#000;
 }
 /* Job Status Indicator */
 .statusBar {
@@ -706,6 +890,19 @@ p.text-center {
 .menuNav input:not([type]) {
   color: #000;
 }
+select{
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  height: 3rem;
+  width: 100%;
+  font-size: 16px;
+  margin: 0 0 8px 0;
+  padding: 0;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
 input:not([type]):focus:not([readonly]),
 select:not([type]):focus:not([readonly]),
 input[type=text]:not(.browser-default), 
@@ -720,8 +917,12 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
 .card input[type=text]{
-  padding: 0 .75rem;
   box-sizing: border-box;
+}
+.input-field{
+  position: relative;
+  margin-top:12px;
+  margin-bottom: 0;
 }
 .input-field .checkbox-wrapper {
   padding-top: 10px;
@@ -800,5 +1001,12 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 	}
 	.container-full {
 		width:100%;
-	}
+  }
+}
+@media only screen and (max-width: 993px){
+  .input-field .checkbox-wrapper {
+    padding-top:0;
+    margin-bottom: 6px;
+    margin-top:0;
+  }
 }
