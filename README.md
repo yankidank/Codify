@@ -58,7 +58,7 @@ Features currently in production include:
 
 # Deployed Application 
 
-You can visit our deployed site [here](https://codify-jobs.herokuapp.com/). 
+You can visit our deployed site [here](https://codify.works). 
 
 # Developed by
 
@@ -71,24 +71,35 @@ You can visit our deployed site [here](https://codify-jobs.herokuapp.com/).
 ### Installation 
 `npm install`
 
+`npm seed`
+
 ### Usage
-`npm start` to run on port 3000
+`npm start`
 
-### OAuth configuration
-Create a `.env` file in your root directory. Add the following lines, adding the appropriate API keys within the quotes:
+`npm start:prod`
 
-Note: you can get these from google, github, and linkedin
+`npm client` 
+
+`npm build`
+
+`npm heroku-postbuild`
+
+`npm lint`
+
+### Configuration
+Create a `.env` file in your root directory. Add the following lines and insert the appropriate API keys. Uncomment and edit necessary lines for production use on a domain.
 
 ```
+// NODE_ENV = "production"
+// DOMAIN = "https://codify.works"
+// PORT = "3000"
+// FRONTEND_PORT = "3001"
+COOKIE_KEY = ""
+MONGODB_URI = "mongodb://localhost/codify"
 GOOGLE_CLIENT_ID = ".apps.googleusercontent.com"
 GOOGLE_CLIENT_SECRET = ""
 GITHUB_CLIENT_ID = ""
 GITHUB_CLIENT_SECRET = ""
 LINKEDIN_CLIENT_ID = ""
 LINKEDIN_CLIENT_SECRET = ""
-COOKIE_KEY = ""
-MONGODB_URI = "mongodb://localhost/codify"
 ```
-
-### Production
-`npm run build` to build a production version of the application.
