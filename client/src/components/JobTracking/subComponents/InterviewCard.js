@@ -1,9 +1,12 @@
 // import React, { useEffect } from 'react';
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import Cleave from 'cleave.js/react';
+/* 
 import Timepicker from '../../Form/Timepicker'
 import Datepicker from '../../Form/Datepicker'
 import Checkbox from '../../Form/Checkbox'
+ */
 
 function InterviewCard(props) {
   const {handleInputChange, time, addNewInterview, date, remote, street, city, state, notes, index, _id} = props;
@@ -11,6 +14,19 @@ function InterviewCard(props) {
   return (
       <div className="card card-padded card-position">
         <div className="interviewInputs">
+          <div className="input-field col s5">
+            <Cleave options={{date:true, delimiter: '/', datePattern:['Y', 'm', 'd']}} className="datepicker" placeholder="2020/09/15" onChange={(event) => handleInputChange(event, index, _id)} value={date} name="date"/>
+          </div>
+          <div className="input-field col s3">
+            <Cleave options={{time: true, timePattern: ['h', 'm']}} className="" placeholder="10:30" onChange={(event) => handleInputChange(event, index, _id)} name="time" value={time}/>
+          </div>
+          <div className="input-field col s4">
+            <select placeholder="Remote" id="remote" name="remote" onChange={(event) => handleInputChange(event, index, _id)} value={remote}>
+              <option value="true">Remote</option>
+              <option value="false">Local</option>
+            </select>
+          </div>
+          {/* 
           <div className="input-field col s5">
             <Datepicker 
               value={date} 
@@ -41,15 +57,7 @@ function InterviewCard(props) {
               onChange={(event) => handleInputChange(event, index, _id)}
             />
           </div>
-          {/* <Switch className="col s4" label1="Local" label2="Remote" value="" name="remote" checked={remote} id="" /> */}
-          {/* 
-          <div className="input-field col s4">
-            <select placeholder="Remote" id="remote" name="remote" onChange={(event) => handleInputChange(event, index, _id)} value={remote}>
-              <option value="true">Remote</option>
-              <option value="false">Local</option>
-            </select>
-          </div>
-           */}
+          */}
           <div className="input-field col s12">
             <input name="street" value={street} id={`interview-street-${_id}`} className="validate" type="text" onChange={(event) => handleInputChange(event, index, _id)}></input>
             <label htmlFor={`interview-street-${_id}`} className={street ? "active" : ""}>Street Address</label>

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {getPosition, updatePosition, deleteJob} from "../../../utils/API";
 import { useParams } from 'react-router-dom';
 import Cleave from 'cleave.js/react';
-import Checkbox from '../../Form/Checkbox'
+// import Checkbox from '../../Form/Checkbox';
 import _ from 'lodash';
 import {convertMoneyToNumber} from '../../../utils/formatCleave';
 import M from "materialize-css";
@@ -74,6 +74,13 @@ function PositionCard() {
             <input name="position" value={position.position || ""} id="position-title" className="validate" type="text" onChange={(event) => handleInputChange(event)} />
             <label htmlFor="position-title" className={position.position ? "active" : ""} >Job Title</label>
           </div>
+          <div className="input-field col s4">
+            <select placeholder="Remote" id="remote" name="remote" onChange={(event) => handleInputChange(event)} value={position.remote}>
+              <option value="true">Remote</option>
+              <option value="false">Local</option>
+            </select>
+          </div>
+          {/* 
           <div className="input-field col s12 m4">
             <Checkbox 
               label="Remote"
@@ -82,6 +89,7 @@ function PositionCard() {
               id="" 
             />
           </div>
+           */}
           {/* <Switch label1="Local" label2="Remote" value="" name="remote" checked={position.remote} id="" /> */}
           <div className="input-field col s8">
             <input name="city" value={position.city || ""} id="position-city" className="validate" type="text" onChange={(event) => handleInputChange(event)} />

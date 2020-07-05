@@ -391,6 +391,8 @@ textarea.materialize-textarea:active,textarea.materialize-textarea:focus {
   border-left:0;
   outline: none;
 }
+select:active,
+select:focus,
 input.valid:not([type]), 
 input.valid:not([type]):focus, 
 input.valid[type=text]:not(.browser-default), 
@@ -887,6 +889,19 @@ p.text-center {
 }
 .menuNav input:not([type]) {
   color: #000;
+}
+select{
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  height: 3rem;
+  width: 100%;
+  font-size: 16px;
+  margin: 0 0 8px 0;
+  padding: 0;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
 }
 input:not([type]):focus:not([readonly]),
 select:not([type]):focus:not([readonly]),
