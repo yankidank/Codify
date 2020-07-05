@@ -46,7 +46,8 @@ function Switch(props) {
 }
 
 Switch.propTypes = {
-	label: PropTypes.string,
+	label1: PropTypes.string,
+	label2: PropTypes.string,
 	value: PropTypes.string,
 	name: PropTypes.string,
 	checked: PropTypes.bool,
