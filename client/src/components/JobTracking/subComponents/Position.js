@@ -70,7 +70,7 @@ function PositionCard() {
       </div>
       <div className="card card-padded card-position">
         <div className="positionInputs">
-          <div className="input-field col s12 m8">
+          <div className="input-field col s8">
             <input name="position" value={position.position || ""} id="position-title" className="validate" type="text" onChange={(event) => handleInputChange(event)} />
             <label htmlFor="position-title" className={position.position ? "active" : ""} >Job Title</label>
           </div>
