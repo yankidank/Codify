@@ -80,7 +80,9 @@ You can visit our deployed site [here](https://codify.works).
 
 `npm run client` 
 
-`npm run build`
+`npm run build` Creates production build in the client directory
+
+`npm run deploy` Builds then serves server.js using PM2
 
 `npm run heroku-postbuild`
 
