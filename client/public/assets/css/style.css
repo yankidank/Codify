@@ -337,13 +337,15 @@ button {
   object-position: center;
   min-height:60px;
   min-width:60px;
-  max-height:90px;
-  max-width:90px;
+  max-height:80px;
+  max-width:80px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.2);
 }
+.container-home-jobs .company-img-src,
 .card-jobslist .container .row .col .company-img-src {
-  max-width:60px;
+  max-height:68px;
+  max-width:68px;
 }
 .card-filter {
   display: flex;
