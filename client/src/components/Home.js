@@ -204,11 +204,26 @@ function Home() {
               </div>
               <div className="card card-padded card-contact">
                 <div className="contactInputs">
-                  <input className="col s6 m6 l6" placeholder="Full Name"></input>
-                  <input className="col s6 m6 l6" placeholder="Position"></input>
-                  <input className="col s6 m6 l6" placeholder="Email@address.tld"></input>
-                  <input className="col s6 m6 l6" placeholder="(800) 555-1234"></input>
-                  <textarea placeholder="Notes"></textarea>
+                  <div className="input-field col s6">
+                      <input name="home-contact-name" id="home-contact-name" className="validate" type="text" />
+                      <label htmlFor="home-contact-name">Name</label>
+                  </div>
+                  <div className="input-field col s6">
+                      <input name="home-contact-position" id="home-contact-position" className="validate" type="text" />
+                      <label htmlFor="home-contact-position">Position</label>
+                  </div>
+                  <div className="input-field col s6">
+                      <input name="home-contact-email" id="home-contact-email" className="validate" type="text" />
+                      <label htmlFor="home-contact-email">Email</label>
+                  </div>
+                  <div className="input-field col s6">
+                      <input name="home-contact-phone" id="home-contact-phone" className="validate" type="text" />
+                      <label htmlFor="home-contact-phone">Phone</label>
+                  </div>
+                  <div className="input-field col s12">
+                      <textarea name="home-contact-textarea" id="home-contact-textarea" className="validate materialize-textarea" type="text" />
+                      <label htmlFor="home-contact-textarea">Notes</label>
+                  </div>
                 </div>
               </div>
             </div>
