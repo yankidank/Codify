@@ -67,29 +67,25 @@ You can visit our deployed site [here](https://codify.works).
 * Elliot Fouts - [Portfolio](https://elliotfouts.github.io/portfolio-2/) | [GitHub](https://github.com/elliotfouts)
 * Ana Valdivia - [Portfolio](http://www.anavaldivia.com/) | [GitHub](https://github.com/anabee)
 
-# To set up a local version
-### Installation 
-`npm install`
+# How to Use
+## Setup 
+`npm run install` install node_modules
 
-`npm seed`
+`npm run seed` seed the database
 
-### Usage
-`npm run start`
+## Configure
 
-`npm run start:prod`
+### OAuth
+To authenticate users, you will need to create, configure, and set OAuth API keys for GitHub, Google, and LinkedIn. Each service has its own callback URL that needs to be set from the appropriate API settings pages. These URLs can be set as either HTTP or HTTPS. Next is an example of the URLs as used by the codify.works domain name. 
 
-`npm run client` 
+https://codify.works`/auth/github/callback`
 
-`npm run build` Creates production build in the client directory
+https://codify.works`/auth/google/callback`
 
-`npm run deploy` Builds then serves server.js using PM2
+https://codify.works`/auth/linkedin/callback`
 
-`npm run heroku-postbuild`
-
-`npm run lint`
-
-### Configuration
-Create a `.env` file in your root directory. Add the following lines and insert the appropriate API keys. Uncomment and edit necessary lines for production use on a domain.
+### .env File
+The dotenv npm package allows us to store private settings in a `.env` file that sits in the root directory of the application. Create the .env file and add the following lines, inserting your own API keys. Uncomment and edit necessary lines for production use on a domain.
 
 ```
 // NODE_ENV = "production"
@@ -105,3 +101,18 @@ GITHUB_CLIENT_SECRET = ""
 LINKEDIN_CLIENT_ID = ""
 LINKEDIN_CLIENT_SECRET = ""
 ```
+
+## Serve
+`npm run start`
+
+`npm run start:prod`
+
+`npm run client` 
+
+`npm run build` create a production build in the client directory
+
+`npm run deploy` build and serve server.js using PM2
+
+`npm run heroku-postbuild` create a build after deploying to heroku
+
+`npm run lint` analyze source code for errors
