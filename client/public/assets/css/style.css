@@ -160,8 +160,7 @@ select {
 	margin-bottom: 35px;
 }
 .card-add-job {
-  width:60%;
-  min-width: 420px;
+  max-width: 720px;
 }
 .menuNav .row .col.card-title-add-job {
   margin-bottom: -15px;
