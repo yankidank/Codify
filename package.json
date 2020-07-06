@@ -10,6 +10,7 @@
     "client": "cd client && npm run start",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
+    "deploy": "npm run build && pm2 start server.js --name codify -- --port 3000 --watch",
     "heroku-postbuild": "npm run build",
     "seed": "node scripts/seedDB.js",
     "test": "npm run lint",

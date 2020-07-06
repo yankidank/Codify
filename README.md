@@ -74,17 +74,19 @@ You can visit our deployed site [here](https://codify.works).
 `npm seed`
 
 ### Usage
-`npm start`
+`npm run start`
 
-`npm start:prod`
+`npm run start:prod`
 
-`npm client` 
+`npm run client` 
 
-`npm build`
+`npm run build` Creates production build in the client directory
 
-`npm heroku-postbuild`
+`npm run deploy` Builds then serves server.js using PM2
 
-`npm lint`
+`npm run heroku-postbuild`
+
+`npm run lint`
 
 ### Configuration
 Create a `.env` file in your root directory. Add the following lines and insert the appropriate API keys. Uncomment and edit necessary lines for production use on a domain.
