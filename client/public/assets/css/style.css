@@ -76,6 +76,10 @@ nav .brand-logo {
 .container-full {
   width: 100%;
 }
+.card .container-full{
+  overflow: hidden;
+  width: 100%;
+}
 .container-home-jobs::after {
 	content: " ";
   z-index: 10;
@@ -334,17 +338,10 @@ button {
 .company-img-src {
   object-fit: scale-down;
   object-position: center;
-  min-height:60px;
-  min-width:60px;
-  max-height:80px;
-  max-width:80px;
+  height:58px;
+  width:58px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.2);
-}
-.container-home-jobs .company-img-src,
-.card-jobslist .container .row .col .company-img-src {
-  max-height:68px;
-  max-width:68px;
 }
 .card-filter {
   display: flex;
@@ -356,6 +353,9 @@ button {
 .company-image,
 .company-details {
   cursor: pointer;
+}
+.company-details input:disabled {
+  color:#fff;
 }
 .input-field>label {
   color:rgba(0, 0, 0, 0.4) !important;
@@ -591,6 +591,14 @@ textarea.materialize-textarea:focus:not([readonly]),
 	text-align:center;
 	justify-content: center;
 	justify-items: center;
+}
+.one-company-image .company-img-src {
+  height:76%;
+  width:76%;
+  min-height:58px;
+  min-width:58px;
+  max-height:100px;
+  max-width:100px;
 }
 .company-image {
   display: flex;
@@ -1000,9 +1008,6 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
 	.container {
 		width:75%;
 	}
-	.container-full {
-		width:100%;
-  }
 }
 @media only screen and (max-width: 993px){
   .input-field .checkbox-wrapper {
