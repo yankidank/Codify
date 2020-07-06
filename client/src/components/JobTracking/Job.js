@@ -15,7 +15,6 @@ function Saved() {
   const { id } = useParams();
   const [currentStatus, setCurrentStatus ] = useState( "saved")
 
-
   useEffect(() => {
 		(async () => {
       let retrievedStatus = await getJob(id);
@@ -62,6 +61,7 @@ function Saved() {
       <NavBar />
       <div className="container job-container">
         <div className="row">
+          <CompanyInfo setStatus = {setCurrentStatus} />
           <StatusBar
             status ={currentStatus}
             first="Saved"
@@ -69,7 +69,6 @@ function Saved() {
             third="Interview"
             fourth="Offer"
           />
-          <CompanyInfo setStatus = {setCurrentStatus} />
         </div>
         <div className="row">
           <div className="card-container">

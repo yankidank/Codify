@@ -50,7 +50,8 @@ function CompanyInfo(props) {
         let retrievedPosition = await getJob(id);
 	
         if(retrievedPosition){
-          setPosition({"companyName": retrievedPosition.data.company.displayName, 
+          setPosition({
+            "companyName": retrievedPosition.data.company.displayName, 
             "position": retrievedPosition.data.post.position,
             "city": retrievedPosition.data.post.city,
             "state": retrievedPosition.data.post.state,
