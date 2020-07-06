@@ -9,7 +9,7 @@ function CompanyInfo(props) {
     companyName: "",
     position: "",
     city: "",
-    state: "", 
+    state: "",
     status: ""
   });
   
@@ -65,8 +65,8 @@ function CompanyInfo(props) {
     // Change Status Menu
     let dropdowns = document.querySelectorAll('.dropdown-trigger');
     let options = {
-        inDuration: 300,
-        outDuration: 300,
+        inDuration: 250,
+        outDuration: 150,
         hover: false,
         coverTrigger: false, // Displays dropdown below the button
     };
@@ -83,10 +83,9 @@ function CompanyInfo(props) {
         </div>
         <div className="col s12 m6 l7 company-details">
           <div className="row">
-            <input disabled className="col s12 m12 l12 company-input" id="company-name" placeholder="Company Name" defaultValue={position.companyName || ""}></input>
-            <input disabled className="col s12 m12 l12 company-input" id="company-jobtitle" placeholder="Position Title" defaultValue={position.position || ""}></input>
-            <input disabled className="col s12 m5 l4 company-input" id="company-city" placeholder="City" defaultValue={position.city || ""}></input>
-            <input disabled className="col s12 m5 l4 company-input" id="company-state" placeholder="State" defaultValue={position.state || ""}></input>
+            <h2 className="col s12 m12 l12 company-input" id="company-name">{position.companyName || ""}</h2>
+            <h3 className="col s12 m12 l12 company-input" id="company-jobtitle">{position.position || ""}</h3>
+            <h3 className="col s12 m5 l4 company-input" id="company-location">{position.city || ""}{position.city && position.state ? ", " : ""}{position.state || ""}</h3>
           </div>
         </div>
         <div className="col s12 m4 l3 btn-status" id="status-btn">
@@ -108,7 +107,7 @@ function CompanyInfo(props) {
 }
 
 CompanyInfo.propTypes = {
-  setStatus: PropTypes.func, 
+  setStatus: PropTypes.func,
 }
 
 export default CompanyInfo;
