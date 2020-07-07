@@ -1,16 +1,29 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-
-const handleLogout = () => {
-	axios.get('/auth/logout');
-};
+import {axiosInstance} from '../utils/API';
 
 function NavBar() {
+
+  const handleLogout = () => {
+    axios.get('/auth/logout');
+  };
+
+  const [isAuthenticated, setAuthenticated] = useState(false);
+  
+  useEffect(() => {
+    axiosInstance.get('/auth/isauthenticated').then(({ data: { user } }) => {
+      if (user !== undefined) {
+        setAuthenticated(true);
+      } else {
+        setAuthenticated(false);
+      }
+    });
+  }, []);
+  
 	// Menu back button
 	const handleBack = () => {
 		if (document.referrer.indexOf(window.location.host) !== -1) {
 			window.history.go(-1);
-			//window.history.back();
 			return false;
 		} else {
 			window.location.href = '/';
@@ -29,26 +42,31 @@ function NavBar() {
           >
             <img src="/assets/img/icon-nav-back.png" alt="← Back" />
           </button>
-          <a href="/" className="brand-logo center">
+          <a href={isAuthenticated ? "/dashboard" : "/"} className="brand-logo center">
             Cōdify
           </a>
-          <ul className="right hide-on-med-and-down">
-            <li>
-              <a href="/dashboard">Dashboard</a>
-            </li>
-            <li>
-              <a href="/jobs">Your Jobs</a>
-            </li>
-            <li>
-              <a href="/jobs/add">Add Job</a>
-            </li>
-            <li>
-              <a href="/menu/login">Login</a>
-            </li>
-            <li>
-              <a href="/" onClick={handleLogout} >Logout</a>
-            </li>
-          </ul>
+          { isAuthenticated ?
+            <ul className="right hide-on-med-and-down">
+              <li>
+                <a href="/dashboard">Dashboard</a>
+              </li>
+              <li>
+                <a href="/jobs">Your Jobs</a>
+              </li>
+              <li>
+                <a href="/jobs/add">Add Job</a>
+              </li>
+              <li>
+                <a href="/" onClick={handleLogout} >Logout</a>
+              </li>
+            </ul>
+          :
+            <ul className="right hide-on-med-and-down">
+              <li>
+                <a href="/menu/login">Login</a>
+              </li>
+            </ul>
+          }
           <a
             href="/menu"
             id="menu-trigger"

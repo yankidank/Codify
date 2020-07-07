@@ -17,16 +17,21 @@ function Dashboard() {
 
   useEffect(() => {
     (async () => {
-      const jobs = await getAllJobs();
-      const statusReport = await getStatusReport();
-      // const communicationReport = await getCommunicationReport();
 
+      const jobs = await getAllJobs();
       setJobs(jobs);
+
+      const statusReport = await getStatusReport();
       setStatusReport(statusReport);
+
+      // const communicationReport = await getCommunicationReport();
       // setcommunicationReport(communicationReport);
+
       setLoading(false);
+
     })();
   }, []);
+
   return (
     <div>
       <NavBar />
@@ -42,6 +47,6 @@ function Dashboard() {
 
 Dashboard.propTypes = {
 	jobs: PropTypes.object,
-  };
+};
 
 export default Dashboard;

@@ -218,7 +218,9 @@ select {
 	align-self: center;
 	justify-content: center;
 	justify-items: center;
-	display: flex;
+  display: flex;
+  margin-top: 15px;
+  margin-bottom:15px;
 }
 #dropdown-status .dropdown-ended {
   color:#00000061;
@@ -350,8 +352,7 @@ button {
   opacity: 0.4;
   cursor: pointer;
 }
-.company-image,
-.company-details {
+.company-image{
   cursor: pointer;
 }
 .company-details input:disabled {
@@ -628,10 +629,11 @@ textarea.materialize-textarea:focus:not([readonly]),
 }
 .company-details #company-name {
   font-size: 2rem;
-  margin-top: 8px;
+  margin-top: 15px;
+  margin-bottom:8px;
 }
-#company-jobtitle, #company-city, #company-state {
-	height:32px;
+#company-jobtitle, #company-location {
+	height:2rem;
 }
 .input-field .postfix ~ input, 
 .input-field .postfix ~ textarea, 
@@ -983,7 +985,7 @@ input[type=text]:not(.browser-default):focus:not([readonly]) {
   margin-bottom:10px;
 }
 @media screen and (max-width:600px) {
-	.company-details #company-name, .company-details #company-jobtitle, .company-details #company-city, .company-details #company-state {
+	.company-details #company-name, .company-details #company-jobtitle, .company-details #company-location {
 		text-align:center;
 	}
 
