@@ -64,7 +64,7 @@ function Saved() {
           <CompanyInfo 
             id={id}
             status={currentStatus}
-            setStatus = {setCurrentStatus} 
+            setStatus={setCurrentStatus} 
           />
           <StatusBar
             id={id}
