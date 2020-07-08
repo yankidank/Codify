@@ -727,6 +727,12 @@ textarea.materialize-textarea.valid:focus,
 	font-weight:300;
 	color: rgba(255, 255, 255, 0.5);
 }
+.statusBar .col p a {
+  color:#fff;
+}
+.statusBar .col p a:hover {
+  color:#039be5;
+}
 .circle-status{
 	text-align: center;
 	display:inline-block;

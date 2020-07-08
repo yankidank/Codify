@@ -3,13 +3,12 @@ import axios from 'axios';
 import {axiosInstance} from '../utils/API';
 
 function NavBar() {
+  const [isAuthenticated, setAuthenticated] = useState(false);
 
   const handleLogout = () => {
     axios.get('/auth/logout');
   };
 
-  const [isAuthenticated, setAuthenticated] = useState(false);
-  
   useEffect(() => {
     axiosInstance.get('/auth/isauthenticated').then(({ data: { user } }) => {
       if (user !== undefined) {
