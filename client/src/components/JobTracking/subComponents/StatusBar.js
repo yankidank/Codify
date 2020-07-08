@@ -1,7 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import {updateStatus} from "../../../utils/API";
 
 function StatusBar(props) {
+
+  const [position, setPosition] = useState({
+    companyName: "",
+    position: "",
+    city: "",
+    state: "",
+    status: ""
+  });
+  
+  const {id} = props;
+
+  const setStatus = (selection)=>{
+    const type = selection
+    updateStatus(type, id);
+    setPosition({...position, "status": type});
+    props.setStatus(type)    
+  }
 
   const stateClass = {};
   const activeClass = {};
@@ -67,8 +85,15 @@ function StatusBar(props) {
   return (
     <div className="col s12 m12 l12">
       <div className="row statusBar">
-        <div className={activeClass.one}>
-          <p>{props.first}</p>
+        <div className={activeClass.one}>{}
+          <p>
+            <a 
+              href={`#${props.first.toLowerCase()}`} 
+              onClick={()=>setStatus(props.first.toLowerCase())}
+            >
+              {props.first}
+            </a>
+          </p>
           <div className="circle-status">
             <div className="row">
               <div className="col s6 m6 l6 circle-connection circle-inactive">
@@ -77,10 +102,22 @@ function StatusBar(props) {
               </div>
             </div>
           </div>
-          <div className="circle-inner" id="circle-one"></div>
+          <a 
+            href={`#${props.first.toLowerCase()}`} 
+            onClick={()=>setStatus(props.first.toLowerCase())}
+          >
+            <div className="circle-inner" id="circle-one"></div>
+          </a>
         </div>
         <div className={activeClass.two}>
-          <p>{props.second}</p>
+          <p>
+            <a 
+              href={`#${props.second.toLowerCase()}`} 
+              onClick={()=>setStatus(props.second.toLowerCase())}
+            >
+              {props.second}
+            </a>
+          </p>
           <div className="circle-status">
             <div className="row">
               <div className={stateClass.two}>
@@ -89,10 +126,22 @@ function StatusBar(props) {
               </div>
             </div>
           </div>
-          <div className="circle-inner" id="circle-two"></div>
+          <a 
+            href={`#${props.second.toLowerCase()}`} 
+            onClick={()=>setStatus(props.second.toLowerCase())}
+          >
+            <div className="circle-inner" id="circle-two"></div>
+          </a>
         </div>
         <div className={activeClass.three}>
-          <p>{props.third}</p>
+          <p>
+            <a 
+              href={`#${props.third.toLowerCase()}`} 
+              onClick={()=>setStatus(props.third.toLowerCase())}
+            >
+              {props.third}
+            </a>
+          </p>
           <div className="circle-status">
             <div className="row">
               <div className={stateClass.four}>
@@ -101,10 +150,22 @@ function StatusBar(props) {
               </div>
             </div>
           </div>
-          <div className="circle-inner" id="circle-three"></div>
+          <a 
+            href={`#${props.third.toLowerCase()}`} 
+            onClick={()=>setStatus(props.third.toLowerCase())}
+          >
+            <div className="circle-inner" id="circle-three"></div>
+          </a>
         </div>
         <div className={activeClass.four}>
-          <p>{props.fourth}</p>
+          <p>
+            <a 
+              href={`#${props.fourth.toLowerCase()}`} 
+              onClick={()=>setStatus(props.fourth.toLowerCase())}
+            >
+              {props.fourth}
+            </a>
+          </p>
           <div className="circle-status">
             <div className="row">
               <div className={stateClass.six}>
@@ -113,7 +174,12 @@ function StatusBar(props) {
               </div>
             </div>
           </div>
-          <div className="circle-inner" id="circle-four"></div>
+          <a 
+            href={`#${props.fourth.toLowerCase()}`} 
+            onClick={()=>setStatus(props.fourth.toLowerCase())}
+          >
+            <div className="circle-inner" id="circle-four"></div>
+          </a>
         </div>
       </div>
     </div>
@@ -121,8 +187,9 @@ function StatusBar(props) {
 }
 
 StatusBar.propTypes = {
+  id: PropTypes.string,
   status: PropTypes.string,
-  state: PropTypes.string,
+  setStatus: PropTypes.func,
   first: PropTypes.string,
   second: PropTypes.string,
   third: PropTypes.string,

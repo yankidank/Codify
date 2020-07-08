@@ -61,9 +61,15 @@ function Saved() {
       <NavBar />
       <div className="container job-container">
         <div className="row">
-          <CompanyInfo setStatus = {setCurrentStatus} />
+          <CompanyInfo 
+            id={id}
+            status={currentStatus}
+            setStatus = {setCurrentStatus} 
+          />
           <StatusBar
-            status ={currentStatus}
+            id={id}
+            status={currentStatus}
+            setStatus={setCurrentStatus}
             first="Saved"
             second="Applied"
             third="Interview"

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import M from "materialize-css";
 import {getJob, updateStatus} from "../../../utils/API";
-import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 function CompanyInfo(props) {
@@ -13,7 +12,7 @@ function CompanyInfo(props) {
     status: ""
   });
   
-  const {id} = useParams();
+  const {id, status} = props;
 
   const setStatus = (selection)=>{
     const type = selection
@@ -65,10 +64,10 @@ function CompanyInfo(props) {
     // Change Status Menu
     let dropdowns = document.querySelectorAll('.dropdown-trigger');
     let options = {
-        inDuration: 250,
-        outDuration: 150,
-        hover: false,
-        coverTrigger: false, // Displays dropdown below the button
+      inDuration: 250,
+      outDuration: 150,
+      hover: false,
+      coverTrigger: false, // Displays dropdown below the button
     };
     M.Dropdown.init(dropdowns, options);
   }, []);
@@ -89,8 +88,8 @@ function CompanyInfo(props) {
           </div>
         </div>
         <div className="col s12 m4 l3 btn-status" id="status-btn">
-          <a id="status-menu" className={`dropdown-trigger btn btn-${position.status}`} href='#{status}' data-target='dropdown-status'>
-            {position.status}
+          <a id="status-menu" className={`dropdown-trigger btn btn-${status}`} href={`#${status}`} data-target='dropdown-status'>
+            {status}
             <i className="btn-icon material-icons">keyboard_arrow_down</i>
           </a>
           <ul id="dropdown-status" className="dropdown-content">
@@ -107,6 +106,8 @@ function CompanyInfo(props) {
 }
 
 CompanyInfo.propTypes = {
+  id: PropTypes.string,
+  status: PropTypes.string,
   setStatus: PropTypes.func,
 }
 
