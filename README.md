@@ -76,13 +76,13 @@ You can visit our deployed site [here](https://codify.works).
 ## Configure
 
 ### OAuth
-To authenticate users, you will need to create, configure, and set OAuth API keys for GitHub, Google, and LinkedIn. Each service has its own callback URL that needs to be set from the appropriate API settings pages. These URLs can be set as either HTTP or HTTPS. Next is an example of the URLs as used by the codify.works domain name. 
+To authenticate users, you will need to create, configure, and set OAuth API keys for GitHub, Google, and LinkedIn. Each service has its own callback URL that needs to be set from the appropriate API settings pages. These URLs can be set as either HTTP or HTTPS. Below are the callback URLs (don't forget to include your domain at the start).
 
-https://codify.works`/auth/github/callback`
+`/auth/github/callback`
 
-https://codify.works`/auth/google/callback`
+`/auth/google/callback`
 
-https://codify.works`/auth/linkedin/callback`
+`/auth/linkedin/callback`
 
 ### .env File
 The dotenv npm package allows us to store private settings in a `.env` file that sits in the root directory of the application. Create the .env file and add the following lines, inserting your own API keys. Uncomment and edit necessary lines for production use on a domain.
