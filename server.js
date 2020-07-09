@@ -63,6 +63,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/codify', {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true,
+  useFindAndModify: false,
 });
 
 // app.use('/api', protectApi, apiRoutes);
