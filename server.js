@@ -11,7 +11,6 @@ require('./config/passport-linkedin-config');
 // NPM modules
 const express = require('express');
 const path = require('path');
-// const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
@@ -58,6 +57,7 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, 'client/build/index.html'));
   });
 }
+
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/codify', {
   useUnifiedTopology: true,
@@ -66,8 +66,10 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/codify', {
   useFindAndModify: false,
 });
 
-// app.use('/api', protectApi, apiRoutes);
-
 app.listen(PORT, function () {
-  console.log(`🌎 ==> API server now on port ${PORT}!`);
+  console.log(`API server on port ${PORT}!`);
 });
+
+// Start a Puppeteer proxy server for web scraping
+const puppeteerProxy = require('./utils/puppeteer');
+puppeteerProxy();

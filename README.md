@@ -92,6 +92,7 @@ The dotenv npm package allows us to store private settings in a `.env` file that
 // DOMAIN = "https://codify.works"
 // PORT = "3000"
 // FRONTEND_PORT = "3001"
+PUPPETEER_PORT = "4000"
 COOKIE_KEY = ""
 MONGODB_URI = "mongodb://localhost/codify"
 GOOGLE_CLIENT_ID = ".apps.googleusercontent.com"
