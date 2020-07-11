@@ -1,3 +1,9 @@
+// puppeteer.js
+// ------------
+// The file serves a proxy server for retrieving data, and returns a JSON object
+// Supports: BuiltIn[City].com, Indeed.com, LinkedIn, SimplyHired, Startup.Jobs, and ZipRecruiter  
+// Example: localhost:4000/scrape?url=[Supported Website]
+
 require('dotenv').config();
 const express = require('express');
 
@@ -33,7 +39,7 @@ function puppeteerProxy() {
       const t0 = performance.now(); // Start performance timer
 
       let pageObject = {}; // Holds job details for final output
-      let [position, positionErr, company, companyErr, city, cityErr, state, stateErr, remote, remoteErr, description, descriptionErr, salary, salaryErr] = '';
+      let [position, positionErr, company, companyErr, city, cityErr, state, stateErr, country, countryErr, remote, remoteErr, description, descriptionErr, salary, salaryErr] = '';
       
       // Retrieve the job post URL
       const scrapeUrl = req.originalUrl;
@@ -116,8 +122,8 @@ function puppeteerProxy() {
 
         [city, cityErr] = await handle(page.evaluate(() => {
           var location = document.querySelectorAll('.jobListing__main__meta__location')[0].innerText;
-          const cityArr = location.split(',');
-          return cityArr[0];
+          const locationArr = location.split(',');
+          return locationArr[0];
         }));
 
         [remote, remoteErr] = await handle(page.evaluate(() => {
@@ -158,9 +164,9 @@ function puppeteerProxy() {
   /*    
         [city, cityErr] = await handle(page.evaluate(() => {
           const location = document.querySelectorAll('.job_location .job_location_city')[0].innerText;
-          const cityArr = location.split(',');
-          console.log('cityArr 0:'+cityArr[0])
-          return capitalizeWords(cityArr[0]);
+          const locationArr = location.split(',');
+          console.log('locationArr 0:'+locationArr[0])
+          return capitalizeWords(locationArr[0]);
         })); 
   */
         const cityStartId = '/-in-';
@@ -203,8 +209,8 @@ function puppeteerProxy() {
 
         [city, cityErr] = await handle(page.evaluate(() => {
           const location = document.querySelectorAll('.jobsearch-InlineCompanyRating div')[2].innerText;
-          const cityArr = location.split(',');
-          return cityArr[0];
+          const locationArr = location.split(',');
+          return locationArr[0];
         }));
 
         [state, stateErr] = await handle(page.evaluate(() => {
@@ -234,12 +240,35 @@ function puppeteerProxy() {
         }));
 
         [city, cityErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('h3.topcard__flavor-row span')[1].innerText;
+          const location = document.querySelectorAll('h3.topcard__flavor-row span')[1].innerText;
+          if (location.includes(',')){
+            const locationArr = location.split(',');
+            return locationArr[0];
+          } else {
+            return location;
+          }
+        }));
+
+        [state, stateErr] = await handle(page.evaluate(() => {
+          const location = document.querySelectorAll('h3.topcard__flavor-row span')[1].innerText;
+          if (location.match(/,/g).length === 1){
+            const locationArr = location.split(','); 
+            return locationArr[1];
+          }
+        }));
+
+        [country, countryErr] = await handle(page.evaluate(() => {
+          const location = document.querySelectorAll('h3.topcard__flavor-row span')[1].innerText;
+          const locationArr = location.split(','); 
+          if (location.match(/,/g).length === 2){
+            return locationArr[2];
+          }
         }));
         
         [description, descriptionErr] = await handle(page.evaluate(() => {
           return document.querySelectorAll('.show-more-less-html__markup')[0].innerText;
         }));
+        
       } else if (simplyHired) {
         console.log('SimplyHired');
         await page.waitForSelector('.viewjob-content');
@@ -255,8 +284,8 @@ function puppeteerProxy() {
   
         [city, cityErr] = await handle(page.evaluate(() => {
           const location = document.querySelectorAll('.viewjob-header-companyInfo .viewjob-labelWithIcon')[1].innerText;
-          const cityArr = location.split(',');
-          return cityArr[0];
+          const locationArr = location.split(',');
+          return locationArr[0];
         }));
 
         [state, stateErr] = await handle(page.evaluate(() => {
@@ -306,6 +335,14 @@ function puppeteerProxy() {
       } else {
         if (state){ 
           pageObject.state = state;
+        }
+      }
+
+      if(countryErr){
+        throw new Error('Could not fetch State');
+      } else {
+        if (country){ 
+          pageObject.country = country;
         }
       }
 
