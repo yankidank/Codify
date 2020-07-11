@@ -5,6 +5,15 @@ import M from "materialize-css";
 require('dotenv').config();
 
 function AddJob() {
+  const [autofillBtn, setAutofillBtn] = useState('hidden'); // Hide button until data is loaded
+  const [autofillCheck, setAutofillCheck] = useState('hidden'); // Track if form fields have been autofilled
+  const [scrape, setScrape] = useState({
+    companyName: "",
+    position: "",
+    city: "",
+    state: "",
+    url: ""
+  });
   const [post, setPost] = useState({
     companyName: "",
     position: "",
@@ -14,40 +23,76 @@ function AddJob() {
     url: ""
   });
 
-  var getPost = async function (url) {
-    // Get the post data
-    const puppeteerDomain = process.env.DOMAIN || 'http://localhost';
-    var puppeteerPort = process.env.PUPPETEER_PORT || 4000;
-    puppeteerPort = puppeteerPort.toString();
-    const puppeteerScrape = 'scrape';
-    const puppeteerUrl = puppeteerDomain+':'+ puppeteerPort +'/'+ puppeteerScrape +'?url='+url;
-    //console.log(puppeteerUrl)
-    var postResp = await fetch(puppeteerUrl);
-    var postObj = await postResp.json();
-    if (postObj.company !== undefined || postObj.position !== undefined){
-      let {company, position, city, state, description} = postObj;      
-      setPost({
-        ...post, 
-        companyName: company, 
-        position: position,
-        city: city,
-        state: state,
-        notes: description,
-        url: url
-      });
-      const inputCompanyName = document.getElementById('inputCompanyName');
-      if (company){ inputCompanyName.value = company;}
-      const inputPosition = document.getElementById('inputPosition');
-      if (position){ inputPosition.value = position;}
-      const inputCity = document.getElementById('inputCity');
-      if (city){ inputCity.value = city;}
-      const inputState = document.getElementById('inputState');
-      if (state){ inputState.value = state;}
-      M.toast({ html: 'Data Imported from Clipboard URL' });
+  const getPost = async function (url) {
+    // Check if URL is supported
+    const builtIn = url.startsWith('https://www.builtin');
+    const indeed = url.startsWith('https://www.indeed.com/');
+    const linkedIn = url.startsWith('https://www.linkedin.com/');
+    const simplyHired = url.startsWith('https://www.simplyhired.com/');
+    const startupJobs = url.startsWith('https://startup.jobs/');
+    const zipRecruiter = url.startsWith('https://www.ziprecruiter.com/');
+
+    if (builtIn || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
+      // Scrape post data
+      const puppeteerDomain = process.env.DOMAIN || 'http://localhost';
+      let puppeteerPort = process.env.PUPPETEER_PORT || 4000;
+      puppeteerPort = puppeteerPort.toString();
+      const puppeteerScrape = 'scrape';
+      const puppeteerUrl = puppeteerDomain+':'+ puppeteerPort +'/'+ puppeteerScrape +'?url='+url;
+      const postResp = await fetch(puppeteerUrl);
+      const postObj = await postResp.json();
+      if (postObj.company !== undefined || postObj.position !== undefined){        
+        // Store data to import on click
+        const {company, position, city, state, description} = postObj;
+        setScrape({
+          companyName: company, 
+          position: position,
+          city: city,
+          state: state,
+          notes: description,
+          url: url
+        });
+        // autofill button visibility
+        setAutofillBtn('visible')
+      } else {
+        M.toast({ html: 'Unable to import job data' });
+      }
+      const exportObj = {...postObj, url: url}
+      return exportObj;
     }
   };
 
-  var fetchClipboard = async function () {
+  // Click to autofill form function
+  const autofillForm = async function () {
+    console.log('autofill click')
+    console.table(scrape)
+    let {companyName, position, city, state, description, url} = scrape;
+
+    setPost({
+      ...post, 
+      companyName: companyName, 
+      position: position,
+      city: city,
+      state: state,
+      notes: description,
+      url: url
+    });
+
+    // Update the input field values
+    const inputCompanyName = document.getElementById('inputCompanyName');
+    if (companyName){ inputCompanyName.value = companyName;}
+    const inputPosition = document.getElementById('inputPosition');
+    if (position){ inputPosition.value = position;}
+    const inputCity = document.getElementById('inputCity');
+    if (city){ inputCity.value = city;}
+    const inputState = document.getElementById('inputState');
+    if (state){ inputState.value = state;}
+    //M.toast({ html: 'Data Imported from Clipboard URL' });
+    setAutofillBtn('hidden');
+    setAutofillCheck('visible')
+  }
+
+  const fetchClipboard = async function () {
     navigator.clipboard
     .readText()
     .then(text => {
@@ -61,6 +106,30 @@ function AddJob() {
     .catch(err => {
       console.log('Something went wrong', err);
     });
+  }
+
+  const formClear = async function () {
+    // Clear all input fields
+    setPost({
+      ...post, 
+      companyName: null, 
+      position: null,
+      city: null,
+      state: null,
+      notes: null,
+      url: null
+    });
+    const inputCompanyName = document.getElementById('inputCompanyName');
+    inputCompanyName.value = null;
+    const inputPosition = document.getElementById('inputPosition');
+    inputPosition.value = null;
+    const inputCity = document.getElementById('inputCity');
+    inputCity.value = null;
+    const inputState = document.getElementById('inputState');
+    inputState.value = null;
+    //M.toast({ html: 'Form Input Fields Cleared' });
+    setAutofillBtn('visible');
+    setAutofillCheck('hidden');
   }
 
   // Hitting the Post endpoint
@@ -84,8 +153,6 @@ function AddJob() {
   }
 
   useEffect(() => {
-    // handleAdd();
-
     // Attempt to read clipboard text
     window.addEventListener("load", fetchClipboard);
     return () => {
@@ -97,30 +164,48 @@ function AddJob() {
   return (
     <div>
       <NavBar />
-      <div className="menuNav container">
-        <div className="row card-image">
-          <div className="col s12 card-title card-title-add-job">
-            Add New Job
-          </div>
-        </div>
-        <div className="card-add-job card card-padded">
-          <div className="row">
-            <div className="col s12 m12 l6">
-              <input className="menu-input-field" placeholder="Company Name" name="companyName" id="inputCompanyName" onChange={onPostInput}></input>
-            </div>
-            <div className="col s12 m12 l6">
-              <input className="menu-input-field" placeholder="Position" name="position" id="inputPosition" onChange={onPostInput}></input>
-            </div>
-            <div className="col s6 m6 l6">
-              <input className="menu-input-field" placeholder="City" name="city" id="inputCity" onChange={onPostInput}></input>
-            </div>
-            <div className="col s6 m6 l6">
-              <input className="menu-input-field" placeholder="State" name="state" id="inputState" onChange={onPostInput}></input>
-            </div>
+      <div className="container menuNav">
+        <div className="row">
+          <div className="card-container">
             <div className="col s12">
-              <a href="/jobs/add" className="button btn-job-add" onClick={handleAdd}>
-                Save Job
-              </a>
+              <div className="row card-image">
+                <div className="col s6 card-title">
+                  Add New Job
+                </div>
+                <div className="col s6">
+                  <div onClick={autofillForm} id="autofill-button" className={`card-button ${autofillBtn}`}>
+                    Autofill {scrape.companyName} Job
+                  </div>
+                  <div onClick={formClear} id="autofill-clear" className={`card-button ${autofillCheck}`}>
+                    Clear All
+                  </div>
+                </div>
+              </div>
+              <div className="card card-padded card-add-job">
+                <div className="row">
+                  <div className="input-field col s12 l6">
+                    <input name="companyName" id="inputCompanyName" className="validate" type="text" onChange={onPostInput}></input>
+                    <label htmlFor="inputCompanyName" className={post.companyName ? "active" : ""}>Company Name</label>
+                  </div>
+                  <div className="input-field col s12 l6">
+                    <input name="position" id="inputPosition" className="validate" type="text" onChange={onPostInput}></input>
+                    <label htmlFor="inputPosition" className={post.position ? "active" : ""}>Position Title</label>
+                  </div>
+                  <div className="input-field col s12 l6">
+                    <input name="city" id="inputCity" className="validate" type="text" onChange={onPostInput}></input>
+                    <label htmlFor="inputCity" className={post.city ? "active" : ""}>City</label>
+                  </div>
+                  <div className="input-field col s12 l6">
+                    <input name="state" id="inputState" className="validate" type="text" onChange={onPostInput}></input>
+                    <label htmlFor="inputState" className={post.state ? "active" : ""}>State</label>
+                  </div>
+                  <div className="col s12">
+                    <a href="/jobs/add" className="button btn-job-add" onClick={handleAdd}>
+                      Save Job
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

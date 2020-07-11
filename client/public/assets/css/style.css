@@ -37,6 +37,9 @@ hr {
 .hidden {
   display: none;
 }
+.visible {
+  display:inline-block;
+}
 #toast-container {
   display: inline-grid;
   position: sticky;
@@ -165,10 +168,6 @@ select {
 }
 .card-add-job {
   max-width: 720px;
-}
-.menuNav .row .col.card-title-add-job {
-  margin-bottom: -15px;
-  margin-top: 20px;
 }
 .card {
   display: flex;
@@ -869,6 +868,16 @@ p.text-center {
   background: #00000070;
   border: none;
   color: #fff;
+}
+.card-add-job .row {
+  margin-left:auto;
+  margin-right:auto;
+}
+.menuNav .card-container {
+  margin-top:10px;
+}
+.menuNav .col .row .card-title {
+  text-align:left;
 }
 .menuNav .btn-job-add:hover,
 .menuNav .btn-job-add:active,
