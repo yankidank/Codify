@@ -24,26 +24,27 @@ function AddJob() {
     //console.log(puppeteerUrl)
     var postResp = await fetch(puppeteerUrl);
     var postObj = await postResp.json();
-    //console.table(postObj);
-    let {company, position, city, state, description} = postObj;
-    setPost({
-      ...post, 
-      companyName: company, 
-      position: position,
-      city: city,
-      state: state,
-      notes: description,
-      url: url
-    });
-    const inputCompanyName = document.getElementById('inputCompanyName');
-    inputCompanyName.value = postObj.company;
-    const inputPosition = document.getElementById('inputPosition');
-    inputPosition.value = postObj.position;
-    const inputCity = document.getElementById('inputCity');
-    inputCity.value = postObj.city;
-    const inputState = document.getElementById('inputState');
-    inputState.value = postObj.state;
-    M.toast({ html: 'Data Imported from Clipboard URL' });
+    if (postObj.company !== undefined || postObj.position !== undefined){
+      let {company, position, city, state, description} = postObj;      
+      setPost({
+        ...post, 
+        companyName: company, 
+        position: position,
+        city: city,
+        state: state,
+        notes: description,
+        url: url
+      });
+      const inputCompanyName = document.getElementById('inputCompanyName');
+      if (company){ inputCompanyName.value = company;}
+      const inputPosition = document.getElementById('inputPosition');
+      if (position){ inputPosition.value = position;}
+      const inputCity = document.getElementById('inputCity');
+      if (city){ inputCity.value = city;}
+      const inputState = document.getElementById('inputState');
+      if (state){ inputState.value = state;}
+      M.toast({ html: 'Data Imported from Clipboard URL' });
+    }
   };
 
   var fetchClipboard = async function () {
@@ -86,8 +87,11 @@ function AddJob() {
     // handleAdd();
 
     // Attempt to read clipboard text
-    window.addEventListener('load', fetchClipboard);
-
+    window.addEventListener("load", fetchClipboard);
+    return () => {
+      window.removeEventListener("load", fetchClipboard);
+    };
+    
   });
 
   return (
