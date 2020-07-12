@@ -543,17 +543,48 @@ textarea.materialize-textarea:focus:not([readonly]),
 	background: #646979;
 }
 .btn-applied, .btn-applied:hover, .btn-applied:focus {
-  background: #05ace1;
+  background: #059ae1;
 }
 .btn-interview, .btn-interview:hover, .btn-interview:focus {
-  background: #32c8c1;
+  background: #02d4d4;
 }
 .btn-offer, .btn-offer:hover, .btn-offer:focus {
-  background: #2ed47a;
+  background: #0ac577;
 }
 .btn-ended, .btn-ended:hover, .btn-ended:focus {
   background: #9094a065;
   color: rgba(255, 255, 255, 0.5);
+}
+@-webkit-keyframes animate-gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+@keyframes animate-gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+#autofill-loading {
+  color:rgba(255, 255, 255, 0.9);
+  cursor:progress;
+  opacity:0.4;
+	background: linear-gradient(to right, #6c7c7c, #0ac577, #059ae1, #646979);
+	background-size: 400% 400%;
+	-webkit-animation: animate-gradient 3s ease infinite;
+          animation: animate-gradient 3s ease infinite;
 }
 .container-home-jobs .card-content {
   box-shadow:none;

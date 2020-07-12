@@ -7,6 +7,8 @@ require('dotenv').config();
 function AddJob() {
   const [autofillBtn, setAutofillBtn] = useState('hidden'); // Hide button until data is loaded
   const [autofillCheck, setAutofillCheck] = useState('hidden'); // Track if form fields have been autofilled
+  const [autofillLoading, setAutofillLoading] = useState('hidden'); // Autofill loading button visibility
+  
   const [scrape, setScrape] = useState({
     companyName: "",
     position: "",
@@ -24,50 +26,62 @@ function AddJob() {
   });
 
   const getPost = async function (url) {
-    // Check if URL is supported
-    const builtIn = url.startsWith('https://www.builtin');
-    const indeed = url.startsWith('https://www.indeed.com/');
-    const linkedIn = url.startsWith('https://www.linkedin.com/');
-    const simplyHired = url.startsWith('https://www.simplyhired.com/');
-    const startupJobs = url.startsWith('https://startup.jobs/');
-    const zipRecruiter = url.startsWith('https://www.ziprecruiter.com/');
+    // Check if values have already been stored
+    if (scrape.url !== url){
 
-    if (builtIn || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
-      // Scrape post data
-      const puppeteerDomain = process.env.DOMAIN || 'http://localhost';
-      let puppeteerPort = process.env.PUPPETEER_PORT || 4000;
-      puppeteerPort = puppeteerPort.toString();
-      const puppeteerScrape = 'scrape';
-      const puppeteerUrl = puppeteerDomain+':'+ puppeteerPort +'/'+ puppeteerScrape +'?url='+url;
-      const postResp = await fetch(puppeteerUrl);
-      const postObj = await postResp.json();
-      if (postObj.company !== undefined || postObj.position !== undefined){        
-        // Store data to import on click
-        const {company, position, city, state, description} = postObj;
-        setScrape({
-          companyName: company, 
-          position: position,
-          city: city,
-          state: state,
-          notes: description,
-          url: url
-        });
-        // autofill button visibility
-        setAutofillBtn('visible')
-      } else {
-        M.toast({ html: 'Unable to import job data' });
+      // Check if URL is supported
+      const builtIn = url.startsWith('https://www.builtin');
+      const indeed = url.startsWith('https://www.indeed.com/');
+      const linkedIn = url.startsWith('https://www.linkedin.com/');
+      const simplyHired = url.startsWith('https://www.simplyhired.com/');
+      const startupJobs = url.startsWith('https://startup.jobs/');
+      const zipRecruiter = url.startsWith('https://www.ziprecruiter.com/');
+
+      if (builtIn || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
+        setAutofillLoading('visible');
+        setAutofillBtn('hidden');
+        setAutofillCheck('hidden');
+        // Scrape post data
+        const puppeteerDomain = process.env.DOMAIN || 'http://localhost';
+        let puppeteerPort = process.env.PUPPETEER_PORT || 4000;
+        puppeteerPort = puppeteerPort.toString();
+        const puppeteerScrape = 'scrape';
+        const puppeteerUrl = puppeteerDomain+':'+ puppeteerPort +'/'+ puppeteerScrape +'?url='+url;
+        const postResp = await fetch(puppeteerUrl);
+        const postObj = await postResp.json();
+        if (postObj.company !== undefined || postObj.position !== undefined){
+          // Store data to import on click
+          const {company, position, city, state, description} = postObj;
+          setScrape({
+            companyName: company,
+            position: position,
+            city: city,
+            state: state,
+            notes: description,
+            url: url
+          });
+          setAutofillLoading('hidden');
+          setAutofillBtn('visible');
+          setAutofillCheck('hidden');
+        } else {
+          setAutofillLoading('hidden');
+          setAutofillBtn('hidden');
+          setAutofillCheck('hidden');
+          M.toast({ html: 'Unable to autofill job details' });
+        }
+        const exportObj = {...postObj, url: url}
+        return exportObj;
       }
-      const exportObj = {...postObj, url: url}
-      return exportObj;
+    } else {
+      return scrape;
     }
   };
 
-  // Click to autofill form function
   const autofillForm = async function () {
-    console.log('autofill click')
-    console.table(scrape)
+    setAutofillLoading('hidden');
+    setAutofillBtn('hidden');
+    setAutofillCheck('visible');
     let {companyName, position, city, state, description, url} = scrape;
-
     setPost({
       ...post, 
       companyName: companyName, 
@@ -77,7 +91,6 @@ function AddJob() {
       notes: description,
       url: url
     });
-
     // Update the input field values
     const inputCompanyName = document.getElementById('inputCompanyName');
     if (companyName){ inputCompanyName.value = companyName;}
@@ -88,10 +101,15 @@ function AddJob() {
     const inputState = document.getElementById('inputState');
     if (state){ inputState.value = state;}
     //M.toast({ html: 'Data Imported from Clipboard URL' });
-    setAutofillBtn('hidden');
-    setAutofillCheck('visible')
   }
 
+  // Click to autofill form function
+  const clickClipboard = async function () {
+    if (autofillBtn === 'visible'){
+      fetchClipboard();
+    }
+  }
+  
   const fetchClipboard = async function () {
     navigator.clipboard
     .readText()
@@ -105,6 +123,9 @@ function AddJob() {
     })
     .catch(err => {
       console.log('Something went wrong', err);
+      setAutofillLoading('hidden');
+      setAutofillBtn('hidden');
+      setAutofillCheck('hidden');
     });
   }
 
@@ -128,6 +149,7 @@ function AddJob() {
     const inputState = document.getElementById('inputState');
     inputState.value = null;
     //M.toast({ html: 'Form Input Fields Cleared' });
+    setAutofillLoading('hidden');
     setAutofillBtn('visible');
     setAutofillCheck('hidden');
   }
@@ -154,11 +176,11 @@ function AddJob() {
 
   useEffect(() => {
     // Attempt to read clipboard text
+    window.document.body.addEventListener('click', clickClipboard);
     window.addEventListener("load", fetchClipboard);
     return () => {
       window.removeEventListener("load", fetchClipboard);
     };
-    
   });
 
   return (
@@ -173,7 +195,10 @@ function AddJob() {
                   Add New Job
                 </div>
                 <div className="col s6">
-                  <div onClick={autofillForm} id="autofill-button" className={`card-button ${autofillBtn}`}>
+                  <div id="autofill-loading" className={`card-button animate-loading ${autofillLoading}`}>
+                    <span className="animate-text-loading">Loading</span>
+                  </div>
+                  <div onClick={autofillForm} id="autofill-button" className={`card-button btn-offer ${autofillBtn}`}>
                     Autofill {scrape.companyName} Job
                   </div>
                   <div onClick={formClear} id="autofill-clear" className={`card-button ${autofillCheck}`}>
