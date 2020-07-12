@@ -6,13 +6,25 @@
 
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
+let whitelist = ['http://localhost:4000', 'http://localhost:3000', 'http://localhost:3001']
 
 function puppeteerProxy() {
 
-  // Puppeteer proxy server for web scraping
   const puppeteer = require('puppeteer');
   const puppeteer_port = process.env.PUPPETEER_PORT || 4000;
   const proxy = express();
+  proxy.use(cors({
+    origin: function(origin, callback){
+      if(!origin) return callback(null, true);
+      if(whitelist.indexOf(origin) === -1){
+        var message = 'The CORS policy does not allow this origin.';
+        return callback(new Error(message), false);
+      }
+      return callback(null, true);
+    }
+  }));
+
   const { performance } = require('perf_hooks'); // Performance testing
 
   // Async error handling
@@ -223,9 +235,9 @@ function puppeteerProxy() {
           return document.querySelectorAll('#jobDescriptionText')[0].innerText;
         }));
 
-        [salary, salaryErr] = await handle(page.evaluate(() => {
+/*      [salary, salaryErr] = await handle(page.evaluate(() => {
           return document.querySelectorAll('.jobsearch-JobMetadataHeader-item span')[0].innerText;
-        }));
+        })); */
 
       } else if (linkedIn) {
         console.log('LinkedIn...');

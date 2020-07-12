@@ -37,6 +37,9 @@ hr {
 .hidden {
   display: none;
 }
+.visible {
+  display:inline-block;
+}
 #toast-container {
   display: inline-grid;
   position: sticky;
@@ -165,10 +168,6 @@ select {
 }
 .card-add-job {
   max-width: 720px;
-}
-.menuNav .row .col.card-title-add-job {
-  margin-bottom: -15px;
-  margin-top: 20px;
 }
 .card {
   display: flex;
@@ -544,17 +543,48 @@ textarea.materialize-textarea:focus:not([readonly]),
 	background: #646979;
 }
 .btn-applied, .btn-applied:hover, .btn-applied:focus {
-  background: #05ace1;
+  background: #059ae1;
 }
 .btn-interview, .btn-interview:hover, .btn-interview:focus {
-  background: #32c8c1;
+  background: #02d4d4;
 }
 .btn-offer, .btn-offer:hover, .btn-offer:focus {
-  background: #2ed47a;
+  background: #0ac577;
 }
 .btn-ended, .btn-ended:hover, .btn-ended:focus {
   background: #9094a065;
   color: rgba(255, 255, 255, 0.5);
+}
+@-webkit-keyframes animate-gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+@keyframes animate-gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+#autofill-loading {
+  color:rgba(255, 255, 255, 0.9);
+  cursor:progress;
+  opacity:0.4;
+	background: linear-gradient(to right, #6c7c7c, #0ac577, #059ae1, #646979);
+	background-size: 400% 400%;
+	-webkit-animation: animate-gradient 3s ease infinite;
+          animation: animate-gradient 3s ease infinite;
 }
 .container-home-jobs .card-content {
   box-shadow:none;
@@ -869,6 +899,16 @@ p.text-center {
   background: #00000070;
   border: none;
   color: #fff;
+}
+.card-add-job .row {
+  margin-left:auto;
+  margin-right:auto;
+}
+.menuNav .card-container {
+  margin-top:10px;
+}
+.menuNav .col .row .card-title {
+  text-align:left;
 }
 .menuNav .btn-job-add:hover,
 .menuNav .btn-job-add:active,

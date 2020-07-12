@@ -1,8 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../NavBar';
 import {addJob} from "../../utils/API"
+import M from "materialize-css";
+require('dotenv').config();
 
 function AddJob() {
+  const [autofillBtn, setAutofillBtn] = useState('hidden'); // Hide button until data is loaded
+  const [autofillCheck, setAutofillCheck] = useState('hidden'); // Track if form fields have been autofilled
+  const [autofillLoading, setAutofillLoading] = useState('hidden'); // Autofill loading button visibility
+  
+  const [scrape, setScrape] = useState({
+    companyName: "",
+    position: "",
+    city: "",
+    state: "",
+    url: ""
+  });
   const [post, setPost] = useState({
     companyName: "",
     position: "",
@@ -11,6 +24,135 @@ function AddJob() {
     status: "",
     url: ""
   });
+
+  const getPost = async function (url) {
+    // Check if values have already been stored
+    if (scrape.url !== url){
+
+      // Check if URL is supported
+      const builtIn = url.startsWith('https://www.builtin');
+      const indeed = url.startsWith('https://www.indeed.com/');
+      const linkedIn = url.startsWith('https://www.linkedin.com/');
+      const simplyHired = url.startsWith('https://www.simplyhired.com/');
+      const startupJobs = url.startsWith('https://startup.jobs/');
+      const zipRecruiter = url.startsWith('https://www.ziprecruiter.com/');
+
+      if (builtIn || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
+        setAutofillLoading('visible');
+        setAutofillBtn('hidden');
+        setAutofillCheck('hidden');
+        // Scrape post data
+        const puppeteerDomain = process.env.DOMAIN || 'http://localhost';
+        let puppeteerPort = process.env.PUPPETEER_PORT || 4000;
+        puppeteerPort = puppeteerPort.toString();
+        const puppeteerScrape = 'scrape';
+        const puppeteerUrl = puppeteerDomain+':'+ puppeteerPort +'/'+ puppeteerScrape +'?url='+url;
+        const postResp = await fetch(puppeteerUrl);
+        const postObj = await postResp.json();
+        if (postObj.company !== undefined || postObj.position !== undefined){
+          // Store data to import on click
+          const {company, position, city, state, description} = postObj;
+          setScrape({
+            companyName: company,
+            position: position,
+            city: city,
+            state: state,
+            notes: description,
+            url: url
+          });
+          setAutofillLoading('hidden');
+          setAutofillBtn('visible');
+          setAutofillCheck('hidden');
+        } else {
+          setAutofillLoading('hidden');
+          setAutofillBtn('hidden');
+          setAutofillCheck('hidden');
+          M.toast({ html: 'Unable to autofill job details' });
+        }
+        const exportObj = {...postObj, url: url}
+        return exportObj;
+      }
+    } else {
+      return scrape;
+    }
+  };
+
+  const autofillForm = async function () {
+    setAutofillLoading('hidden');
+    setAutofillBtn('hidden');
+    setAutofillCheck('visible');
+    let {companyName, position, city, state, description, url} = scrape;
+    setPost({
+      ...post, 
+      companyName: companyName, 
+      position: position,
+      city: city,
+      state: state,
+      notes: description,
+      url: url
+    });
+    // Update the input field values
+    const inputCompanyName = document.getElementById('inputCompanyName');
+    if (companyName){ inputCompanyName.value = companyName;}
+    const inputPosition = document.getElementById('inputPosition');
+    if (position){ inputPosition.value = position;}
+    const inputCity = document.getElementById('inputCity');
+    if (city){ inputCity.value = city;}
+    const inputState = document.getElementById('inputState');
+    if (state){ inputState.value = state;}
+    //M.toast({ html: 'Data Imported from Clipboard URL' });
+  }
+
+  // Click to autofill form function
+  const clickClipboard = async function () {
+    if (autofillBtn === 'visible'){
+      fetchClipboard();
+    }
+  }
+  
+  const fetchClipboard = async function () {
+    navigator.clipboard
+    .readText()
+    .then(text => {
+      const pasteText = text.trim();
+      // Check that the clipboard holds a link
+      const checkUrl = pasteText.startsWith('http');
+      if (checkUrl) {  
+        getPost(pasteText);        
+      }
+    })
+    .catch(err => {
+      console.log('Something went wrong', err);
+      setAutofillLoading('hidden');
+      setAutofillBtn('hidden');
+      setAutofillCheck('hidden');
+    });
+  }
+
+  const formClear = async function () {
+    // Clear all input fields
+    setPost({
+      ...post, 
+      companyName: null, 
+      position: null,
+      city: null,
+      state: null,
+      notes: null,
+      url: null
+    });
+    const inputCompanyName = document.getElementById('inputCompanyName');
+    inputCompanyName.value = null;
+    const inputPosition = document.getElementById('inputPosition');
+    inputPosition.value = null;
+    const inputCity = document.getElementById('inputCity');
+    inputCity.value = null;
+    const inputState = document.getElementById('inputState');
+    inputState.value = null;
+    //M.toast({ html: 'Form Input Fields Cleared' });
+    setAutofillLoading('hidden');
+    setAutofillBtn('visible');
+    setAutofillCheck('hidden');
+  }
 
   // Hitting the Post endpoint
   const handleAdd = async (e) => {
@@ -29,72 +171,66 @@ function AddJob() {
 
   const onPostInput = event => {
     const { target: { name, value }} = event;
-
     setPost({ ...post, [name]: value})
   }
 
   useEffect(() => {
-    // handleAdd();
-    // Paste Job URL
-    const paste = document.getElementById('paste');
-    paste.addEventListener('click', () => {
-      if (!paste.value) {
-        // Attempt to read clipboard text
-        navigator.clipboard
-          .readText()
-          .then(text => {
-            const pasteText = text.trim();
-            // Check that the clipboard holds a link
-            const checkUrl = pasteText.startsWith('http');
-            if (checkUrl) {
-              setPost({...post, url: pasteText })
-              // paste.value = pasteText;
-            }
-          })
-          .catch(err => {
-            console.log('Something went wrong', err);
-          });
-      }
-    });
+    // Attempt to read clipboard text
+    window.document.body.addEventListener('click', clickClipboard);
+    window.addEventListener("load", fetchClipboard);
+    return () => {
+      window.removeEventListener("load", fetchClipboard);
+    };
   });
 
   return (
     <div>
       <NavBar />
-      <div className="menuNav container">
-        <div className="row card-image">
-          <div className="col s12 card-title card-title-add-job">
-            Add New Job
-          </div>
-        </div>
-        <div className="card-add-job card card-padded">
-          <div className="row">
-            <div className="col s12 m12 l6">
-              <input className="menu-input-field" placeholder="Company Name" name="companyName" onChange={onPostInput}></input>
-            </div>
-            <div className="col s12 m12 l6">
-              <input className="menu-input-field" placeholder="Position" name="position" onChange={onPostInput}></input>
-            </div>
-            <div className="col s6 m6 l6">
-              <input className="menu-input-field" placeholder="City" name="city" onChange={onPostInput}></input>
-            </div>
-            <div className="col s6 m6 l6">
-              <input className="menu-input-field" placeholder="State" name="state" onChange={onPostInput}></input>
-            </div>
-            <div className="col s12 m12 l12">
-              <input
-                className="menu-input-field"
-                id="paste"
-                name="url"
-                placeholder="https://"
-                onChange={onPostInput}
-                value={post.url}
-              ></input>
-            </div>
+      <div className="container menuNav">
+        <div className="row">
+          <div className="card-container">
             <div className="col s12">
-              <a href="/jobs/add" className="button btn-job-add" onClick={handleAdd}>
-                Save Job
-              </a>
+              <div className="row card-image">
+                <div className="col s6 card-title">
+                  Add New Job
+                </div>
+                <div className="col s6">
+                  <div id="autofill-loading" className={`card-button animate-loading ${autofillLoading}`}>
+                    <span className="animate-text-loading">Loading</span>
+                  </div>
+                  <div onClick={autofillForm} id="autofill-button" className={`card-button btn-offer ${autofillBtn}`}>
+                    Autofill {scrape.companyName} Job
+                  </div>
+                  <div onClick={formClear} id="autofill-clear" className={`card-button ${autofillCheck}`}>
+                    Clear All
+                  </div>
+                </div>
+              </div>
+              <div className="card card-padded card-add-job">
+                <div className="row">
+                  <div className="input-field col s12 l6">
+                    <input name="companyName" id="inputCompanyName" className="validate" type="text" onChange={onPostInput}></input>
+                    <label htmlFor="inputCompanyName" className={post.companyName ? "active" : ""}>Company Name</label>
+                  </div>
+                  <div className="input-field col s12 l6">
+                    <input name="position" id="inputPosition" className="validate" type="text" onChange={onPostInput}></input>
+                    <label htmlFor="inputPosition" className={post.position ? "active" : ""}>Position Title</label>
+                  </div>
+                  <div className="input-field col s12 l6">
+                    <input name="city" id="inputCity" className="validate" type="text" onChange={onPostInput}></input>
+                    <label htmlFor="inputCity" className={post.city ? "active" : ""}>City</label>
+                  </div>
+                  <div className="input-field col s12 l6">
+                    <input name="state" id="inputState" className="validate" type="text" onChange={onPostInput}></input>
+                    <label htmlFor="inputState" className={post.state ? "active" : ""}>State</label>
+                  </div>
+                  <div className="col s12">
+                    <a href="/jobs/add" className="button btn-job-add" onClick={handleAdd}>
+                      Save Job
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

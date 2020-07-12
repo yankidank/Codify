@@ -7,7 +7,7 @@ passport.use(
     {
       clientID: process.env.LINKEDIN_CLIENT_ID,
       clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
-      callbackURL: `${process.env.DOMAIN || ''}/auth/linkedin/callback`,
+      callbackURL: `/auth/linkedin/callback`,
       scope: ['r_liteprofile', 'r_emailaddress'],
     },
     async (accessToken, refreshToken, profile, done) => {
