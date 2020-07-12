@@ -577,14 +577,69 @@ textarea.materialize-textarea:focus:not([readonly]),
 		background-position: 0% 50%;
 	}
 }
+@-webkit-keyframes animate-text {
+	0% {
+    opacity:0.5;
+    transform: scale(0.85);
+  }
+  20% {
+    opacity:0.8;
+    transform: scale(0.95);
+	}
+	40% {
+    opacity:1;
+    transform: scale(1);
+  }
+  60% {
+    opacity:1;
+    transform: scale(1);
+  }
+  80% {
+    opacity:0.8;
+    transform: scale(0.9)
+  }
+	100% {
+    opacity:0.5;
+    transform: scale(0.85);
+	}
+}
+@keyframes animate-text {
+	0% {
+    opacity:0.5;
+    transform: scale(0.85);
+  }
+  20% {
+    opacity:0.8;
+    transform: scale(0.95);
+	}
+	40% {
+    opacity:1;
+    transform: scale(1);
+  }
+  60% {
+    opacity:1;
+    transform: scale(1);
+  }
+  80% {
+    opacity:0.8;
+    transform: scale(0.9)
+  }
+	100% {
+    opacity:0.5;
+    transform: scale(0.85);
+	}
+}
+.animate-text-loading{
+  color:rgba(255, 255, 255, 0.6);
+	-webkit-animation: animate-text 1.5s ease infinite;
+          animation: animate-text 1.5s ease infinite;
+}
 #autofill-loading {
-  color:rgba(255, 255, 255, 0.9);
   cursor:progress;
-  opacity:0.4;
 	background: linear-gradient(to right, #6c7c7c, #0ac577, #059ae1, #646979);
 	background-size: 400% 400%;
-	-webkit-animation: animate-gradient 3s ease infinite;
-          animation: animate-gradient 3s ease infinite;
+	-webkit-animation: animate-gradient 4s ease infinite;
+          animation: animate-gradient 4s ease infinite;
 }
 .container-home-jobs .card-content {
   box-shadow:none;

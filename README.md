@@ -89,7 +89,8 @@ The dotenv npm package allows us to store private settings in a `.env` file that
 
 ```
 // NODE_ENV = "production"
-// DOMAIN = "http://localhost"
+DOMAIN = "http://localhost"
+CALLBACK_DOMAIN = "http://localhost:3001"
 // PORT = "3001"
 // FRONTEND_PORT = "3000"
 PUPPETEER_PORT = "4000"

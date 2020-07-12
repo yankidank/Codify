@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import NavBar from '../NavBar';
 import {addJob} from "../../utils/API"
 import M from "materialize-css";
 require('dotenv').config();
 
 function AddJob() {
-  const [autofillBtn, setAutofillBtn] = useState('hidden'); // Hide button until data is loaded
-  const [autofillCheck, setAutofillCheck] = useState('hidden'); // Track if form fields have been autofilled
-  const [autofillLoading, setAutofillLoading] = useState('hidden'); // Autofill loading button visibility
   
+  const [autofillBtn, setAutofillBtn] = useState({visibility:'hidden'}); // Hide button until data is loaded
+  const [autofillClear, setAutofillClear] = useState({visibility:'hidden'}); // Track if form fields have been autofilled
+  const [autofillLoading, setAutofillLoading] = useState({visibility:'hidden'}); // Autofill loading button visibility
+  const refAutofillBtn = useRef(autofillBtn);
+  const refAutofillClear = useRef(autofillLoading);
+  const refAutofillLoading = useRef(autofillLoading);
+
   const [scrape, setScrape] = useState({
     companyName: "",
     position: "",
@@ -16,6 +20,8 @@ function AddJob() {
     state: "",
     url: ""
   });
+  const refScrape = useRef(scrape);
+
   const [post, setPost] = useState({
     companyName: "",
     position: "",
@@ -27,8 +33,9 @@ function AddJob() {
 
   const getPost = async function (url) {
     // Check if values have already been stored
-    if (scrape.url !== url){
-
+    if (refScrape.current.url === url){
+      return scrape;
+    } else {
       // Check if URL is supported
       const builtIn = url.startsWith('https://www.builtin');
       const indeed = url.startsWith('https://www.indeed.com/');
@@ -38,49 +45,51 @@ function AddJob() {
       const zipRecruiter = url.startsWith('https://www.ziprecruiter.com/');
 
       if (builtIn || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
-        setAutofillLoading('visible');
-        setAutofillBtn('hidden');
-        setAutofillCheck('hidden');
-        // Scrape post data
-        const puppeteerDomain = process.env.DOMAIN || 'http://localhost';
-        let puppeteerPort = process.env.PUPPETEER_PORT || 4000;
-        puppeteerPort = puppeteerPort.toString();
-        const puppeteerScrape = 'scrape';
-        const puppeteerUrl = puppeteerDomain+':'+ puppeteerPort +'/'+ puppeteerScrape +'?url='+url;
-        const postResp = await fetch(puppeteerUrl);
-        const postObj = await postResp.json();
-        if (postObj.company !== undefined || postObj.position !== undefined){
-          // Store data to import on click
-          const {company, position, city, state, description} = postObj;
-          setScrape({
-            companyName: company,
-            position: position,
-            city: city,
-            state: state,
-            notes: description,
-            url: url
-          });
-          setAutofillLoading('hidden');
-          setAutofillBtn('visible');
-          setAutofillCheck('hidden');
+        const inputCompanyName = document.getElementById('inputCompanyName');
+        if (!inputCompanyName.value && refScrape.current.url === ''){
+          if (refAutofillBtn.current.visibility === 'hidden'){ 
+            setAutofillLoading({...autofillLoading, visibility:"visible"});
+            setAutofillBtn({...autofillBtn, visibility:"hidden"});
+            setAutofillClear({...autofillClear, visibility:"hidden"});
+          }
+          // Scrape post data
+          const puppeteerDomain = process.env.DOMAIN || 'http://localhost';
+          let puppeteerPort = process.env.PUPPETEER_PORT || 4000;
+          puppeteerPort = puppeteerPort.toString();
+          const puppeteerScrape = 'scrape';
+          const puppeteerUrl = puppeteerDomain+':'+ puppeteerPort +'/'+ puppeteerScrape +'?url='+url;
+          const postResp = await fetch(puppeteerUrl);
+          const postObj = await postResp.json();
+          if (postObj.company !== undefined || postObj.position !== undefined){
+            // Store data to import on click
+            const {company, position, city, state, description} = postObj;
+            setScrape({
+              companyName: company,
+              position: position,
+              city: city,
+              state: state,
+              notes: description,
+              url: url
+            });
+            setAutofillLoading({...autofillLoading, visibility:"hidden"});
+            setAutofillBtn({...autofillBtn, visibility:"visible"});
+            setAutofillClear({...autofillClear, visibility:"hidden"});
+          } else {
+            setAutofillLoading({...autofillLoading, visibility:"hidden"});
+            setAutofillBtn({...autofillBtn, visibility:"hidden"});
+            setAutofillClear({...autofillClear, visibility:"hidden"});
+            M.toast({ html: 'Unable to autofill job details' });
+          }
+          const exportObj = {...postObj, url: url}
+          return exportObj;
         } else {
-          setAutofillLoading('hidden');
-          setAutofillBtn('hidden');
-          setAutofillCheck('hidden');
-          M.toast({ html: 'Unable to autofill job details' });
+          return;
         }
-        const exportObj = {...postObj, url: url}
-        return exportObj;
       }
-    } else {
-      return scrape;
     }
   };
 
   const autofillForm = async function () {
-    setAutofillLoading('hidden');
-    setAutofillBtn('hidden');
-    setAutofillCheck('visible');
     let {companyName, position, city, state, description, url} = scrape;
     setPost({
       ...post, 
@@ -91,6 +100,7 @@ function AddJob() {
       notes: description,
       url: url
     });
+
     // Update the input field values
     const inputCompanyName = document.getElementById('inputCompanyName');
     if (companyName){ inputCompanyName.value = companyName;}
@@ -100,17 +110,19 @@ function AddJob() {
     if (city){ inputCity.value = city;}
     const inputState = document.getElementById('inputState');
     if (state){ inputState.value = state;}
+    setAutofillLoading({...autofillLoading, visibility:"hidden"});
+    setAutofillBtn({...autofillBtn, visibility:"hidden"});
+    setAutofillClear({...autofillClear, visibility:"visible"});
     //M.toast({ html: 'Data Imported from Clipboard URL' });
-  }
 
-  // Click to autofill form function
-  const clickClipboard = async function () {
-    if (autofillBtn === 'visible'){
-      fetchClipboard();
-    }
   }
   
   const fetchClipboard = async function () {
+    if (!navigator.clipboard) {
+      // Clipboard API not available
+      return;
+    }
+    // Check for URL in clipboard
     navigator.clipboard
     .readText()
     .then(text => {
@@ -120,12 +132,10 @@ function AddJob() {
       if (checkUrl) {  
         getPost(pasteText);        
       }
+      return;
     })
     .catch(err => {
-      console.log('Something went wrong', err);
-      setAutofillLoading('hidden');
-      setAutofillBtn('hidden');
-      setAutofillCheck('hidden');
+      //console.log(err);
     });
   }
 
@@ -149,9 +159,9 @@ function AddJob() {
     const inputState = document.getElementById('inputState');
     inputState.value = null;
     //M.toast({ html: 'Form Input Fields Cleared' });
-    setAutofillLoading('hidden');
-    setAutofillBtn('visible');
-    setAutofillCheck('hidden');
+    setAutofillLoading({...autofillLoading, visibility:"hidden"});
+    setAutofillBtn({...autofillBtn, visibility:"visible"});
+    setAutofillClear({...autofillClear, visibility:"hidden"});
   }
 
   // Hitting the Post endpoint
@@ -174,14 +184,32 @@ function AddJob() {
     setPost({ ...post, [name]: value})
   }
 
+  
+  // Click to autofill form function
+  const clickClipboard = async function () {
+    console.log('click')
+    // Check button and url state before scraping to prevent excess calls
+    if (refAutofillLoading.current.visibility === 'hidden' 
+    && refAutofillBtn.current.visibility === 'hidden' 
+    && refAutofillClear.current.visibility === 'hidden'
+    && refScrape.current.url === ''){
+      await fetchClipboard();
+    }
+    return;
+  }
+  
   useEffect(() => {
+    
+    console.log(refAutofillLoading.visibility)
     // Attempt to read clipboard text
-    window.document.body.addEventListener('click', clickClipboard);
-    window.addEventListener("load", fetchClipboard);
-    return () => {
-      window.removeEventListener("load", fetchClipboard);
-    };
-  });
+    if (refAutofillLoading.visibility === undefined && refAutofillBtn.current.visibility === undefined && refAutofillClear.current.visibility === undefined){
+      console.log('undefined stuff')
+
+      document.body.addEventListener('click', clickClipboard);
+    }
+    window.addEventListener("load", clickClipboard);
+
+  }, [autofillBtn, autofillClear, autofillLoading, refAutofillBtn, refAutofillClear, refAutofillLoading]);
 
   return (
     <div>
@@ -195,13 +223,13 @@ function AddJob() {
                   Add New Job
                 </div>
                 <div className="col s6">
-                  <div id="autofill-loading" className={`card-button animate-loading ${autofillLoading}`}>
-                    <span className="animate-text-loading">Loading</span>
+                  <div id="autofill-loading" className={`card-button animate-loading ${autofillLoading.visibility}`}>
+                    <div className="animate-text-loading">Loading</div>
                   </div>
-                  <div onClick={autofillForm} id="autofill-button" className={`card-button btn-offer ${autofillBtn}`}>
+                  <div onClick={autofillForm} id="autofill-button" className={`card-button btn-offer ${autofillBtn.visibility}`}>
                     Autofill {scrape.companyName} Job
                   </div>
-                  <div onClick={formClear} id="autofill-clear" className={`card-button ${autofillCheck}`}>
+                  <div onClick={formClear} id="autofill-clear" className={`card-button ${autofillClear.visibility}`}>
                     Clear All
                   </div>
                 </div>

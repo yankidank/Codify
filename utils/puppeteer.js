@@ -71,6 +71,7 @@ function puppeteerProxy() {
       });
 
       const page = await browser.newPage();
+      page.setDefaultNavigationTimeout(20000);
 
       // Ignore images and CSS
       await page.setRequestInterception(true);
