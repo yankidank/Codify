@@ -45,6 +45,7 @@ function AddJob() {
       const zipRecruiter = url.startsWith('https://www.ziprecruiter.com/');
 
       if (builtIn || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
+        // Company name input field .value check
         const inputCompanyName = document.getElementById('inputCompanyName');
         if (!inputCompanyName.value && refScrape.current.url === ''){
           if (refAutofillBtn.current.visibility === 'hidden'){ 
@@ -125,14 +126,14 @@ function AddJob() {
     // Check for URL in clipboard
     navigator.clipboard
     .readText()
-    .then(text => {
+    .then(async text => {
       const pasteText = text.trim();
       // Check that the clipboard holds a link
       const checkUrl = pasteText.startsWith('http');
-      if (checkUrl) {  
-        getPost(pasteText);        
+      if (checkUrl) { 
+        const returnPost = await getPost(pasteText);
+        return returnPost;       
       }
-      return;
     })
     .catch(err => {
       console.log(err);
@@ -183,11 +184,9 @@ function AddJob() {
     const { target: { name, value }} = event;
     setPost({ ...post, [name]: value})
   }
-
   
   // Click to autofill form function
   const clickClipboard = async function () {
-    console.log('click')
     // Check button and url state before scraping to prevent excess calls
     if (refAutofillLoading.current.visibility === 'hidden' 
     && refAutofillBtn.current.visibility === 'hidden' 
@@ -200,16 +199,11 @@ function AddJob() {
   
   useEffect(() => {
     
-    console.log(refAutofillLoading.visibility)
     // Attempt to read clipboard text
-    if (refAutofillLoading.visibility === undefined && refAutofillBtn.current.visibility === undefined && refAutofillClear.current.visibility === undefined){
-      console.log('undefined stuff')
-
-      document.body.addEventListener('click', clickClipboard);
-    }
+    //document.body.addEventListener('click', clickClipboard);
     window.addEventListener("load", clickClipboard);
-
-  }, [autofillBtn, autofillClear, autofillLoading, refAutofillBtn, refAutofillClear, refAutofillLoading]);
+    
+  },[] );
 
   return (
     <div>
