@@ -33,13 +33,14 @@ function AddJob() {
     } else {
       // Check if URL is supported
       const builtIn = url.startsWith('https://www.builtin');
+      const github = url.startsWith('https://jobs.github.com/');
       const indeed = url.startsWith('https://www.indeed.com/');
       const linkedIn = url.startsWith('https://www.linkedin.com/');
       const simplyHired = url.startsWith('https://www.simplyhired.com/');
       const startupJobs = url.startsWith('https://startup.jobs/');
       const zipRecruiter = url.startsWith('https://www.ziprecruiter.com/');
 
-      if (builtIn || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
+      if (builtIn || github || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
         // Company name input field .value check
         const inputCompanyName = document.getElementById('inputCompanyName');
         if (!inputCompanyName.value && scrape.url === ''){

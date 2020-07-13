@@ -1,7 +1,7 @@
 // puppeteer.js
 // ------------
 // The file serves a proxy server for retrieving data, and returns a JSON object
-// Supports: BuiltIn[City].com, Indeed.com, LinkedIn, SimplyHired, Startup.Jobs, and ZipRecruiter  
+// Supports: BuiltIn[City].com, GitHub.com, Indeed.com, LinkedIn, SimplyHired, Startup.Jobs, and ZipRecruiter  
 // Example: localhost:4000/scrape?url=[Supported Website]
 
 const express = require('express');
@@ -96,11 +96,12 @@ function puppeteerProxy() {
       //await page.waitFor(20000); // Pause for testing
 
       const builtIn = req.query.url.startsWith('https://www.builtin');
-      const startupJobs = req.query.url.startsWith('https://startup.jobs/');
-      const zipRecruiter = req.query.url.startsWith('https://www.ziprecruiter.com/');
+      const github = req.query.url.startsWith('https://jobs.github.com/');
       const indeed = req.query.url.startsWith('https://www.indeed.com/');
       const linkedIn = req.query.url.startsWith('https://www.linkedin.com/');
       const simplyHired = req.query.url.startsWith('https://www.simplyhired.com/');
+      const startupJobs = req.query.url.startsWith('https://startup.jobs/');
+      const zipRecruiter = req.query.url.startsWith('https://www.ziprecruiter.com/');
       
       if (builtIn) {
         console.log('BuiltIn...')
@@ -120,6 +121,161 @@ function puppeteerProxy() {
 
         [description, descriptionErr] = await handle(page.evaluate(() => {
           return document.querySelectorAll('.job-description')[0].innerText;
+        }));
+      } else if (github) {
+        console.log('GitHub...');
+        await page.waitForSelector('#page');
+        //await page.waitForSelector('.viewjob-content');
+
+        [position, positionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('#page .inner h1')[0].innerText;
+        }));
+  
+        [company, companyErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('.logo .inner h2')[0].innerText.replace('\n', '').trim().split("other job ").pop();
+        }));
+  
+        [city, cityErr] = await handle(page.evaluate(() => {
+          const location = document.querySelectorAll('#page .inner .supertitle')[0].innerText;
+          const locationArr = location.split('/');
+          if (locationArr[1].includes(',')){
+            // Split between City and State
+            const locationSplit = locationArr[1].split(',');
+            return locationSplit[0].trim();
+          } else {
+            return locationArr[1].trim();
+          }
+        }));
+
+        [state, stateErr] = await handle(page.evaluate(() => {
+          const location = document.querySelectorAll('#page .inner .supertitle')[0].innerText;
+          const locationArr = location.split('/');
+          if (locationArr[1].includes(',')){
+            // Split between City and State
+            const locationSplit = locationArr[1].split(',');
+            return locationSplit[1].trim();
+          }
+        }));
+
+        [description, descriptionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('#page .inner .generic .main')[0].innerText;
+        }));
+/* 
+        [salary, salaryErr] = await handle(page.evaluate(() => {
+          const salaryRaw = document.querySelectorAll('.viewjob-salary')[0].innerText;
+          const salaryCleaned = salaryRaw.replace('Estimated: ','');
+          console.log(salaryCleaned)
+          return salaryCleaned;
+        }));
+ */
+      } else if (indeed) {
+        console.log('Indeed...')
+        await page.waitForSelector('#jobDescriptionText');
+        
+        [position, positionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('.jobsearch-JobInfoHeader-title-container .jobsearch-JobInfoHeader-title')[0].innerText;
+        }));
+
+        [company, companyErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('.jobsearch-InlineCompanyRating div')[0].innerText;
+        }));
+
+        [city, cityErr] = await handle(page.evaluate(() => {
+          const location = document.querySelectorAll('.jobsearch-InlineCompanyRating div')[2].innerText;
+          const locationArr = location.split(',');
+          return locationArr[0];
+        }));
+
+        [state, stateErr] = await handle(page.evaluate(() => {
+          const location = document.querySelectorAll('.jobsearch-InlineCompanyRating div')[2].innerText;
+          const stateArr = location.split(',');
+          return stateArr[1];
+        }));
+        
+        [description, descriptionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('#jobDescriptionText')[0].innerText;
+        }));
+
+/*      [salary, salaryErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('.jobsearch-JobMetadataHeader-item span')[0].innerText;
+        })); */
+
+      } else if (linkedIn) {
+        console.log('LinkedIn...');
+        await page.waitForSelector('section.description');
+        
+        [position, positionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('h2.topcard__title')[0].innerText;
+        }));
+
+        [company, companyErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('h3.topcard__flavor-row span a')[0].innerText;
+        }));
+
+        [city, cityErr] = await handle(page.evaluate(() => {
+          const location = document.querySelectorAll('h3.topcard__flavor-row span')[1].innerText;
+          if (location.includes(',')){
+            const locationArr = location.split(',');
+            return locationArr[0];
+          } else {
+            return location;
+          }
+        }));
+
+        [state, stateErr] = await handle(page.evaluate(() => {
+          const location = document.querySelectorAll('h3.topcard__flavor-row span')[1].innerText;
+          if (location.match(/,/g).length === 1){
+            const locationArr = location.split(','); 
+            return locationArr[1];
+          }
+        }));
+
+        [country, countryErr] = await handle(page.evaluate(() => {
+          const location = document.querySelectorAll('h3.topcard__flavor-row span')[1].innerText;
+          const locationArr = location.split(','); 
+          if (location.match(/,/g).length === 2){
+            return locationArr[2];
+          }
+        }));
+        
+        [description, descriptionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('.show-more-less-html__markup')[0].innerText;
+        }));
+        
+      } else if (simplyHired) {
+        console.log('SimplyHired...');
+        await page.waitForSelector('.viewjob-content');
+
+        [position, positionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('h2.viewjob-jobTitle')[0].innerText;
+        }));
+  
+        [company, companyErr] = await handle(page.evaluate(() => {
+          const companyName = document.querySelectorAll('.viewjob-labelWithIcon')[0].innerText.replace(' -','');
+          return companyName;
+        }));
+  
+        [city, cityErr] = await handle(page.evaluate(() => {
+          const location = document.querySelectorAll('.viewjob-header-companyInfo .viewjob-labelWithIcon')[1].innerText;
+          const locationArr = location.split(',');
+          return locationArr[0];
+        }));
+
+        [state, stateErr] = await handle(page.evaluate(() => {
+          const location = document.querySelectorAll('.viewjob-header-companyInfo .viewjob-labelWithIcon')[1].innerText;
+          const stateArr = location.split(',');
+          return stateArr[1];
+        }));
+
+        [description, descriptionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('.viewjob-jobDescription p')[0].innerText;
+        }));
+
+        [salary, salaryErr] = await handle(page.evaluate(() => {
+          const salaryRaw = document.querySelectorAll('.viewjob-salary')[0].innerText;
+          const salaryCleaned = salaryRaw.replace('Estimated: ','');
+          console.log(salaryCleaned)
+          return salaryCleaned;
         }));
 
       } else if (startupJobs) {
@@ -210,117 +366,6 @@ function puppeteerProxy() {
           const finalDescription = proxyDescription.split("\nDescription:\n").pop(); // Remove extra text at the start of the string
           return finalDescription;
         })); 
-
-      } else if (indeed) {
-        console.log('Indeed...')
-        await page.waitForSelector('#jobDescriptionText');
-        
-        [position, positionErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('.jobsearch-JobInfoHeader-title-container .jobsearch-JobInfoHeader-title')[0].innerText;
-        }));
-
-        [company, companyErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('.jobsearch-InlineCompanyRating div')[0].innerText;
-        }));
-
-        [city, cityErr] = await handle(page.evaluate(() => {
-          const location = document.querySelectorAll('.jobsearch-InlineCompanyRating div')[2].innerText;
-          const locationArr = location.split(',');
-          return locationArr[0];
-        }));
-
-        [state, stateErr] = await handle(page.evaluate(() => {
-          const location = document.querySelectorAll('.jobsearch-InlineCompanyRating div')[2].innerText;
-          const stateArr = location.split(',');
-          return stateArr[1];
-        }));
-        
-        [description, descriptionErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('#jobDescriptionText')[0].innerText;
-        }));
-
-/*      [salary, salaryErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('.jobsearch-JobMetadataHeader-item span')[0].innerText;
-        })); */
-
-      } else if (linkedIn) {
-        console.log('LinkedIn...');
-        await page.waitForSelector('section.description');
-        
-        [position, positionErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('h2.topcard__title')[0].innerText;
-        }));
-
-        [company, companyErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('h3.topcard__flavor-row span a')[0].innerText;
-        }));
-
-        [city, cityErr] = await handle(page.evaluate(() => {
-          const location = document.querySelectorAll('h3.topcard__flavor-row span')[1].innerText;
-          if (location.includes(',')){
-            const locationArr = location.split(',');
-            return locationArr[0];
-          } else {
-            return location;
-          }
-        }));
-
-        [state, stateErr] = await handle(page.evaluate(() => {
-          const location = document.querySelectorAll('h3.topcard__flavor-row span')[1].innerText;
-          if (location.match(/,/g).length === 1){
-            const locationArr = location.split(','); 
-            return locationArr[1];
-          }
-        }));
-
-        [country, countryErr] = await handle(page.evaluate(() => {
-          const location = document.querySelectorAll('h3.topcard__flavor-row span')[1].innerText;
-          const locationArr = location.split(','); 
-          if (location.match(/,/g).length === 2){
-            return locationArr[2];
-          }
-        }));
-        
-        [description, descriptionErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('.show-more-less-html__markup')[0].innerText;
-        }));
-        
-      } else if (simplyHired) {
-        console.log('SimplyHired');
-        await page.waitForSelector('.viewjob-content');
-
-        [position, positionErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('h2.viewjob-jobTitle')[0].innerText;
-        }));
-  
-        [company, companyErr] = await handle(page.evaluate(() => {
-          const companyName = document.querySelectorAll('.viewjob-labelWithIcon')[0].innerText.replace(' -','');
-          return companyName;
-        }));
-  
-        [city, cityErr] = await handle(page.evaluate(() => {
-          const location = document.querySelectorAll('.viewjob-header-companyInfo .viewjob-labelWithIcon')[1].innerText;
-          const locationArr = location.split(',');
-          return locationArr[0];
-        }));
-
-        [state, stateErr] = await handle(page.evaluate(() => {
-          const location = document.querySelectorAll('.viewjob-header-companyInfo .viewjob-labelWithIcon')[1].innerText;
-          const stateArr = location.split(',');
-          return stateArr[1];
-        }));
-
-        [description, descriptionErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('.viewjob-jobDescription p')[0].innerText;
-        }));
-
-        [salary, salaryErr] = await handle(page.evaluate(() => {
-          const salaryRaw = document.querySelectorAll('.viewjob-salary')[0].innerText;
-          const salaryCleaned = salaryRaw.replace('Estimated: ','');
-          console.log(salaryCleaned)
-          return salaryCleaned;
-        }));
-
       }
 
       // Error checks and pageObject value assignments
