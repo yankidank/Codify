@@ -4,15 +4,18 @@
 // Supports: BuiltIn[City].com, Indeed.com, LinkedIn, SimplyHired, Startup.Jobs, and ZipRecruiter  
 // Example: localhost:4000/scrape?url=[Supported Website]
 
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-let whitelist = ['http://localhost:4000', 'http://localhost:3000', 'http://localhost:3001']
 
 function puppeteerProxy() {
 
   const puppeteer = require('puppeteer');
-  const puppeteer_port = process.env.PUPPETEER_PORT || 4000;
+  const domainName = process.env.DOMAIN || 'http://localhost';
+  let domainPortBack = process.env.PORT || '3001';
+  let domainPortFront = process.env.FRONTEND_PORT || '3000';
+  let puppeteer_port = process.env.PUPPETEER_PORT || '4000';
+
+  let whitelist = [domainName, domainName+':'+domainPortFront, domainName+':'+domainPortBack, domainName+':'+puppeteer_port]
   const proxy = express();
   proxy.use(cors({
     origin: function(origin, callback){
