@@ -96,6 +96,7 @@ function puppeteerProxy() {
       //await page.waitFor(20000); // Pause for testing
 
       const builtIn = req.query.url.startsWith('https://www.builtin');
+      const craigslist = req.query.url.includes('craigslist.org/');
       const github = req.query.url.startsWith('https://jobs.github.com/');
       const indeed = req.query.url.startsWith('https://www.indeed.com/');
       const linkedIn = req.query.url.startsWith('https://www.linkedin.com/');
@@ -122,6 +123,31 @@ function puppeteerProxy() {
         [description, descriptionErr] = await handle(page.evaluate(() => {
           return document.querySelectorAll('.job-description')[0].innerText;
         }));
+
+      } else if (craigslist) {
+        console.log('Craigslist...')
+        await page.waitForSelector('section#postingbody');
+
+        [position, positionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('#titletextonly')[0].innerText;
+        }));
+
+/*         [company, companyErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('.field--name-field-company .field__item a')[0].innerText;
+        })); */
+
+        [city, cityErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('meta[name="geo.placename"]')[0].content;
+        }));
+
+        [state, stateErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('meta[name="geo.region"]')[0].content.replace("US-", "");
+        }));
+
+        [description, descriptionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('section#postingbody')[0].innerText.replace('QR Code Link to This Post', '').trim();
+        }));
+
       } else if (github) {
         console.log('GitHub...');
         await page.waitForSelector('#page');

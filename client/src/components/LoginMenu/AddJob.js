@@ -33,6 +33,7 @@ function AddJob() {
     } else {
       // Check if URL is supported
       const builtIn = url.startsWith('https://www.builtin');
+      const craigslist = url.includes('craigslist.org/');
       const github = url.startsWith('https://jobs.github.com/');
       const indeed = url.startsWith('https://www.indeed.com/');
       const linkedIn = url.startsWith('https://www.linkedin.com/');
@@ -40,7 +41,7 @@ function AddJob() {
       const startupJobs = url.startsWith('https://startup.jobs/');
       const zipRecruiter = url.startsWith('https://www.ziprecruiter.com/');
 
-      if (builtIn || github || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
+      if (builtIn || craigslist || github || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
         // Company name input field .value check
         const inputCompanyName = document.getElementById('inputCompanyName');
         if (!inputCompanyName.value && scrape.url === ''){
@@ -204,7 +205,7 @@ function AddJob() {
                     <div className="animate-text-loading">Loading</div>
                   </div>
                   <div onClick={autofillForm} id="autofill-button" className={`card-button btn-offer ${autofillBtn.visibility}`}>
-                    Autofill {scrape.companyName} Job
+                    Autofill { scrape.companyName || scrape.url.replace('http://','').replace('https://','').split(/[/?#]/)[0] } Job
                   </div>
                   <div onClick={formClear} id="autofill-clear" className={`card-button ${autofillClear.visibility}`}>
                     Clear All

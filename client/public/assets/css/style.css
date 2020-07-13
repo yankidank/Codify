@@ -641,6 +641,9 @@ textarea.materialize-textarea:focus:not([readonly]),
 	-webkit-animation: animate-gradient 4s ease infinite;
           animation: animate-gradient 4s ease infinite;
 }
+#autofill-button {
+  text-transform: capitalize;
+}
 .container-home-jobs .card-content {
   box-shadow:none;
   padding-top: 20px;
