@@ -47,9 +47,10 @@ function puppeteerProxy() {
       let [position, positionErr, company, companyErr, city, cityErr, state, stateErr, zip, zipErr, country, countryErr, remote, remoteErr, description, descriptionErr, salary, salaryErr] = '';
       
       // Retrieve the job post URL
-      const scrapeUrl = req.originalUrl;
-      const jobUrl = scrapeUrl.replace('/scrape?url=', '' )
-      
+      //const scrapeUrl = req.originalUrl;
+      //const jobUrl = scrapeUrl.replace('/scrape?url=', '' );
+      const cleanUrl = req.query.url.toLowerCase().replace('://www.', '://').trim();
+
       const browser = await puppeteer.launch({
         //headless:false,
         ignoreHTTPSErrors: true,
@@ -79,20 +80,19 @@ function puppeteerProxy() {
           req.continue();
       });
 
-      await page.goto(jobUrl , {
+      await page.goto(cleanUrl , {
         //waitUntil: 'load',
         //timeout: 0
       });
       //await page.waitFor(20000); // Pause for testing
       
-      const cleanUrl = req.query.url.toLowerCase().replace('://www.', '://').trim();
-
       const builtIn = cleanUrl.includes('://builtin');
       const craigslist = cleanUrl.includes('craigslist.org/');
       const gitHub = cleanUrl.includes('jobs.github.com/positions/');
       const glassDoor = cleanUrl.includes('glassdoor.com/job');
       const indeed = cleanUrl.includes('indeed.com/jobs') || cleanUrl.includes('indeed.com/viewjob');
       const linkedIn = cleanUrl.includes('linkedin.com/jobs');
+      const linkUp = cleanUrl.includes('linkup.com/details/');
       const snagAJob = cleanUrl.includes('snagajob.com/jobs/');
       const simplyHired = cleanUrl.includes('simplyhired.com/job/');
       const stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/');
@@ -182,6 +182,28 @@ function puppeteerProxy() {
           return document.querySelectorAll('#page .inner .generic .main')[0].innerText;
         }));
         
+      } if (linkUp) {
+        /*
+        console.log('LinkUp...')
+        await page.waitForSelector('body');
+
+        [position, positionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('h2[itemprop="title"]')[0].innerText;
+        }));
+
+        [company, companyErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('h6[itemprop="hiringOrganization"]')[0].innerText;
+        }));
+
+        [city, cityErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('span[itemprop="address"] span[itemprop="addressLocality"]')[0].getAttribute("content");
+        }));
+
+        [description, descriptionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('.main-content .job-description')[0].innerText;
+        }));
+        */
+
       } else if (stackOverflow) {
         console.log('StackOverflow...');
         await page.waitForSelector('.job-details--about');
