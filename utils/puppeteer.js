@@ -87,17 +87,18 @@ function puppeteerProxy() {
       
       const cleanUrl = req.query.url.toLowerCase().replace("://www.", "://").trim();
 
-      const builtIn = cleanUrl.includes('://www.builtin') || cleanUrl.includes('://builtin');
+      const builtIn = cleanUrl.includes('://builtin');
       const craigslist = cleanUrl.includes('craigslist.org/');
       const gitHub = cleanUrl.includes('jobs.github.com/positions/');
       const glassDoor = cleanUrl.includes('glassdoor.com/job');
       const indeed = cleanUrl.includes('indeed.com/jobs') || cleanUrl.includes('indeed.com/viewjob');
       const linkedIn = cleanUrl.includes('linkedin.com/jobs');
       const simplyHired = cleanUrl.includes('simplyhired.com/job/');
+      const stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/');
       const startupJobs = cleanUrl.includes('://startup.jobs/');
       const zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
       
-      if (builtIn && craigslist && gitHub && glassDoor && indeed && linkedIn && simplyHired && startupJobs && zipRecruiter === false){
+      if (builtIn && craigslist && gitHub && glassDoor && indeed && linkedIn && simplyHired && stackOverflow && startupJobs && zipRecruiter === false){
         // Unsupported URL, exit
         return;
       }
@@ -129,10 +130,6 @@ function puppeteerProxy() {
         [position, positionErr] = await handle(page.evaluate(() => {
           return document.querySelectorAll('#titletextonly')[0].innerText;
         }));
-
-/*         [company, companyErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('.field--name-field-company .field__item a')[0].innerText;
-        })); */
 
         [city, cityErr] = await handle(page.evaluate(() => {
           return document.querySelectorAll('meta[name="geo.placename"]')[0].content;
@@ -182,6 +179,44 @@ function puppeteerProxy() {
 
         [description, descriptionErr] = await handle(page.evaluate(() => {
           return document.querySelectorAll('#page .inner .generic .main')[0].innerText;
+        }));
+        
+      } else if (stackOverflow) {
+        console.log('StackOverflow...');
+        await page.waitForSelector('.job-details--about');
+
+        [position, positionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('.fs-headline1 a')[0].innerText;
+        }));
+  
+        [company, companyErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('.job-details--header .grid--cell .fs-body3 a')[0].innerText;
+        }));
+  
+        [city, cityErr] = await handle(page.evaluate(() => {
+          let location = document.querySelectorAll('.job-details--header .grid--cell .fs-body3 .fc-black-500')[0].innerText;
+          location = location.replace('–', '').trim();
+          if (location.includes(',')){
+            // Split between City and State
+            const locationSplit = location.split(',');
+            return locationSplit[0].trim();
+          } else {
+            return location;
+          }
+        }));
+
+        [state, stateErr] = await handle(page.evaluate(() => {
+          let location = document.querySelectorAll('.job-details--header .grid--cell .fs-body3 .fc-black-500')[0].innerText;
+          location = location.replace('–', '').trim();
+          if (location.includes(',')){
+            // Split between City and State
+            const locationSplit = location.split(',');
+            return locationSplit[1].trim();
+          }
+        }));
+
+        [description, descriptionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('.job-details--about')[0].innerText;
         }));
         
       } else if (glassDoor) {
