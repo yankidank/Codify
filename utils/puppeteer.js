@@ -92,7 +92,7 @@ function puppeteerProxy() {
       const glassDoor = cleanUrl.includes('glassdoor.com/job');
       const indeed = cleanUrl.includes('indeed.com/jobs') || cleanUrl.includes('indeed.com/viewjob');
       const linkedIn = cleanUrl.includes('linkedin.com/jobs');
-      const linkUp = cleanUrl.includes('linkup.com/details/');
+      //const linkUp = cleanUrl.includes('linkup.com/details/');
       const snagAJob = cleanUrl.includes('snagajob.com/jobs/');
       const simplyHired = cleanUrl.includes('simplyhired.com/job/');
       const stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/');
@@ -181,9 +181,8 @@ function puppeteerProxy() {
         [description, descriptionErr] = await handle(page.evaluate(() => {
           return document.querySelectorAll('#page .inner .generic .main')[0].innerText;
         }));
-        
-      } if (linkUp) {
-        /*
+      /*  
+      } else if (linkUp) {
         console.log('LinkUp...')
         await page.waitForSelector('body');
 
@@ -202,7 +201,7 @@ function puppeteerProxy() {
         [description, descriptionErr] = await handle(page.evaluate(() => {
           return document.querySelectorAll('.main-content .job-description')[0].innerText;
         }));
-        */
+      */
 
       } else if (stackOverflow) {
         console.log('StackOverflow...');
