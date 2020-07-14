@@ -238,14 +238,7 @@ function puppeteerProxy() {
           [description, descriptionErr] = await handle(page.evaluate(() => {
             return document.querySelectorAll('.jobDescriptionContent')[0].innerText;
           }));
-        /* 
-          [salary, salaryErr] = await handle(page.evaluate(() => {
-            const salaryRaw = document.querySelectorAll('.viewjob-salary')[0].innerText;
-            const salaryCleaned = salaryRaw.replace('Estimated: ','');
-            console.log(salaryCleaned)
-            return salaryCleaned;
-          }));
-        */
+          
         } else if (listingJob) {
 
           await page.waitForSelector('#JobDescriptionContainer');
@@ -283,15 +276,8 @@ function puppeteerProxy() {
           [description, descriptionErr] = await handle(page.evaluate(() => {
             return document.querySelectorAll('#JobDescriptionContainer div .desc')[0].innerText;
           }));
-        /* 
-          [salary, salaryErr] = await handle(page.evaluate(() => {
-            const salaryRaw = document.querySelectorAll('.viewjob-salary')[0].innerText;
-            const salaryCleaned = salaryRaw.replace('Estimated: ','');
-            console.log(salaryCleaned)
-            return salaryCleaned;
-          }));
-        */
         }
+
       } else if (indeed) {
         console.log('Indeed...')
         await page.waitForSelector('#jobDescriptionText');
@@ -319,10 +305,6 @@ function puppeteerProxy() {
         [description, descriptionErr] = await handle(page.evaluate(() => {
           return document.querySelectorAll('#jobDescriptionText')[0].innerText;
         }));
-
-/*      [salary, salaryErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('.jobsearch-JobMetadataHeader-item span')[0].innerText;
-        })); */
 
       } else if (linkedIn) {
         console.log('LinkedIn...');
@@ -467,7 +449,6 @@ function puppeteerProxy() {
         [salary, salaryErr] = await handle(page.evaluate(() => {
           const salaryRaw = document.querySelectorAll('.viewjob-salary')[0].innerText;
           const salaryCleaned = salaryRaw.replace('Estimated: ','');
-          console.log(salaryCleaned)
           return salaryCleaned;
         }));
 
