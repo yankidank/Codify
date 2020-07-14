@@ -42,11 +42,12 @@ function AddJob() {
       const indeed = cleanUrl.includes('indeed.com/jobs') || cleanUrl.includes('indeed.com/viewjob');
       const linkedIn = cleanUrl.includes('linkedin.com/jobs');
       const simplyHired = cleanUrl.includes('simplyhired.com/job/');
+      const snagAJob = cleanUrl.includes('snagajob.com/jobs/');
       const stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/');
       const startupJobs = cleanUrl.includes('://startup.jobs/');
       const zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/jobs/');
 
-      if (builtIn || craigslist || gitHub || glassDoor || indeed || stackOverflow || startupJobs || zipRecruiter || linkedIn || simplyHired){
+      if (builtIn || craigslist || gitHub || glassDoor || indeed || snagAJob || stackOverflow || startupJobs || zipRecruiter || linkedIn || simplyHired){
         // Company name input field .value check
         const inputCompanyName = document.getElementById('inputCompanyName');
         if (!inputCompanyName.value && scrape.url === ''){
