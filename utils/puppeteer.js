@@ -95,14 +95,15 @@ function puppeteerProxy() {
       });
       //await page.waitFor(20000); // Pause for testing
 
-      const builtIn = req.query.url.startsWith('https://www.builtin');
+      const builtIn = req.query.url.includes('://www.builtin') || req.query.url.includes('://builtin');
       const craigslist = req.query.url.includes('craigslist.org/');
-      const github = req.query.url.startsWith('https://jobs.github.com/');
-      const indeed = req.query.url.startsWith('https://www.indeed.com/');
-      const linkedIn = req.query.url.startsWith('https://www.linkedin.com/');
-      const simplyHired = req.query.url.startsWith('https://www.simplyhired.com/');
-      const startupJobs = req.query.url.startsWith('https://startup.jobs/');
-      const zipRecruiter = req.query.url.startsWith('https://www.ziprecruiter.com/');
+      const github = req.query.url.includes('jobs.github.com/');
+      const glassdoor = req.query.url.includes('glassdoor.com/job-listing/');
+      const indeed = req.query.url.includes('indeed.com/');
+      const linkedIn = req.query.url.includes('linkedin.com/');
+      const simplyHired = req.query.url.includes('simplyhired.com/');
+      const startupJobs = req.query.url.includes('://startup.jobs/');
+      const zipRecruiter = req.query.url.includes('ziprecruiter.com/');
       
       if (builtIn) {
         console.log('BuiltIn...')
@@ -151,7 +152,6 @@ function puppeteerProxy() {
       } else if (github) {
         console.log('GitHub...');
         await page.waitForSelector('#page');
-        //await page.waitForSelector('.viewjob-content');
 
         [position, positionErr] = await handle(page.evaluate(() => {
           return document.querySelectorAll('#page .inner h1')[0].innerText;
@@ -186,14 +186,52 @@ function puppeteerProxy() {
         [description, descriptionErr] = await handle(page.evaluate(() => {
           return document.querySelectorAll('#page .inner .generic .main')[0].innerText;
         }));
-/* 
+        
+      } else if (glassdoor) {
+        console.log('GlassDoor...');
+        await page.waitForSelector('#JobDescriptionContainer');
+        
+        [position, positionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('.pb .css-i039yc .flex-column .css-ur1szg .e11nt52q5')[0].innerText;
+        }));
+
+        [company, companyErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('.pb .flex-column .e11nt52q1')[0].innerHTML.split('<span ')[0];
+        }));
+
+        [city, cityErr] = await handle(page.evaluate(() => {
+          const location = document.querySelectorAll('.pb .css-i039yc .flex-column .css-ur1szg .e11nt52q2')[0].innerText;
+          if (location.includes(',')){
+            // Split between City and State
+            const locationArr = location.split(',');
+            return locationArr[0];
+          } else {
+            return location;
+          }
+        }));
+
+        [state, stateErr] = await handle(page.evaluate(() => {
+          const location = document.querySelectorAll('.pb .css-i039yc .flex-column .css-ur1szg .e11nt52q2')[0].innerText;
+          if (location.includes(',')){
+            // Split between City and State
+            const locationArr = location.split(',');
+            return locationArr[1];
+          } else {
+            return;
+          }
+        }));
+
+        [description, descriptionErr] = await handle(page.evaluate(() => {
+          return document.querySelectorAll('#JobDescriptionContainer div .desc')[0].innerText;
+        }));
+      /* 
         [salary, salaryErr] = await handle(page.evaluate(() => {
           const salaryRaw = document.querySelectorAll('.viewjob-salary')[0].innerText;
           const salaryCleaned = salaryRaw.replace('Estimated: ','');
           console.log(salaryCleaned)
           return salaryCleaned;
         }));
- */
+      */
       } else if (indeed) {
         console.log('Indeed...')
         await page.waitForSelector('#jobDescriptionText');

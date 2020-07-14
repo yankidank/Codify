@@ -32,16 +32,17 @@ function AddJob() {
       return scrape;
     } else {
       // Check if URL is supported
-      const builtIn = url.startsWith('https://www.builtin');
+      const builtIn = url.includes('://www.builtin') || url.includes('://builtin');
       const craigslist = url.includes('craigslist.org/');
-      const github = url.startsWith('https://jobs.github.com/');
-      const indeed = url.startsWith('https://www.indeed.com/');
-      const linkedIn = url.startsWith('https://www.linkedin.com/');
-      const simplyHired = url.startsWith('https://www.simplyhired.com/');
-      const startupJobs = url.startsWith('https://startup.jobs/');
-      const zipRecruiter = url.startsWith('https://www.ziprecruiter.com/');
+      const github = url.includes('jobs.github.com/');
+      const glassdoor = url.includes('glassdoor.com/job-listing/');
+      const indeed = url.includes('indeed.com/');
+      const linkedIn = url.includes('linkedin.com/');
+      const simplyHired = url.includes('simplyhired.com/');
+      const startupJobs = url.includes('://startup.jobs/');
+      const zipRecruiter = url.includes('ziprecruiter.com/');
 
-      if (builtIn || craigslist || github || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
+      if (builtIn || craigslist || github || glassdoor || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
         // Company name input field .value check
         const inputCompanyName = document.getElementById('inputCompanyName');
         if (!inputCompanyName.value && scrape.url === ''){
