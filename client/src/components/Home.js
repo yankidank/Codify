@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import NavBar from './NavBar';
 import { Doughnut } from 'react-chartjs-2';
 
@@ -15,6 +15,72 @@ const state = {
 
 function Home() {
   const domain = process.env.NODE_ENV !== 'production' ? 'http://localhost:3001' : '';
+  const [autofillBtn, setAutofillBtn] = useState({visibility:'visible'}); // Hide button until data is loaded
+  const [autofillClear, setAutofillClear] = useState({visibility:'hidden'}); // Track if form fields have been autofilled
+
+  const scrape = {
+    companyName: "Hulu",
+    position: "Full Stack Developer",
+    city: "Santa Monica",
+    state: "CA",
+  };
+
+  const [dummyPost, setDummyPost] = useState({
+    companyName: "",
+    position: "",
+    city: "",
+    state: "",
+  });
+
+  const onPostInput = event => {
+    const { target: { name, value }} = event;
+    setDummyPost({ ...dummyPost, [name]: value})
+  }
+  
+  const autofillForm = async function () {
+    let {companyName, position, city, state} = scrape;
+    setDummyPost({
+      ...dummyPost, 
+      companyName: companyName, 
+      position: position,
+      city: city,
+      state: state,
+    });
+
+    // Update the input field values
+    const inputCompanyName = document.getElementById('inputCompanyName');
+    if (companyName){ inputCompanyName.value = companyName;}
+    const inputPosition = document.getElementById('inputPosition');
+    if (position){ inputPosition.value = position;}
+    const inputCity = document.getElementById('inputCity');
+    if (city){ inputCity.value = city;}
+    const inputState = document.getElementById('inputState');
+    if (state){ inputState.value = state;}
+    setAutofillBtn({...autofillBtn, visibility:"hidden"});
+    setAutofillClear({...autofillClear, visibility:"visible"});
+  }
+
+  const formClear = async function () {
+    // Clear all input fields
+    setDummyPost({
+      ...dummyPost, 
+      companyName: null, 
+      position: null,
+      city: null,
+      state: null,
+    });
+    const inputCompanyName = document.getElementById('inputCompanyName');
+    inputCompanyName.value = null;
+    const inputPosition = document.getElementById('inputPosition');
+    inputPosition.value = null;
+    const inputCity = document.getElementById('inputCity');
+    inputCity.value = null;
+    const inputState = document.getElementById('inputState');
+    inputState.value = null;
+    setAutofillBtn({...autofillBtn, visibility:"visible"});
+    setAutofillClear({...autofillClear, visibility:"hidden"});
+  }
+
   return (
     <div className="home">
       <NavBar />
@@ -157,14 +223,56 @@ function Home() {
       </div>
       <div className="container pushtop dashboard">
         <div className="row">
-          <div className="col s12 m12 l12 dashboard-content">
+          <div className="col s12 dashboard-content">
+          <div className="row">
+              <div className="col s12 m6">
+                <h3>Autofill</h3>
+                <p>Add new jobs with ease by autofilling information from popular job boards. This feature checks your clipboard for a URL from the following sites:</p>
+                <p style={{opacity:0.5}}>BuiltIn, Craigslist, GitHub Jobs, GlassDoor, Indeed, LinkedIn, SimplyHired, SnagAJob, StackOverflow, StartupJobs, and ZipRecruiter</p>
+              </div>
+              <div className="col s12 m6">
+                <div className="row card-image" style={{marginTop:30}}>
+                  <div className="col s6 card-title">
+                    Add New Job
+                  </div>
+                  <div className="col s6">
+                    <div onClick={autofillForm} id="autofill-button" className={`card-button btn-offer ${autofillBtn.visibility}`}>
+                      Autofill { scrape.companyName || scrape.url.replace('//www.','').replace('http:','').replace('https:','').split(/[/?#]/)[0].substring(0,20) } Job
+                    </div>
+                    <div onClick={formClear} id="autofill-clear" className={`card-button ${autofillClear.visibility}`}>
+                      Clear All
+                    </div>
+                  </div>
+                </div>
+                <div className="card card-padded card-add-job">
+                  <div className="row">
+                    <div className="input-field col s12 l6">
+                      <input name="companyName" id="inputCompanyName" className="validate" type="text" onChange={onPostInput}></input>
+                      <label htmlFor="inputCompanyName" className={dummyPost.companyName ? "active" : ""}>Company Name</label>
+                    </div>
+                    <div className="input-field col s12 l6">
+                      <input name="position" id="inputPosition" className="validate" type="text" onChange={onPostInput}></input>
+                      <label htmlFor="inputPosition" className={dummyPost.position ? "active" : ""}>Position Title</label>
+                    </div>
+                    <div className="input-field col s12 l6">
+                      <input name="city" id="inputCity" className="validate" type="text" onChange={onPostInput}></input>
+                      <label htmlFor="inputCity" className={dummyPost.city ? "active" : ""}>City</label>
+                    </div>
+                    <div className="input-field col s12 l6">
+                      <input name="state" id="inputState" className="validate" type="text" onChange={onPostInput}></input>
+                      <label htmlFor="inputState" className={dummyPost.state ? "active" : ""}>State</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="row">
               <div className="col s12 m6 l6">
                 <h3>Gain Insights</h3>
                 <p>Analyze activity and measure your success at a glance. Data is knowledge and knowledge is power.</p>
               </div>
               <div className="col s12 m6 l6">
-                <div className="row card-image">
+                <div className="row card-image" style={{marginTop:25}}>
                   <div className="col s12 card-title">Analytics</div>
                 </div>
                 <div className="card card-padded card-doughnut">
@@ -189,40 +297,42 @@ function Home() {
                 </div>
               </div>
             </div>
-            <div className="col s12 m12 l6">
-              <h3>Manage Contacts</h3>
-              <p>Save the company hiring manager&apos;s contact information and add other key references for each company.</p>
-            </div>
-            <div className="col s12 m12 l6">
-              <div className="row card-image">
-                <div className="col s6 card-title">Contacts</div>
-                <div className="col s6">
-                  <a href="/jobs/add" className="card-button" id="new-contact-btn">
-                    Add Contact
-                  </a>
-                </div>
+            <div className="row">
+              <div className="col s12 m12 l6">
+                <h3>Manage Contacts</h3>
+                <p>Save the company hiring manager&apos;s contact information and add other key references for each company.</p>
               </div>
-              <div className="card card-padded card-contact">
-                <div className="contactInputs">
-                  <div className="input-field col s6">
-                      <input name="home-contact-name" id="home-contact-name" className="validate" type="text" />
-                      <label htmlFor="home-contact-name">Name</label>
+              <div className="col s12 m12 l6" style={{marginTop:25}}>
+                <div className="row card-image">
+                  <div className="col s6 card-title">Contacts</div>
+                  <div className="col s6">
+                    <a href="/jobs/add" className="card-button" id="new-contact-btn">
+                      Add Contact
+                    </a>
                   </div>
-                  <div className="input-field col s6">
-                      <input name="home-contact-position" id="home-contact-position" className="validate" type="text" />
-                      <label htmlFor="home-contact-position">Position</label>
-                  </div>
-                  <div className="input-field col s6">
-                      <input name="home-contact-email" id="home-contact-email" className="validate" type="text" />
-                      <label htmlFor="home-contact-email">Email</label>
-                  </div>
-                  <div className="input-field col s6">
-                      <input name="home-contact-phone" id="home-contact-phone" className="validate" type="text" />
-                      <label htmlFor="home-contact-phone">Phone</label>
-                  </div>
-                  <div className="input-field col s12">
-                      <textarea name="home-contact-textarea" id="home-contact-textarea" className="validate materialize-textarea" type="text" />
-                      <label htmlFor="home-contact-textarea">Notes</label>
+                </div>
+                <div className="card card-padded card-contact">
+                  <div className="contactInputs">
+                    <div className="input-field col s6">
+                        <input name="home-contact-name" id="home-contact-name" className="validate" type="text" />
+                        <label htmlFor="home-contact-name">Name</label>
+                    </div>
+                    <div className="input-field col s6">
+                        <input name="home-contact-position" id="home-contact-position" className="validate" type="text" />
+                        <label htmlFor="home-contact-position">Position</label>
+                    </div>
+                    <div className="input-field col s6">
+                        <input name="home-contact-email" id="home-contact-email" className="validate" type="text" />
+                        <label htmlFor="home-contact-email">Email</label>
+                    </div>
+                    <div className="input-field col s6">
+                        <input name="home-contact-phone" id="home-contact-phone" className="validate" type="text" />
+                        <label htmlFor="home-contact-phone">Phone</label>
+                    </div>
+                    <div className="input-field col s12">
+                        <textarea name="home-contact-textarea" id="home-contact-textarea" className="validate materialize-textarea" type="text" />
+                        <label htmlFor="home-contact-textarea">Notes</label>
+                    </div>
                   </div>
                 </div>
               </div>
