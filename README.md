@@ -8,6 +8,11 @@ For many software engineers, the job hunting process can become overwhelming. Be
 
 Cōdify is a PWA created to organize and analyze the job application process for software developers. It provides a centralized location to save job post URLs, contact information, job offers, application status, and much more. 
 
+
+# Deployed Application 
+
+You can visit the deployed demo site at [Codify.works](https://codify.works). 
+
 # Completed MVP
 
 <img width="365" alt="Screen Shot 2020-06-23 at 5 34 08 PM" src="https://media.giphy.com/media/UrbSM1l5LFBq6iQQyO/giphy.gif">
@@ -54,11 +59,6 @@ Features currently in production include:
 * Save resume version submitted to each application 
 * Receive recommendations for interview preparation
 * Export interview events to calendar
-
-
-# Deployed Application 
-
-You can visit our deployed site [here](https://codify.works). 
 
 # Developed by
 
