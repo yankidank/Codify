@@ -1,17 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../NavBar';
 import {addJob} from "../../utils/API"
 import M from "materialize-css";
-require('dotenv').config();
 
 function AddJob() {
-  
+
   const [autofillBtn, setAutofillBtn] = useState({visibility:'hidden'}); // Hide button until data is loaded
   const [autofillClear, setAutofillClear] = useState({visibility:'hidden'}); // Track if form fields have been autofilled
   const [autofillLoading, setAutofillLoading] = useState({visibility:'hidden'}); // Autofill loading button visibility
-  const refAutofillBtn = useRef(autofillBtn);
-  const refAutofillClear = useRef(autofillLoading);
-  const refAutofillLoading = useRef(autofillLoading);
 
   const [scrape, setScrape] = useState({
     companyName: "",
@@ -20,7 +16,6 @@ function AddJob() {
     state: "",
     url: ""
   });
-  const refScrape = useRef(scrape);
 
   const [post, setPost] = useState({
     companyName: "",
@@ -33,32 +28,42 @@ function AddJob() {
 
   const getPost = async function (url) {
     // Check if values have already been stored
-    if (refScrape.current.url === url){
+    if (scrape.url === url){
       return scrape;
     } else {
-      // Check if URL is supported
-      const builtIn = url.startsWith('https://www.builtin');
-      const indeed = url.startsWith('https://www.indeed.com/');
-      const linkedIn = url.startsWith('https://www.linkedin.com/');
-      const simplyHired = url.startsWith('https://www.simplyhired.com/');
-      const startupJobs = url.startsWith('https://startup.jobs/');
-      const zipRecruiter = url.startsWith('https://www.ziprecruiter.com/');
 
-      if (builtIn || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
+      const cleanUrl = url.toLowerCase().replace("://www.", "://").trim();
+
+      // Check if URL is supported
+      const builtIn = cleanUrl.includes('://builtin');
+      const craigslist = cleanUrl.includes('craigslist.org/');
+      const gitHub = cleanUrl.includes('jobs.github.com/positions/');
+      const glassDoor = cleanUrl.includes('glassdoor.com/job');
+      const indeed = cleanUrl.includes('indeed.com/jobs') || cleanUrl.includes('indeed.com/viewjob');
+      const linkedIn = cleanUrl.includes('linkedin.com/jobs');
+      //const linkUp = cleanUrl.includes('linkup.com/details/');
+      const simplyHired = cleanUrl.includes('simplyhired.com/job/');
+      const snagAJob = cleanUrl.includes('snagajob.com/jobs/');
+      const stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/');
+      const startupJobs = cleanUrl.includes('://startup.jobs/');
+      const zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/jobs/');
+
+      if (builtIn || craigslist || gitHub || glassDoor || indeed || linkedIn || simplyHired || snagAJob || stackOverflow || startupJobs || zipRecruiter){
         // Company name input field .value check
         const inputCompanyName = document.getElementById('inputCompanyName');
-        if (!inputCompanyName.value && refScrape.current.url === ''){
-          if (refAutofillBtn.current.visibility === 'hidden'){ 
-            setAutofillLoading({...autofillLoading, visibility:"visible"});
-            setAutofillBtn({...autofillBtn, visibility:"hidden"});
-            setAutofillClear({...autofillClear, visibility:"hidden"});
-          }
+        if (!inputCompanyName.value && scrape.url === ''){
+          setAutofillLoading({...autofillLoading, visibility:"visible"});
+          setAutofillBtn({...autofillBtn, visibility:"hidden"});
+          setAutofillClear({...autofillClear, visibility:"hidden"});
           // Scrape post data
           const puppeteerDomain = process.env.DOMAIN || 'http://localhost';
-          let puppeteerPort = process.env.PUPPETEER_PORT || 4000;
-          puppeteerPort = puppeteerPort.toString();
-          const puppeteerScrape = 'scrape';
-          const puppeteerUrl = puppeteerDomain+':'+ puppeteerPort +'/'+ puppeteerScrape +'?url='+url;
+          let puppeteerPort = process.env.PUPPETEER_PORT || '4000';
+          if (puppeteerPort === undefined) {
+            puppeteerPort = '';
+          } else if (puppeteerPort !== ''){
+            puppeteerPort = ':'+puppeteerPort;
+          }
+          const puppeteerUrl = puppeteerDomain + puppeteerPort + '/scrape?url=' + url;
           const postResp = await fetch(puppeteerUrl);
           const postObj = await postResp.json();
           if (postObj.company !== undefined || postObj.position !== undefined){
@@ -185,25 +190,11 @@ function AddJob() {
     setPost({ ...post, [name]: value})
   }
   
-  // Click to autofill form function
-  const clickClipboard = async function () {
-    // Check button and url state before scraping to prevent excess calls
-    if (refAutofillLoading.current.visibility === 'hidden' 
-    && refAutofillBtn.current.visibility === 'hidden' 
-    && refAutofillClear.current.visibility === 'hidden'
-    && refScrape.current.url === ''){
-      await fetchClipboard();
-    }
-    return;
-  }
-  
   useEffect(() => {
-    
-    // Attempt to read clipboard text
-    //document.body.addEventListener('click', clickClipboard);
-    window.addEventListener("load", clickClipboard);
-    
-  },[] );
+    if (!scrape.url){
+      fetchClipboard();
+    }
+  },[scrape] );
 
   return (
     <div>
@@ -221,7 +212,7 @@ function AddJob() {
                     <div className="animate-text-loading">Loading</div>
                   </div>
                   <div onClick={autofillForm} id="autofill-button" className={`card-button btn-offer ${autofillBtn.visibility}`}>
-                    Autofill {scrape.companyName} Job
+                    Autofill { scrape.companyName || scrape.url.replace('//www.','').replace('http:','').replace('https:','').split(/[/?#]/)[0].substring(0,20) } Job
                   </div>
                   <div onClick={formClear} id="autofill-clear" className={`card-button ${autofillClear.visibility}`}>
                     Clear All
