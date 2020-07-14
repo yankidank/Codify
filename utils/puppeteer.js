@@ -37,16 +37,6 @@ function puppeteerProxy() {
       .catch(error => Promise.resolve([undefined, error]));
   }
 
-  // Uppercase first letters
-  function capitalizeWords(str){
-    var lowerCase = str.toLowerCase();
-    str = lowerCase.split(" ");
-    for (var i = 0, x = str.length; i < x; i++) {
-      str[i] = str[i][0].toUpperCase() + str[i].substr(1);
-    }
-    return str.join(" ");
-  }
-
   // Start puppeteer proxy server
   proxy
     .get('/scrape', async (req, res) => {
