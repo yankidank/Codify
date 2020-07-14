@@ -47,9 +47,9 @@ function puppeteerProxy() {
       let [position, positionErr, company, companyErr, city, cityErr, state, stateErr, zip, zipErr, country, countryErr, remote, remoteErr, description, descriptionErr, salary, salaryErr] = '';
       
       // Retrieve the job post URL
-      //const scrapeUrl = req.originalUrl;
-      //const jobUrl = scrapeUrl.replace('/scrape?url=', '' );
-      const cleanUrl = req.query.url.toLowerCase().replace('://www.', '://').trim();
+      const scrapeUrl = req.originalUrl;
+      const jobUrl = scrapeUrl.replace('/scrape?url=', '' );
+      const cleanUrl = jobUrl.toLowerCase().replace('://www.', '://').trim();
 
       const browser = await puppeteer.launch({
         //headless:false,
@@ -90,7 +90,7 @@ function puppeteerProxy() {
       const craigslist = cleanUrl.includes('craigslist.org/');
       const gitHub = cleanUrl.includes('jobs.github.com/positions/');
       const glassDoor = cleanUrl.includes('glassdoor.com/job');
-      const indeed = cleanUrl.includes('indeed.com/jobs') || cleanUrl.includes('indeed.com/viewjob');
+      const indeed = cleanUrl.includes('indeed.com/jobs?') || cleanUrl.includes('indeed.com/viewjob?');
       const linkedIn = cleanUrl.includes('linkedin.com/jobs');
       //const linkUp = cleanUrl.includes('linkup.com/details/');
       const snagAJob = cleanUrl.includes('snagajob.com/jobs/');
@@ -327,31 +327,114 @@ function puppeteerProxy() {
 
       } else if (indeed) {
         console.log('Indeed...')
-        await page.waitForSelector('#jobDescriptionText');
+        // Determine search or single view
+        const singleJob = cleanUrl.includes('indeed.com/viewjob?');
+        const listingJob = cleanUrl.includes('indeed.com/jobs?');
+
+        if (listingJob){
+          // Indeed List View
+          await page.waitForSelector('#jobDescriptionText');
         
-        [position, positionErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('.jobsearch-JobInfoHeader-title-container .jobsearch-JobInfoHeader-title')[0].innerText;
-        }));
+          [position, positionErr] = await handle(page.evaluate(() => {
+            return document.querySelectorAll('.jobsearch-JobInfoHeader-title-container .jobsearch-JobInfoHeader-title')[0].innerText;
+          }));
 
-        [company, companyErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('.jobsearch-InlineCompanyRating div')[0].innerText;
-        }));
+          [company, companyErr] = await handle(page.evaluate(() => {
+            return document.querySelectorAll('.jobsearch-InlineCompanyRating div')[0].innerText;
+          }));
 
-        [city, cityErr] = await handle(page.evaluate(() => {
-          const location = document.querySelectorAll('.jobsearch-InlineCompanyRating div')[2].innerText;
-          const locationArr = location.split(',');
-          return locationArr[0];
-        }));
+          [city, cityErr] = await handle(page.evaluate(() => {
+            const location = document.querySelectorAll('.jobsearch-InlineCompanyRating div')[8];
+            let locationValue = location.firstChild.textContent;
+            if (!locationValue){
+              locationValue = location.innerText;
+            }
+            if (locationValue.includes(',')){
+              const locationArr = locationValue.split(',');
+              return locationArr[0].trim();
+            } else {
+              return locationValue.trim();
+            }
+          }));
 
-        [state, stateErr] = await handle(page.evaluate(() => {
-          const location = document.querySelectorAll('.jobsearch-InlineCompanyRating div')[2].innerText;
-          const stateArr = location.split(',');
-          return stateArr[1];
-        }));
+          [state, stateErr] = await handle(page.evaluate(() => {
+            const location = document.querySelectorAll('.jobsearch-InlineCompanyRating div')[8];
+            let locationValue = location.firstChild.textContent;
+            if (!locationValue){
+              locationValue = location.innerText;
+            }
+            if (locationValue.includes(',')){
+              const locationArr = locationValue.split(',');
+              //const zip = locationArr[1].match(/\d+/)[0];
+              //const noZip = locationArr[1].replace(zip, '');
+              return locationArr[1].trim();
+            } else {
+              return;
+            }
+          }));
+/*          
+          [zip, zipErr] = await handle(page.evaluate(() => {
+            const location = document.querySelectorAll('.jobsearch-InlineCompanyRating div')[8];
+            let locationValue = location.firstChild.textContent;
+            if (!locationValue){
+              locationValue = location.innerText;
+            }
+            if (locationValue.includes(',')){
+              const locationArr = locationValue.split(',');
+              const zip = locationArr[1].match(/\d+/)[0];
+              //const noZip = locationArr[1].replace(zip, '');
+              return zip;
+            } else {
+              return;
+            }
+          }));
+*/
+          [description, descriptionErr] = await handle(page.evaluate(() => {
+            return document.querySelectorAll('#jobDescriptionText')[0].innerText;
+          }));
+
+        } else if (singleJob){
+          // Indeed Single View
+          await page.waitForSelector('#jobDescriptionText');
         
-        [description, descriptionErr] = await handle(page.evaluate(() => {
-          return document.querySelectorAll('#jobDescriptionText')[0].innerText;
-        }));
+          [position, positionErr] = await handle(page.evaluate(() => {
+            return document.querySelectorAll('.jobsearch-JobInfoHeader-title-container .jobsearch-JobInfoHeader-title')[0].innerText;
+          }));
+
+          [company, companyErr] = await handle(page.evaluate(() => {
+            return document.querySelectorAll('.jobsearch-InlineCompanyRating div')[0].innerText;
+          }));
+
+          [city, cityErr] = await handle(page.evaluate(() => {
+            const location = document.querySelectorAll('.jobsearch-InlineCompanyRating div')[2].innerText;
+            const locationClean = location.replace(' - ', '');
+            const locationArr = locationClean.split(',');
+            return locationArr[0].trim();
+          }));
+
+          [state, stateErr] = await handle(page.evaluate(() => {
+            const location = document.querySelectorAll('.jobsearch-InlineCompanyRating div')[2].innerText;
+            if (location.includes(',')){
+              const locationArr = location.split(',');
+              //const zip = locationArr[1].match(/\d+/)[0];
+              //const locationOut = locationArr[1].replace(zip, '')
+              return locationArr[1].trim();
+            }
+          }));
+/*           
+          [zip, zipErr] = await handle(page.evaluate(() => {
+            const location = document.querySelectorAll('.jobsearch-InlineCompanyRating div')[2].innerText;
+            if (location.includes(',')){
+              const locationArr = location.split(',');
+              const zip = locationArr[1].match(/\d+/)[0];
+              return zip.trim();
+            }
+          }));
+*/
+          [description, descriptionErr] = await handle(page.evaluate(() => {
+            return document.querySelectorAll('#jobDescriptionText')[0].innerText;
+          }));
+        }
 
       } else if (linkedIn) {
         console.log('LinkedIn...');

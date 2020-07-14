@@ -39,7 +39,7 @@ function AddJob() {
       const craigslist = cleanUrl.includes('craigslist.org/');
       const gitHub = cleanUrl.includes('jobs.github.com/positions/');
       const glassDoor = cleanUrl.includes('glassdoor.com/job');
-      const indeed = cleanUrl.includes('indeed.com/jobs') || cleanUrl.includes('indeed.com/viewjob');
+      const indeed = cleanUrl.includes('indeed.com/jobs?') || cleanUrl.includes('indeed.com/viewjob?');
       const linkedIn = cleanUrl.includes('linkedin.com/jobs');
       //const linkUp = cleanUrl.includes('linkup.com/details/');
       const simplyHired = cleanUrl.includes('simplyhired.com/job/');
