@@ -35,17 +35,18 @@ function AddJob() {
       const cleanUrl = url.toLowerCase().replace("://www.", "://").trim();
 
       // Check if URL is supported
-      const builtIn = cleanUrl.includes('://www.builtin') || cleanUrl.includes('://builtin');
+      const builtIn = cleanUrl.includes('://builtin');
       const craigslist = cleanUrl.includes('craigslist.org/');
       const gitHub = cleanUrl.includes('jobs.github.com/positions/');
       const glassDoor = cleanUrl.includes('glassdoor.com/job');
       const indeed = cleanUrl.includes('indeed.com/jobs') || cleanUrl.includes('indeed.com/viewjob');
       const linkedIn = cleanUrl.includes('linkedin.com/jobs');
       const simplyHired = cleanUrl.includes('simplyhired.com/job/');
+      const stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/');
       const startupJobs = cleanUrl.includes('://startup.jobs/');
       const zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/jobs/');
 
-      if (builtIn || craigslist || gitHub || glassDoor || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
+      if (builtIn || craigslist || gitHub || glassDoor || indeed || stackOverflow || startupJobs || zipRecruiter || linkedIn || simplyHired){
         // Company name input field .value check
         const inputCompanyName = document.getElementById('inputCompanyName');
         if (!inputCompanyName.value && scrape.url === ''){
