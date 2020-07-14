@@ -575,7 +575,7 @@ function puppeteerProxy() {
         }));
 
         [description, descriptionErr] = await handle(page.evaluate(() => {
-          const getDescription = document.querySelectorAll('.job-description div .ng-star-inserted div')[0].innerText;
+          const getDescription = document.querySelectorAll('.job-description div .ng-star-inserted')[0].innerText;
           const editDescription = getDescription.replace('Â',''); // Update this
           return editDescription;
         }));
