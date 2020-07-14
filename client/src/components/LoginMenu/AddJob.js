@@ -31,18 +31,21 @@ function AddJob() {
     if (scrape.url === url){
       return scrape;
     } else {
-      // Check if URL is supported
-      const builtIn = url.includes('://www.builtin') || url.includes('://builtin');
-      const craigslist = url.includes('craigslist.org/');
-      const github = url.includes('jobs.github.com/');
-      const glassdoor = url.includes('glassdoor.com/job-listing/');
-      const indeed = url.includes('indeed.com/');
-      const linkedIn = url.includes('linkedin.com/');
-      const simplyHired = url.includes('simplyhired.com/');
-      const startupJobs = url.includes('://startup.jobs/');
-      const zipRecruiter = url.includes('ziprecruiter.com/');
 
-      if (builtIn || craigslist || github || glassdoor || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
+      const cleanUrl = url.toLowerCase().replace("://www.", "://").trim();
+
+      // Check if URL is supported
+      const builtIn = cleanUrl.includes('://www.builtin') || cleanUrl.includes('://builtin');
+      const craigslist = cleanUrl.includes('craigslist.org/');
+      const gitHub = cleanUrl.includes('jobs.github.com/positions/');
+      const glassDoor = cleanUrl.includes('glassdoor.com/job');
+      const indeed = cleanUrl.includes('indeed.com/jobs') || cleanUrl.includes('indeed.com/viewjob');
+      const linkedIn = cleanUrl.includes('linkedin.com/jobs');
+      const simplyHired = cleanUrl.includes('simplyhired.com/job/');
+      const startupJobs = cleanUrl.includes('://startup.jobs/');
+      const zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/jobs/');
+
+      if (builtIn || craigslist || gitHub || glassDoor || indeed || startupJobs || zipRecruiter || linkedIn || simplyHired){
         // Company name input field .value check
         const inputCompanyName = document.getElementById('inputCompanyName');
         if (!inputCompanyName.value && scrape.url === ''){
@@ -206,7 +209,7 @@ function AddJob() {
                     <div className="animate-text-loading">Loading</div>
                   </div>
                   <div onClick={autofillForm} id="autofill-button" className={`card-button btn-offer ${autofillBtn.visibility}`}>
-                    Autofill { scrape.companyName || scrape.url.replace('http://','').replace('https://','').split(/[/?#]/)[0] } Job
+                    Autofill { scrape.companyName || scrape.url.replace('//www.','').replace('http:','').replace('https:','').split(/[/?#]/)[0].substring(0,20) } Job
                   </div>
                   <div onClick={formClear} id="autofill-clear" className={`card-button ${autofillClear.visibility}`}>
                     Clear All
