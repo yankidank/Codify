@@ -371,7 +371,7 @@ textarea:focus{
 	box-shadow: 2px 3px 11px -10px #000
 }
 .col .card div textarea {
-  max-height: 50vh;
+  max-height: 60vh;
   width: 100%;
 }
 .col .card div textarea:not(:placeholder-shown){

@@ -14,7 +14,10 @@ function AddJob() {
     position: "",
     city: "",
     state: "",
-    url: ""
+    remote: false,
+    salary: "",
+    url: "",
+    notes: ""
   });
 
   const [post, setPost] = useState({
@@ -23,7 +26,10 @@ function AddJob() {
     city: "",
     state: "",
     status: "",
-    url: ""
+    remote: false,
+    salary: "",
+    url: "",
+    notes: ""
   });
 
   const getPost = async function (url) {
@@ -68,12 +74,14 @@ function AddJob() {
           const postObj = await postResp.json();
           if (postObj.company !== undefined || postObj.position !== undefined){
             // Store data to import on click
-            const {company, position, city, state, description} = postObj;
+            const {company, position, city, state, remote, salary, description} = postObj;
             setScrape({
               companyName: company,
               position: position,
               city: city,
               state: state,
+              remote: remote,
+              salary: salary,
               notes: description,
               url: url
             });
@@ -96,14 +104,16 @@ function AddJob() {
   };
 
   const autofillForm = async function () {
-    let {companyName, position, city, state, description, url} = scrape;
+    let {companyName, position, city, state, remote, salary, notes, url} = scrape;
     setPost({
       ...post, 
       companyName: companyName, 
       position: position,
       city: city,
+      remote: remote,
+      salary: salary,
       state: state,
-      notes: description,
+      notes: notes,
       url: url
     });
 
@@ -153,6 +163,8 @@ function AddJob() {
       position: null,
       city: null,
       state: null,
+      remote: false,
+      salary: null,
       notes: null,
       url: null
     });

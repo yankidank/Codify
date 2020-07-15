@@ -32,7 +32,7 @@ function PositionCard() {
     const newPosition = {...position};
     const inputName = event.target.name;
     let inputValue = event.target.value;
-    if (inputName === 'salary' || inputName === 'bonus') {
+    if (inputName === 'bonus') {
       inputValue = convertMoneyToNumber(inputValue);
     }
     newPosition[inputName] = inputValue;
@@ -100,7 +100,7 @@ function PositionCard() {
             <label htmlFor="position-state" className={position.state ? "active" : ""}>State</label>
           </div>
           <div className="input-field col s8">
-            <Cleave options={{ noImmediatePrefix: true, prefix: '$ ', numeral: true }} name="salary" value={position.salary || ""} id="input-salary" className="validate" type="text" onChange={(event) => handleInputChange(event)} />
+            <input name="salary" value={position.salary || ""} id="position-salary" className="validate" type="text" onChange={(event) => handleInputChange(event)} />
             <label htmlFor="input-salary" className={position.salary ? "active" : ""}>Salary</label>
           </div>
           <div className="input-field col s4">
