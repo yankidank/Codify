@@ -35,20 +35,20 @@ function AddJob() {
       const cleanUrl = url.toLowerCase().replace("://www.", "://").trim();
 
       // Check if URL is supported
+      const angelCo = cleanUrl.includes('://angel.co/');
       const builtIn = cleanUrl.includes('://builtin');
       const craigslist = cleanUrl.includes('craigslist.org/');
       const gitHub = cleanUrl.includes('jobs.github.com/positions/');
       const glassDoor = cleanUrl.includes('glassdoor.com/job');
-      const indeed = cleanUrl.includes('indeed.com/jobs?') || cleanUrl.includes('indeed.com/viewjob?');
+      const indeed = cleanUrl.includes('indeed.com') && cleanUrl.includes('job');
       const linkedIn = cleanUrl.includes('linkedin.com/jobs');
-      //const linkUp = cleanUrl.includes('linkup.com/details/');
-      const simplyHired = cleanUrl.includes('simplyhired.com/job/');
+      const simplyHired = cleanUrl.includes('simplyhired.com/job/') || cleanUrl.includes('simplyhired.com/search?');
       const snagAJob = cleanUrl.includes('snagajob.com/jobs/');
       const stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/');
       const startupJobs = cleanUrl.includes('://startup.jobs/');
-      const zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/jobs/');
-
-      if (builtIn || craigslist || gitHub || glassDoor || indeed || linkedIn || simplyHired || snagAJob || stackOverflow || startupJobs || zipRecruiter){
+      const zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
+      
+      if ( angelCo || builtIn || craigslist || gitHub || glassDoor || indeed || linkedIn || simplyHired || snagAJob || stackOverflow || startupJobs || zipRecruiter){
         // Company name input field .value check
         const inputCompanyName = document.getElementById('inputCompanyName');
         if (!inputCompanyName.value && scrape.url === ''){
