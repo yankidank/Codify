@@ -228,7 +228,7 @@ function Home() {
               <div className="col s12 m6">
                 <h3>Autofill</h3>
                 <p>Add new jobs with ease by autofilling information from popular job boards. This feature checks your clipboard for a URL from the following sites:</p>
-                <p style={{opacity:0.5}}>BuiltIn, Craigslist, GitHub Jobs, GlassDoor, Indeed, LinkedIn, SimplyHired, SnagAJob, StackOverflow, StartupJobs, and ZipRecruiter</p>
+                <p style={{opacity:0.6}}>Angel.co, BuiltIn, Craigslist, GitHub Jobs, GlassDoor, Indeed, LinkedIn, SimplyHired, SnagAJob, StackOverflow, StartupJobs, and ZipRecruiter</p>
               </div>
               <div className="col s12 m6">
                 <div className="row card-image" style={{marginTop:30}}>
