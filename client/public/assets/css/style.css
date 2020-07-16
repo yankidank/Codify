@@ -166,8 +166,9 @@ select {
 .job-container .row .col .card {
 	margin-bottom: 35px;
 }
-.card-add-job {
+.col .card-add-job {
   max-width: 720px;
+  margin-bottom:25px;
 }
 .card {
   display: flex;
@@ -643,6 +644,13 @@ textarea.materialize-textarea:focus:not([readonly]),
 }
 #autofill-button {
   text-transform: capitalize;
+}
+.row .autofill-help {
+  font-size:0.85rem;
+  color:#fff;
+  padding: 10px 15px;
+  border-radius: 8px;
+  background:rgba(0, 0, 0, 0.5);
 }
 .container-home-jobs .card-content {
   box-shadow:none;

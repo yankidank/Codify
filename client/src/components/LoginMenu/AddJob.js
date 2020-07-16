@@ -259,6 +259,13 @@ function AddJob() {
             </div>
           </div>
         </div>
+        {autofillBtn.visibility === 'hidden' &&
+          <div className="row">
+            <div className="col s12 autofill-help">
+              Autofill available when a supported URL is copied to your device's clipboard
+            </div>
+          </div>
+        }
       </div>
     </div>
   );
