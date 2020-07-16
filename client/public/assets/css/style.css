@@ -13,7 +13,6 @@ nav {
   background-image: url("../img/background.jpg");
   backdrop-filter: blur(5px);
   background-repeat: no-repeat;
-  background-attachment: fixed;
   background-position: center top;
   background-size: cover;
 }
