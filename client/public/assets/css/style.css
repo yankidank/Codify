@@ -555,90 +555,32 @@ textarea.materialize-textarea:focus:not([readonly]),
   background: #9094a065;
   color: rgba(255, 255, 255, 0.5);
 }
-@-webkit-keyframes animate-gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-@keyframes animate-gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-@-webkit-keyframes animate-text {
-	0% {
-    opacity:0.3;
-  }
-  20% {
-    opacity:0.5;
-	}
-	40% {
-    opacity:1;
-  }
-  60% {
-    opacity:1;
-  }
-  80% {
-    opacity:0.85;
-  }
-	100% {
-    opacity:0.3;
-	}
-}
-@keyframes animate-text {
-	0% {
-    opacity:0.3;
-  }
-  20% {
-    opacity:0.5;
-	}
-	40% {
-    opacity:1;
-  }
-  60% {
-    opacity:1;
-  }
-  80% {
-    opacity:0.85;
-  }
-	100% {
-    opacity:0.3;
-	}
-}
-.animate-text-loading{
-  color:rgba(255, 255, 255, 0.6);
-	-webkit-animation: animate-text 2s ease infinite;
-          animation: animate-text 2s ease infinite;
-}
-#autofill-loading {
-  cursor:progress;
-	background: linear-gradient(to right, #6c7c7c, #0ac577, #059ae1, #646979);
-	background-size: 400% 400%;
-	-webkit-animation: animate-gradient 4s ease infinite;
-          animation: animate-gradient 4s ease infinite;
-}
-#autofill-button {
-  text-transform: capitalize;
+.add-new-job .row {
+  margin-bottom:0;
 }
 .row .autofill-help {
-  font-size:0.85rem;
-  color:#fff;
-  padding: 10px 15px;
-  border-radius: 8px;
-  background:rgba(0, 0, 0, 0.5);
+  vertical-align: middle;
+  line-height: 1.4rem;
+  margin-bottom:20px;
 }
+.row .autofill-help .material-icons {
+  margin-right:7px;
+  font-size:18px;
+}
+.row .btn-offer .material-icons {
+  margin: 0 6px 0 -6px;
+  position: relative;
+  top: -2px;
+}
+.animate-spin-left{
+  -webkit-animation:spin-left 3s linear infinite;
+  -moz-animation:spin-left 3s linear infinite;
+  animation:spin-left 3s linear infinite;
+}
+@-moz-keyframes spin-left { 100% { -moz-transform: rotate(-360deg); } }
+@-webkit-keyframes spin-left { 100% { -webkit-transform: rotate(-360deg); } }
+@keyframes spin-left { 100% { -webkit-transform: rotate(-360deg); transform:rotate(-360deg); } }
+
 .container-home-jobs .card-content {
   box-shadow:none;
   padding-top: 20px;

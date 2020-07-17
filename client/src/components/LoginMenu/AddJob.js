@@ -92,13 +92,16 @@ function AddJob() {
             setAutofillLoading({...autofillLoading, visibility:"hidden"});
             setAutofillBtn({...autofillBtn, visibility:"hidden"});
             setAutofillClear({...autofillClear, visibility:"hidden"});
-            M.toast({ html: 'Unable to autofill job details' });
+            M.toast({ html: 'Unable to Autofill using the URL provided' });
           }
           const exportObj = {...postObj, url: url}
           return exportObj;
         } else {
           return;
         }
+      } else {
+        //M.toast({ html: 'Clipboard URL not supported by Autofill' });
+        console.log('Clipboard URL not supported by Autofill');
       }
     }
   };
@@ -129,13 +132,12 @@ function AddJob() {
     setAutofillLoading({...autofillLoading, visibility:"hidden"});
     setAutofillBtn({...autofillBtn, visibility:"hidden"});
     setAutofillClear({...autofillClear, visibility:"visible"});
-    //M.toast({ html: 'Data Imported from Clipboard URL' });
-
   }
   
   const fetchClipboard = async function () {
     if (!navigator.clipboard) {
       // Clipboard API not available
+      M.toast({ html: 'Unable to access clipboard' });
       return;
     }
     // Check for URL in clipboard
@@ -151,7 +153,8 @@ function AddJob() {
       }
     })
     .catch(err => {
-      console.log(err);
+      //M.toast({ html: 'Unable to read clipboard' });
+      console.log('Unable to read clipboard');
     });
   }
 
@@ -176,7 +179,6 @@ function AddJob() {
     inputCity.value = null;
     const inputState = document.getElementById('inputState');
     inputState.value = null;
-    //M.toast({ html: 'Form Input Fields Cleared' });
     setAutofillLoading({...autofillLoading, visibility:"hidden"});
     setAutofillBtn({...autofillBtn, visibility:"visible"});
     setAutofillClear({...autofillClear, visibility:"hidden"});
@@ -201,6 +203,17 @@ function AddJob() {
     const { target: { name, value }} = event;
     setPost({ ...post, [name]: value})
   }
+
+  var autofillMessage;
+  if (autofillLoading.visibility === 'visible') {
+    autofillMessage = <div className="row"><div className="col s12"><div className="card-button autofill-help valign-wrapper"><i className="material-icons animate-spin-left">loop</i> Autofill is importing the URL from your device's clipboard</div></div></div>;
+  } else if (autofillBtn.visibility === 'visible') {
+    autofillMessage = <div className="row"><div className="col s12"><div className="card-button btn-offer autofill-help valign-wrapper" onClick={autofillForm}><i className="material-icons">next_week</i> Click to Autofill { scrape.companyName || scrape.url.replace('//www.','').replace('http:','').replace('https:','').split(/[/?#]/)[0].substring(0,20) } Job</div></div></div>;
+  } else if (autofillClear.visibility === 'visible') {
+    autofillMessage = <div className="row"><div className="col s12"><div className="card-button autofill-help valign-wrapper" onClick={formClear}><i className="material-icons">assignment_turned_in</i> Autofill Complete! Click to Undo</div></div></div>;
+  } else {
+    autofillMessage = <div className="row"><div className="col s12"><div className="card-button autofill-help valign-wrapper" onClick={fetchClipboard}><i className="material-icons">assignment</i> Autofill fields by copying a supported URL to your device's clipboard, then click here</div></div></div>;
+  }
   
   useEffect(() => {
     if (!scrape.url){
@@ -211,24 +224,13 @@ function AddJob() {
   return (
     <div>
       <NavBar />
-      <div className="container menuNav">
+      <div className="container menuNav add-new-job">
         <div className="row">
           <div className="card-container">
             <div className="col s12">
               <div className="row card-image">
-                <div className="col s6 card-title">
+                <div className="col s12 card-title">
                   Add New Job
-                </div>
-                <div className="col s6">
-                  <div id="autofill-loading" className={`card-button animate-loading ${autofillLoading.visibility}`}>
-                    <div className="animate-text-loading">Loading</div>
-                  </div>
-                  <div onClick={autofillForm} id="autofill-button" className={`card-button btn-offer ${autofillBtn.visibility}`}>
-                    Autofill { scrape.companyName || scrape.url.replace('//www.','').replace('http:','').replace('https:','').split(/[/?#]/)[0].substring(0,20) } Job
-                  </div>
-                  <div onClick={formClear} id="autofill-clear" className={`card-button ${autofillClear.visibility}`}>
-                    Clear All
-                  </div>
                 </div>
               </div>
               <div className="card card-padded card-add-job">
@@ -259,13 +261,7 @@ function AddJob() {
             </div>
           </div>
         </div>
-        {autofillBtn.visibility === 'hidden' &&
-          <div className="row">
-            <div className="col s12 autofill-help">
-              Autofill available when a supported URL is copied to your device's clipboard
-            </div>
-          </div>
-        }
+        {autofillMessage}
       </div>
     </div>
   );
