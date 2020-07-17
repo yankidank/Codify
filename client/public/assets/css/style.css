@@ -579,60 +579,48 @@ textarea.materialize-textarea:focus:not([readonly]),
 }
 @-webkit-keyframes animate-text {
 	0% {
-    opacity:0.5;
-    transform: scale(0.85);
+    opacity:0.3;
   }
   20% {
-    opacity:0.8;
-    transform: scale(0.95);
+    opacity:0.5;
 	}
 	40% {
     opacity:1;
-    transform: scale(1);
   }
   60% {
     opacity:1;
-    transform: scale(1);
   }
   80% {
-    opacity:0.8;
-    transform: scale(0.9)
+    opacity:0.85;
   }
 	100% {
-    opacity:0.5;
-    transform: scale(0.85);
+    opacity:0.3;
 	}
 }
 @keyframes animate-text {
 	0% {
-    opacity:0.5;
-    transform: scale(0.85);
+    opacity:0.3;
   }
   20% {
-    opacity:0.8;
-    transform: scale(0.95);
+    opacity:0.5;
 	}
 	40% {
     opacity:1;
-    transform: scale(1);
   }
   60% {
     opacity:1;
-    transform: scale(1);
   }
   80% {
-    opacity:0.8;
-    transform: scale(0.9)
+    opacity:0.85;
   }
 	100% {
-    opacity:0.5;
-    transform: scale(0.85);
+    opacity:0.3;
 	}
 }
 .animate-text-loading{
   color:rgba(255, 255, 255, 0.6);
-	-webkit-animation: animate-text 1.5s ease infinite;
-          animation: animate-text 1.5s ease infinite;
+	-webkit-animation: animate-text 2s ease infinite;
+          animation: animate-text 2s ease infinite;
 }
 #autofill-loading {
   cursor:progress;
