@@ -13,7 +13,6 @@ nav {
   background-image: url("../img/background.jpg");
   backdrop-filter: blur(5px);
   background-repeat: no-repeat;
-  background-attachment: fixed;
   background-position: center top;
   background-size: cover;
 }
@@ -166,8 +165,9 @@ select {
 .job-container .row .col .card {
 	margin-bottom: 35px;
 }
-.card-add-job {
+.col .card-add-job {
   max-width: 720px;
+  margin-bottom:25px;
 }
 .card {
   display: flex;
@@ -371,7 +371,7 @@ textarea:focus{
 	box-shadow: 2px 3px 11px -10px #000
 }
 .col .card div textarea {
-  max-height: 50vh;
+  max-height: 60vh;
   width: 100%;
 }
 .col .card div textarea:not(:placeholder-shown){
@@ -555,95 +555,32 @@ textarea.materialize-textarea:focus:not([readonly]),
   background: #9094a065;
   color: rgba(255, 255, 255, 0.5);
 }
-@-webkit-keyframes animate-gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+.add-new-job .row {
+  margin-bottom:0;
 }
-@keyframes animate-gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+.row .autofill-help {
+  vertical-align: middle;
+  line-height: 1.4rem;
+  margin-bottom:20px;
 }
-@-webkit-keyframes animate-text {
-	0% {
-    opacity:0.5;
-    transform: scale(0.85);
-  }
-  20% {
-    opacity:0.8;
-    transform: scale(0.95);
-	}
-	40% {
-    opacity:1;
-    transform: scale(1);
-  }
-  60% {
-    opacity:1;
-    transform: scale(1);
-  }
-  80% {
-    opacity:0.8;
-    transform: scale(0.9)
-  }
-	100% {
-    opacity:0.5;
-    transform: scale(0.85);
-	}
+.row .autofill-help .material-icons {
+  margin-right:7px;
+  font-size:18px;
 }
-@keyframes animate-text {
-	0% {
-    opacity:0.5;
-    transform: scale(0.85);
-  }
-  20% {
-    opacity:0.8;
-    transform: scale(0.95);
-	}
-	40% {
-    opacity:1;
-    transform: scale(1);
-  }
-  60% {
-    opacity:1;
-    transform: scale(1);
-  }
-  80% {
-    opacity:0.8;
-    transform: scale(0.9)
-  }
-	100% {
-    opacity:0.5;
-    transform: scale(0.85);
-	}
+.row .btn-offer .material-icons {
+  margin: 0 6px 0 -6px;
+  position: relative;
+  top: -2px;
 }
-.animate-text-loading{
-  color:rgba(255, 255, 255, 0.6);
-	-webkit-animation: animate-text 1.5s ease infinite;
-          animation: animate-text 1.5s ease infinite;
+.animate-spin-left{
+  -webkit-animation:spin-left 3s linear infinite;
+  -moz-animation:spin-left 3s linear infinite;
+  animation:spin-left 3s linear infinite;
 }
-#autofill-loading {
-  cursor:progress;
-	background: linear-gradient(to right, #6c7c7c, #0ac577, #059ae1, #646979);
-	background-size: 400% 400%;
-	-webkit-animation: animate-gradient 4s ease infinite;
-          animation: animate-gradient 4s ease infinite;
-}
-#autofill-button {
-  text-transform: capitalize;
-}
+@-moz-keyframes spin-left { 100% { -moz-transform: rotate(-360deg); } }
+@-webkit-keyframes spin-left { 100% { -webkit-transform: rotate(-360deg); } }
+@keyframes spin-left { 100% { -webkit-transform: rotate(-360deg); transform:rotate(-360deg); } }
+
 .container-home-jobs .card-content {
   box-shadow:none;
   padding-top: 20px;
