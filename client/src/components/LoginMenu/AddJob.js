@@ -154,7 +154,7 @@ function AddJob() {
     })
     .catch(err => {
       //M.toast({ html: 'Unable to read clipboard' });
-      console.log('Unable to read clipboard');
+      console.log(err);
     });
   }
 
@@ -206,13 +206,13 @@ function AddJob() {
 
   var autofillMessage;
   if (autofillLoading.visibility === 'visible') {
-    autofillMessage = <div className="row"><div className="col s12"><div className="card-button autofill-help valign-wrapper"><i className="material-icons animate-spin-left">loop</i> Autofill is importing the URL from your device's clipboard</div></div></div>;
+    autofillMessage = <div className="row"><div className="col s12"><div className="card-button autofill-help valign-wrapper"><i className="material-icons animate-spin-left">loop</i> Autofill is importing the URL from your device&apos;s clipboard</div></div></div>;
   } else if (autofillBtn.visibility === 'visible') {
     autofillMessage = <div className="row"><div className="col s12"><div className="card-button btn-offer autofill-help valign-wrapper" onClick={autofillForm}><i className="material-icons">next_week</i> Click to Autofill { scrape.companyName || scrape.url.replace('//www.','').replace('http:','').replace('https:','').split(/[/?#]/)[0].substring(0,20) } Job</div></div></div>;
   } else if (autofillClear.visibility === 'visible') {
     autofillMessage = <div className="row"><div className="col s12"><div className="card-button autofill-help valign-wrapper" onClick={formClear}><i className="material-icons">assignment_turned_in</i> Autofill Complete! Click to Undo</div></div></div>;
   } else {
-    autofillMessage = <div className="row"><div className="col s12"><div className="card-button autofill-help valign-wrapper" onClick={fetchClipboard}><i className="material-icons">assignment</i> Autofill fields by copying a supported URL to your device's clipboard, then click here</div></div></div>;
+    autofillMessage = <div className="row"><div className="col s12"><div className="card-button autofill-help valign-wrapper" onClick={fetchClipboard}><i className="material-icons">assignment</i> Autofill fields by copying a supported URL to your device&apos;s clipboard, then click here</div></div></div>;
   }
   
   useEffect(() => {
