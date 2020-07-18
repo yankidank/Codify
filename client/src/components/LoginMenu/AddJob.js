@@ -135,10 +135,10 @@ function AddJob() {
           inputState = document.getElementById('inputState');
     
     // Update the input field values
-    if (companyName && !inputCompanyName.value){ inputCompanyName.value = companyName };
-    if (position && !inputPosition.value){ inputPosition.value = position };
-    if (city && !inputCity.value){ inputCity.value = city };
-    if (state && !inputState.value){ inputState.value = state };
+    if (companyName && !inputCompanyName.value){ inputCompanyName.value = companyName }
+    if (position && !inputPosition.value){ inputPosition.value = position }
+    if (city && !inputCity.value){ inputCity.value = city }
+    if (state && !inputState.value){ inputState.value = state }
 
     setAutofillLoading({...autofillLoading, visibility:"hidden"});
     setAutofillBtn({...autofillBtn, visibility:"hidden"});
