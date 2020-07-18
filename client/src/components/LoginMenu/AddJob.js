@@ -114,33 +114,56 @@ function AddJob() {
     }
   };
 
-  const autofillForm = async () => {
-    
-    const {companyName, position, city, state, remote, salary, notes, url} = scrape;
-    
-    setPost({
-      ...post, 
-      companyName, 
-      position,
-      city,
-      remote,
-      salary,
-      state,
-      notes,
-      url
-    });
+  const autofillForm = async (scrapeObj) => {
 
     const inputCompanyName = document.getElementById('inputCompanyName'),
           inputPosition = document.getElementById('inputPosition'),
           inputCity = document.getElementById('inputCity'),
           inputState = document.getElementById('inputState');
     
-    // Update the input field values
-    if (companyName && !inputCompanyName.value){ inputCompanyName.value = companyName }
-    if (position && !inputPosition.value){ inputPosition.value = position }
-    if (city && !inputCity.value){ inputCity.value = city }
-    if (state && !inputState.value){ inputState.value = state }
+    if (scrapeObj.position !== undefined){
 
+      let {company, position, city, state, remote, salary, description, url} = await scrapeObj;
+      setPost({
+        ...post, 
+        companyName: company, 
+        position,
+        city,
+        remote,
+        salary,
+        state,
+        notes: description,
+        url
+      });
+
+      // Update the input field values
+      if (company && !inputCompanyName.value){ inputCompanyName.value = company }
+      if (position && !inputPosition.value){ inputPosition.value = position }
+      if (city && !inputCity.value){ inputCity.value = city }
+      if (state && !inputState.value){ inputState.value = state }
+
+    } else {
+
+      let {companyName, position, city, state, remote, salary, notes, url} = scrape;
+      setPost({
+        ...post, 
+        companyName, 
+        position,
+        city,
+        remote,
+        salary,
+        state,
+        notes,
+        url
+      });
+
+      // Update the input field values
+      if (companyName && !inputCompanyName.value){ inputCompanyName.value = companyName }
+      if (position && !inputPosition.value){ inputPosition.value = position }
+      if (city && !inputCity.value){ inputCity.value = city }
+      if (state && !inputState.value){ inputState.value = state }
+
+    }
     setAutofillLoading({...autofillLoading, visibility:"hidden"});
     setAutofillBtn({...autofillBtn, visibility:"hidden"});
     setAutofillClear({...autofillClear, visibility:"visible"});
@@ -171,7 +194,6 @@ function AddJob() {
     })
     .catch(error => {
       console.log(error);
-      return;
     });
 
   }
@@ -180,7 +202,8 @@ function AddJob() {
     const checkUrl = url.startsWith('http');
     if (checkUrl) {
       try{
-        await getPost(url);
+        let fetchObj = await getPost(url);
+        return fetchObj;
       } catch (error) {
         console.log(error);
       }
@@ -257,7 +280,12 @@ function AddJob() {
 
   useEffect(() => {
     if(source !== null && !scrape.url){
-      fetchSource(source);
+      const fetchData = async () => {
+        let fetch = await fetchSource(source);
+        let autofill = await autofillForm(fetch);
+        return autofill;
+      }
+      fetchData();
     } else if (!scrape.url){
       fetchClipboard();
     }
