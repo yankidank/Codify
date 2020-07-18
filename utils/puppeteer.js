@@ -4,24 +4,25 @@
 // Supports: BuiltIn[City].com, GitHub.com, Indeed.com, LinkedIn, SimplyHired, Startup.Jobs, and ZipRecruiter  
 // Example: localhost:4000/scrape?url=[Supported Website]
 
-const express = require('express');
-const cors = require('cors');
+const express = require('express'),
+      cors = require('cors');
 
 function puppeteerProxy() {
 
-  const puppeteer = require('puppeteer');
-  const domainName = process.env.DOMAIN || 'http://localhost';
-  const domainPortBack = process.env.PORT || '3001';
-  const domainPortFront = process.env.FRONTEND_PORT || '3000';
-  const puppeteer_port = process.env.PUPPETEER_PORT || '4000';
-  const maxTime = 10000; // Timeout max milliseconds
-  const whitelist = [domainName, domainName+':'+domainPortFront, domainName+':'+domainPortBack, domainName+':'+puppeteer_port]
-  const proxy = express();
+  const proxy = express(),
+        puppeteer = require('puppeteer'),
+        domainName = process.env.DOMAIN || 'http://localhost',
+        domainPortBack = process.env.PORT || '3001',
+        domainPortFront = process.env.FRONTEND_PORT || '3000',
+        puppeteer_port = process.env.PUPPETEER_PORT || '4000',
+        maxTime = 10000; // Timeout max milliseconds
+  const whitelist = [domainName, `${domainName}:${domainPortFront}`, `${domainName}:${domainPortBack}`, `${domainName}:${puppeteer_port}` ]
+  
   proxy.use(cors({
     origin: function(origin, callback){
       if(!origin) return callback(null, true);
       if(whitelist.indexOf(origin) === -1){
-        var message = 'The CORS policy does not allow this origin.';
+        const message = 'The CORS policy does not allow this origin.';
         return callback(new Error(message), false);
       }
       return callback(null, true);
@@ -36,8 +37,8 @@ function puppeteerProxy() {
 
       const t0 = performance.now(); // Start performance timer
 
-      let pageObject = {}; // Holds job details for final output
-      let [position, company, city, state, zip, country, remote, description, salary] = '';
+      let pageObject = {}, // Holds job details for final output
+          [ position, company, city, state, zip, country, remote, description, salary ] = '';
       
       // Retrieve the job post URL
       const scrapeUrl = req.originalUrl;
@@ -82,20 +83,21 @@ function puppeteerProxy() {
         console.log(error);
         browser.close();
       }
+
       //await page.waitFor(20000); // Pause for testing
       
-      const angelCo = cleanUrl.includes('://angel.co/');
-      const builtIn = cleanUrl.includes('://builtin');
-      const craigslist = cleanUrl.includes('craigslist.org/');
-      const gitHub = cleanUrl.includes('jobs.github.com/positions/');
-      const glassDoor = cleanUrl.includes('glassdoor.com/job');
-      const indeed = cleanUrl.includes('indeed.com') && cleanUrl.includes('job');
-      const linkedIn = cleanUrl.includes('linkedin.com/jobs');
-      const simplyHired = cleanUrl.includes('simplyhired.com/job/') || cleanUrl.includes('simplyhired.com/search?');
-      const snagAJob = cleanUrl.includes('snagajob.com/jobs/');
-      const stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/');
-      const startupJobs = cleanUrl.includes('://startup.jobs/');
-      const zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
+      const angelCo = cleanUrl.includes('://angel.co/'),
+            builtIn = cleanUrl.includes('://builtin'),
+            craigslist = cleanUrl.includes('craigslist.org/'),
+            gitHub = cleanUrl.includes('jobs.github.com/positions/'),
+            glassDoor = cleanUrl.includes('glassdoor.com/job'),
+            indeed = cleanUrl.includes('indeed.com') && cleanUrl.includes('job'),
+            linkedIn = cleanUrl.includes('linkedin.com/jobs'),
+            simplyHired = cleanUrl.includes('simplyhired.com/job/') || cleanUrl.includes('simplyhired.com/search?'),
+            snagAJob = cleanUrl.includes('snagajob.com/jobs/'),
+            stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/'),
+            startupJobs = cleanUrl.includes('://startup.jobs/'),
+            zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
       
       if (angelCo && builtIn && craigslist && gitHub && glassDoor && indeed && linkedIn && simplyHired && snagAJob && stackOverflow && startupJobs && zipRecruiter === false){
         // Unsupported URL, exit
@@ -421,8 +423,8 @@ function puppeteerProxy() {
         }
 
         // Determine search or single view
-        const singleJob = cleanUrl.includes('glassdoor.com/job/');
-        const listingJob = cleanUrl.includes('glassdoor.com/job-listing/');
+        const singleJob = cleanUrl.includes('glassdoor.com/job/'),
+              listingJob = cleanUrl.includes('glassdoor.com/job-listing/');
 
         if (singleJob){
           // Single View
@@ -891,8 +893,8 @@ function puppeteerProxy() {
       } else if (simplyHired) {
         console.log('SimplyHired...');
         
-        const viewJob = cleanUrl.includes('simplyhired.com/job/');
-        const viewSearch = cleanUrl.includes('simplyhired.com/search?');
+        const viewJob = cleanUrl.includes('simplyhired.com/job/'),
+              viewSearch = cleanUrl.includes('simplyhired.com/search?');
 
         if (viewJob || viewSearch){
 
@@ -1098,8 +1100,8 @@ function puppeteerProxy() {
 
         try{
           company = await page.evaluate(() => {
-            var companyName = document.querySelectorAll('h2.visualHeader__subtitle')[0].innerText;
-            var companyCleaned = companyName.replace(' is hiring a', '');
+            const companyName = document.querySelectorAll('h2.visualHeader__subtitle')[0].innerText;
+            const companyCleaned = companyName.replace(' is hiring a', '');
             return companyCleaned;
           });
         } catch (error) {
@@ -1109,7 +1111,7 @@ function puppeteerProxy() {
 
         try{
           city = await page.evaluate(() => {
-            var location = document.querySelectorAll('.jobListing__main__meta__location')[0].innerText;
+            const location = document.querySelectorAll('.jobListing__main__meta__location')[0].innerText;
             const locationArr = location.split(',');
             return locationArr[0];
           });
@@ -1120,7 +1122,7 @@ function puppeteerProxy() {
 
         try{
           country = await page.evaluate(() => {
-            var location = document.querySelectorAll('.jobListing__main__meta__location')[0].innerText;
+            const location = document.querySelectorAll('.jobListing__main__meta__location')[0].innerText;
             const locationArr = location.split(',');
             return locationArr[1];
           });
@@ -1174,7 +1176,7 @@ function puppeteerProxy() {
 
           try{
             city = await page.evaluate(() => {
-              var location = document.querySelectorAll('.location_text')[0].innerText;
+              const location = document.querySelectorAll('.location_text')[0].innerText;
               if (location.includes(',')){
                 const locationArr = location.split(',');
                 return locationArr[0];
@@ -1189,7 +1191,7 @@ function puppeteerProxy() {
 
           try{
             state = await page.evaluate(() => {
-              var location = document.querySelectorAll('.location_text')[0].innerText;
+              const location = document.querySelectorAll('.location_text')[0].innerText;
               if (location.includes(',')){
                 const locationArr = location.split(',');
                 return locationArr[1];
@@ -1202,7 +1204,7 @@ function puppeteerProxy() {
 
           try{
             country = await page.evaluate(() => {
-              var location = document.querySelectorAll('.location_text')[0].innerText;
+              const location = document.querySelectorAll('.location_text')[0].innerText;
               if (location.includes(',')){
                 const locationArr = location.split(',');
                 if (locationArr.length === 3){
@@ -1254,7 +1256,7 @@ function puppeteerProxy() {
 
           try{
             city = await page.evaluate(() => {
-              var location = document.querySelectorAll('.job_location_city')[0].innerText;
+              const location = document.querySelectorAll('.job_location_city')[0].innerText;
               if (location.includes(',')){
                 const locationArr = location.split(',');
                 return locationArr[0].trim();
@@ -1269,7 +1271,7 @@ function puppeteerProxy() {
 
           try{
             state = await page.evaluate(() => {
-              var location = document.querySelectorAll('.job_location_city')[0].innerText;
+              const location = document.querySelectorAll('.job_location_city')[0].innerText;
               if (location.includes(',')){
                 const locationArr = location.split(',');
                 return locationArr[1];
@@ -1282,7 +1284,7 @@ function puppeteerProxy() {
 
           try{
             country = await page.evaluate(() => {
-              var location = document.querySelectorAll('.job_location_city')[0].innerText;
+              const location = document.querySelectorAll('.job_location_city')[0].innerText;
               if (location.includes(',')){
                 const locationArr = location.split(',');
                 if (locationArr.length === 3){
