@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useLocation} from "react-router-dom";
 import NavBar from '../NavBar';
 import {addJob} from "../../utils/API"
 import M from "materialize-css";
@@ -29,7 +30,7 @@ function AddJob() {
           url: "",
           notes: ""
         });
-
+        
   const getPost = async (url) => {
 
     // Check if the URL is already stored
@@ -107,8 +108,8 @@ function AddJob() {
           return;
         }
       } else {
-        //M.toast({ html: 'Clipboard URL not supported by Autofill' });
-        console.log('Clipboard URL not supported by Autofill');
+        //M.toast({ html: 'URL not supported by Autofill' });
+        console.log('URL not supported by Autofill');
       }
     }
   };
@@ -175,6 +176,17 @@ function AddJob() {
 
   }
 
+  const fetchSource = async (url) => {
+    const checkUrl = url.startsWith('http');
+    if (checkUrl) {
+      try{
+        await getPost(url);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+
   const formClear = async () => {
 
     // Clear all input fields
@@ -231,7 +243,7 @@ function AddJob() {
 
   let autofillMessage;
   if (autofillLoading.visibility === 'visible') {
-    autofillMessage = <div className="row"><div className="col s12"><div className="card-button autofill-help valign-wrapper"><i className="material-icons animate-spin-left">loop</i> Autofill is importing a URL from your device&apos;s clipboard</div></div></div>;
+    autofillMessage = <div className="row"><div className="col s12"><div className="card-button autofill-help valign-wrapper"><i className="material-icons animate-spin-left">loop</i> Autofill is importing the provided URL</div></div></div>;
   } else if (autofillBtn.visibility === 'visible') {
     autofillMessage = <div className="row"><div className="col s12"><div className="card-button btn-offer autofill-help valign-wrapper" onClick={autofillForm}><i className="material-icons">next_week</i> Click to Autofill Job from { scrape.companyName || scrape.url.replace('//www.','').replace('http:','').replace('https:','').split(/[/?#]/)[0].substring(0,20) }</div></div></div>;
   } else if (autofillClear.visibility === 'visible') {
@@ -239,9 +251,14 @@ function AddJob() {
   } else {
     autofillMessage = <div className="row"><div className="col s12"><div className="card-button autofill-help valign-wrapper" onClick={fetchClipboard}><i className="material-icons">assignment</i> Autofill fields by copying a supported URL to your device&apos;s clipboard, then click here</div></div></div>;
   }
-  
+
+  const location = useLocation();
+  const source = new URLSearchParams(location.search).get('source');
+
   useEffect(() => {
-    if (!scrape.url){
+    if(source !== null && !scrape.url){
+      fetchSource(source);
+    } else if (!scrape.url){
       fetchClipboard();
     }
   },[scrape] );
