@@ -293,7 +293,8 @@ function puppeteerProxy() {
 
         try{
           company = await page.evaluate(() => {
-            return document.querySelectorAll('.logo .inner h2')[0].innerText.replace('\n', '').trim().split('other job ').pop();
+            const regex = /\n/;
+            return document.querySelectorAll('.logo .inner h2')[0].innerText.replace(regex, '').trim().split('other job ').pop();
           });
         } catch (error) {
           console.log(' - Unable to determine Company');
