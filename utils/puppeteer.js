@@ -101,9 +101,10 @@ function puppeteerProxy() {
             snagAJob = cleanUrl.includes('snagajob.com/jobs/'),
             stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/'),
             startupJobs = cleanUrl.includes('://startup.jobs/'),
+            whoIsHiring = cleanUrl.includes('whoishiring.io/s/'),
             zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
       
-      if (angelCo && authenticJobs && builtIn && careerBuilder && craigslist && dice && gitHub && glassDoor && indeed && jobot && linkedIn && simplyHired && snagAJob && stackOverflow && startupJobs && zipRecruiter === false){
+      if (angelCo && authenticJobs && builtIn && careerBuilder && craigslist && dice && gitHub && glassDoor && indeed && jobot && linkedIn && simplyHired && snagAJob && stackOverflow && startupJobs && whoIsHiring && zipRecruiter === false){
         // Unsupported URL, exit
         return;
       }
@@ -1447,6 +1448,103 @@ function puppeteerProxy() {
         try{
           description = await page.evaluate(() => {
             return document.querySelectorAll('.trix-content')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+      }  else if (whoIsHiring) {
+        console.log('WhoIsHiring...');
+
+        try{
+          await page.waitForSelector('.SearchItemView', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('.ItemHeader h1')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+
+        try{
+          company = await page.evaluate(() => {
+            return document.querySelectorAll('.ItemHeader h2')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+  
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('.ItemHeader .address')[0].innerText;
+            if (location.includes(',')){
+              const locationArr = location.split(',');
+              return locationArr[0].trim();
+            } else if (location.includes(' - ')){
+              const locationArr = location.split(' - ');
+              return locationArr[1].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('.ItemHeader .address')[0].innerText;
+            if (location.includes(',')){
+              const locationArr = location.split(',');
+              if(locationArr.length > 1){
+                return locationArr[1].trim();
+              } else {
+                return;
+              }
+            } else if (location.includes(' - ')){
+              const locationArr = location.split(' - ');
+              if(locationArr.length > 1){
+                return locationArr[0].trim();
+              } else {
+                return;
+              }
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          country = await page.evaluate(() => {
+            const location = document.querySelectorAll('.ItemHeader .address')[0].innerText;
+            if (location.includes(',')){
+              const locationArr = location.split(',');
+              if(locationArr.length > 2){
+                return locationArr[2].trim();
+              } else {
+                return;
+              }
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Country');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            let getDescription = document.querySelectorAll('.ItemDescription')[0].innerText;
+            return getDescription.trim();
           });
         } catch (error) {
           console.log(' - Unable to determine Description');
