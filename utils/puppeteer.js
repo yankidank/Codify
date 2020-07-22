@@ -100,6 +100,7 @@ function puppeteerProxy() {
             linkedIn = cleanUrl.includes('linkedin.com/jobs'),
             linkUp = cleanUrl.includes('linkup.com/details/'),
             theMuse = cleanUrl.includes('themuse.com/jobs/'),
+            resumeLibrary = cleanUrl.includes('resume-library.com/job/view/'),
             simplyHired = cleanUrl.includes('simplyhired.com/job/') || cleanUrl.includes('simplyhired.com/search?'),
             snagAJob = cleanUrl.includes('snagajob.com/jobs/'),
             stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/'),
@@ -108,7 +109,7 @@ function puppeteerProxy() {
             workingNomads = cleanUrl.includes('workingnomads.co/jobs?'),
             zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
       
-      if (angelCo && authenticJobs && builtIn && careerBuilder && craigslist && dice && gitHub && glassDoor && indeed && jobot && lever && linkedIn && theMuse && simplyHired && snagAJob && stackOverflow && startupJobs && whoIsHiring && workingNomads && zipRecruiter === false){
+      if (angelCo && authenticJobs && builtIn && careerBuilder && craigslist && dice && gitHub && glassDoor && indeed && jobot && lever && linkedIn && theMuse && resumeLibrary && simplyHired && snagAJob && stackOverflow && startupJobs && whoIsHiring && workingNomads && zipRecruiter === false){
         // Unsupported URL, exit
         return;
       }
@@ -1420,6 +1421,77 @@ function puppeteerProxy() {
         try{
           description = await page.evaluate(() => {
             return document.querySelectorAll('section.job-description')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+      } else if (resumeLibrary) {
+        // Disabled - Seems to require headless:false 
+        console .log('Resume-Library...');
+
+        try{
+          await page.waitForSelector('#job-view-main', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('#job-details-title')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            const companyLogo = document.querySelectorAll('#job-details-company')[0].innerText;
+            return companyLogo.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('#job-details-location span')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('#job-details-location span')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('#job-details-description')[0].innerText.trim();
           });
         } catch (error) {
           console.log(' - Unable to determine Description');
