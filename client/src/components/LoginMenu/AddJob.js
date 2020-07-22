@@ -51,7 +51,7 @@ function AddJob() {
             jobot = cleanUrl.includes('jobot.com/details/'),
             lever = cleanUrl.includes('jobs.lever.co/'),
             linkedIn = cleanUrl.includes('linkedin.com/jobs'),
-            //linkUp = cleanUrl.includes('linkup.com/details/'),
+            motionRecruitment = cleanUrl.includes('motionrecruitment.com/'),
             theMuse = cleanUrl.includes('themuse.com/jobs/'),
             remoteCo = cleanUrl.includes('remote.co/job/'),
             resumeLibrary = cleanUrl.includes('resume-library.com/job/view/'),
@@ -60,6 +60,7 @@ function AddJob() {
             stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/'),
             startupJobs = cleanUrl.includes('://startup.jobs/'),
             techFetch = cleanUrl.includes('techfetch.com/partner-jobs/') || cleanUrl.includes('techfetch.com/job-description/'),
+            ventureLoop = cleanUrl.includes('ventureloop.com/ventureloop/job/'),
             weWorkRemotely = cleanUrl.includes('weworkremotely.com/remote-jobs/'),
             whoIsHiring = cleanUrl.includes('whoishiring.io/s/'),
             workingNomads = cleanUrl.includes('workingnomads.co/jobs?'),
@@ -77,6 +78,7 @@ function AddJob() {
         || jobot 
         || lever 
         || linkedIn 
+        || motionRecruitment
         || theMuse 
         || remoteCo 
         || resumeLibrary 
@@ -85,6 +87,7 @@ function AddJob() {
         || stackOverflow 
         || startupJobs 
         || techFetch 
+        || ventureLoop
         || weWorkRemotely 
         || whoIsHiring 
         || workingNomads 
