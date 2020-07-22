@@ -15,9 +15,9 @@ function puppeteerProxy() {
         domainPortBack = process.env.PORT || '3001',
         domainPortFront = process.env.FRONTEND_PORT || '3000',
         puppeteer_port = process.env.PUPPETEER_PORT || '4000',
-        maxTime = 10000; // Timeout max milliseconds
-  const whitelist = [domainName, `${domainName}:${domainPortFront}`, `${domainName}:${domainPortBack}`, `${domainName}:${puppeteer_port}` ]
-  
+        maxTime = 10000, // Timeout max milliseconds
+        whitelist = [domainName, `${domainName}:${domainPortFront}`, `${domainName}:${domainPortBack}`, `${domainName}:${puppeteer_port}` ]
+
   proxy.use(cors({
     origin: function(origin, callback){
       if(!origin) return callback(null, true);
@@ -41,9 +41,9 @@ function puppeteerProxy() {
           [ position, company, city, state, zip, country, remote, description, salary ] = '';
       
       // Retrieve the job post URL
-      const scrapeUrl = req.originalUrl;
-      const jobUrl = scrapeUrl.replace('/scrape?url=', '' );
-      const cleanUrl = jobUrl.toLowerCase().replace('://www.', '://').trim();  
+      const scrapeUrl = req.originalUrl,
+            jobUrl = scrapeUrl.replace('/scrape?url=', '' ),
+            cleanUrl = jobUrl.toLowerCase().replace('://www.', '://').trim();
 
       const browser = await puppeteer.launch({
         //headless:false,
@@ -89,6 +89,7 @@ function puppeteerProxy() {
       const angelCo = cleanUrl.includes('://angel.co/'),
             builtIn = cleanUrl.includes('://builtin'),
             craigslist = cleanUrl.includes('craigslist.org/'),
+            dice = cleanUrl.includes('dice.com/jobs/'),
             gitHub = cleanUrl.includes('jobs.github.com/positions/'),
             glassDoor = cleanUrl.includes('glassdoor.com/job'),
             indeed = cleanUrl.includes('indeed.com') && cleanUrl.includes('job'),
@@ -99,7 +100,7 @@ function puppeteerProxy() {
             startupJobs = cleanUrl.includes('://startup.jobs/'),
             zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
       
-      if (angelCo && builtIn && craigslist && gitHub && glassDoor && indeed && linkedIn && simplyHired && snagAJob && stackOverflow && startupJobs && zipRecruiter === false){
+      if (angelCo && builtIn && craigslist && dice && gitHub && glassDoor && indeed && linkedIn && simplyHired && snagAJob && stackOverflow && startupJobs && zipRecruiter === false){
         // Unsupported URL, exit
         return;
       }
@@ -271,6 +272,90 @@ function puppeteerProxy() {
           console.log(' - Unable to determine Description');
           //console.log(error);
         }
+      } else if (dice) {
+        console .log('Dice...');
+        
+        try{
+          await page.waitForSelector('.job-details', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('h1.jobTitle')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            return document.querySelectorAll('#hiringOrganizationName')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('li.location span')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('li.location span')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('#jobdescSec')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+        try{
+          salary = await page.evaluate(() => {
+            const iconSiblings = document.querySelectorAll('.iconsiblings .mL20')[0].innerText;
+            if (iconSiblings.startsWith('$')){
+              return iconSiblings;
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Salary');
+          //console.log(error);
+        }
+        console.log(salary)
+
 
       } else if (gitHub) {
         console.log('GitHub...');
