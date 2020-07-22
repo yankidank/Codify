@@ -104,9 +104,10 @@ function puppeteerProxy() {
             stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/'),
             startupJobs = cleanUrl.includes('://startup.jobs/'),
             whoIsHiring = cleanUrl.includes('whoishiring.io/s/'),
+            workingNomads = cleanUrl.includes('workingnomads.co/jobs?'),
             zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
       
-      if (angelCo && authenticJobs && builtIn && careerBuilder && craigslist && dice && gitHub && glassDoor && indeed && jobot && lever && linkedIn && simplyHired && snagAJob && stackOverflow && startupJobs && whoIsHiring && zipRecruiter === false){
+      if (angelCo && authenticJobs && builtIn && careerBuilder && craigslist && dice && gitHub && glassDoor && indeed && jobot && lever && linkedIn && simplyHired && snagAJob && stackOverflow && startupJobs && whoIsHiring && workingNomads && zipRecruiter === false){
         // Unsupported URL, exit
         return;
       }
@@ -1597,6 +1598,56 @@ function puppeteerProxy() {
         try{
           description = await page.evaluate(() => {
             return document.querySelectorAll('.trix-content')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+      } else if (workingNomads) {
+        console.log('WorkingNomads...')
+
+        try{
+          await page.waitForSelector('.job-detail', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('h3.job-heading')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+
+        try{
+          company = await page.evaluate(() => {
+            const companyLogo = document.querySelectorAll('.fa-suitcase')[0];
+            const companyParent = companyLogo.parentNode.innerText.trim();
+            return companyParent;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+
+        try{
+          country = await page.evaluate(() => {
+            const location = document.querySelectorAll('.fa-map-marker')[0];
+            const locationParent = location.parentNode.innerText.trim();
+            return locationParent;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Country');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('.job-description')[0].innerText.trim();
           });
         } catch (error) {
           console.log(' - Unable to determine Description');
