@@ -15,9 +15,9 @@ function puppeteerProxy() {
         domainPortBack = process.env.PORT || '3001',
         domainPortFront = process.env.FRONTEND_PORT || '3000',
         puppeteer_port = process.env.PUPPETEER_PORT || '4000',
-        maxTime = 10000; // Timeout max milliseconds
-  const whitelist = [domainName, `${domainName}:${domainPortFront}`, `${domainName}:${domainPortBack}`, `${domainName}:${puppeteer_port}` ]
-  
+        maxTime = 10000, // Timeout max milliseconds
+        whitelist = [domainName, `${domainName}:${domainPortFront}`, `${domainName}:${domainPortBack}`, `${domainName}:${puppeteer_port}` ]
+
   proxy.use(cors({
     origin: function(origin, callback){
       if(!origin) return callback(null, true);
@@ -41,9 +41,9 @@ function puppeteerProxy() {
           [ position, company, city, state, zip, country, remote, description, salary ] = '';
       
       // Retrieve the job post URL
-      const scrapeUrl = req.originalUrl;
-      const jobUrl = scrapeUrl.replace('/scrape?url=', '' );
-      const cleanUrl = jobUrl.toLowerCase().replace('://www.', '://').trim();  
+      const scrapeUrl = req.originalUrl,
+            jobUrl = scrapeUrl.replace('/scrape?url=', '' ),
+            cleanUrl = jobUrl.toLowerCase().replace('://www.', '://').trim();
 
       const browser = await puppeteer.launch({
         //headless:false,
@@ -87,19 +87,60 @@ function puppeteerProxy() {
       //await page.waitFor(20000); // Pause for testing
       
       const angelCo = cleanUrl.includes('://angel.co/'),
+            authenticJobs = cleanUrl.includes('authenticjobs.com/job/'),
             builtIn = cleanUrl.includes('://builtin'),
+            careerBuilder = cleanUrl.includes('careerbuilder.com/job/'),
             craigslist = cleanUrl.includes('craigslist.org/'),
+            dice = cleanUrl.includes('dice.com/jobs/'),
             gitHub = cleanUrl.includes('jobs.github.com/positions/'),
             glassDoor = cleanUrl.includes('glassdoor.com/job'),
             indeed = cleanUrl.includes('indeed.com') && cleanUrl.includes('job'),
+            jobot = cleanUrl.includes('jobot.com/details/'),
+            lever = cleanUrl.includes('jobs.lever.co/'),
             linkedIn = cleanUrl.includes('linkedin.com/jobs'),
+            linkUp = cleanUrl.includes('linkup.com/details/'),
+            motionRecruitment = cleanUrl.includes('motionrecruitment.com/'),
+            theMuse = cleanUrl.includes('themuse.com/jobs/'),
+            remoteCo = cleanUrl.includes('remote.co/job/'),
+            resumeLibrary = cleanUrl.includes('resume-library.com/job/view/'),
             simplyHired = cleanUrl.includes('simplyhired.com/job/') || cleanUrl.includes('simplyhired.com/search?'),
             snagAJob = cleanUrl.includes('snagajob.com/jobs/'),
             stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/'),
             startupJobs = cleanUrl.includes('://startup.jobs/'),
+            techFetch = cleanUrl.includes('techfetch.com/partner-jobs/') || cleanUrl.includes('techfetch.com/job-description/'),
+            ventureLoop = cleanUrl.includes('ventureloop.com/ventureloop/job/'),
+            weWorkRemotely = cleanUrl.includes('weworkremotely.com/remote-jobs/'),
+            whoIsHiring = cleanUrl.includes('whoishiring.io/s/'),
+            workingNomads = cleanUrl.includes('workingnomads.co/jobs?'),
             zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
-      
-      if (angelCo && builtIn && craigslist && gitHub && glassDoor && indeed && linkedIn && simplyHired && snagAJob && stackOverflow && startupJobs && zipRecruiter === false){
+
+      if ( angelCo 
+        && authenticJobs 
+        && builtIn 
+        && careerBuilder 
+        && craigslist 
+        && dice 
+        && gitHub 
+        && glassDoor 
+        && indeed 
+        && jobot 
+        && lever 
+        && linkedIn 
+        && motionRecruitment
+        && theMuse 
+        && remoteCo 
+        && resumeLibrary 
+        && simplyHired 
+        && snagAJob 
+        && stackOverflow 
+        && startupJobs 
+        && techFetch 
+        && ventureLoop
+        && weWorkRemotely
+        && whoIsHiring 
+        && workingNomads 
+        && zipRecruiter 
+        === false ){
         // Unsupported URL, exit
         return;
       }
@@ -179,6 +220,87 @@ function puppeteerProxy() {
           console.log(' - Unable to determine Salary');
           //console.log(error);
         }
+      
+      } else if (authenticJobs) {
+        console .log('AuthenticJobs...');
+        
+        try{
+          await page.waitForSelector('#main', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('h1.entry-title')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            return document.querySelectorAll('a.company-name h6')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('li.location')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              if (locationSplit.length === 2){
+                return locationSplit[0].trim();
+              } else if (locationSplit.length > 2){
+                return locationSplit[1].trim();
+              }
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('li.location')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              if (locationSplit.length === 2){
+                return locationSplit[1].trim().replace(/[0-9]/g, '').trim();
+              } else if (locationSplit.length === 3){
+                return locationSplit[2].trim().replace(/[0-9]/g, '').trim();
+              } else if (locationSplit.length === 4){
+                return locationSplit[2].trim().replace(/[0-9]/g, '').trim();
+              } else {
+                return;
+              }
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('.job_description')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
 
       } else if (builtIn) {
         console .log('BuiltIn...');
@@ -223,6 +345,83 @@ function puppeteerProxy() {
           });
         } catch (error) {
           console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+      } else if (careerBuilder) {
+        console .log('CareerBuilder...');
+        
+        try{
+          await page.waitForSelector('#jdb-pane', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('h1.jobTitle')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            return document.querySelectorAll('.data-display-header_info-content .data-details span')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('.data-display-header_info-content .data-details span')[1].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('.data-display-header_info-content .data-details span')[1].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('.jdp-description-details .col-mobile-full')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+        try{
+          salary = await page.evaluate(() => {
+            return document.querySelectorAll('#cb-salcom-info')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Salary');
           //console.log(error);
         }
 
@@ -272,6 +471,89 @@ function puppeteerProxy() {
           //console.log(error);
         }
 
+      } else if (dice) {
+        console .log('Dice...');
+        
+        try{
+          await page.waitForSelector('.job-details', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('h1.jobTitle')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            return document.querySelectorAll('#hiringOrganizationName')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('li.location span')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('li.location span')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('#jobdescSec')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+        try{
+          salary = await page.evaluate(() => {
+            const iconSiblings = document.querySelectorAll('.iconsiblings .mL20')[0].innerText;
+            if (iconSiblings.startsWith('$')){
+              return iconSiblings;
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Salary');
+          //console.log(error);
+        }
+
       } else if (gitHub) {
         console.log('GitHub...');
 
@@ -293,7 +575,8 @@ function puppeteerProxy() {
 
         try{
           company = await page.evaluate(() => {
-            return document.querySelectorAll('.logo .inner h2')[0].innerText.replace('\n', '').trim().split('other job ').pop();
+            const regex = /\n/;
+            return document.querySelectorAll('.logo .inner h2')[0].innerText.replace(regex, '').trim().split('other job ').pop();
           });
         } catch (error) {
           console.log(' - Unable to determine Company');
@@ -718,6 +1001,149 @@ function puppeteerProxy() {
           }
         }
 
+      } else if (jobot) {
+        console .log('Jobot...');
+        
+        try{
+          await page.waitForSelector('#wrapper', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelector('#wrapper').getAttribute('data-title');
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelector('#wrapper').getAttribute('data-location');
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelector('#wrapper').getAttribute('data-location');
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('.job-description-inner')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+        try{
+          salary = await page.evaluate(() => {
+            return document.querySelectorAll('.salary-amount')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Salary');
+          //console.log(error);
+        }
+      } else if (lever) {
+        console .log('Lever.co...');
+        
+        try{
+          await page.waitForSelector('.content', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('.posting-headline h2')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            const companyLogo = document.querySelectorAll('.main-header-logo img')[0].alt;
+            return companyLogo.replace(' logo', '');
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('.posting-categories .sort-by-time')[0].innerText;
+            if (location.includes('-')){
+              // Split between City and State
+              const locationSplit = location.split('-');
+              const locationClean = locationSplit[1].replace('/', '').trim().toLowerCase();
+              const locationCap = locationClean.charAt(0).toUpperCase() + locationClean.slice(1);
+              return locationCap;
+            } else {
+              const locationClean = location.replace('/', '').trim().toLowerCase();
+              const locationCap = locationClean.charAt(0).toUpperCase() + locationClean.slice(1);
+              return locationCap;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('.posting-categories .sort-by-time')[0].innerText;
+            if (location.includes('-')){
+              // Split between City and State
+              const locationSplit = location.split('-');
+              const locationClean = locationSplit[0].replace('/', '').trim().toLowerCase();
+              const locationCap = locationClean.charAt(0).toUpperCase() + locationClean.slice(1);
+              return locationCap;
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('.content .section-wrapper')[1].innerText.replace('\nAPPLY FOR THIS JOB', '').trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
 
       } else if (linkedIn) {
         console.log('LinkedIn...');
@@ -890,6 +1316,406 @@ function puppeteerProxy() {
           }
 
         }
+
+      } else if (linkUp) {
+        // Disabled - Seems to require headless:false 
+        console .log('LinkUp...');
+
+        try{
+          await page.waitForSelector('.main-content', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('.job-header .flexbox h2')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            const companyLogo = document.querySelectorAll('.job-header .flexbox div h6.company')[0].innerText;
+            return companyLogo.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('.job-header .flexbox div h6.location span')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('.job-header .flexbox div h6.location span')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('.main-content .job-description')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+      } else if (motionRecruitment) {
+        console .log('MotionRecruitment...');
+
+        try{
+          await page.waitForSelector('.job-info-main', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            const positionRaw = document.querySelectorAll('h1#job-title')[0].innerText;
+            if (positionRaw.includes('/')){
+              const positionSplit = positionRaw.split('/');
+              const positionOut = positionSplit[0].trim();
+              return positionOut;
+            } else {
+              return positionRaw.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const meta = document.querySelectorAll('p#job-meta')[0].innerText;
+            if (meta.includes(' | ')){
+              const locationMeta = meta.split(' | ');
+              if (locationMeta[2].includes(',')){
+                // Split between City and State
+                const locationSplit = locationMeta[2].split(',');
+                return locationSplit[0].trim();
+              } else {
+                return locationMeta[2].trim();
+              }
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const meta = document.querySelectorAll('p#job-meta')[0].innerText;
+            if (meta.includes(' | ')){
+              const locationMeta = meta.split(' | ');
+              if (locationMeta[2].includes(',')){
+                // Split between City and State
+                const locationSplit = locationMeta[2].split(',');
+                return locationSplit[1].trim();
+              } else {
+                return;
+              }
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          salary = await page.evaluate(() => {
+            const meta = document.querySelectorAll('p#job-meta')[0].innerText;
+            if (meta.includes(' | ')){
+              const locationMeta = meta.split(' | ');
+              return locationMeta[1].trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Salary');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('#job-description')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+      } else if (theMuse) {
+        // Disabled - Seems to require headless:false 
+        console .log('TheMuse...');
+
+        try{
+          await page.waitForSelector('.job-container', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('h1.title')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            const companyLogo = document.querySelectorAll('.breadcrumb-title')[0].innerText;
+            return companyLogo.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('ul#location-list .location-item')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('ul#location-list .location-item')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('section.job-description')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+      } else if (remoteCo) {
+        console .log('RemoteCo...');
+
+        try{
+          await page.waitForSelector('.card-body', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            const companyLogo = document.querySelectorAll('.co_name strong')[0].innerText;
+            return companyLogo.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          position = await page.evaluate(() => {
+            const positionRaw = document.querySelectorAll('.card-body h1')[0].innerText,
+                  positionSplit = positionRaw.split(' at '),
+                  positionOut = positionSplit[0].trim();
+            return positionOut;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('.job_info_container_sm .location_sm')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              if (location.trim() !== "Remote" ){
+                return location.trim();
+              }
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('.job_info_container_sm .location_sm')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          remote = await page.evaluate(() => {
+            const location = document.querySelectorAll('.job_info_container_sm .location_sm')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              if (location.trim() === "Remote" ){
+                return true;
+              } else {
+                return;
+              }
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            const positionRaw = document.querySelectorAll('.card-body h1')[0].innerText,
+                  positionSplit = positionRaw.split(' at '),
+                  positionOut = positionSplit[0].trim(),
+                  descriptionRaw = document.querySelectorAll('.job_description')[0].innerText.trim(),
+                  descriptionOut = descriptionRaw.replace(positionOut, '').replace('\n\nRemote', '').replace('– Remote\n\n', '').trim();
+            return descriptionOut;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+      } else if (resumeLibrary) {
+        // Disabled - Seems to require headless:false 
+        console .log('Resume-Library...');
+
+        try{
+          await page.waitForSelector('#job-view-main', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('#job-details-title')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            const companyLogo = document.querySelectorAll('#job-details-company')[0].innerText;
+            return companyLogo.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('#job-details-location span')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('#job-details-location span')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('#job-details-description')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
       } else if (simplyHired) {
         console.log('SimplyHired...');
         
@@ -1112,8 +1938,12 @@ function puppeteerProxy() {
         try{
           city = await page.evaluate(() => {
             const location = document.querySelectorAll('.jobListing__main__meta__location')[0].innerText;
-            const locationArr = location.split(',');
-            return locationArr[0];
+            if(location.includes(',')){
+              const locationArr = location.split(',');
+              return locationArr[0];
+            } else {
+              return location;
+            }
           });
         } catch (error) {
           console.log(' - Unable to determine City');
@@ -1140,6 +1970,424 @@ function puppeteerProxy() {
           //console.log(error);
         }
 
+      } else if (techFetch) {
+        console.log('TechFetch...')
+
+        try{
+          await page.waitForSelector('.home .container', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('h1.jobtitle span')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+
+        try{
+          company = await page.evaluate(() => {
+            return document.querySelectorAll('#lblCompany')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('#lblLocation')[0].innerText.trim();
+            if (location.includes(',')){
+              const locationArr = location.split(',');
+              return locationArr[0].trim();
+            } else {
+              return location;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('#lblLocation')[0].innerText.trim();
+            if (location.includes(',')){
+              const locationArr = location.split(',');
+              return locationArr[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('#lblJobDesc')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+        try{
+          salary = await page.evaluate(() => {
+            const salaryDom = document.querySelectorAll('#lblPay')[0].innerText;
+            if (salaryDom.toLowerCase() !== 'doe' 
+                && salaryDom.toLowerCase() !== 'market'
+                && salaryDom.toLowerCase() !== 'negotiable'
+                && salaryDom.toLowerCase() !== 'open'
+            ){
+              return salaryDom;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Salary');
+          //console.log(error);
+        }
+
+      
+      } else if (ventureLoop) {
+        // Disabled - Seems to require headless:false 
+        console .log('VentureLoop...');
+
+        try{
+          await page.waitForSelector('.description .desc-cont', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('.comp-ad h2')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            const companyRaw = document.querySelectorAll('.comp-ad p')[0].innerText;
+            if (companyRaw.includes('|')){
+              const companySplit = companyRaw.split('|');
+              if (companyRaw.includes(' - ')){
+                const companyTime = companySplit[0].split(' - ');
+                return companyTime[0].trim();
+              } else {
+                return companySplit[0].trim();
+              }
+            } else {
+              return companyRaw.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('.comp-ad h3')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('.comp-ad h3')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              if (locationSplit.length === 3){
+                return locationSplit[1].trim();
+              }
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          country = await page.evaluate(() => {
+            const location = document.querySelectorAll('.comp-ad h3')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              if (locationSplit.length === 2){
+                return locationSplit[1].trim();
+              } else if (locationSplit.length === 3){
+                return locationSplit[2].trim();
+              }
+            } else {
+              if (location.trim() !== 'Remote'){
+                return location.trim();
+              }
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Country');
+          //console.log(error);
+        }
+
+        try{
+          remote = await page.evaluate(() => {
+            const location = document.querySelectorAll('.comp-ad h3')[0].innerText;
+            if (!location.includes(',') || location.trim() === 'Remote'){
+              return true;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Remote');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('.cnt-des div')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+      } else if (weWorkRemotely) {
+        console.log('WeWorkRemotely...')
+
+        try{
+          await page.waitForSelector('.content', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('.listing-header-container h1')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+
+        try{
+          company = await page.evaluate(() => {
+            const companyName = document.querySelectorAll('.company-card h2 a')[0].innerText.trim();
+            return companyName;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+
+        try{
+          city = await page.evaluate(() => {
+            const locationIcon = document.querySelectorAll('.fa-map-marker-alt')[0];
+            const location = locationIcon.parentNode.innerText.trim();
+            if(location.includes(',')){
+              const locationArr = location.split(',');
+              return locationArr[0];
+            } else {
+              return location;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const locationIcon = document.querySelectorAll('.fa-map-marker-alt')[0];
+            const location = locationIcon.parentNode.innerText.trim();
+            if(location.includes(',')){
+              const locationArr = location.split(',');
+              return locationArr[1];
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Country');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('#job-listing-show-container')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+      }  else if (whoIsHiring) {
+        console.log('WhoIsHiring...');
+
+        try{
+          await page.waitForSelector('.SearchItemView', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('.ItemHeader h1')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+
+        try{
+          company = await page.evaluate(() => {
+            return document.querySelectorAll('.ItemHeader h2')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+  
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('.ItemHeader .address')[0].innerText;
+            if (location.includes(',')){
+              const locationArr = location.split(',');
+              return locationArr[0].trim();
+            } else if (location.includes(' - ')){
+              const locationArr = location.split(' - ');
+              return locationArr[1].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('.ItemHeader .address')[0].innerText;
+            if (location.includes(',')){
+              const locationArr = location.split(',');
+              if(locationArr.length > 1){
+                return locationArr[1].trim();
+              } else {
+                return;
+              }
+            } else if (location.includes(' - ')){
+              const locationArr = location.split(' - ');
+              if(locationArr.length > 1){
+                return locationArr[0].trim();
+              } else {
+                return;
+              }
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          country = await page.evaluate(() => {
+            const location = document.querySelectorAll('.ItemHeader .address')[0].innerText;
+            if (location.includes(',')){
+              const locationArr = location.split(',');
+              if(locationArr.length > 2){
+                return locationArr[2].trim();
+              } else {
+                return;
+              }
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Country');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            let getDescription = document.querySelectorAll('.ItemDescription')[0].innerText;
+            return getDescription.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+      } else if (workingNomads) {
+        console.log('WorkingNomads...')
+
+        try{
+          await page.waitForSelector('.job-detail', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('h3.job-heading')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+
+        try{
+          company = await page.evaluate(() => {
+            const companyLogo = document.querySelectorAll('.fa-suitcase')[0];
+            const companyParent = companyLogo.parentNode.innerText.trim();
+            return companyParent;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+
+        try{
+          country = await page.evaluate(() => {
+            const location = document.querySelectorAll('.fa-map-marker')[0];
+            const locationParent = location.parentNode.innerText.trim();
+            return locationParent;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Country');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('.job-description')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+      
       } else if (zipRecruiter) {
         console.log('ZipRecruiter...');
 
