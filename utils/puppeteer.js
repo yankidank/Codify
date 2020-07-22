@@ -85,7 +85,7 @@ function puppeteerProxy() {
       }
 
       //await page.waitFor(20000); // Pause for testing
-      
+
       const angelCo = cleanUrl.includes('://angel.co/'),
             builtIn = cleanUrl.includes('://builtin'),
             careerBuilder = cleanUrl.includes('careerbuilder.com/job/'),
@@ -94,6 +94,7 @@ function puppeteerProxy() {
             gitHub = cleanUrl.includes('jobs.github.com/positions/'),
             glassDoor = cleanUrl.includes('glassdoor.com/job'),
             indeed = cleanUrl.includes('indeed.com') && cleanUrl.includes('job'),
+            jobot = cleanUrl.includes('jobot.com/details/'),
             linkedIn = cleanUrl.includes('linkedin.com/jobs'),
             simplyHired = cleanUrl.includes('simplyhired.com/job/') || cleanUrl.includes('simplyhired.com/search?'),
             snagAJob = cleanUrl.includes('snagajob.com/jobs/'),
@@ -101,7 +102,7 @@ function puppeteerProxy() {
             startupJobs = cleanUrl.includes('://startup.jobs/'),
             zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
       
-      if (angelCo && builtIn && careerBuilder && craigslist && dice && gitHub && glassDoor && indeed && linkedIn && simplyHired && snagAJob && stackOverflow && startupJobs && zipRecruiter === false){
+      if (angelCo && builtIn && careerBuilder && craigslist && dice && gitHub && glassDoor && indeed && jobot && linkedIn && simplyHired && snagAJob && stackOverflow && startupJobs && zipRecruiter === false){
         // Unsupported URL, exit
         return;
       }
@@ -880,6 +881,74 @@ function puppeteerProxy() {
           }
         }
 
+      } else if (jobot) {
+        console .log('Jobot...');
+        
+        try{
+          await page.waitForSelector('#wrapper', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelector('#wrapper').getAttribute('data-title');
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelector('#wrapper').getAttribute('data-location');
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelector('#wrapper').getAttribute('data-location');
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('.job-description-inner')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+        try{
+          salary = await page.evaluate(() => {
+            return document.querySelectorAll('.salary-amount')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Salary');
+          //console.log(error);
+        }
 
       } else if (linkedIn) {
         console.log('LinkedIn...');
