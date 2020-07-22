@@ -49,6 +49,7 @@ function AddJob() {
             glassDoor = cleanUrl.includes('glassdoor.com/job'),
             indeed = cleanUrl.includes('indeed.com') && cleanUrl.includes('job'),
             jobot = cleanUrl.includes('jobot.com/details/'),
+            lever = cleanUrl.includes('jobs.lever.co/'),
             linkedIn = cleanUrl.includes('linkedin.com/jobs'),
             simplyHired = cleanUrl.includes('simplyhired.com/job/') || cleanUrl.includes('simplyhired.com/search?'),
             snagAJob = cleanUrl.includes('snagajob.com/jobs/'),
@@ -57,7 +58,7 @@ function AddJob() {
             whoIsHiring = cleanUrl.includes('whoishiring.io/s/'),
             zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
       
-      if ( angelCo || authenticJobs || builtIn || careerBuilder || craigslist || dice || gitHub || glassDoor || indeed || jobot || linkedIn || simplyHired || snagAJob || stackOverflow || startupJobs || whoIsHiring || zipRecruiter){
+      if ( angelCo || authenticJobs || builtIn || careerBuilder || craigslist || dice || gitHub || glassDoor || indeed || jobot || lever || linkedIn || simplyHired || snagAJob || stackOverflow || startupJobs || whoIsHiring || zipRecruiter){
         
         if (scrape.url === ''){
 

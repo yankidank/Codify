@@ -96,6 +96,7 @@ function puppeteerProxy() {
             glassDoor = cleanUrl.includes('glassdoor.com/job'),
             indeed = cleanUrl.includes('indeed.com') && cleanUrl.includes('job'),
             jobot = cleanUrl.includes('jobot.com/details/'),
+            lever = cleanUrl.includes('jobs.lever.co/'),
             linkedIn = cleanUrl.includes('linkedin.com/jobs'),
             simplyHired = cleanUrl.includes('simplyhired.com/job/') || cleanUrl.includes('simplyhired.com/search?'),
             snagAJob = cleanUrl.includes('snagajob.com/jobs/'),
@@ -104,7 +105,7 @@ function puppeteerProxy() {
             whoIsHiring = cleanUrl.includes('whoishiring.io/s/'),
             zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
       
-      if (angelCo && authenticJobs && builtIn && careerBuilder && craigslist && dice && gitHub && glassDoor && indeed && jobot && linkedIn && simplyHired && snagAJob && stackOverflow && startupJobs && whoIsHiring && zipRecruiter === false){
+      if (angelCo && authenticJobs && builtIn && careerBuilder && craigslist && dice && gitHub && glassDoor && indeed && jobot && lever && linkedIn && simplyHired && snagAJob && stackOverflow && startupJobs && whoIsHiring && zipRecruiter === false){
         // Unsupported URL, exit
         return;
       }
@@ -1030,6 +1031,81 @@ function puppeteerProxy() {
           });
         } catch (error) {
           console.log(' - Unable to determine Salary');
+          //console.log(error);
+        }
+      } else if (lever) {
+        console .log('Lever.co...');
+        
+        try{
+          await page.waitForSelector('.content', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('.posting-headline h2')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            const companyLogo = document.querySelectorAll('.main-header-logo img')[0].alt;
+            return companyLogo.replace(' logo', '');
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('.posting-categories .sort-by-time')[0].innerText;
+            if (location.includes('-')){
+              // Split between City and State
+              const locationSplit = location.split('-');
+              const locationClean = locationSplit[1].replace('/', '').trim().toLowerCase();
+              const locationCap = locationClean.charAt(0).toUpperCase() + locationClean.slice(1);
+              return locationCap;
+            } else {
+              const locationClean = location.replace('/', '').trim().toLowerCase();
+              const locationCap = locationClean.charAt(0).toUpperCase() + locationClean.slice(1);
+              return locationCap;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('.posting-categories .sort-by-time')[0].innerText;
+            if (location.includes('-')){
+              // Split between City and State
+              const locationSplit = location.split('-');
+              const locationClean = locationSplit[0].replace('/', '').trim().toLowerCase();
+              const locationCap = locationClean.charAt(0).toUpperCase() + locationClean.slice(1);
+              return locationCap;
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('.content .section-wrapper')[1].innerText.replace('\nAPPLY FOR THIS JOB', '').trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
           //console.log(error);
         }
 
