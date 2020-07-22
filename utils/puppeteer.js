@@ -100,6 +100,7 @@ function puppeteerProxy() {
             linkedIn = cleanUrl.includes('linkedin.com/jobs'),
             linkUp = cleanUrl.includes('linkup.com/details/'),
             theMuse = cleanUrl.includes('themuse.com/jobs/'),
+            remoteCo = cleanUrl.includes('remote.co/job/'),
             resumeLibrary = cleanUrl.includes('resume-library.com/job/view/'),
             simplyHired = cleanUrl.includes('simplyhired.com/job/') || cleanUrl.includes('simplyhired.com/search?'),
             snagAJob = cleanUrl.includes('snagajob.com/jobs/'),
@@ -110,8 +111,32 @@ function puppeteerProxy() {
             whoIsHiring = cleanUrl.includes('whoishiring.io/s/'),
             workingNomads = cleanUrl.includes('workingnomads.co/jobs?'),
             zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
-      
-      if (angelCo && authenticJobs && builtIn && careerBuilder && craigslist && dice && gitHub && glassDoor && indeed && jobot && lever && linkedIn && theMuse && resumeLibrary && simplyHired && snagAJob && stackOverflow && startupJobs && techFetch && weWorkRemotely && whoIsHiring && workingNomads && zipRecruiter === false){
+
+      if ( angelCo 
+        && authenticJobs 
+        && builtIn 
+        && careerBuilder 
+        && craigslist 
+        && dice 
+        && gitHub 
+        && glassDoor 
+        && indeed 
+        && jobot 
+        && lever 
+        && linkedIn 
+        && theMuse 
+        && remoteCo 
+        && resumeLibrary 
+        && simplyHired 
+        && snagAJob 
+        && stackOverflow 
+        && startupJobs 
+        && techFetch 
+        && weWorkRemotely
+        && whoIsHiring 
+        && workingNomads 
+        && zipRecruiter 
+        === false ){
         // Unsupported URL, exit
         return;
       }
@@ -441,6 +466,7 @@ function puppeteerProxy() {
           console.log(' - Unable to determine Description');
           //console.log(error);
         }
+
       } else if (dice) {
         console .log('Dice...');
         
@@ -1423,6 +1449,106 @@ function puppeteerProxy() {
         try{
           description = await page.evaluate(() => {
             return document.querySelectorAll('section.job-description')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+      } else if (remoteCo) {
+        console .log('RemoteCo...');
+
+        try{
+          await page.waitForSelector('.card-body', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            const companyLogo = document.querySelectorAll('.co_name strong')[0].innerText;
+            return companyLogo.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          position = await page.evaluate(() => {
+            const positionRaw = document.querySelectorAll('.card-body h1')[0].innerText,
+                  positionSplit = positionRaw.split(' at '),
+                  positionOut = positionSplit[0].trim();
+            return positionOut;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('.job_info_container_sm .location_sm')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              if (location.trim() !== "Remote" ){
+                return location.trim();
+              }
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('.job_info_container_sm .location_sm')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          remote = await page.evaluate(() => {
+            const location = document.querySelectorAll('.job_info_container_sm .location_sm')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              if (location.trim() === "Remote" ){
+                return true;
+              } else {
+                return;
+              }
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            const positionRaw = document.querySelectorAll('.card-body h1')[0].innerText,
+                  positionSplit = positionRaw.split(' at '),
+                  positionOut = positionSplit[0].trim(),
+                  descriptionRaw = document.querySelectorAll('.job_description')[0].innerText.trim(),
+                  descriptionOut = descriptionRaw.replace(positionOut, '').replace('\n\nRemote', '').replace('– Remote\n\n', '').trim();
+            return descriptionOut;
           });
         } catch (error) {
           console.log(' - Unable to determine Description');

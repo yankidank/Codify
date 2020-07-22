@@ -53,6 +53,7 @@ function AddJob() {
             linkedIn = cleanUrl.includes('linkedin.com/jobs'),
             //linkUp = cleanUrl.includes('linkup.com/details/'),
             theMuse = cleanUrl.includes('themuse.com/jobs/'),
+            remoteCo = cleanUrl.includes('remote.co/job/'),
             resumeLibrary = cleanUrl.includes('resume-library.com/job/view/'),
             simplyHired = cleanUrl.includes('simplyhired.com/job/') || cleanUrl.includes('simplyhired.com/search?'),
             snagAJob = cleanUrl.includes('snagajob.com/jobs/'),
@@ -64,7 +65,31 @@ function AddJob() {
             workingNomads = cleanUrl.includes('workingnomads.co/jobs?'),
             zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
       
-      if ( angelCo || authenticJobs || builtIn || careerBuilder || craigslist || dice || gitHub || glassDoor || indeed || jobot || lever || linkedIn || theMuse || resumeLibrary || simplyHired || snagAJob || stackOverflow || startupJobs || techFetch || weWorkRemotely || whoIsHiring || workingNomads || zipRecruiter){
+      if ( angelCo 
+        || authenticJobs 
+        || builtIn 
+        || careerBuilder 
+        || craigslist 
+        || dice 
+        || gitHub 
+        || glassDoor 
+        || indeed 
+        || jobot 
+        || lever 
+        || linkedIn 
+        || theMuse 
+        || remoteCo 
+        || resumeLibrary 
+        || simplyHired 
+        || snagAJob 
+        || stackOverflow 
+        || startupJobs 
+        || techFetch 
+        || weWorkRemotely 
+        || whoIsHiring 
+        || workingNomads 
+        || zipRecruiter
+        ){
         
         if (scrape.url === ''){
 
