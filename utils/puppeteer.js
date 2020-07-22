@@ -88,6 +88,7 @@ function puppeteerProxy() {
       
       const angelCo = cleanUrl.includes('://angel.co/'),
             builtIn = cleanUrl.includes('://builtin'),
+            careerBuilder = cleanUrl.includes('careerbuilder.com/job/'),
             craigslist = cleanUrl.includes('craigslist.org/'),
             dice = cleanUrl.includes('dice.com/jobs/'),
             gitHub = cleanUrl.includes('jobs.github.com/positions/'),
@@ -100,7 +101,7 @@ function puppeteerProxy() {
             startupJobs = cleanUrl.includes('://startup.jobs/'),
             zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
       
-      if (angelCo && builtIn && craigslist && dice && gitHub && glassDoor && indeed && linkedIn && simplyHired && snagAJob && stackOverflow && startupJobs && zipRecruiter === false){
+      if (angelCo && builtIn && careerBuilder && craigslist && dice && gitHub && glassDoor && indeed && linkedIn && simplyHired && snagAJob && stackOverflow && startupJobs && zipRecruiter === false){
         // Unsupported URL, exit
         return;
       }
@@ -224,6 +225,83 @@ function puppeteerProxy() {
           });
         } catch (error) {
           console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+      } else if (careerBuilder) {
+        console .log('CareerBuilder...');
+        
+        try{
+          await page.waitForSelector('#jdb-pane', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('h1.jobTitle')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            return document.querySelectorAll('.data-display-header_info-content .data-details span')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('.data-display-header_info-content .data-details span')[1].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('.data-display-header_info-content .data-details span')[1].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('.jdp-description-details .col-mobile-full')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+        try{
+          salary = await page.evaluate(() => {
+            return document.querySelectorAll('#cb-salcom-info')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Salary');
           //console.log(error);
         }
 
@@ -354,8 +432,6 @@ function puppeteerProxy() {
           console.log(' - Unable to determine Salary');
           //console.log(error);
         }
-        console.log(salary)
-
 
       } else if (gitHub) {
         console.log('GitHub...');

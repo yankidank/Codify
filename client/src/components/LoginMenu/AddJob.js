@@ -41,6 +41,7 @@ function AddJob() {
       const cleanUrl = url.toLowerCase().replace("://www.", "://").trim(), // Make the URL easier to work with
             angelCo = cleanUrl.includes('://angel.co/'),
             builtIn = cleanUrl.includes('://builtin'),
+            careerBuilder = cleanUrl.includes('careerbuilder.com/job/'),
             craigslist = cleanUrl.includes('craigslist.org/'),
             dice = cleanUrl.includes('dice.com/jobs/'),
             gitHub = cleanUrl.includes('jobs.github.com/positions/'),
@@ -53,7 +54,7 @@ function AddJob() {
             startupJobs = cleanUrl.includes('://startup.jobs/'),
             zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
       
-      if ( angelCo || builtIn || craigslist || dice || gitHub || glassDoor || indeed || linkedIn || simplyHired || snagAJob || stackOverflow || startupJobs || zipRecruiter){
+      if ( angelCo || builtIn || careerBuilder || craigslist || dice || gitHub || glassDoor || indeed || linkedIn || simplyHired || snagAJob || stackOverflow || startupJobs || zipRecruiter){
         
         if (scrape.url === ''){
 
