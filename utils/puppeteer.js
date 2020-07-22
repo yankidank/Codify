@@ -85,7 +85,7 @@ function puppeteerProxy() {
       }
 
       //await page.waitFor(20000); // Pause for testing
-    
+      
       const angelCo = cleanUrl.includes('://angel.co/'),
             authenticJobs = cleanUrl.includes('authenticjobs.com/job/'),
             builtIn = cleanUrl.includes('://builtin'),
@@ -98,6 +98,7 @@ function puppeteerProxy() {
             jobot = cleanUrl.includes('jobot.com/details/'),
             lever = cleanUrl.includes('jobs.lever.co/'),
             linkedIn = cleanUrl.includes('linkedin.com/jobs'),
+            linkUp = cleanUrl.includes('linkup.com/details/'),
             simplyHired = cleanUrl.includes('simplyhired.com/job/') || cleanUrl.includes('simplyhired.com/search?'),
             snagAJob = cleanUrl.includes('snagajob.com/jobs/'),
             stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/'),
@@ -1280,6 +1281,78 @@ function puppeteerProxy() {
           }
 
         }
+
+      } else if (linkUp) {
+        // Disabled - Seems to require headless:false 
+        console .log('LinkUp...');
+
+        try{
+          await page.waitForSelector('.main-content', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('.job-header .flexbox h2')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+        
+        try{
+          company = await page.evaluate(() => {
+            const companyLogo = document.querySelectorAll('.job-header .flexbox div h6.company')[0].innerText;
+            return companyLogo.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+        
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('.job-header .flexbox div h6.location span')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[0].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('.job-header .flexbox div h6.location span')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationSplit = location.split(',');
+              return locationSplit[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('.main-content .job-description')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
       } else if (simplyHired) {
         console.log('SimplyHired...');
         

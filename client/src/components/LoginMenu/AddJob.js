@@ -51,6 +51,7 @@ function AddJob() {
             jobot = cleanUrl.includes('jobot.com/details/'),
             lever = cleanUrl.includes('jobs.lever.co/'),
             linkedIn = cleanUrl.includes('linkedin.com/jobs'),
+            //linkUp = cleanUrl.includes('linkup.com/details/'),
             simplyHired = cleanUrl.includes('simplyhired.com/job/') || cleanUrl.includes('simplyhired.com/search?'),
             snagAJob = cleanUrl.includes('snagajob.com/jobs/'),
             stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/'),
