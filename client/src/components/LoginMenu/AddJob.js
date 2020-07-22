@@ -59,11 +59,12 @@ function AddJob() {
             stackOverflow = cleanUrl.includes('stackoverflow.com/jobs/'),
             startupJobs = cleanUrl.includes('://startup.jobs/'),
             techFetch = cleanUrl.includes('techfetch.com/partner-jobs/') || cleanUrl.includes('techfetch.com/job-description/'),
+            weWorkRemotely = cleanUrl.includes('weworkremotely.com/remote-jobs/'),
             whoIsHiring = cleanUrl.includes('whoishiring.io/s/'),
             workingNomads = cleanUrl.includes('workingnomads.co/jobs?'),
             zipRecruiter = cleanUrl.includes('ziprecruiter.com/jobs/') || cleanUrl.includes('ziprecruiter.com/c/');
       
-      if ( angelCo || authenticJobs || builtIn || careerBuilder || craigslist || dice || gitHub || glassDoor || indeed || jobot || lever || linkedIn || theMuse || resumeLibrary || simplyHired || snagAJob || stackOverflow || startupJobs || techFetch || whoIsHiring || workingNomads || zipRecruiter){
+      if ( angelCo || authenticJobs || builtIn || careerBuilder || craigslist || dice || gitHub || glassDoor || indeed || jobot || lever || linkedIn || theMuse || resumeLibrary || simplyHired || snagAJob || stackOverflow || startupJobs || techFetch || weWorkRemotely || whoIsHiring || workingNomads || zipRecruiter){
         
         if (scrape.url === ''){
 
