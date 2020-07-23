@@ -94,6 +94,7 @@ function puppeteerProxy() {
             dice = cleanUrl.includes('dice.com/jobs/'),
             gitHub = cleanUrl.includes('jobs.github.com/positions/'),
             glassDoor = cleanUrl.includes('glassdoor.com/job'),
+            greenhouse = cleanUrl.includes('boards.greenhouse.io/'),
             indeed = cleanUrl.includes('indeed.com') && cleanUrl.includes('job'),
             jobot = cleanUrl.includes('jobot.com/details/'),
             lever = cleanUrl.includes('jobs.lever.co/'),
@@ -122,6 +123,7 @@ function puppeteerProxy() {
         && dice 
         && gitHub 
         && glassDoor 
+        && greenhouse
         && indeed 
         && jobot 
         && lever 
@@ -694,7 +696,99 @@ function puppeteerProxy() {
           console.log(' - Unable to determine Description');
           //console.log(error);
         }
-        
+      
+      
+      } else if (greenhouse) {
+        console.log('Greenhouse.io...');
+
+        try{
+          await page.waitForSelector('#app_body', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+                  
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('h1.app-title')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+
+        try{
+          company = await page.evaluate(() => {
+            const companyRaw = document.querySelectorAll('span.company-name')[0].innerText.trim();
+            if (companyRaw.startsWith('at ')){
+              return companyRaw.replace('at ', '').trim();
+            } else {
+              return companyRaw.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('.location')[0].innerText;
+            if (location === "Remote"){
+              return;
+            }
+            if (location.includes(',')){
+              // Split between City and State
+              const locationArr = location.split(',');
+              return locationArr[0].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('.location')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationArr = location.split(',');
+              return locationArr[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          remote = await page.evaluate(() => {
+            const location = document.querySelectorAll('.location')[0].innerText.trim();
+            if (location === "Remote"){
+              return true;
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Remote');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('#content')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+      
       } else if (glassDoor) {
         console.log('GlassDoor...');
 

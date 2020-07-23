@@ -47,6 +47,7 @@ function AddJob() {
             dice = cleanUrl.includes('dice.com/jobs/'),
             gitHub = cleanUrl.includes('jobs.github.com/positions/'),
             glassDoor = cleanUrl.includes('glassdoor.com/job'),
+            greenhouse = cleanUrl.includes('boards.greenhouse.io/'),
             indeed = cleanUrl.includes('indeed.com') && cleanUrl.includes('job'),
             jobot = cleanUrl.includes('jobot.com/details/'),
             lever = cleanUrl.includes('jobs.lever.co/'),
@@ -74,6 +75,7 @@ function AddJob() {
         || dice 
         || gitHub 
         || glassDoor 
+        || greenhouse
         || indeed 
         || jobot 
         || lever 
