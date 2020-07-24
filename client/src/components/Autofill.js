@@ -45,8 +45,8 @@ function Autofill() {
               </div>
             </div>
             <div className="autofill-description">
-             	<p>
-								Codify makes copying information from job board websites easy with "Autofill". 
+							<p>
+								Codify makes copying information from job board websites easy with Autofill. 
 								To use this feature, visit the <a href="/jobs/add">Add Job</a> page and grant the site permission to access your clipboard when asked.
 								When a supported URL is detected in your clipboard and imported by Autofill, a green button will appear at the bottom of the page allowing you to autocomplete input fields.
 							</p>
