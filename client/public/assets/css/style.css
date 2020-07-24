@@ -890,12 +890,16 @@ textarea.materialize-textarea.valid:focus,
 	min-height:40vh;
 	margin-bottom: 60px;
 }
-.dashboard-content {
+.home-content {
 	margin-top:20px;
 	color:#fff;
 	font-size:1.4rem;
 }
-.dashboard-content h2 {
+.home-content a:hover,
+.autofill-content a:hover {
+  color:#55b7e9;
+}
+.home-content h2 {
 	font-size:2.8rem;
 }
 .dashboard-login {
