@@ -31,7 +31,7 @@ function AddJob() {
           notes: ""
         });
         
-  const getPost = async (url) => {
+  const getPost = async (url, trigger) => {
 
     // Check if the URL is already stored
     if (scrape.url === url){
@@ -52,6 +52,7 @@ function AddJob() {
             jobot = cleanUrl.includes('jobot.com/details/'),
             lever = cleanUrl.includes('jobs.lever.co/'),
             linkedIn = cleanUrl.includes('linkedin.com/jobs'),
+            monster = cleanUrl.includes('job-openings.monster.com/'),
             motionRecruitment = cleanUrl.includes('motionrecruitment.com/'),
             theMuse = cleanUrl.includes('themuse.com/jobs/'),
             remoteCo = cleanUrl.includes('remote.co/job/'),
@@ -80,6 +81,7 @@ function AddJob() {
         || jobot 
         || lever 
         || linkedIn 
+        || monster
         || motionRecruitment
         || theMuse 
         || remoteCo 
@@ -141,7 +143,7 @@ function AddJob() {
             setAutofillBtn({...autofillBtn, visibility:"hidden"});
             setAutofillClear({...autofillClear, visibility:"hidden"});
             M.toast({ html: 'Unable to Autofill using the URL provided' });
-            
+          
           }
 
           const exportObj = {...postObj, url: url}
@@ -150,7 +152,12 @@ function AddJob() {
           return;
         }
       } else {
-        //M.toast({ html: 'URL not supported by Autofill' });
+        if (trigger === 'click'){
+          M.toast({
+            displayLength: 5000,
+            html: '<span><a href="/autofill">Autofill</a><span> clipboard URL not supported',
+          });
+        }
         console.log('URL not supported by Autofill');
       }
     }
@@ -212,11 +219,21 @@ function AddJob() {
 
   }
   
-  const fetchClipboard = async () => {
+  const fetchClipboardClick = async () => {
+    // Track what triggered a function call to limit toast error messages
+    fetchClipboard('click'); 
+  }
+
+  const fetchClipboard = async (trigger) => {
 
     if (!navigator.clipboard) {
       // Clipboard API not available
-      M.toast({ html: 'Unable to access clipboard' });
+      if (trigger === 'click'){
+        M.toast({ 
+          displayLength: 5000,
+          html: '<span><a href="/autofill">Autofill</a><span> is unable to access your clipboard',
+        });
+      }
       return;
     }
 
@@ -228,13 +245,24 @@ function AddJob() {
       const checkUrl = pasteText.startsWith('http');
       if (checkUrl) {
         try{
-          await getPost(pasteText);
+          await getPost(pasteText, trigger);
         } catch (error) {
           console.log(error);
         }
+      } else if (trigger === 'click'){
+        M.toast({
+          displayLength: 5000,
+          html: '<span><a href="/autofill">Autofill</a><span> is unable to detect a URL in your clipboard',
+        });
       }
     })
     .catch(error => {
+      if (trigger === 'click'){
+        M.toast({ 
+          displayLength: 5000,
+          html: '<span><a href="/autofill">Autofill</a><span> is unable to access your clipboard',
+        });
+      }
       console.log(error);
     });
 
@@ -314,7 +342,7 @@ function AddJob() {
   } else if (autofillClear.visibility === 'visible') {
     autofillMessage = <div className="row"><div className="col s12"><div className="card-button autofill-help valign-wrapper" onClick={formClear}><i className="material-icons">assignment_turned_in</i> Autofill Complete! Click again to empty fields</div></div></div>;
   } else {
-    autofillMessage = <div className="row"><div className="col s12"><div className="card-button autofill-help valign-wrapper" onClick={fetchClipboard}><i className="material-icons">assignment</i> Autofill fields by copying a supported URL to your device&apos;s clipboard, then click here</div></div></div>;
+    autofillMessage = <div className="row"><div className="col s12"><div className="card-button autofill-help valign-wrapper" onClick={fetchClipboardClick}><i className="material-icons">assignment</i> Autofill fields by copying a supported URL to your device&apos;s clipboard, then click here</div></div></div>;
   }
 
   const location = useLocation();
@@ -329,7 +357,7 @@ function AddJob() {
       }
       fetchData();
     } else if (!scrape.url){
-      fetchClipboard();
+      fetchClipboard('auto');
     }
   },[scrape] );
 

@@ -1,6 +1,13 @@
 import React, {useState} from 'react';
 import NavBar from './NavBar';
-import { Doughnut } from 'react-chartjs-2';
+import Doughnut from 'react-chartjs-2';
+import angellistUrl from '../svg/angellist.svg';
+import githubUrl from '../svg/github.svg';
+import glassdoorUrl from '../svg/glassdoor.svg';
+import indeedUrl from '../svg/indeed.svg';
+import linkedinUrl from '../svg/linkedin.svg';
+import monsterUrl from '../svg/monster.svg';
+import stackoverflowUrl from '../svg/stackoverflow.svg';
 
 const state = {
   labels: ['Applied', 'Interviews', 'Offers'],
@@ -19,9 +26,9 @@ function Home() {
   const [autofillClear, setAutofillClear] = useState({visibility:'hidden'}); // Track if form fields have been autofilled
 
   const scrape = {
-    companyName: "Hulu",
-    position: "Full Stack Developer",
-    city: "Santa Monica",
+    companyName: "Autodesk",
+    position: "Full Stack Engineer",
+    city: "San Francisco",
     state: "CA",
   };
 
@@ -58,6 +65,7 @@ function Home() {
     if (state){ inputState.value = state;}
     setAutofillBtn({...autofillBtn, visibility:"hidden"});
     setAutofillClear({...autofillClear, visibility:"visible"});
+
   }
 
   const formClear = async function () {
@@ -81,6 +89,13 @@ function Home() {
     setAutofillClear({...autofillClear, visibility:"hidden"});
   }
 
+  let autofillMessage;
+  if (autofillBtn.visibility === 'visible') {
+    autofillMessage = <div className="row autofill-home"><div className="col s12"><div className="card-button btn-offer autofill-help valign-wrapper" onClick={autofillForm}><i className="material-icons">next_week</i> Click to Autofill Job from { scrape.companyName }</div></div></div>;
+  } else if (autofillClear.visibility === 'visible') {
+    autofillMessage = <div className="row autofill-home"><div className="col s12"><div className="card-button autofill-help valign-wrapper" onClick={formClear}><i className="material-icons">assignment_turned_in</i> Autofill Complete! Click again to empty fields</div></div></div>;
+  } 
+
   return (
     <div className="home">
       <NavBar />
@@ -93,7 +108,10 @@ function Home() {
               </div>
             </div>
             <div className="home-intro">
-             <p><a href="/menu/login">Create an account</a> and begin tracking job posts, applications, contacts, interviews, and offers. Stay organized throughout your job hunt.</p>
+              <p>
+                Codify organizes the process for finding, comparing, and get hired at your next job.
+                Save online job posts, track your progress, manage company contacts, schedule interviews, and compare offers throughout your job hunt.
+              </p>
             </div>
           </div>
         </div>
@@ -102,7 +120,7 @@ function Home() {
         <div className="container-full">
           <div className="container dashLogin">
             <h4 className="text-center">Sign Up</h4>
-            <p className="text-center">Quickly create an account and login using the following services</p>
+            <p className="text-center">Create a free account and login using the following services</p>
             <ul className="menuNav home-menuNav">
               <li>
                 <a href={`${domain}/auth/github`} className="button btn-github">
@@ -227,24 +245,27 @@ function Home() {
           <div className="row">
               <div className="col s12 m6">
                 <h3>Autofill</h3>
-                <p>Add new jobs with ease by autofilling information from popular job boards. This feature checks your clipboard for a URL from the following sites:</p>
-                <p style={{opacity:0.6}}>Angel.co, BuiltIn, Craigslist, GitHub Jobs, GlassDoor, Indeed, LinkedIn, SimplyHired, SnagAJob, StackOverflow, StartupJobs, and ZipRecruiter</p>
+                <p>
+                  Easily add jobs with <a href="/autofill">Autofill</a>. 
+                  The Autofill button appears on the <a href="/jobs/add">Add Job</a> page when a supported job board URL has been imported from your clipboard. 
+                </p>
+                <div className="autofill-supported-sites">
+                  <img src={angellistUrl} alt="AngelList" title="AngelList" className="autofill-logos" />
+                  <img src={githubUrl} alt="GitHub" title="GitHub Jobs" className="autofill-logos" />
+                  <img src={glassdoorUrl} alt="GlassDoor" title="GlassDoor" className="autofill-logos" />
+                  <img src={indeedUrl} alt="Indeed" title="Indeed" className="autofill-logos" />
+                  <img src={linkedinUrl} alt="LinkedIn" title="LinkedIn" className="autofill-logos" />
+                  <img src={monsterUrl} alt="Monster" title="Monster.com" className="autofill-logos" />
+                  <img src={stackoverflowUrl} alt="StackOverflow" title="StackOverflow Jobs" className="autofill-logos" />
+                </div>
               </div>
               <div className="col s12 m6">
                 <div className="row card-image" style={{marginTop:30}}>
-                  <div className="col s6 card-title">
+                  <div className="col s12 card-title">
                     Add New Job
                   </div>
-                  <div className="col s6">
-                    <div onClick={autofillForm} id="autofill-button" className={`card-button btn-offer ${autofillBtn.visibility}`}>
-                      Autofill { scrape.companyName || scrape.url.replace('//www.','').replace('http:','').replace('https:','').split(/[/?#]/)[0].substring(0,20) } Job
-                    </div>
-                    <div onClick={formClear} id="autofill-clear" className={`card-button ${autofillClear.visibility}`}>
-                      Clear All
-                    </div>
-                  </div>
                 </div>
-                <div className="card card-padded card-add-job">
+                <div className="card card-padded card-add-job card-autofill-home">
                   <div className="row">
                     <div className="input-field col s12 l6">
                       <input name="companyName" id="inputCompanyName" className="validate" type="text" onChange={onPostInput}></input>
@@ -262,8 +283,15 @@ function Home() {
                       <input name="state" id="inputState" className="validate" type="text" onChange={onPostInput}></input>
                       <label htmlFor="inputState" className={dummyPost.state ? "active" : ""}>State</label>
                     </div>
+                    <div className="col s12">
+                      <a href="/jobs/add" className="button btn-job-add">
+                        Save Job
+                      </a>
+                    </div>
                   </div>
                 </div>
+                {autofillMessage}
+
               </div>
             </div>
             <div className="row">
