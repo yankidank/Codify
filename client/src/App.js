@@ -7,6 +7,7 @@ import AddJob from './components/LoginMenu/AddJob';
 import Dashboard from './components/Dashboard/Dashboard';
 import JobsList from './components/JobList/JobsList';
 import Job from './components/JobTracking/Job';
+import Autofill from './components/Autofill';
 import PrivateRoute from './utils/privateRoute';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <Router>
       <div className="appRouter">
         <Route exact path="/menu/login" component={MenuLogin} />
+        <Route exact path="/autofill" component={Autofill} />
         <Switch>
           <PrivateRoute exact path="/menu" component={MenuLoggedIn} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />

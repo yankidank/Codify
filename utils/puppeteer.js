@@ -15,7 +15,7 @@ function puppeteerProxy() {
         domainPortBack = process.env.PORT || '3001',
         domainPortFront = process.env.FRONTEND_PORT || '3000',
         puppeteer_port = process.env.PUPPETEER_PORT || '4000',
-        maxTime = 10000, // Timeout max milliseconds
+        maxTime = 12000, // Timeout max milliseconds
         whitelist = [domainName, `${domainName}:${domainPortFront}`, `${domainName}:${domainPortBack}`, `${domainName}:${puppeteer_port}` ]
 
   proxy.use(cors({
@@ -94,11 +94,13 @@ function puppeteerProxy() {
             dice = cleanUrl.includes('dice.com/jobs/'),
             gitHub = cleanUrl.includes('jobs.github.com/positions/'),
             glassDoor = cleanUrl.includes('glassdoor.com/job'),
+            greenhouse = cleanUrl.includes('boards.greenhouse.io/'),
             indeed = cleanUrl.includes('indeed.com') && cleanUrl.includes('job'),
             jobot = cleanUrl.includes('jobot.com/details/'),
             lever = cleanUrl.includes('jobs.lever.co/'),
             linkedIn = cleanUrl.includes('linkedin.com/jobs'),
             linkUp = cleanUrl.includes('linkup.com/details/'),
+            monster = cleanUrl.includes('job-openings.monster.com/'),
             motionRecruitment = cleanUrl.includes('motionrecruitment.com/'),
             theMuse = cleanUrl.includes('themuse.com/jobs/'),
             remoteCo = cleanUrl.includes('remote.co/job/'),
@@ -122,10 +124,12 @@ function puppeteerProxy() {
         && dice 
         && gitHub 
         && glassDoor 
+        && greenhouse
         && indeed 
         && jobot 
         && lever 
         && linkedIn 
+        && monster
         && motionRecruitment
         && theMuse 
         && remoteCo 
@@ -694,7 +698,98 @@ function puppeteerProxy() {
           console.log(' - Unable to determine Description');
           //console.log(error);
         }
-        
+      
+      } else if (greenhouse) {
+        console.log('Greenhouse.io...');
+
+        try{
+          await page.waitForSelector('#app_body', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+                  
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('h1.app-title')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+
+        try{
+          company = await page.evaluate(() => {
+            const companyRaw = document.querySelectorAll('span.company-name')[0].innerText.trim();
+            if (companyRaw.startsWith('at ')){
+              return companyRaw.replace('at ', '').trim();
+            } else {
+              return companyRaw.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('.location')[0].innerText;
+            if (location === "Remote"){
+              return;
+            }
+            if (location.includes(',')){
+              // Split between City and State
+              const locationArr = location.split(',');
+              return locationArr[0].trim();
+            } else {
+              return location.trim();
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('.location')[0].innerText;
+            if (location.includes(',')){
+              // Split between City and State
+              const locationArr = location.split(',');
+              return locationArr[1].trim();
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          remote = await page.evaluate(() => {
+            const location = document.querySelectorAll('.location')[0].innerText.trim();
+            if (location === "Remote"){
+              return true;
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Remote');
+          //console.log(error);
+        }
+
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('#content')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+      
       } else if (glassDoor) {
         console.log('GlassDoor...');
 
@@ -1318,7 +1413,7 @@ function puppeteerProxy() {
         }
 
       } else if (linkUp) {
-        // Disabled - Seems to require headless:false 
+        // LinkUp seems to require headless:false
         console .log('LinkUp...');
 
         try{
@@ -1382,6 +1477,95 @@ function puppeteerProxy() {
         try{
           description = await page.evaluate(() => {
             return document.querySelectorAll('.main-content .job-description')[0].innerText.trim();
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Description');
+          //console.log(error);
+        }
+
+      
+      } else if (monster) {
+        console.log('Monster...');
+        // Only single view is currently supported
+                
+        try{
+          await page.waitForSelector('.page-container', { timeout: maxTime });
+        } catch (error) {
+          console.log('- Selector Timeout')
+          //console.log(error);
+        }
+        
+        try{
+          position = await page.evaluate(() => {
+            return document.querySelectorAll('h1.job_title')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Position');
+          //console.log(error);
+        }
+
+        try{
+          company = await page.evaluate(() => {
+            return document.querySelectorAll('.job_company_name')[0].innerText;
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Company');
+          //console.log(error);
+        }
+
+        try{
+          city = await page.evaluate(() => {
+            const location = document.querySelectorAll('.header-text-block .location')[0].innerText;
+            if (location.includes(',')){
+              const locationArr = location.split(',');
+              return locationArr[0];
+            } else {
+              return location;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine City');
+          //console.log(error);
+        }
+
+        try{
+          state = await page.evaluate(() => {
+            const location = document.querySelectorAll('.header-text-block .location')[0].innerText;
+            if (location.includes(',')){
+              const locationArr = location.split(',');
+              if (locationArr.length === 2){
+                const zip = locationArr[1].match(/\d+/)[0];
+                const locationOut = locationArr[1].replace(zip, '')
+                return locationOut.trim();
+              } 
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine State');
+          //console.log(error);
+        }
+
+        try{
+          zip = await page.evaluate(() => {
+            const location = document.querySelectorAll('.header-text-block .location')[0].innerText;
+            if (location.includes(',')){
+              const locationArr = location.split(',');
+              const zip = locationArr[1].match(/\d+/)[0];
+              return zip; // Needs shortened to ZIP
+            } else {
+              return;
+            }
+          });
+        } catch (error) {
+          console.log(' - Unable to determine Zip');
+          //console.log(error);
+        }
+        
+        try{
+          description = await page.evaluate(() => {
+            return document.querySelectorAll('.job-description div div')[0].innerText.trim();
           });
         } catch (error) {
           console.log(' - Unable to determine Description');
@@ -1475,7 +1659,6 @@ function puppeteerProxy() {
         }
 
       } else if (theMuse) {
-        // Disabled - Seems to require headless:false 
         console .log('TheMuse...');
 
         try{
@@ -1646,7 +1829,6 @@ function puppeteerProxy() {
         }
 
       } else if (resumeLibrary) {
-        // Disabled - Seems to require headless:false 
         console .log('Resume-Library...');
 
         try{
@@ -2055,7 +2237,6 @@ function puppeteerProxy() {
 
       
       } else if (ventureLoop) {
-        // Disabled - Seems to require headless:false 
         console .log('VentureLoop...');
 
         try{

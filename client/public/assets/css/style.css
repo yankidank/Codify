@@ -50,6 +50,16 @@ hr {
   border-radius:6px;
   background-color:#00000070;
 }
+.toast a {
+  font-weight:800;
+}
+.toast a:hover {
+  color:#55b7e9;
+}
+.toast span a {
+  display:inline-block;
+  margin:0 4px 0 4px;
+}
 .pushtop {
   position: relative;
   top: 40px;
@@ -555,8 +565,62 @@ textarea.materialize-textarea:focus:not([readonly]),
   background: #9094a065;
   color: rgba(255, 255, 255, 0.5);
 }
-.add-new-job .row {
-  margin-bottom:0;
+.autofill-home .col{
+  display: flex;
+}
+.autofill-home .col .autofill-help {
+  margin:0 auto;
+}
+.autofill-supported-sites {
+  text-align:center;
+  margin:30px auto 0 auto;
+}
+.autofill-supported-sites img {
+  vertical-align: middle;
+  width:10%;
+  min-height:36px;
+  max-height:36px;
+  max-width:50px;
+  margin: 0px 2% 15px 2%;
+  opacity:0.8;
+}
+.autofill-logos {
+  /* SVG Color Hack */
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+.autofill-content {
+	color:#fff;
+	font-size:1.4rem;
+}
+.autofill-content h4 {
+  font-size:2rem;
+  margin-bottom:20px;
+}
+.autofill-support-list {
+  margin:0 20px;
+}
+ul.autofill-supported {
+  margin-top:20px;
+  border-top:1px solid rgba(255, 255, 255, 0.342);
+  border-bottom:1px solid rgba(255, 255, 255, 0.342);
+  padding:20px 0;
+  list-style-type: none;
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
+@media screen and (max-width:600px) {
+  ul.autofill-supported {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+  }
+}
+ul.autofill-supported li {
+  color:rgba(255, 255, 255, 0.7);
+  list-style: none;
+  text-align:center;
+  font-size:1.25rem;
 }
 .row .autofill-help {
   vertical-align: middle;
@@ -858,15 +922,13 @@ p.text-center {
 .dashLogin ul li a.btn-google {
 	border:1px solid #0000002e;
 }
-.menuNav .button {
-  position: static;
+.button {
   padding:15px 0;
   left: 0px;
-  top: 20px;
-  margin: 15px 15px 5px 15px;
+  margin: 15px 0px 0px 0px;
   border-radius: 5px;
 }
-.menuNav li a.button {
+li a.button {
   position: static;
   width: 300px;
   height: 50px;
@@ -875,7 +937,7 @@ p.text-center {
   margin: 15px;
   border-radius: 5px;
 }
-.menuNav .button:hover {
+.button:hover {
   color: #b9b9b9;
 }
 .btn-github:active,
@@ -894,10 +956,13 @@ p.text-center {
   background: #00000070;
   border: none;
   color: #fff;
+  font-size:1.1rem;
 }
-.card-add-job .row {
+.card-add-job .row,
+.card-autofill-home .row {
   margin-left:auto;
   margin-right:auto;
+  margin-bottom:10px;
 }
 .menuNav .card-container {
   margin-top:10px;
@@ -905,9 +970,9 @@ p.text-center {
 .menuNav .col .row .card-title {
   text-align:left;
 }
-.menuNav .btn-job-add:hover,
-.menuNav .btn-job-add:active,
-.menuNav .btn-job-add:focus {
+.btn-job-add:hover,
+.btn-job-add:active,
+.btn-job-add:focus{
   background: #0000007c;
   color:#fff;
 	box-shadow: 0px 1px 4px 1px #00000023;
@@ -919,7 +984,9 @@ p.text-center {
   margin-top: 8%;
   color: #fff;
 }
-.menuNav li .button, .menuNav .card-add-job .col .button {
+li .button, 
+.card-add-job .col .button,
+.card-autofill-home .row .col .button {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -927,11 +994,11 @@ p.text-center {
 	align-content: center;
 	cursor:pointer;
 }
-.menuNav li .button div.btn-logo {
+li .button div.btn-logo {
   float: left;
   margin-right: 10px;
 }
-.menuNav li .button div.btn-title {
+li .button div.btn-title {
   float: left;
 }
 .menu-input-field {
