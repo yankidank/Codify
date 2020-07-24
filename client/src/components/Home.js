@@ -99,9 +99,9 @@ function Home() {
   return (
     <div className="home">
       <NavBar />
-      <div className="container pushtop dashboard">
+      <div className="container pushtop home">
         <div className="row">
-          <div className="col s12 m12 l12 dashboard-content">
+          <div className="col s12 m12 l12 home-content">
             <div className="row">
               <div className="col s12">
                 <h2>Begin Your Job Hunt</h2>
@@ -109,8 +109,8 @@ function Home() {
             </div>
             <div className="home-intro">
               <p>
-                Codify organizes the process for finding, comparing, and get hired at your next job.
-                Save online job posts, track your progress, manage company contacts, schedule interviews, and compare offers throughout your job hunt.
+                Codify helps you discover and prepare for your next job. 
+                Import position details from <a href="/autofill">supported websites</a>, track progress, manage contacts, schedule interviews, and compare offers throughout your job hunt.
               </p>
             </div>
           </div>
@@ -239,9 +239,9 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="container pushtop dashboard">
+      <div className="container pushtop home">
         <div className="row">
-          <div className="col s12 dashboard-content">
+          <div className="col s12 home-content">
           <div className="row">
               <div className="col s12 m6">
                 <h3>Autofill</h3>
