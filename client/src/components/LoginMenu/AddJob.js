@@ -55,6 +55,7 @@ function AddJob() {
             monster = cleanUrl.includes('job-openings.monster.com/'),
             motionRecruitment = cleanUrl.includes('motionrecruitment.com/'),
             theMuse = cleanUrl.includes('themuse.com/jobs/'),
+            powerToFly = cleanUrl.includes('powertofly.com/jobs/detail/'),
             remoteCo = cleanUrl.includes('remote.co/job/'),
             resumeLibrary = cleanUrl.includes('resume-library.com/job/view/'),
             simplyHired = cleanUrl.includes('simplyhired.com/job/') || cleanUrl.includes('simplyhired.com/search?'),
@@ -83,7 +84,8 @@ function AddJob() {
         || linkedIn 
         || monster
         || motionRecruitment
-        || theMuse 
+        || theMuse
+        || powerToFly
         || remoteCo 
         || resumeLibrary 
         || simplyHired 
