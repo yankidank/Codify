@@ -18,6 +18,7 @@ const supportedSites = [
 	'Monster',
 	'MotionRecruitment',
 	'TheMuse',
+	'PowerToFly',
 	'Remote.co',
 	'Resume-Library',
 	'SimplyHired',
