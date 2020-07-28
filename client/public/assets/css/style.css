@@ -217,6 +217,9 @@ select {
         -ms-user-select: none;
             user-select: none; 
 }
+.card-button:hover{
+  color:#ddd;
+}
 .card .card-content {
   padding: 12px;
 }
