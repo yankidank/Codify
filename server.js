@@ -1,33 +1,30 @@
-/////////////////////////////
-// DEPENDENCIES /////////////
-/////////////////////////////
-
+// Dependencies
 require('dotenv').config();
-//passport configurations
+
+// Passport configurations
 require('./config/passport-config');
 require('./config/passport-google-config');
 require('./config/passport-github-config');
 require('./config/passport-linkedin-config');
+
 // NPM modules
-const express = require('express');
-const path = require('path');
-const mongoose = require('mongoose');
-const passport = require('passport');
-const cookieSession = require('cookie-session');
-// const cors = require('cors');
-const protectApi = require('./utils/protectApi');
+const express = require('express'),
+      helmet = require('helmet'),
+      path = require('path'),
+      mongoose = require('mongoose'),
+      passport = require('passport'),
+      cookieSession = require('cookie-session'),
+//    cors = require('cors'),
+      protectApi = require('./utils/protectApi'),
 // Routes
-const authRoutes = require('./routes/authRoutes');
-const apiRoutes = require('./routes/apiRoutes');
+      authRoutes = require('./routes/authRoutes'),
+      apiRoutes = require('./routes/apiRoutes'),
+// Instantiate express and set port
+      PORT = process.env.PORT || 3001,
+      app = express();
 
-/////////////////////////////
-// ACTUAL SERVER STUFF //////
-/////////////////////////////
-
-// instantiate express and set port
-const PORT = process.env.PORT || 3001;
-const app = express();
-// middleware
+// Middleware
+app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
@@ -46,11 +43,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// ROUTING
+// Routing
 app.use('/auth', authRoutes); // authentication
 app.use('/api', protectApi, apiRoutes);
 
-// Serve up static assets (usually on heroku)
+// Serve static assets (usually on heroku)
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   app.use((req, res) => {
@@ -70,6 +67,6 @@ app.listen(PORT, function () {
   console.log(`API server on port ${PORT}!`);
 });
 
-// Start a Puppeteer proxy server for web scraping
+// Start puppeteer proxy server for web scraping
 const puppeteerProxy = require('./utils/puppeteer');
 puppeteerProxy();
