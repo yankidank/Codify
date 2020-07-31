@@ -5,7 +5,8 @@
 // Example: localhost:4000/scrape?url=[Supported Website]
 
 const express = require('express'),
-      cors = require('cors');
+      cors = require('cors'),
+      helmet = require('helmet');
 
 function puppeteerProxy() {
 
@@ -17,6 +18,8 @@ function puppeteerProxy() {
         puppeteer_port = process.env.PUPPETEER_PORT || '4000',
         maxTime = 12000, // Timeout max milliseconds
         whitelist = [domainName, `${domainName}:${domainPortFront}`, `${domainName}:${domainPortBack}`, `${domainName}:${puppeteer_port}` ]
+
+  proxy.use(helmet());
 
   proxy.use(cors({
     origin: function(origin, callback){
