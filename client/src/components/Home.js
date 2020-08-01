@@ -8,6 +8,7 @@ import indeedUrl from '../svg/indeed.svg';
 import linkedinUrl from '../svg/linkedin.svg';
 import monsterUrl from '../svg/monster.svg';
 import stackoverflowUrl from '../svg/stackoverflow.svg';
+import { Helmet } from "react-helmet";
 
 const state = {
   labels: ['Applied', 'Interviews', 'Offers'],
@@ -98,6 +99,9 @@ function Home() {
 
   return (
     <div className="home">
+      <Helmet>
+        <title>Cōdify / Begin Your Job Hunt</title>
+      </Helmet>
       <NavBar />
       <div className="container pushtop home">
         <div className="row">

@@ -3,6 +3,7 @@ import {useLocation} from "react-router-dom";
 import NavBar from '../NavBar';
 import {addJob} from "../../utils/API"
 import M from "materialize-css";
+import { Helmet } from "react-helmet";
 
 function AddJob() {
 
@@ -365,6 +366,9 @@ function AddJob() {
 
   return (
     <div>
+      <Helmet>
+        <title>Cōdify / Track a New Job</title>
+      </Helmet>
       <NavBar />
       <div className="container menuNav add-new-job">
         <div className="row">

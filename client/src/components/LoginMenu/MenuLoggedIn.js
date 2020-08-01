@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import NavBar from '../NavBar';
+import { Helmet } from "react-helmet";
+
 const handleLogout = () => {
 	axios.get('/auth/logout');
 	window.location.href = '/';
@@ -9,6 +11,9 @@ const handleLogout = () => {
 function MenuLoggedIn() {
 	return (
 		<div>
+			<Helmet>
+        <title>Cōdify / Menu</title>
+      </Helmet>
 			<NavBar />
 			<div>
 				<ul className="menuNav">

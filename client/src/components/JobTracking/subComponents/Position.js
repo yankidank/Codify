@@ -6,6 +6,7 @@ import Cleave from 'cleave.js/react';
 import _ from 'lodash';
 import {convertMoneyToNumber} from '../../../utils/formatCleave';
 import M from "materialize-css";
+import { Helmet } from "react-helmet";
 
 function PositionCard() {
   const [position, setPosition] = useState([]);
@@ -63,6 +64,9 @@ function PositionCard() {
 
   return (
     <div className="col s12 m12 l6">
+      <Helmet>
+        <title>Cōdify / {position.position || ""} Job</title>
+      </Helmet>
       <div className="row card-image">
         <div className="col s12 card-title">
           Position

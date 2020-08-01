@@ -1,10 +1,14 @@
 import React from 'react';
 import NavBar from '../NavBar';
+import { Helmet } from "react-helmet";
 
 function MenuLogin() {
   const domain = process.env.NODE_ENV !== 'production' ? 'http://localhost:3001' : '';
   return (
     <div>
+      <Helmet>
+        <title>Cōdify / Login Menu</title>
+      </Helmet>
       <NavBar />
       <div>
         <ul className="menuNav">

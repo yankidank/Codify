@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getAllJobs} from '../../utils/API';
 import NavBar from '../NavBar';
 import List from './List';
+import { Helmet } from "react-helmet";
 
 function JobsList() {
 	const [jobs, setJobs] = useState([]);
@@ -15,6 +16,9 @@ function JobsList() {
 
 	return (
 		<div>
+			<Helmet>
+        <title>Cōdify / Jobs Tracked</title>
+      </Helmet>
 			<NavBar />
 			<div className="container pushtop jobsList">
 				<div className="row">

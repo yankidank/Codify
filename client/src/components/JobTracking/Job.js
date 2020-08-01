@@ -8,7 +8,7 @@ import ContactCardContainer from './subComponents/ContactCardContainer';
 import InterviewCardContainer from './subComponents/InterviewCardContainer';
 import OfferCardContainer from './subComponents/OfferCardContainer';
 import { getJob} from '../../utils/API'
-
+import { Helmet } from "react-helmet";
 
 function Saved() {
 
@@ -58,6 +58,9 @@ function Saved() {
 
   return (
     <div className="job">
+      <Helmet>
+        <title>Cōdify / Job </title>
+      </Helmet>
       <NavBar />
       <div className="container job-container">
         <div className="row">

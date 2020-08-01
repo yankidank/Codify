@@ -3,11 +3,8 @@ import PropTypes from 'prop-types';
 import DoughtnutChart from './Doughnut';
 import List from '../JobList/List';
 import NavBar from '../NavBar';
-import {
-  getAllJobs,
-  getStatusReport,
-  // getCommunicationReport,
-} from '../../utils/API';
+import { getAllJobs, getStatusReport } from '../../utils/API';
+import { Helmet } from "react-helmet";
 
 function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -34,6 +31,9 @@ function Dashboard() {
 
   return (
     <div>
+      <Helmet>
+        <title>Cōdify / Job Dashboard</title>
+      </Helmet>
       <NavBar />
       <div className="container pushtop dashboard">
         <div className="row">
