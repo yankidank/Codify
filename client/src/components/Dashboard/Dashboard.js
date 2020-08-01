@@ -32,7 +32,7 @@ function Dashboard() {
   return (
     <div>
       <Helmet>
-        <title>Cōdify / Job Dashboard</title>
+        <title>Job Dashboard</title>
       </Helmet>
       <NavBar />
       <div className="container pushtop dashboard">

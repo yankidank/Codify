@@ -59,7 +59,7 @@ function Saved() {
   return (
     <div className="job">
       <Helmet>
-        <title>Cōdify / Job </title>
+        <title>Job </title>
       </Helmet>
       <NavBar />
       <div className="container job-container">

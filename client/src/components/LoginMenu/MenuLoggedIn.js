@@ -12,7 +12,7 @@ function MenuLoggedIn() {
 	return (
 		<div>
 			<Helmet>
-        <title>Cōdify / Menu</title>
+        <title>Menu</title>
       </Helmet>
 			<NavBar />
 			<div>

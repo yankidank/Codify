@@ -9,11 +9,22 @@ import JobsList from './components/JobList/JobsList';
 import Job from './components/JobTracking/Job';
 import Autofill from './components/Autofill';
 import PrivateRoute from './utils/privateRoute';
+import { Helmet } from "react-helmet";
 
 function App() {
   return (
     <Router>
       <div className="appRouter">
+        <Helmet titleTemplate="%s / Cōdify" defaultTitle="Cōdify">
+          <title>Organize Your Job Hunt</title>
+          <meta property="og:title" content="Cōdify.Works" />
+          <meta property="og:type" content="website" />
+          <meta property="og:image" content="/logo512.png" />
+          <meta property="og:url" content={process.env.DOMAIN || 'https://codify.works'} />
+          <meta property="og:site_name" content="Cōdify" />
+          <meta property="og:description" content="Organize your job hunt. Import job post details from supported websites, track your progress, manage contacts, schedule interviews, and compare offers in one place." />
+          <meta property="og:locale" content="en_US" />
+        </Helmet>
         <Route exact path="/menu/login" component={MenuLogin} />
         <Route exact path="/autofill" component={Autofill} />
         <Switch>

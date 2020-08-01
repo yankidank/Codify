@@ -17,7 +17,7 @@ function JobsList() {
 	return (
 		<div>
 			<Helmet>
-        <title>Cōdify / Jobs Tracked</title>
+        <title>Jobs Tracked</title>
       </Helmet>
 			<NavBar />
 			<div className="container pushtop jobsList">

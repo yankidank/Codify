@@ -100,7 +100,7 @@ function Home() {
   return (
     <div className="home">
       <Helmet>
-        <title>Cōdify / Begin Your Job Hunt</title>
+        <title>Begin Your Job Hunt</title>
       </Helmet>
       <NavBar />
       <div className="container pushtop home">
@@ -113,8 +113,8 @@ function Home() {
             </div>
             <div className="home-intro">
               <p>
-                Codify helps you discover and prepare for your next job. 
-                Import position details from <a href="/autofill">supported websites</a>, track progress, manage contacts, schedule interviews, and compare offers throughout your job hunt.
+                Codify helps you discover and prepare for your next job.
+                Import job post details from <a href="/autofill">supported websites</a>, track your progress, manage contacts, schedule interviews, and compare offers in one place.
               </p>
             </div>
           </div>

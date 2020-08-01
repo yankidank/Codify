@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import M from "materialize-css";
 import {getJob, updateStatus} from "../../../utils/API";
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 
 function CompanyInfo(props) {
   const [position, setPosition] = useState({
@@ -74,6 +75,12 @@ function CompanyInfo(props) {
   
   return (
     <div className="col s12 m12 l12">
+       <Helmet titleTemplate="%s / Cōdify">
+        <title>{position.position || ""} {" at "+position.position || "Job"}</title>
+        <meta property="og:image" content={logo} />
+        <meta property="og:title" content={position.companyName || "Tracked Job"} />
+        <meta property="og:description" content={position.position+" position"|| "Add job postion"} />
+      </Helmet>
       <div className="row company-header">
         <div className="col s12 m2 l2">
           <div className="one-company-image">

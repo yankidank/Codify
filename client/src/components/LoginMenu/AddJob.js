@@ -367,7 +367,7 @@ function AddJob() {
   return (
     <div>
       <Helmet>
-        <title>Cōdify / Track a New Job</title>
+        <title>Track a New Job</title>
       </Helmet>
       <NavBar />
       <div className="container menuNav add-new-job">

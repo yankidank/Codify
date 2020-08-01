@@ -7,7 +7,7 @@ function MenuLogin() {
   return (
     <div>
       <Helmet>
-        <title>Cōdify / Login Menu</title>
+        <title>Login Menu</title>
       </Helmet>
       <NavBar />
       <div>
