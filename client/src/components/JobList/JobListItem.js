@@ -1,31 +1,30 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 function OneJobListing(props) {
-
-  const {id, companyName, position, city, state, status} = props;
+  const {
+    id, companyName, position, city, state, status
+  } = props;
   const [logo, setLogo] = useState('/assets/img/logo.png');
 
   useEffect(() => {
     // Create Logo URL
     const logoBase = 'https://logo.clearbit.com/';
-    const logoCompany = companyName.replace(/[^\w\s]/gi, '').replace(/\s/g,'').toLowerCase()+'.com';
-    const logoUrl = logoBase+logoCompany;
+    const logoCompany = `${companyName.replace(/[^\w\s]/gi, '').replace(/\s/g, '').toLowerCase()}.com`;
+    const logoUrl = logoBase + logoCompany;
     // Check that the image exists or fallback to default
-    const getImageOrFallback = (path, fallback) => {
-      return new Promise(resolve => {
-        const img = new Image();
-        img.src = path;
-        img.onload = () => resolve(path);
-        img.onerror = () => resolve(fallback);
-      });
-    };
+    const getImageOrFallback = (path, fallback) => new Promise((resolve) => {
+      const img = new Image();
+      img.src = path;
+      img.onload = () => resolve(path);
+      img.onerror = () => resolve(fallback);
+    });
     const fetchData = async () => {
-      const data = await getImageOrFallback(logoUrl,'/assets/img/logo.png' );
+      const data = await getImageOrFallback(logoUrl, '/assets/img/logo.png');
       setLogo(data);
-    }
+    };
     fetchData();
-	}, []);
+  }, []);
 
   return (
     <div className="row card-inner">
@@ -52,9 +51,9 @@ OneJobListing.propTypes = {
   id: PropTypes.string,
   companyName: PropTypes.string,
   position: PropTypes.string,
-  city: PropTypes.string, 
+  city: PropTypes.string,
   state: PropTypes.string,
   status: PropTypes.string
-}
+};
 
 export default OneJobListing;

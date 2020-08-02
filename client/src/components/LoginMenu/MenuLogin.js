@@ -1,6 +1,6 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import NavBar from '../NavBar';
-import { Helmet } from "react-helmet";
 
 function MenuLogin() {
   const domain = process.env.NODE_ENV !== 'production' ? 'http://localhost:3001' : '';
@@ -20,7 +20,7 @@ function MenuLogin() {
           <li>
             <a href={`${domain}/auth/github`} className="button btn-github">
               <div className="btn-logo">
-                <img src="/assets/img/icon-github.png" alt="GitHub"></img>
+                <img src="/assets/img/icon-github.png" alt="GitHub" />
               </div>
               <div className="btn-title">Login with GitHub</div>
             </a>
@@ -28,7 +28,7 @@ function MenuLogin() {
           <li>
             <a href={`${domain}/auth/linkedin`} className="button btn-linkedin">
               <div className="btn-logo">
-                <img src="/assets/img/icon-linkedin.png" alt="LinkedIn"></img>
+                <img src="/assets/img/icon-linkedin.png" alt="LinkedIn" />
               </div>
               <div className="btn-title">Login with LinkedIn</div>
             </a>
@@ -36,7 +36,7 @@ function MenuLogin() {
           <li>
             <a href={`${domain}/auth/google`} className="button btn-google">
               <div className="btn-logo">
-                <img src="/assets/img/icon-google.png" alt="Google"></img>
+                <img src="/assets/img/icon-google.png" alt="Google" />
               </div>
               <div className="btn-title">Login with Google</div>
             </a>

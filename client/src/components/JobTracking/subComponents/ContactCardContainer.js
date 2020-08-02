@@ -1,18 +1,20 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
-import { getContacts, updateContact, addContact } from '../../../utils/API';
-import ContactCard from './ContactCard';
 import M from 'materialize-css';
 import _ from 'lodash';
+import { getContacts, updateContact, addContact } from '../../../utils/API';
+import ContactCard from './ContactCard';
 
 function ContactCardContainer() {
   const [contacts, setContacts] = useState([
-    { _id: '', displayName: '', email: '', phone: '', position: '', notes: '' },
+    {
+      _id: '', displayName: '', email: '', phone: '', position: '', notes: ''
+    },
   ]);
-	const [postOut, setPostOut] = useState(false);
-	
-	const {id: jobId} = useParams();
+  const [postOut, setPostOut] = useState(false);
+
+  const { id: jobId } = useParams();
 
   const debouncedUpdateContact = useCallback(
     _.debounce(updateContact, 500),
@@ -21,7 +23,7 @@ function ContactCardContainer() {
 
   const debouncedAddContact = useCallback(
     _.debounce(async (index, contact, jobId) => {
-      let newContacts = contacts.concat();
+      const newContacts = contacts.concat();
       const response = await addContact(contact, jobId);
       const { data: newContact } = response;
       if (newContacts[index]) {
@@ -35,9 +37,9 @@ function ContactCardContainer() {
   );
 
   const handleInputChange = async (event, index, contactId) => {
-    let newContacts = contacts.concat();
+    const newContacts = contacts.concat();
 
-    let shortName = event.target.name;
+    const shortName = event.target.name;
     newContacts[index][shortName] = event.target.value;
 
     if (newContacts[index].displayName) {
@@ -55,10 +57,8 @@ function ContactCardContainer() {
   };
 
   const removeContactField = (id) => {
-    const filteredContacts =  contacts.filter(function(contact) {
-      return contact._id !== id;
-    });
-    let emptyContact = {
+    const filteredContacts = contacts.filter((contact) => contact._id !== id);
+    const emptyContact = {
       _id: '',
       displayName: '',
       email: '',
@@ -66,13 +66,13 @@ function ContactCardContainer() {
       position: '',
       notes: '',
     };
-    let newContactArr = [emptyContact, ...filteredContacts];
+    const newContactArr = [emptyContact, ...filteredContacts];
     setContacts(newContactArr);
     M.toast({ html: 'Removed Contact' });
   };
 
   const addContactField = () => {
-    let newContact = {
+    const newContact = {
       _id: '',
       displayName: '',
       email: '',
@@ -80,20 +80,20 @@ function ContactCardContainer() {
       position: '',
       notes: '',
     };
-    let newContactArr = [newContact, ...contacts];
+    const newContactArr = [newContact, ...contacts];
     setContacts(newContactArr);
     M.toast({ html: 'Contact Card Added' });
   };
 
-  const addNewContact = async index => {
+  const addNewContact = async (index) => {
     await addContact(contacts[index], jobId);
-    let newContacts = await getContacts(jobId);
+    const newContacts = await getContacts(jobId);
     setContacts(newContacts);
   };
 
   useEffect(() => {
     (async () => {
-      let retrievedContacts = await getContacts(jobId);
+      const retrievedContacts = await getContacts(jobId);
       retrievedContacts.reverse();
       if (retrievedContacts.length > 0) {
         setContacts(retrievedContacts);
@@ -116,7 +116,9 @@ function ContactCardContainer() {
         </div>
       </div>
       {contacts.map((contact, index) => {
-        const { displayName, position, email, phone, notes } = contact;
+        const {
+          displayName, position, email, phone, notes
+        } = contact;
         return (
           <ContactCard
             key={contact._id || index}
@@ -139,7 +141,7 @@ function ContactCardContainer() {
 }
 
 ContactCardContainer.propTypes = {
-  jobId: PropTypes.string, 
-}
+  jobId: PropTypes.string,
+};
 
 export default ContactCardContainer;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import Home from './components/Home';
 import MenuLogin from './components/LoginMenu/MenuLogin';
 import MenuLoggedIn from './components/LoginMenu/MenuLoggedIn';
@@ -9,7 +10,6 @@ import JobsList from './components/JobList/JobsList';
 import Job from './components/JobTracking/Job';
 import Autofill from './components/Autofill';
 import PrivateRoute from './utils/privateRoute';
-import { Helmet } from "react-helmet";
 
 function App() {
   return (

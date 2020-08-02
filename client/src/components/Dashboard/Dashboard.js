@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 import DoughtnutChart from './Doughnut';
 import List from '../JobList/List';
 import NavBar from '../NavBar';
 import { getAllJobs, getStatusReport } from '../../utils/API';
-import { Helmet } from "react-helmet";
 
 function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -14,7 +14,6 @@ function Dashboard() {
 
   useEffect(() => {
     (async () => {
-
       const jobs = await getAllJobs();
       setJobs(jobs);
 
@@ -25,7 +24,6 @@ function Dashboard() {
       // setcommunicationReport(communicationReport);
 
       setLoading(false);
-
     })();
   }, []);
 
@@ -46,7 +44,7 @@ function Dashboard() {
 }
 
 Dashboard.propTypes = {
-	jobs: PropTypes.object,
+  jobs: PropTypes.object,
 };
 
 export default Dashboard;

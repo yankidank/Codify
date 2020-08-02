@@ -16,9 +16,7 @@ function List(props) {
 
   function filterJobs() {
     if (filters.length !== 0) {
-      const filtered = inputJobs.filter(({ status }) => {
-        return filters.includes(status && status.toLowerCase());
-      });
+      const filtered = inputJobs.filter(({ status }) => filters.includes(status && status.toLowerCase()));
       setJobs(filtered);
     } else {
       setJobs(inputJobs);
@@ -33,7 +31,6 @@ function List(props) {
       const filtersClone = filters.concat();
       filtersClone.splice(statusIndex, 1);
       setFilters(filtersClone);
-
     } else {
       setFilters([...filters, status]);
     }
@@ -50,9 +47,9 @@ function List(props) {
       </div>
       <div className="card card-jobslist">
         <div className="container container-full">
-          <Filter handleFilterChange={handleFilterChange}/>
+          <Filter handleFilterChange={handleFilterChange} />
           {jobs.length ? (
-            jobs.map(job => (
+            jobs.map((job) => (
               <OneJobListing
                 id={job._id}
                 key={job._id}
@@ -65,7 +62,9 @@ function List(props) {
               />
             ))
           ) : (
-            <p className="center">No Jobs Returned. <a href="/jobs/add">Add a New Job</a>?</p>
+            <p className="center">
+              No Jobs Returned. Would you like to <a href="/jobs/add">add a new job</a>?
+            </p>
           )}
           <button className="btn btn-card btn-more">Load More</button>
         </div>

@@ -8,20 +8,20 @@ require('./config/passport-github-config');
 require('./config/passport-linkedin-config');
 
 // NPM modules
-const express = require('express'),
-      helmet = require('helmet'),
-      path = require('path'),
-      mongoose = require('mongoose'),
-      passport = require('passport'),
-      cookieSession = require('cookie-session'),
+const express = require('express');
+const helmet = require('helmet');
+const path = require('path');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const cookieSession = require('cookie-session');
 //    cors = require('cors'),
-      protectApi = require('./utils/protectApi'),
+const protectApi = require('./utils/protectApi');
 // Routes
-      authRoutes = require('./routes/authRoutes'),
-      apiRoutes = require('./routes/apiRoutes'),
+const authRoutes = require('./routes/authRoutes');
+const apiRoutes = require('./routes/apiRoutes');
 // Instantiate express and set port
-      PORT = process.env.PORT || 3001,
-      app = express();
+const PORT = process.env.PORT || 3001;
+const app = express();
 
 // Middleware
 app.use(helmet());
@@ -34,11 +34,11 @@ app.use(
   })
 );
 // app.use(
-// 	cors({
-// 		origin: 'http://localhost:3000', // allow server to accept request from the client
-// 		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-// 		credentials: true // allow session cookie from browser to pass through
-// 	})
+//  cors({
+//    origin: 'http://localhost:3000', // allow server to accept request from the client
+//    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//    credentials: true // allow session cookie from browser to pass through
+//  })
 // );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -63,10 +63,11 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/codify', {
   useFindAndModify: false,
 });
 
-app.listen(PORT, function () {
+app.listen(PORT, () => {
   console.log(`API server on port ${PORT}!`);
 });
 
 // Start puppeteer proxy server for web scraping
 const puppeteerProxy = require('./utils/puppeteer');
+
 puppeteerProxy();

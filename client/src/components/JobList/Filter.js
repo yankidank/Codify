@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-
 function Filter({ handleFilterChange }) {
   useEffect(() => {
     // Toggle Filter Visibility
@@ -10,7 +9,7 @@ function Filter({ handleFilterChange }) {
     let hidden = container.classList.contains('hidden');
     dropdown.addEventListener(
       'click',
-      function () {
+      () => {
         // if filter is open
         if (hidden) {
           dropdown.classList.add('filter-active');
@@ -25,13 +24,13 @@ function Filter({ handleFilterChange }) {
       },
       false
     );
-    container.querySelectorAll('button').forEach(button => {
+    container.querySelectorAll('button').forEach((button) => {
       button.addEventListener('click', () => {
-        //handle click
+        // handle click
         console.log(button);
-        button.classList.toggle('active')
-      }, false)
-    })
+        button.classList.toggle('active');
+      }, false);
+    });
   }, []);
 
   return (
@@ -47,7 +46,7 @@ function Filter({ handleFilterChange }) {
             <button
               className="btn-saved"
               name="saved"
-              onClick={() => handleFilterChange("saved")}
+              onClick={() => handleFilterChange('saved')}
             >
               Saved
             </button>
@@ -56,7 +55,7 @@ function Filter({ handleFilterChange }) {
             <button
               className="btn-applied"
               name="applied"
-              onClick={() => handleFilterChange("applied")}
+              onClick={() => handleFilterChange('applied')}
             >
               Applied
             </button>
@@ -65,7 +64,7 @@ function Filter({ handleFilterChange }) {
             <button
               className="btn-interview"
               name="interview"
-              onClick={() => handleFilterChange("interview")}
+              onClick={() => handleFilterChange('interview')}
             >
               Interview
             </button>
@@ -74,7 +73,7 @@ function Filter({ handleFilterChange }) {
             <button
               className="btn-offer"
               name="offer"
-              onClick={() => handleFilterChange("offer")}
+              onClick={() => handleFilterChange('offer')}
             >
               Offer
             </button>
@@ -83,7 +82,7 @@ function Filter({ handleFilterChange }) {
             <button
               className="btn-ended btn-filter-disabled"
               name="ended"
-              onClick={() => handleFilterChange("ended")}
+              onClick={() => handleFilterChange('ended')}
             >
               Ended
             </button>
@@ -95,5 +94,5 @@ function Filter({ handleFilterChange }) {
 }
 Filter.propTypes = {
   handleFilterChange: PropTypes.func
-}
+};
 export default Filter;

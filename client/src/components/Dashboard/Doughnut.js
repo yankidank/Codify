@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Doughnut } from 'react-chartjs-2';
 import 'chartjs-plugin-colorschemes/src/plugins/plugin.colorschemes';
-import { Story6 } from 'chartjs-plugin-colorschemes/src/colorschemes/colorschemes.office';  
+import { Story6 } from 'chartjs-plugin-colorschemes/src/colorschemes/colorschemes.office';
 
 function DoughtnutChart({ statusReport, loading }) {
-
   const data = {
     labels: [],
     datasets: [
@@ -68,6 +67,6 @@ function DoughtnutChart({ statusReport, loading }) {
 DoughtnutChart.propTypes = {
   statusReport: PropTypes.array,
   loading: PropTypes.bool,
-}
+};
 
 export default DoughtnutChart;
