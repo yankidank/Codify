@@ -7,18 +7,16 @@ const { isValidObjectId } = require('mongoose');
 //   });
 
 function flatten(obj) {
-  const isObject = val => typeof val === 'object' && !Array.isArray(val);
+  const isObject = (val) => typeof val === 'object' && !Array.isArray(val);
 
   const addDelimiter = (a, b) => (a ? `${a}.${b}` : b);
 
-  const paths = (obj = {}, head = '') => {
-    return Object.entries(obj).reduce((product, [key, value]) => {
-      let fullPath = addDelimiter(head, key);
-      return isObject(value) && !isValidObjectId(value)
-        ? [...product, ...paths(value, fullPath)]
-        : [...product, [fullPath, value]];
-    }, []);
-  };
+  const paths = (obj = {}, head = '') => Object.entries(obj).reduce((product, [key, value]) => {
+    const fullPath = addDelimiter(head, key);
+    return isObject(value) && !isValidObjectId(value)
+      ? [...product, ...paths(value, fullPath)]
+      : [...product, [fullPath, value]];
+  }, []);
 
   const dotObject = Object.fromEntries(paths(obj));
 
@@ -28,12 +26,11 @@ function flatten(obj) {
 function buildFilter(fieldObject) {
   return Object.entries(flatten(fieldObject))
     .map(([key, value]) => {
-
       if (isValidObjectId(value)) {
-        return { [key]: value }
+        return { [key]: value };
       }
 
-      const number = parseFloat(value)
+      const number = parseFloat(value);
       if (number) {
         return { [key]: number };
       }
@@ -48,11 +45,11 @@ function buildFilter(fieldObject) {
         };
       }
 
-      if (typeof value == 'string') {
+      if (typeof value === 'string') {
         return { [key]: new RegExp(value) };
       }
     })
-    .filter(field => field);
+    .filter((field) => field);
 }
 
 module.exports = {

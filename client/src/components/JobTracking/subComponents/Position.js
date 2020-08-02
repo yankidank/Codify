@@ -4,7 +4,7 @@ import Cleave from 'cleave.js/react';
 // import Checkbox from '../../Form/Checkbox';
 import _ from 'lodash';
 import M from 'materialize-css';
-import { convertMoneyToNumber } from '../../../utils/formatCleave';
+import convertMoneyToNumber from '../../../utils/formatCleave';
 import { getPosition, updatePosition, deleteJob } from '../../../utils/API';
 
 function PositionCard() {

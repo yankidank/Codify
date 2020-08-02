@@ -4,7 +4,7 @@ import M from 'materialize-css';
 import _ from 'lodash';
 import OfferCard from './OfferCard';
 import { getOffers, updateOffer, addOffer } from '../../../utils/API';
-import { convertMoneyToNumber } from '../../../utils/formatCleave';
+import convertMoneyToNumber from '../../../utils/formatCleave';
 
 function OfferCardContainer() {
   const [offers, setOffers] = useState([{ salary: '', bonus: '', benefits: '' }]);
@@ -90,23 +90,23 @@ function OfferCardContainer() {
         </div>
       </div>
       {offers.map((offer, index) => {
-			  const {
+        const {
           startDate, date, salary, bonus, benefits
         } = offer;
-			  return (
-  <OfferCard
-    key={offer._id || index}
-    startDate={startDate}
-    date={date}
-    salary={salary}
-    bonus={bonus}
-    benefits={benefits}
-    index={index}
-    _id={offer._id}
-    handleInputChange={handleInputChange}
-    addNewOffer={addNewOffer}
-  />
-			  );
+        return (
+          <OfferCard
+            key={offer._id || index}
+            startDate={startDate}
+            date={date}
+            salary={salary}
+            bonus={bonus}
+            benefits={benefits}
+            index={index}
+            _id={offer._id}
+            handleInputChange={handleInputChange}
+            addNewOffer={addNewOffer}
+          />
+        );
       })}
     </div>
   );

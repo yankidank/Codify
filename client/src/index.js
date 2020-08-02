@@ -7,4 +7,4 @@ config();
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
-module.hot.accept();
+// module.hot.accept();
