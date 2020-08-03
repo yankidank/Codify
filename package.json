@@ -119,7 +119,6 @@
     }
   },
   "eslintIgnore": [
-    "client/*",
     "README.md",
     "package.json",
     "package-lock.json"
