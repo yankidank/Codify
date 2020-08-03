@@ -14,8 +14,8 @@
     "heroku-postbuild": "npm run build",
     "seed": "node scripts/seedDB.js",
     "test": "npm run lint",
-    "lint": "npx eslint *",
-    "fix": "npx eslint * --fix"
+    "lint": "eslint *",
+    "fix": "eslint * --fix"
   },
   "author": "",
   "license": "ISC",
