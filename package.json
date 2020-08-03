@@ -14,8 +14,8 @@
     "heroku-postbuild": "npm run build",
     "seed": "node scripts/seedDB.js",
     "test": "npm run lint",
-    "lint": "concurrently \"eslint --quiet .\" ",
-    "fix": "concurrently \"eslint --fix . \" "
+    "lint": "npx eslint *",
+    "fix": "npx eslint * --fix"
   },
   "author": "",
   "license": "ISC",
@@ -91,10 +91,7 @@
       "no-console": "off",
       "comma-dangle": "off",
       "react/jsx-filename-extension": "off",
-      "linebreak-style": [
-        "error",
-        "windows"
-      ]
+      "linebreak-style": 0
     },
     "settings": {
       "react": {
@@ -122,6 +119,9 @@
     }
   },
   "eslintIgnore": [
-    "client/*"
+    "client/*",
+    "README.md",
+    "package.json",
+    "package-lock.json"
   ]
 }
