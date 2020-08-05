@@ -2864,7 +2864,7 @@ function puppeteerProxy() {
       console.log(error);
     })
     .listen(puppeteer_port, function() {
-      console.log(`Puppeteer running on port ${puppeteer_port}`);
+      console.log(`Puppeteer    = ${domainName}:${puppeteer_port}`);
     });
   // proxy End
 }

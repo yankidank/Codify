@@ -24,7 +24,7 @@ function OneJobListing(props) {
       setLogo(data);
     };
     fetchData();
-  }, []);
+  }, [companyName]);
 
   return (
     <div className="row card-inner">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import M from 'materialize-css';
 import { Helmet } from 'react-helmet';
@@ -31,7 +31,8 @@ function AddJob() {
     notes: ''
   });
 
-  const getPost = async (url, trigger) => {
+  const getPost = useCallback((url, trigger) => { 
+
     // Check if the URL is already stored
     if (scrape.url === url) {
       return scrape;
@@ -99,52 +100,57 @@ function AddJob() {
         || zipRecruiter
     ) {
       if (scrape.url === '') {
-        setAutofillLoading({ ...autofillLoading, visibility: 'visible' });
-        setAutofillBtn({ ...autofillBtn, visibility: 'hidden' });
-        setAutofillClear({ ...autofillClear, visibility: 'hidden' });
+        const scrapeSync = async () => {
 
-        // Scrape post data
-        const puppeteerDomain = process.env.DOMAIN || 'http://localhost';
-        let puppeteerPort = process.env.PUPPETEER_PORT || '4000';
-        if (puppeteerPort === undefined) {
-          puppeteerPort = '';
-        } else if (puppeteerPort !== '') {
-          puppeteerPort = `:${puppeteerPort}`;
-        }
-
-        const puppeteerUrl = `${puppeteerDomain}${puppeteerPort}/scrape?url=${url}`;
-        const postResp = await fetch(puppeteerUrl);
-        const postObj = await postResp.json();
-
-        if (postObj.company !== undefined || postObj.position !== undefined) {
-          // Store data to import on click
-          const {
-            company, position, city, state, remote, salary, description
-          } = postObj;
-
-          setScrape({
-            companyName: company,
-            position,
-            city,
-            state,
-            remote,
-            salary,
-            notes: description,
-            url
-          });
-
-          setAutofillLoading({ ...autofillLoading, visibility: 'hidden' });
-          setAutofillBtn({ ...autofillBtn, visibility: 'visible' });
-          setAutofillClear({ ...autofillClear, visibility: 'hidden' });
-        } else {
-          setAutofillLoading({ ...autofillLoading, visibility: 'hidden' });
+          setAutofillLoading({ ...autofillLoading, visibility: 'visible' });
           setAutofillBtn({ ...autofillBtn, visibility: 'hidden' });
           setAutofillClear({ ...autofillClear, visibility: 'hidden' });
-          M.toast({ html: 'Unable to Autofill using the URL provided' });
+  
+          // Scrape post data
+          const puppeteerDomain = process.env.DOMAIN || 'http://localhost';
+          let puppeteerPort = process.env.PUPPETEER_PORT || '4000';
+          if (puppeteerPort === undefined) {
+            puppeteerPort = '';
+          } else if (puppeteerPort !== '') {
+            puppeteerPort = `:${puppeteerPort}`;
+          }
+  
+          const puppeteerUrl = `${puppeteerDomain}${puppeteerPort}/scrape?url=${url}`;
+          const postResp = await fetch(puppeteerUrl);
+          const postObj = await postResp.json();
+  
+          if (postObj.company !== undefined || postObj.position !== undefined) {
+            // Store data to import on click
+            const {
+              company, position, city, state, remote, salary, description
+            } = postObj;
+  
+            setScrape({
+              companyName: company,
+              position,
+              city,
+              state,
+              remote,
+              salary,
+              notes: description,
+              url
+            });
+  
+            setAutofillLoading({ ...autofillLoading, visibility: 'hidden' });
+            setAutofillBtn({ ...autofillBtn, visibility: 'visible' });
+            setAutofillClear({ ...autofillClear, visibility: 'hidden' });
+          } else {
+            setAutofillLoading({ ...autofillLoading, visibility: 'hidden' });
+            setAutofillBtn({ ...autofillBtn, visibility: 'hidden' });
+            setAutofillClear({ ...autofillClear, visibility: 'hidden' });
+            M.toast({ html: 'Unable to Autofill using the URL provided' });
+          }
+  
+          const exportObj = { ...postObj, url };
+          return exportObj;
         }
+        scrapeSync();
 
-        const exportObj = { ...postObj, url };
-        return exportObj;
       }
     } else {
       if (trigger === 'click') {
@@ -155,9 +161,9 @@ function AddJob() {
       }
       console.log('URL not supported by Autofill');
     }
-  };
+  }, [autofillBtn, autofillClear, autofillLoading, scrape]);
 
-  const autofillForm = async (scrapeObj) => {
+  const autofillForm = useCallback((scrapeObj) => { 
     const inputCompanyName = document.getElementById('inputCompanyName');
     const inputPosition = document.getElementById('inputPosition');
     const inputCity = document.getElementById('inputCity');
@@ -166,7 +172,7 @@ function AddJob() {
     if (scrapeObj.position !== undefined) {
       const {
         company, position, city, state, remote, salary, description, url
-      } = await scrapeObj;
+      } = scrapeObj;
       setPost({
         ...post,
         companyName: company,
@@ -209,14 +215,14 @@ function AddJob() {
     setAutofillLoading({ ...autofillLoading, visibility: 'hidden' });
     setAutofillBtn({ ...autofillBtn, visibility: 'hidden' });
     setAutofillClear({ ...autofillClear, visibility: 'visible' });
-  };
+  }, [autofillBtn, autofillClear, autofillLoading, post, scrape]); 
 
   const fetchClipboardClick = async () => {
     // Track what triggered a function call to limit toast error messages
     fetchClipboard('click');
   };
 
-  const fetchClipboard = async (trigger) => {
+  const fetchClipboard = useCallback((trigger) => { 
     if (!navigator.clipboard) {
       // Clipboard API not available
       if (trigger === 'click') {
@@ -231,12 +237,12 @@ function AddJob() {
     // Check for URL in clipboard
     navigator.clipboard
       .readText()
-      .then(async (text) => {
+      .then((text) => {
         const pasteText = text.trim();
         const checkUrl = pasteText.startsWith('http');
         if (checkUrl) {
           try {
-            await getPost(pasteText, trigger);
+            getPost(pasteText, trigger);
           } catch (error) {
             console.log(error);
           }
@@ -256,19 +262,19 @@ function AddJob() {
         }
         console.log(error);
       });
-  };
+  }, [getPost]); 
 
-  const fetchSource = async (url) => {
+  const fetchSource = useCallback((url) => { 
     const checkUrl = url.startsWith('http');
     if (checkUrl) {
       try {
-        const fetchObj = await getPost(url);
+        const fetchObj = getPost(url);
         return fetchObj;
       } catch (error) {
         console.log(error);
       }
     }
-  };
+  }, [getPost]); 
 
   const formClear = async () => {
     // Clear all input fields
@@ -379,14 +385,14 @@ function AddJob() {
     if (source !== null && !scrape.url) {
       const fetchData = async () => {
         const fetch = await fetchSource(source);
-        const autofill = await autofillForm(fetch);
+        const autofill = autofillForm(fetch);
         return autofill;
       };
-      fetchData();
-    } else if (!scrape.url) {
+      fetchData();  
+    } else if (!scrape.url && autofillLoading.visibility === 'hidden') {
       fetchClipboard('auto');
     }
-  }, [scrape]);
+  }, [scrape, source, autofillForm, autofillLoading, fetchClipboard, fetchSource]);
 
   return (
     <div>

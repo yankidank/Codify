@@ -52,7 +52,7 @@ function Saved() {
       },
       false
     );
-  }, []);
+  }, [id]);
 
   return (
     <div className="job">

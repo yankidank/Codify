@@ -36,7 +36,7 @@ function InterviewCardContainer() {
         setInterviews(formattedInterviews);
       }
     })();
-  }, []);
+  }, [id]);
 
   const handleInputChange = async (event, index, interviewId) => {
     const newInterviews = [...interviews];

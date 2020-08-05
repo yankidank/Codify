@@ -14,12 +14,14 @@ const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
-//    cors = require('cors'),
+// cors = require('cors'),
 const protectApi = require('./utils/protectApi');
 // Routes
 const authRoutes = require('./routes/authRoutes');
 const apiRoutes = require('./routes/apiRoutes');
-// Instantiate express and set port
+// Instantiate express ports
+const DOMAIN = process.env.DOMAIN || 'localhost';
+const PROD_PORT = process.env.PROD_PORT || 3000;
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -29,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   cookieSession({
-    maxAge: 60 * 60 * 1000,
+    maxAge: 24 * 60 * 60 * 1000,
     keys: [process.env.COOKIE_KEY],
   })
 );
@@ -47,12 +49,20 @@ app.use(passport.session());
 app.use('/auth', authRoutes); // authentication
 app.use('/api', protectApi, apiRoutes);
 
-// Serve static assets (usually on heroku)
+// Static assets
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   app.use((req, res) => {
     res.sendFile(path.join(__dirname, 'client/build/index.html'));
   });
+  console.log(' - Serving static files - ');
+  if (process.env.PROD_START === 'true'){
+    app.listen(PROD_PORT, () => {
+      console.log(`client/build = ${DOMAIN}:${PROD_PORT}`);
+    });
+  } else {
+    console.log('A web Port has not been assigned')
+  }
 }
 
 // Connect to the Mongo DB
@@ -64,7 +74,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/codify', {
 });
 
 app.listen(PORT, () => {
-  console.log(`API server on port ${PORT}!`);
+  console.log(`API          = ${DOMAIN}:${PORT}`);
 });
 
 // Start puppeteer proxy server for web scraping

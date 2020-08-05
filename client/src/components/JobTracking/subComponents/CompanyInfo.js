@@ -68,7 +68,7 @@ function CompanyInfo(props) {
       coverTrigger: false, // Displays dropdown below the button
     };
     M.Dropdown.init(dropdowns, options);
-  }, []);
+  }, [id]);
 
   return (
     <div className="col s12 m12 l12">

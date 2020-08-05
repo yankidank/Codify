@@ -82,7 +82,7 @@ function ContactCardContainer() {
     };
     const newContactArr = [newContact, ...contacts];
     setContacts(newContactArr);
-    M.toast({ html: 'Contact Card Added' });
+    // M.toast({ html: 'Contact Card Added' });
   };
 
   const addNewContact = async (index) => {
@@ -99,7 +99,7 @@ function ContactCardContainer() {
         setContacts(retrievedContacts);
       }
     })();
-  }, []);
+  }, [jobId]);
 
   return (
     <div className="col s12 m12 l6">

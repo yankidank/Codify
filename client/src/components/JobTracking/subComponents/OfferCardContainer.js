@@ -18,7 +18,7 @@ function OfferCardContainer() {
       const retrievedOffers = await getOffers(id);
       if (retrievedOffers.length > 0) setOffers(retrievedOffers);
     })();
-  }, []);
+  }, [id]);
 
   const handleInputChange = async (event, index, offerId) => {
     const newOffers = [...offers];

@@ -56,7 +56,7 @@ function PositionCard() {
       // Input Placeholders
       M.updateTextFields();
     });
-  }, []);
+  }, [id]);
 
   return (
     <div className="col s12 m12 l6">

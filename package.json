@@ -35,8 +35,10 @@
     "svg-url-loader": "^6.0.0"
   },
   "dependencies": {
+    "axios": "^0.18.1",
     "bcryptjs": "^2.4.3",
     "chart.js": "^2.9.3",
+    "chartjs-plugin-colorschemes": "^0.4.0",
     "cleave.js": "^1.6.0",
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
@@ -62,7 +64,9 @@
     "react-chartjs-2": "^2.10.0",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
-    "react-scripts": "^3.4.1"
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "^3.4.1",
+    "webpack": "^4.44.1"
   },
   "eslintConfig": {
     "env": {
