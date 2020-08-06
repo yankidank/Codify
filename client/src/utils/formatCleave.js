@@ -4,6 +4,6 @@ function convertMoneyToNumber(money) {
     return money.replace('$ ', '').split(',').join('');
   }
   return money;
-};
+}
 
 export default convertMoneyToNumber;

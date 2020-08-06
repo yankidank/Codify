@@ -20,7 +20,6 @@ function App() {
           <meta property="og:title" content="Cōdify.Works" />
           <meta property="og:type" content="website" />
           <meta property="og:image" content="/logo512.png" />
-          <meta property="og:url" content={process.env.DOMAIN || 'https://codify.works'} />
           <meta property="og:site_name" content="Cōdify" />
           <meta property="og:description" content="Organize your job hunt. Import job post details from supported websites, track your progress, manage contacts, schedule interviews, and compare offers in one place." />
           <meta property="og:locale" content="en_US" />
