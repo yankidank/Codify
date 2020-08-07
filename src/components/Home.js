@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import Doughnut from 'react-chartjs-2';
 import { Helmet } from 'react-helmet';
 import NavBar from './NavBar';
+import AngellistIcon from '../svg/Angellist.js';
+import GlassdoorIcon from '../svg/Glassdoor.js';
+import IndeedIcon from '../svg/Indeed.js';
+import LinkedinIcon from '../svg/Linkedin.js';
+import MonsterIcon from '../svg/Monster.js';
+import StackoverflowIcon from '../svg/Stackoverflow.js';
 
 const state = {
   labels: ['Applied', 'Interviews', 'Offers'],
@@ -266,6 +272,14 @@ function Home() {
                   Easily add jobs with <a href="/autofill">Autofill</a>.
                   The Autofill button appears on the <a href="/jobs/add">Add Job</a> page when a supported job board URL has been imported from your clipboard.
                 </p>
+                <div className="autofill-supported-sites">
+                  <AngellistIcon alt="AngelList" title="AngelList" className="autofill-logos" />
+                  <GlassdoorIcon alt="GlassDoor" title="GlassDoor" className="autofill-logos" />
+                  <IndeedIcon alt="Indeed" title="Indeed" className="autofill-logos" />
+                  <LinkedinIcon alt="LinkedIn" title="LinkedIn" className="autofill-logos" />
+                  <MonsterIcon alt="Monster" title="Monster.com" className="autofill-logos" />
+                  <StackoverflowIcon alt="StackOverflow" title="StackOverflow Jobs" className="autofill-logos" />
+                </div>
               </div>
               <div className="col s12 m6">
                 <div className="row card-image" style={{ marginTop: 30 }}>

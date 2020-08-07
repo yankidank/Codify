@@ -584,16 +584,14 @@ textarea.materialize-textarea:focus:not([readonly]),
   text-align:center;
   margin:30px auto 0 auto;
 }
-.autofill-supported-sites img {
+.autofill-supported-sites svg {
   vertical-align: middle;
-  width:10%;
+  width:12.5%;
   min-height:36px;
   max-height:36px;
   max-width:50px;
   margin: 0px 2% 15px 2%;
   opacity:0.8;
-}
-.autofill-logos {
   /* SVG Color Hack */
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
 }
