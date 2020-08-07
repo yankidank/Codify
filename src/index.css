@@ -1,5 +1,5 @@
 body {
-  background-image: url("../img/background.jpg");
+  background-image: url("/assets/img/background.jpg");
   backdrop-filter: blur(5px);
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -10,7 +10,7 @@ body {
 .app-navbar-fixed nav,
 nav {
   background-color:initial;
-  background-image: url("../img/background.jpg");
+  background-image: url("/assets/img/background.jpg");
   backdrop-filter: blur(5px);
   background-repeat: no-repeat;
   background-position: center top;

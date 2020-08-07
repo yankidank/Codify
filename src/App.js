@@ -10,6 +10,7 @@ import JobsList from './components/JobList/JobsList';
 import Job from './components/JobTracking/Job';
 import Autofill from './components/Autofill';
 import PrivateRoute from './utils/privateRoute';
+import './App.css';
 
 function App() {
   return (
@@ -39,4 +40,4 @@ function App() {
   );
 }
 
-export { App };
+export default App;

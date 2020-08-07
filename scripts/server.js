@@ -1,24 +1,23 @@
-// Dependencies
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({path: path.join(__dirname, '../config/.env')});
 
 // Passport configurations
-require('./config/passport-config');
-require('./config/passport-google-config');
-require('./config/passport-github-config');
-require('./config/passport-linkedin-config');
+require('../config/passport/passport-config');
+require('../config/passport/passport-google-config');
+require('../config/passport/passport-github-config');
+require('../config/passport/passport-linkedin-config');
 
 // NPM modules
 const express = require('express');
 const helmet = require('helmet');
-const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 // cors = require('cors'),
-const protectApi = require('./utils/protectApi');
+const protectApi = require('../utils/protectApi');
 // Routes
-const authRoutes = require('./routes/authRoutes');
-const apiRoutes = require('./routes/apiRoutes');
+const authRoutes = require('../routes/authRoutes');
+const apiRoutes = require('../routes/apiRoutes');
 // Instantiate express ports
 const DOMAIN = process.env.DOMAIN || 'localhost';
 const PROD_PORT = process.env.PROD_PORT || 3000;
@@ -50,18 +49,18 @@ app.use('/auth', authRoutes); // authentication
 app.use('/api', protectApi, apiRoutes);
 
 // Static assets
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+if (process.env.NODE_ENV === 'production' && process.env.PROD_START === 'true') {
+  app.use(express.static('../build'));
   app.use((req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build/index.html'));
+    res.sendFile(path.join(__dirname, '../build/index.html'));
   });
   console.log(' - Serving static files - ');
   if (process.env.PROD_START === 'true'){
     app.listen(PROD_PORT, () => {
-      console.log(`client/build = ${DOMAIN}:${PROD_PORT}`);
+      console.log(`/build       = ${DOMAIN}:${PROD_PORT}`);
     });
   } else {
-    console.log('A web Port has not been assigned')
+    console.log('A web port has not been assigned')
   }
 }
 
@@ -78,6 +77,6 @@ app.listen(PORT, () => {
 });
 
 // Start puppeteer proxy server for web scraping
-const puppeteerProxy = require('./utils/puppeteer');
+const puppeteerProxy = require('../utils/puppeteer');
 
 puppeteerProxy();

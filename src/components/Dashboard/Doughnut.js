@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Doughnut } from 'react-chartjs-2';
-import 'chartjs-plugin-colorschemes/src/plugins/plugin.colorschemes';
-import { Story6 } from 'chartjs-plugin-colorschemes/src/colorschemes/colorschemes.office';
 
 function DoughtnutChart({ statusReport, loading }) {
   const data = {
@@ -10,6 +8,13 @@ function DoughtnutChart({ statusReport, loading }) {
     datasets: [
       {
         data: [],
+        backgroundColor: [
+          "#646979",
+          "#059ae1",
+          "#02d4d4",
+          "#0ac577",
+          "#9094a065"
+        ]
       },
     ],
   };
@@ -43,12 +48,7 @@ function DoughtnutChart({ statusReport, loading }) {
                       position: 'top',
                     },
                     cutoutPercentage: 77,
-                    maintainAspectRatio: false,
-                    plugins: {
-                      colorschemes: {
-                        scheme: Story6,
-                      },
-                    }
+                    maintainAspectRatio: false
                   }}
                 />
               ) : (

@@ -2,13 +2,6 @@ import React, { useState } from 'react';
 import Doughnut from 'react-chartjs-2';
 import { Helmet } from 'react-helmet';
 import NavBar from './NavBar';
-import angellistUrl from '../svg/angellist.svg';
-import githubUrl from '../svg/github.svg';
-import glassdoorUrl from '../svg/glassdoor.svg';
-import indeedUrl from '../svg/indeed.svg';
-import linkedinUrl from '../svg/linkedin.svg';
-import monsterUrl from '../svg/monster.svg';
-import stackoverflowUrl from '../svg/stackoverflow.svg';
 
 const state = {
   labels: ['Applied', 'Interviews', 'Offers'],
@@ -273,15 +266,6 @@ function Home() {
                   Easily add jobs with <a href="/autofill">Autofill</a>.
                   The Autofill button appears on the <a href="/jobs/add">Add Job</a> page when a supported job board URL has been imported from your clipboard.
                 </p>
-                <div className="autofill-supported-sites">
-                  <img src={angellistUrl} alt="AngelList" title="AngelList" className="autofill-logos" />
-                  <img src={githubUrl} alt="GitHub" title="GitHub Jobs" className="autofill-logos" />
-                  <img src={glassdoorUrl} alt="GlassDoor" title="GlassDoor" className="autofill-logos" />
-                  <img src={indeedUrl} alt="Indeed" title="Indeed" className="autofill-logos" />
-                  <img src={linkedinUrl} alt="LinkedIn" title="LinkedIn" className="autofill-logos" />
-                  <img src={monsterUrl} alt="Monster" title="Monster.com" className="autofill-logos" />
-                  <img src={stackoverflowUrl} alt="StackOverflow" title="StackOverflow Jobs" className="autofill-logos" />
-                </div>
               </div>
               <div className="col s12 m6">
                 <div className="row card-image" style={{ marginTop: 30 }}>

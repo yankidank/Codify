@@ -42,17 +42,18 @@ You can visit the deployed demo site at [Codify.works](https://codify.works).
 Features currently in production include:
 
 * Dashboard 
-    Includes a graphical overview of the users application statuses. Includes a list of the most recent jobs added by the user. 
-* Job List 
-    A complete historical list of all of the jobs saved by the user. 
+    Includes a graphical overview of the users application statuses. 
+    Displays the most recent jobs added by the user. 
 * Add Job
-    Allows user to add a new job to their list. 
+    Users can track a job position
+    Autofill data from 25+ supported job board websites
 * Individual job page 
     Gives the user the ability to add notes in regards to the job that they are applying to. The user can add contact information for someone working for the company, interview information, and offer updates. 
+* Job List 
+    A complete historical list of all of the jobs saved by the user. 
     
 # Future Features
 
-* Add jobs via URL (LinkedIn, Indeed, Glassdoor)
 * Compare job hunt progress with other users
 * Graph offer history on the Dashboard
 * Compare commute times and locations
@@ -106,17 +107,27 @@ LINKEDIN_CLIENT_ID = ""
 LINKEDIN_CLIENT_SECRET = ""
 ```
 
-## Serve
-`npm run start`
+PROD_START defines whether a production server serve the static /build directory on a web server port
 
-`npm run start:prod`
+## Command Line Options
 
-`npm run client` 
+### Development
+`yarn start` starts Web, API, and Pupeteer servers
 
-`npm run build` create a production build in the client directory
+`yarn test` run included tests
 
-`npm run deploy` build and serve server.js using PM2
+`yarn lint` analyze source code for errors
 
-`npm run heroku-postbuild` create a build after deploying to heroku
+`yarn fix` attempt to fix lint errors
 
-`npm run lint` analyze source code for errors
+`yarn seed` seed the database
+
+### Production
+
+`yarn build` generates static files for production in /build
+
+`yarn server` starts the API and Puppeteer server
+
+`yarn deploy` builds and serves server.js using PM2 on port 3000
+
+`yarn heroku-postbuild` create a build after deploying to heroku
