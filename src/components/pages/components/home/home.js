@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import Doughnut from 'react-chartjs-2';
 import { Helmet } from 'react-helmet';
 import NavBar from '../../../layout/components/navbar';
-import AngellistLogo from '../../../../svg/angellist.js';
-import GlassdoorLogo from '../../../../svg/glassdoor.js';
-import IndeedLogo from '../../../../svg/indeed.js';
-import LinkedinLogo from '../../../../svg/linkedin.js';
-import MonsterLogo from '../../../../svg/monster.js';
-import StackoverflowLogo from '../../../../svg/stackoverflow.js';
+import AngellistLogo from '../../../../svg/angellist';
+import GlassdoorLogo from '../../../../svg/glassdoor';
+import IndeedLogo from '../../../../svg/indeed';
+import LinkedinLogo from '../../../../svg/linkedin';
+import MonsterLogo from '../../../../svg/monster';
+import StackoverflowLogo from '../../../../svg/stackoverflow';
 
 const state = {
   labels: ['Applied', 'Interviews', 'Offers'],
