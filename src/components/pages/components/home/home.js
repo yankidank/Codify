@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import Doughnut from 'react-chartjs-2';
 import { Helmet } from 'react-helmet';
 import NavBar from '../../../layout/components/navbar';
-import AngellistIcon from '../../../../svg/angellist.js';
-import GlassdoorIcon from '../../../../svg/glassdoor.js';
-import IndeedIcon from '../../../../svg/indeed.js';
-import LinkedinIcon from '../../../../svg/linkedin.js';
-import MonsterIcon from '../../../../svg/monster.js';
-import StackoverflowIcon from '../../../../svg/stackoverflow.js';
+import AngellistLogo from '../../../../svg/angellist.js';
+import GlassdoorLogo from '../../../../svg/glassdoor.js';
+import IndeedLogo from '../../../../svg/indeed.js';
+import LinkedinLogo from '../../../../svg/linkedin.js';
+import MonsterLogo from '../../../../svg/monster.js';
+import StackoverflowLogo from '../../../../svg/stackoverflow.js';
 
 const state = {
   labels: ['Applied', 'Interviews', 'Offers'],
@@ -273,12 +273,12 @@ function Home() {
                   The Autofill button appears on the <a href="/jobs/add">Add Job</a> page when a supported job board URL has been imported from your clipboard.
                 </p>
                 <div className="autofill-supported-sites">
-                  <AngellistIcon alt="AngelList" title="AngelList" className="autofill-logos" />
-                  <GlassdoorIcon alt="GlassDoor" title="GlassDoor" className="autofill-logos" />
-                  <IndeedIcon alt="Indeed" title="Indeed" className="autofill-logos" />
-                  <LinkedinIcon alt="LinkedIn" title="LinkedIn" className="autofill-logos" />
-                  <MonsterIcon alt="Monster" title="Monster.com" className="autofill-logos" />
-                  <StackoverflowIcon alt="StackOverflow" title="StackOverflow Jobs" className="autofill-logos" />
+                  <AngellistLogo alt="AngelList" title="AngelList" className="autofill-logos" />
+                  <GlassdoorLogo alt="GlassDoor" title="GlassDoor" className="autofill-logos" />
+                  <IndeedLogo alt="Indeed" title="Indeed" className="autofill-logos" />
+                  <LinkedinLogo alt="LinkedIn" title="LinkedIn" className="autofill-logos" />
+                  <MonsterLogo alt="Monster" title="Monster.com" className="autofill-logos" />
+                  <StackoverflowLogo alt="StackOverflow" title="StackOverflow Jobs" className="autofill-logos" />
                 </div>
               </div>
               <div className="col s12 m6">

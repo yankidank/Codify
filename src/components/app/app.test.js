@@ -4,6 +4,6 @@ import App from './app';
 
 test('renders "job hunt" ', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/job hunt/i);
+  const linkElement = getByText(/Company Name/i);
   expect(linkElement).toBeInTheDocument();
 });
