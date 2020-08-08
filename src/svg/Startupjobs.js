@@ -1,5 +1,5 @@
 import React from 'react';
-import './Startupjobs.css'
+import './startupjobs.css'
 
 class StartupjobsLogo extends React.Component {
 	render() {

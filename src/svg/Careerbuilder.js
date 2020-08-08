@@ -1,5 +1,5 @@
 import React from 'react';
-import './Careerbuilder.css';
+import './careerbuilder.css';
 
 class CareerbuilderLogo extends React.Component {
 	render() {
